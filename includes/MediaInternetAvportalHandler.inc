@@ -31,9 +31,11 @@ class MediaInternetAvportalHandler extends MediaInternetBaseHandler {
    * Implements parent:parse().
    */
   public function parse($embed_code) {
-    // url: http://ec.europa.eu/avservices/video/player.cfm
     $patterns = array(
+      // url: http://ec.europa.eu/avservices/video/player.cfm.
       '@ec\.europa\.eu/avservices/video/player\.cfm\?(.+)@i',
+      // url: http://ec.europa.eu/avservices/play.cfm.
+      '@ec\.europa\.eu/avservices/play\.cfm\?(.+)@i',
     );
 
     foreach ($patterns as $pattern) {
