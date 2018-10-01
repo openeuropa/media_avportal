@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * Formatters for Media: Avportal.
@@ -41,19 +42,29 @@ function media_avportal_file_formatter_video_view($file, $display) {
   $scheme = file_uri_scheme($file->uri);
   // WYSIWYG does not yet support video inside a running editor instance.
   if ($scheme == 'avportal' && empty($file->override['wysiwyg'])) {
-    $wrapper = file_stream_wrapper_get_instance_by_uri($file->uri);
-    $element = array(
-      '#theme' => 'media_avportal_video',
-      '#uri' => $file->uri,
-    );
-
+    $options = array();
     // Fake a default for attributes so the ternary doesn't choke.
     $display['settings']['attributes'] = array();
 
     foreach (array('width', 'height') as $setting) {
-      $element['#options'][$setting] = isset($file->override[$setting]) ? $file->override[$setting] : $display['settings'][$setting];
+      $options[$setting] = isset($file->override[$setting]) ? $file->override[$setting] : $display['settings'][$setting];
     }
-    return $element;
+
+    // Let's add the language to the options.
+    global $language;
+    $wrapper = file_stream_wrapper_get_instance_by_uri($file->uri);
+    $languages = $wrapper->getAvailableVideoLanguage();
+    $video_language = 'en';
+    if (in_array($language->language, $languages)) {
+      $video_language = $language->language;
+    }
+    $options['lg'] = $video_language;
+
+    return array(
+      '#theme' => 'media_avportal_video',
+      '#uri' => $file->uri,
+      '#options' => $options,
+    );
   }
 }
 
@@ -83,11 +94,10 @@ function media_avportal_file_formatter_video_settings($form, &$form_state, $sett
  * Validation for width and height.
  */
 function _avportal_validate_video_width_and_height($element, &$form_state, $form) {
-
   // Check if the value is a number with an optional decimal or
   // percentage sign, or "auto".
   if (!empty($element['#value']) && !preg_match('/^(auto|([0-9]*(\.[0-9]+)?%?))$/', $element['#value'])) {
-    form_error($element, t("The value entered for @dimension is invalid. Please insert a unitless integer for pixels, a percent, or 'auto'. Note that percent and auto may not function correctly depending on the browser and doctype.", array('@dimension' => $element['#title'])));
+    form_error($element, t("The value entered for @dimension is invalid. Please insert an unitless integer for pixels, a percent, or 'auto'. Note that percent and auto may not function correctly depending on the browser and doctype.", array('@dimension' => $element['#title'])));
   }
 }
 
@@ -95,20 +105,30 @@ function _avportal_validate_video_width_and_height($element, &$form_state, $form
  * Implements hook_file_formatter_FORMATTER_view().
  */
 function media_avportal_file_formatter_image_view($file, $display) {
-  if (isset($file->filemime) && $file->filemime == 'video/avportal') {
+  $scheme = file_uri_scheme($file->uri);
+  if ($scheme != 'avportal') {
+    return;
+  }
 
-    $wrapper = file_stream_wrapper_get_instance_by_uri($file->uri);
-    $image_style = $display['settings']['image_style'];
-    $valid_image_styles = image_style_options(FALSE);
-    $video_thumb = $wrapper->getVideoThumb();
-    $element = array(
-      '#theme' => 'image_style',
-      '#style_name' => $image_style,
-      '#path' => $wrapper->getLocalThumbnailPath($video_thumb),
+  $wrapper = file_stream_wrapper_get_instance_by_uri($file->uri);
+  $image_style = $display['settings']['image_style'];
+  $valid_image_styles = image_style_options(FALSE);
+  $path = $wrapper->getLocalThumbnailPath();
+
+  if (empty($image_style) || !isset($valid_image_styles[$image_style])) {
+    return array(
+      '#theme' => 'image',
+      '#path' => str_replace('http:', '', $path),
       '#alt' => isset($file->override['attributes']['alt']) ? $file->override['attributes']['alt'] : $file->filename,
     );
-    return $element;
   }
+
+  return array(
+    '#theme' => 'image_style',
+    '#style_name' => $image_style,
+    '#path' => $path,
+    '#alt' => isset($file->override['attributes']['alt']) ? $file->override['attributes']['alt'] : $file->filename,
+  );
 }
 
 /**

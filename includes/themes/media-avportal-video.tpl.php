@@ -22,5 +22,5 @@
     width="<?php print $width; ?>" 
     height="<?php print $height; ?>" frameborder="0" allowfullscreen="" mozallowfullscreen="" webkitallowfullscreen="" 
     id="videoplayer<?php print $video_id; ?>" scrolling="no" 
-    src="https://ec.europa.eu/avservices/play.cfm?sitelang=en&amp;ref=<?php print $video_id; ?>&amp;starttime=0&amp;endtime=0&amp;videolang=INT">
+    src="<?php print $url; ?>">
 </iframe>
