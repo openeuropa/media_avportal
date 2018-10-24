@@ -1,0 +1,7 @@
+name: Media AV Portal
+description: 'Media AV Portal adds European Audiovisual Services as a supported media provider.'
+type: module
+package: Media
+core: 8.x
+dependencies:
+  - drupal:media
