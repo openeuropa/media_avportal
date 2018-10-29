@@ -6,7 +6,7 @@ services:
   web:
     image: fpfis/httpd-php-dev:7.1
     environment:
-    - DOCUMENT_ROOT=/test/oe_theme
+    - DOCUMENT_ROOT=/test/media_avportal
   mysql:
     image: percona/percona-server:5.6
     environment:

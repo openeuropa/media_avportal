@@ -85,40 +85,9 @@ Requirements:
 - [Docker][8]
 - [Docker-compose][9]
 
-Copy `docker-compose.yml` into `docker-compose.override.yml`.
+Copy `docker-compose.yml.dist` into `docker-compose.override.yml`.
 
 You can make any alterations you need for your local Docker setup.
-
-If you're on the European Commission network, you'll need to add some configuration on each docker instance
-
-```yml
-    dns:
-      - 10.57.33.13
-      - 127.0.0.11
-    dns_search: net1.cec.eu.int
-```
-
-If you are behind a proxy, you might add
-
-```yml
-    env_file:
-      - .env
-```
-
-and edit the file `.env` then add your proxy configuration in it:
-
-```
-ftp_proxy=http://user:password@host:port
-http_proxy=http://user:password@host:port
-https_proxy=http://user:password@host:port
-FTP_PROXY=http://user:password@host:port
-HTTP_PROXY=http://user:password@host:port
-HTTPS_PROXY=http://user:password@host:port
-no_proxy=authentication,web,ecas.ec.europa.eu,mysql,selenium,node
-NO_PROXY=authentication,web,ecas.ec.europa.eu,mysql,selenium,node
-```
-
-By doing this, those environment variables will be passed into each docker instances.
 
 To start, run:
 
@@ -174,12 +143,9 @@ parameters:
 
 This is due to the following [Drupal Console issue][11].
 
-[1]: https://github.com/openeuropa/oe_theme
 [2]: https://www.drupal.org/docs/develop/using-composer/using-composer-to-manage-drupal-site-dependencies#managing-contributed
 [3]: https://github.com/openeuropa/task-runner
 [4]: https://docs.docker.com/compose
-[5]: https://github.com/openeuropa/oe_theme#project-setup
-[6]: https://nodejs.org/en
 [7]: https://www.drupal.org/project/config_devel
 [8]: https://www.docker.com/get-docker
 [9]: https://docs.docker.com/compose
