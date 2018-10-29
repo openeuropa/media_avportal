@@ -1,0 +1,8 @@
+<?php
+
+/**
+ * @file
+ * Main module file.
+ */
+
+declare(strict_types = 1);

@@ -1,0 +1,55 @@
+version: '2'
+services:
+  web:
+    image: fpfis/httpd-php-dev:7.1
+    working_dir: /var/www/html
+    ports:
+      - 8080:8080
+    volumes:
+      - .:/var/www/html # Non Mac users.
+      # - nfsmount:/var/www/html # Mac Users with the nfsmount volume.
+    environment:
+      XDEBUG_CONFIG: "remote_enable=1 remote_host=10.254.254.254 remote_port=9000 idekey=PHPSTORM remote_autostart=1"
+      PHP_IDE_CONFIG: "serverName=Docker"
+      # For Xdebug setup, run this command in the terminal:
+      # For Mac users: sudo ifconfig en0 alias 10.254.254.254 255.255.255.0
+      # For Linux users: sudo ip addr add 10.254.254.254/32 dev lo label lo:1
+  mysql:
+    image: percona/percona-server:5.6
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+#    ports:
+#      - 3306:3306
+
+  # If you would like to see what is going on you can run the following on your host:
+  # docker run --rm -p 4444:4444 -p 5900:5900 --network="host" selenium/standalone-chrome-debug:latest
+  # Newer version of this image might run into this issue:
+  # @link https://github.com/elgalu/docker-selenium/issues/20
+  selenium:
+    image: selenium/standalone-chrome-debug:3
+    expose:
+    - '4444'
+    environment:
+    - DISPLAY=:99
+    - SE_OPTS=-debug
+    - SCREEN_WIDTH=1280
+    - SCREEN_HEIGHT=800
+    - VNC_NO_PASSWORD=1
+    ports:
+    - '4444:4444'
+    - '5900:5900'
+    volumes:
+    - /dev/shm:/dev/shm
+
+
+#### Mac users: uncomment the "volumes" key to enable the NFS file sharing. You can find more information about Docker for Mac here: https://github.com/openeuropa/openeuropa/blob/master/docs/starting/tooling.md#using-docker-on-macos
+
+#volumes:
+#  nfsmount:
+#    driver: local
+#    driver_opts:
+#      type: nfs
+#      o: addr=host.docker.internal,rw,nolock,hard,nointr,nfsvers=3
+#      device: ":${PWD}/"
+
+#### End Mac users.
