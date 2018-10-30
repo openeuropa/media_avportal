@@ -14,3 +14,4 @@ yarn.lock
 phpunit.xml
 docker-compose.override.yml
 .env
+docker-compose.yml
