@@ -7,8 +7,6 @@ namespace Drupal\media_avportal\Plugin\media\Source;
 use Drupal\media\MediaSourceFieldConstraintsInterface;
 
 /**
- * Defines additional functionality for source plugins that use oEmbed.
+ * Common interface for source plugins that use the AV Portal.
  */
-interface MediaAvPortalInterface extends MediaSourceFieldConstraintsInterface {
-
-}
+interface MediaAvPortalInterface extends MediaSourceFieldConstraintsInterface {}

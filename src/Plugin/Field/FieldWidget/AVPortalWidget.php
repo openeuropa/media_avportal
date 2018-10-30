@@ -66,7 +66,8 @@ class AVPortalWidget extends StringTextfieldWidget {
   public static function validate(array $element, FormStateInterface $form_state) {
     $value = $element['value']['#value'];
 
-    // @todo Should we move this in the Validation/Constraint stuff ?
+    // @todo Yes, move this to constraint. i.e no need for this method here.
+    // Also validate that the element exists in the service.
 
     $listPatterns = [
       // url: http://ec.europa.eu/avservices/video/player.cfm.

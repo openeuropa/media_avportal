@@ -67,6 +67,7 @@ class MediaAVPortalCreateContentTest extends WebDriverTestBase {
     $page->pressButton('Save');
 
     $page->hasContent('EC Midday press briefing of 25/10/2018');
+    // @todo check iframe
   }
 
 }

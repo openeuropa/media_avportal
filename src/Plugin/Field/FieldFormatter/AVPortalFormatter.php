@@ -6,19 +6,18 @@ namespace Drupal\media_avportal\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
+use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\Url;
 use Drupal\media\Entity\MediaType;
-use Drupal\media\IFrameUrlHelper;
-use Drupal\media\OEmbed\ResourceException;
-use Drupal\media\OEmbed\ResourceFetcherInterface;
-use Drupal\media\OEmbed\UrlResolverInterface;
-use Drupal\media_avportal\MediaAvPortalResource;
-use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalInterface;
+use Drupal\media_avportal\AvPortalClient;
+use Drupal\media_avportal\AvPortalResource;
+use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalVideo;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -28,13 +27,12 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   id = "avportal",
  *   label = @Translation("AV Portal iframe"),
  *   field_types = {
- *     "link",
  *     "string",
- *     "string_long"
  *   },
  * )
  */
 class AVPortalFormatter extends FormatterBase implements ContainerFactoryPluginInterface {
+
   /**
    * The default width.
    */
@@ -46,20 +44,6 @@ class AVPortalFormatter extends FormatterBase implements ContainerFactoryPluginI
   public const DEFAULT_HEIGHT = 390;
 
   /**
-   * The resource fetcher.
-   *
-   * @var \Drupal\media\OEmbed\ResourceFetcherInterface
-   */
-  protected $resourceFetcher;
-
-  /**
-   * The oEmbed URL resolver service.
-   *
-   * @var \Drupal\media\OEmbed\UrlResolverInterface
-   */
-  protected $urlResolver;
-
-  /**
    * The logger service.
    *
    * @var \Drupal\Core\Logger\LoggerChannelInterface
@@ -67,18 +51,18 @@ class AVPortalFormatter extends FormatterBase implements ContainerFactoryPluginI
   protected $logger;
 
   /**
-   * The media settings config.
+   * The AV Portal settings.
    *
    * @var \Drupal\Core\Config\ImmutableConfig
    */
   protected $config;
 
   /**
-   * The iFrame URL helper service.
+   * The AV Portal client.
    *
-   * @var \Drupal\media\IFrameUrlHelper
+   * @var \Drupal\media_avportal\AvPortalClient
    */
-  protected $iFrameUrlHelper;
+  protected $avPortalClient;
 
   /**
    * Constructs an AVPortalFormatter instance.
@@ -99,25 +83,19 @@ class AVPortalFormatter extends FormatterBase implements ContainerFactoryPluginI
    *   Any third party settings.
    * @param \Drupal\Core\Messenger\MessengerInterface $messenger
    *   The messenger service.
-   * @param \Drupal\media\OEmbed\ResourceFetcherInterface $resource_fetcher
-   *   The oEmbed resource fetcher service.
-   * @param \Drupal\media\OEmbed\UrlResolverInterface $url_resolver
-   *   The oEmbed URL resolver service.
    * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $logger_factory
    *   The logger factory service.
-   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
-   *   The config factory service.
-   * @param \Drupal\media\IFrameUrlHelper $iframe_url_helper
-   *   The iFrame URL helper service.
+   * @param \Drupal\media_avportal\AvPortalClient $avPortalClient
+   *   The AV Portal client.
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
+   *   The config factory.
    */
-  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, $label, $view_mode, array $third_party_settings, MessengerInterface $messenger, ResourceFetcherInterface $resource_fetcher, UrlResolverInterface $url_resolver, LoggerChannelFactoryInterface $logger_factory, ConfigFactoryInterface $config_factory, IFrameUrlHelper $iframe_url_helper) {
+  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, $label, $view_mode, array $third_party_settings, MessengerInterface $messenger, LoggerChannelFactoryInterface $logger_factory, AvPortalClient $avPortalClient, ConfigFactoryInterface $configFactory) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
     $this->messenger = $messenger;
-    $this->resourceFetcher = $resource_fetcher;
-    $this->urlResolver = $url_resolver;
     $this->logger = $logger_factory->get('media');
-    $this->config = $config_factory->get('media.settings');
-    $this->iFrameUrlHelper = $iframe_url_helper;
+    $this->avPortalClient = $avPortalClient;
+    $this->config = $configFactory->get('media_avportal.settings');
   }
 
   /**
@@ -133,11 +111,9 @@ class AVPortalFormatter extends FormatterBase implements ContainerFactoryPluginI
       $configuration['view_mode'],
       $configuration['third_party_settings'],
       $container->get('messenger'),
-      $container->get('media_avportal.resource_fetcher'),
-      $container->get('media.oembed.url_resolver'),
       $container->get('logger.factory'),
-      $container->get('config.factory'),
-      $container->get('media.oembed.iframe_url_helper')
+      $container->get('media_avportal.client'),
+      $container->get('config.factory')
     );
   }
 
@@ -154,78 +130,30 @@ class AVPortalFormatter extends FormatterBase implements ContainerFactoryPluginI
   /**
    * {@inheritdoc}
    */
-  public function viewElements(FieldItemListInterface $items, $langcode) {
-    $element = [];
-    $max_width = $this->getSetting('max_width');
-    $max_height = $this->getSetting('max_height');
-
-    foreach ($items as $delta => $item) {
-      $main_property = $item->getFieldDefinition()
-        ->getFieldStorageDefinition()
-        ->getMainPropertyName();
-      $resource_ref = $item->{$main_property};
-
-      if (empty($resource_ref)) {
-        continue;
-      }
-
-      try {
-        /** @var \Drupal\media_avportal\MediaAvPortalResource $resource */
-        $resource = $this->resourceFetcher->fetchResource($resource_ref);
-      }
-      catch (ResourceException $exception) {
-        $this->logger->error('Could not retrieve the remote reference (@ref).', ['@ref' => $resource_ref]);
-        continue;
-      }
-
-      switch ($resource->getType()) {
-        case MediaAvPortalResource::TYPE_VIDEO:
-          $element[$delta] = [
-            '#type' => 'html_tag',
-            '#tag' => 'iframe',
-            '#attributes' => [
-              'src' => $resource->getIframeSrc(),
-              'frameborder' => 0,
-              'scrolling' => FALSE,
-              'allowtransparency' => TRUE,
-              'width' => $max_width ?: self::DEFAULT_WIDTH,
-              'height' => $max_height ?: self::DEFAULT_HEIGHT,
-            ],
-          ];
-          break;
-
-        default:
-          throw new ResourceException('Unknown resource type: ' . $resource->getType(), $resource->getIframeSrc(), $resource->getRef());
-      }
-    }
-
-    return $element;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function settingsForm(array $form, FormStateInterface $form_state) {
-    return parent::settingsForm($form, $form_state) + [
-      'max_width' => [
-        '#type' => 'number',
-        '#title' => $this->t('Maximum width'),
-        '#default_value' => $this->getSetting('max_width'),
-        '#size' => 5,
-        '#maxlength' => 5,
-        '#field_suffix' => $this->t('pixels'),
-        '#min' => 0,
-      ],
-      'max_height' => [
-        '#type' => 'number',
-        '#title' => $this->t('Maximum height'),
-        '#default_value' => $this->getSetting('max_height'),
-        '#size' => 5,
-        '#maxlength' => 5,
-        '#field_suffix' => $this->t('pixels'),
-        '#min' => 0,
-      ],
+    $form = parent::settingsForm($form, $form_state);
+
+    $form['max_width'] = [
+      '#type' => 'number',
+      '#title' => $this->t('Maximum width'),
+      '#default_value' => $this->getSetting('max_width'),
+      '#size' => 5,
+      '#maxlength' => 5,
+      '#field_suffix' => $this->t('pixels'),
+      '#min' => 0,
     ];
+
+    $form['max_height'] = [
+      '#type' => 'number',
+      '#title' => $this->t('Maximum height'),
+      '#default_value' => $this->getSetting('max_height'),
+      '#size' => 5,
+      '#maxlength' => 5,
+      '#field_suffix' => $this->t('pixels'),
+      '#min' => 0,
+    ];
+
+    return $form;
   }
 
   /**
@@ -258,21 +186,85 @@ class AVPortalFormatter extends FormatterBase implements ContainerFactoryPluginI
    * {@inheritdoc}
    */
   public static function isApplicable(FieldDefinitionInterface $field_definition) {
-    if ('media' !== $field_definition->getTargetEntityTypeId()) {
+    if ($field_definition->getTargetEntityTypeId() !== 'media') {
       return FALSE;
     }
 
     if (parent::isApplicable($field_definition)) {
-      $media_type = $field_definition->getTargetBundle();
+      $media_type_id = $field_definition->getTargetBundle();
 
-      if (NULL !== $media_type) {
-        $media_type = MediaType::load($media_type);
-
-        return $media_type && $media_type->getSource() instanceof MediaAvPortalInterface;
+      if ($media_type_id !== NULL) {
+        $media_type = MediaType::load($media_type_id);
+        return $media_type && $media_type->getSource() instanceof MediaAvPortalVideo;
       }
     }
 
     return FALSE;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function viewElements(FieldItemListInterface $items, $langcode) {
+    $element = [];
+
+    foreach ($items as $delta => $item) {
+      $element[$delta] = $this->viewElement($item);
+    }
+
+    return $element;
+  }
+
+  /**
+   * Renders a single field item.
+   *
+   * @param \Drupal\Core\Field\FieldItemInterface $item
+   *   The individual field item.
+   *
+   * @return array
+   */
+  protected function viewElement(FieldItemInterface $item) {
+    $max_width = $this->getSetting('max_width');
+    $max_height = $this->getSetting('max_height');
+
+    $main_property = $item->getFieldDefinition()
+      ->getFieldStorageDefinition()
+      ->getMainPropertyName();
+
+    $resource_ref = $item->{$main_property};
+
+    if (empty($resource_ref)) {
+      return [];
+    }
+
+    $resource = $this->avPortalClient->getResource($resource_ref);
+    if (!$resource instanceof AvPortalResource) {
+      $this->logger->error('Could not retrieve the remote reference (@ref).', ['@ref' => $resource_ref]);
+      return [];
+    }
+
+    // Prepare the src of the iframe.
+    $query = [
+      'ref' => $resource_ref,
+      'lg' => strtoupper($item->getLangcode()),
+      'sublg' => 'none',
+      'autoplay' => 'true',
+      'tin' => 10,
+      'tout' => 59,
+    ];
+
+    return [
+      '#type' => 'html_tag',
+      '#tag' => 'iframe',
+      '#attributes' => [
+        'src' => Url::fromUri($this->config->get('iframe_base_uri'), ['query' => $query])->toString(),
+        'frameborder' => 0,
+        'scrolling' => FALSE,
+        'allowtransparency' => TRUE,
+        'width' => $max_width ?: self::DEFAULT_WIDTH,
+        'height' => $max_height ?: self::DEFAULT_HEIGHT,
+      ],
+    ];
   }
 
 }
