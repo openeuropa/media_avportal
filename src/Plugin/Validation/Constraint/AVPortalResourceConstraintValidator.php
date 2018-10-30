@@ -47,7 +47,7 @@ class AVPortalResourceConstraintValidator extends ConstraintValidator implements
   public function validate($items, Constraint $constraint) {
     /** @var \Drupal\media\MediaInterface $media */
     $media = $items->getEntity();
-    /** @var \Drupal\media_avportal\Plugin\media\Source\MediaAvPortal $source */
+    /** @var \Drupal\media_avportal\Plugin\media\Source\MediaAvPortalVideo $source */
     $source = $media->getSource();
 
     if (!($source instanceof MediaAvPortalInterface)) {

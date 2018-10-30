@@ -1,7 +1,4 @@
 services:
   media_avportal.client:
-    class: Drupal\media_avportal\MediaAvPortalClient
+    class: Drupal\media_avportal\AvPortalClient
     arguments: ['@http_client', '@config.factory']
-  media_avportal.resource_fetcher:
-    class: Drupal\media_avportal\MediaAvPortalResourceFetcher
-    arguments: ['@media_avportal.client', '@http_client', '@media.oembed.provider_repository', '@cache.default']
