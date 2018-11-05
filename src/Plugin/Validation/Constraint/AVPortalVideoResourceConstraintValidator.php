@@ -6,6 +6,7 @@ namespace Drupal\media_avportal\Plugin\Validation\Constraint;
 
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
+use Drupal\media_avportal\AvPortalClient;
 use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Validator\Constraint;
@@ -14,7 +15,7 @@ use Symfony\Component\Validator\ConstraintValidator;
 /**
  * Validates AVPortal resource URLs.
  */
-class AVPortalResourceConstraintValidator extends ConstraintValidator implements ContainerInjectionInterface {
+class AVPortalVideoResourceConstraintValidator extends ConstraintValidator implements ContainerInjectionInterface {
   /**
    * The logger service.
    *
@@ -23,13 +24,23 @@ class AVPortalResourceConstraintValidator extends ConstraintValidator implements
   protected $logger;
 
   /**
+   * The AV portal client.
+   *
+   * @var \Drupal\media_avportal\AvPortalClient
+   */
+  private $avPortalClient;
+
+  /**
    * Constructs a new AVPortalResourceConstraintValidator.
    *
    * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $logger_factory
    *   The logger service.
+   * @param \Drupal\media_avportal\AvPortalClient $avPortalClient
+   *   The AV portal client.
    */
-  public function __construct(LoggerChannelFactoryInterface $logger_factory) {
+  public function __construct(LoggerChannelFactoryInterface $logger_factory, AvPortalClient $avPortalClient) {
     $this->logger = $logger_factory->get('media');
+    $this->avPortalClient = $avPortalClient;
   }
 
   /**
@@ -37,7 +48,8 @@ class AVPortalResourceConstraintValidator extends ConstraintValidator implements
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('logger.factory')
+      $container->get('logger.factory'),
+      $container->get('media_avportal.client')
     );
   }
 
@@ -54,8 +66,12 @@ class AVPortalResourceConstraintValidator extends ConstraintValidator implements
       throw new \LogicException('Media source must implement ' . MediaAvPortalInterface::class);
     }
 
-    // Todo What do we what to validate here ?
-    $url = $source->getSourceFieldValue($media);
+    $reference = $source->getSourceFieldValue($media);
+    $resource = $this->avPortalClient->getResource($reference);
+
+    if (NULL === $resource) {
+      $this->context->addViolation($constraint->unknownProviderMessage, ['%ref%' => $reference]);
+    }
   }
 
 }
