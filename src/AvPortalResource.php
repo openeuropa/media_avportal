@@ -10,18 +10,18 @@ use Drupal\Component\Utility\UrlHelper;
  * Value object representing an AVPortal resource.
  */
 class AvPortalResource {
-
   /**
    * The data coming from the AV portal service for this resource.
    *
    * @var array
    */
-  protected $data;
+  private $data;
 
   /**
    * AvPortalResource constructor.
    *
    * @param array $data
+   *   The resource data.
    */
   public function __construct(array $data) {
     if (!isset($data['ref'])) {
@@ -68,9 +68,10 @@ class AvPortalResource {
    * Returns the thumbnail URL.
    *
    * @return null|string
+   *   The thumbnail URL if it exists, NULL otherwise.
    */
   public function getThumbnailUrl():? string {
-    if (!$this->data['media_json']) {
+    if ([] === $this->data['media_json']) {
       return NULL;
     }
 
@@ -88,6 +89,7 @@ class AvPortalResource {
    * Returns all the resource data.
    *
    * @return array
+   *   The resource data.
    */
   public function getData(): array {
     return $this->data;

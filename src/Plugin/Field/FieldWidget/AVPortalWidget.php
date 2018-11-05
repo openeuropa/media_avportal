@@ -10,7 +10,7 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\Plugin\Field\FieldWidget\StringTextfieldWidget;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\media\Entity\MediaType;
-use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalInterface;
+use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalVideo;
 
 /**
  * Plugin implementation of the 'avportal_textfield' widget.
@@ -63,11 +63,8 @@ class AVPortalWidget extends StringTextfieldWidget {
    * @return bool
    *   True is the element has been validated correctly, False otherwise.
    */
-  public static function validate(array $element, FormStateInterface $form_state) {
+  public static function validate(array $element, FormStateInterface $form_state): bool {
     $value = $element['value']['#value'];
-
-    // @todo Yes, move this to constraint. i.e no need for this method here.
-    // Also validate that the element exists in the service.
 
     $listPatterns = [
       // url: http://ec.europa.eu/avservices/video/player.cfm.
@@ -98,7 +95,7 @@ class AVPortalWidget extends StringTextfieldWidget {
         }
 
         // Extract numeric values only.
-        preg_match('/([0-9]+)/', $url['query']['ref'], $matches);
+        preg_match('/(\d+)/', $url['query']['ref'], $matches);
 
         $value['value'] = 'I-' . $matches[0];
 
@@ -118,7 +115,7 @@ class AVPortalWidget extends StringTextfieldWidget {
       return FALSE;
     }
 
-    return MediaType::load($target_bundle)->getSource() instanceof MediaAvPortalInterface;
+    return MediaType::load($target_bundle)->getSource() instanceof MediaAvPortalVideo;
   }
 
 }
