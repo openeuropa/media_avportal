@@ -10,12 +10,12 @@ use Symfony\Component\Validator\Constraint;
  * Checks if a value represents a valid AV Portal resource URL.
  *
  * @Constraint(
- *   id = "avportal_resource",
- *   label = @Translation("AVPortal resource", context = "Validation"),
+ *   id = "avportal_video_resource",
+ *   label = @Translation("AVPortal video resource", context = "Validation"),
  *   type = {"link", "string", "string_long"}
  * )
  */
-class AVPortalResourceConstraint extends Constraint {
+class AVPortalVideoResourceConstraint extends Constraint {
   /**
    * The error message if the URL does not match AV Portal provider.
    *
