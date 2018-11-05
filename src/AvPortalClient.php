@@ -12,7 +12,6 @@ use GuzzleHttp\ClientInterface;
  * Client that interacts with the AV Portal.
  */
 class AvPortalClient {
-
   /**
    * The HTTP client.
    *
@@ -71,16 +70,17 @@ class AvPortalClient {
    * Returns a single resource.
    *
    * @param string $ref
-   *   The reference
+   *   The reference.
    *
    * @return \Drupal\media_avportal\AvPortalResource|null
    *   The resource,
+   *
+   * @throws \Exception
    */
   public function getResource(string $ref):? AvPortalResource {
     $result = $this->query(['ref' => $ref]);
-    if (!isset($result['resources'][$ref])) {
-      return NULL;
-    }
+
+    $result['resources'] += [$ref => NULL];
 
     return $result['resources'][$ref];
   }
@@ -92,28 +92,30 @@ class AvPortalClient {
    *   The resource.
    *
    * @return null|string
+   *   The thumbnail file if it exists, null otherwise.
    */
   public function getVideoThumbnail(AvPortalResource $resource):? string {
     $url = $resource->getThumbnailUrl();
-    if (!$url) {
+
+    if (NULL === $url) {
       return NULL;
     }
 
     $response = $this->httpClient->get($url);
-    if ($response->getStatusCode() === 200) {
-      return (string) $response->getBody();
-    }
 
-    return NULL;
+    return $response->getStatusCode() === 200 ?
+      (string) $response->getBody() :
+      NULL;
   }
 
   /**
    * Returns the resources from a given response.
    *
    * @param array $response
-   *  The response array.
+   *   The response array.
    *
    * @return array
+   *   The resources array with references and their corresponding object.
    */
   protected function resourcesFromResponse(array $response): array {
     if ($response['numFound'] === 0) {

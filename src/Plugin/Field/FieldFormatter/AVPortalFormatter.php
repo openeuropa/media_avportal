@@ -32,7 +32,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * )
  */
 class AVPortalFormatter extends FormatterBase implements ContainerFactoryPluginInterface {
-
   /**
    * The default width.
    */
@@ -51,7 +50,7 @@ class AVPortalFormatter extends FormatterBase implements ContainerFactoryPluginI
   protected $logger;
 
   /**
-   * The AV Portal settings.
+   * The AV Portal settings config.
    *
    * @var \Drupal\Core\Config\ImmutableConfig
    */
@@ -89,6 +88,8 @@ class AVPortalFormatter extends FormatterBase implements ContainerFactoryPluginI
    *   The AV Portal client.
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
    *   The config factory.
+   *
+   * @SuppressWarnings(PHPMD.ExcessiveParameterList)
    */
   public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, $label, $view_mode, array $third_party_settings, MessengerInterface $messenger, LoggerChannelFactoryInterface $logger_factory, AvPortalClient $avPortalClient, ConfigFactoryInterface $configFactory) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
@@ -120,7 +121,7 @@ class AVPortalFormatter extends FormatterBase implements ContainerFactoryPluginI
   /**
    * {@inheritdoc}
    */
-  public static function defaultSettings() {
+  public static function defaultSettings(): array {
     return [
       'max_width' => 0,
       'max_height' => 0,
@@ -130,7 +131,7 @@ class AVPortalFormatter extends FormatterBase implements ContainerFactoryPluginI
   /**
    * {@inheritdoc}
    */
-  public function settingsForm(array $form, FormStateInterface $form_state) {
+  public function settingsForm(array $form, FormStateInterface $form_state): array {
     $form = parent::settingsForm($form, $form_state);
 
     $form['max_width'] = [
@@ -159,7 +160,7 @@ class AVPortalFormatter extends FormatterBase implements ContainerFactoryPluginI
   /**
    * {@inheritdoc}
    */
-  public function settingsSummary() {
+  public function settingsSummary(): array {
     $summary = parent::settingsSummary();
 
     if ($this->getSetting('max_width') && $this->getSetting('max_height')) {
@@ -185,7 +186,7 @@ class AVPortalFormatter extends FormatterBase implements ContainerFactoryPluginI
   /**
    * {@inheritdoc}
    */
-  public static function isApplicable(FieldDefinitionInterface $field_definition) {
+  public static function isApplicable(FieldDefinitionInterface $field_definition): bool {
     if ($field_definition->getTargetEntityTypeId() !== 'media') {
       return FALSE;
     }
@@ -195,6 +196,7 @@ class AVPortalFormatter extends FormatterBase implements ContainerFactoryPluginI
 
       if ($media_type_id !== NULL) {
         $media_type = MediaType::load($media_type_id);
+
         return $media_type && $media_type->getSource() instanceof MediaAvPortalVideo;
       }
     }
@@ -205,14 +207,14 @@ class AVPortalFormatter extends FormatterBase implements ContainerFactoryPluginI
   /**
    * {@inheritdoc}
    */
-  public function viewElements(FieldItemListInterface $items, $langcode) {
-    $element = [];
+  public function viewElements(FieldItemListInterface $items, $langcode): array {
+    $elements = [];
 
     foreach ($items as $delta => $item) {
-      $element[$delta] = $this->viewElement($item);
+      $elements[$delta] = $this->viewElement($item);
     }
 
-    return $element;
+    return $elements;
   }
 
   /**
@@ -222,10 +224,13 @@ class AVPortalFormatter extends FormatterBase implements ContainerFactoryPluginI
    *   The individual field item.
    *
    * @return array
+   *   The Drupal element.
+   *
+   * @throws \Exception
    */
-  protected function viewElement(FieldItemInterface $item) {
-    $max_width = $this->getSetting('max_width');
-    $max_height = $this->getSetting('max_height');
+  protected function viewElement(FieldItemInterface $item): array {
+    $max_width = $this->getSetting('max_width') ?: self::DEFAULT_WIDTH;
+    $max_height = $this->getSetting('max_height') ?: self::DEFAULT_HEIGHT;
 
     $main_property = $item->getFieldDefinition()
       ->getFieldStorageDefinition()
@@ -233,13 +238,14 @@ class AVPortalFormatter extends FormatterBase implements ContainerFactoryPluginI
 
     $resource_ref = $item->{$main_property};
 
-    if (empty($resource_ref)) {
+    if ('' === $resource_ref) {
       return [];
     }
 
     $resource = $this->avPortalClient->getResource($resource_ref);
     if (!$resource instanceof AvPortalResource) {
       $this->logger->error('Could not retrieve the remote reference (@ref).', ['@ref' => $resource_ref]);
+
       return [];
     }
 
@@ -247,6 +253,7 @@ class AVPortalFormatter extends FormatterBase implements ContainerFactoryPluginI
     $query = [
       'ref' => $resource_ref,
       'lg' => strtoupper($item->getLangcode()),
+      // @todo What are those default parameters ? Where is the documentation ?
       'sublg' => 'none',
       'autoplay' => 'true',
       'tin' => 10,
@@ -261,8 +268,8 @@ class AVPortalFormatter extends FormatterBase implements ContainerFactoryPluginI
         'frameborder' => 0,
         'scrolling' => FALSE,
         'allowtransparency' => TRUE,
-        'width' => $max_width ?: self::DEFAULT_WIDTH,
-        'height' => $max_height ?: self::DEFAULT_HEIGHT,
+        'width' => $max_width,
+        'height' => $max_height,
       ],
     ];
   }

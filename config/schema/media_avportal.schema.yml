@@ -11,7 +11,7 @@ media_avportal.settings:
       label: 'iFrame base uri'
       description: 'The base URI used in the src attribute of the iframe.'
 
-media.source.media_avportal:
+media.source.media_avportal_video:
   type: media.source.field_aware
   label: 'Media AV Portal source configuration'
   mapping:

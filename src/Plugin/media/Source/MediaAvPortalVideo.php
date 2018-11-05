@@ -70,6 +70,8 @@ class MediaAvPortalVideo extends MediaSourceBase implements MediaAvPortalInterfa
    *   The messenger service.
    * @param \Drupal\media_avportal\AvPortalClient $avPortalClient
    *   The AV Portal client.
+   *
+   * @SuppressWarnings(PHPMD.ExcessiveParameterList)
    */
   public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_type_manager, EntityFieldManagerInterface $entity_field_manager, ConfigFactoryInterface $config_factory, FieldTypePluginManagerInterface $field_type_manager, LoggerChannelInterface $logger, MessengerInterface $messenger, AvPortalClient $avPortalClient) {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $entity_type_manager, $entity_field_manager, $field_type_manager, $config_factory);
@@ -196,7 +198,7 @@ class MediaAvPortalVideo extends MediaSourceBase implements MediaAvPortalInterfa
    * If the thumbnail is not already locally stored, this method will attempt
    * to download it.
    *
-   * @param AvPortalResource $resource
+   * @param \Drupal\media_avportal\AvPortalResource $resource
    *   The resource object.
    *
    * @return string|null
