@@ -76,7 +76,7 @@ class MediaAVPortalCreateContentTest extends WebDriverTestBase {
     $assert_session = $this->assertSession();
 
     // Create a media content with a valid reference.
-    $this->drupalGet('media/add');
+    $this->drupalGet('media/add/media_av_portal');
     $page->fillField('Media AV Portal Video', 'http://ec.europa.eu/avservices/play.cfm?autoplay=true&lg=EN&ref=I-162747');
     $page->pressButton('Save');
 
@@ -88,7 +88,7 @@ class MediaAVPortalCreateContentTest extends WebDriverTestBase {
     self::assertEquals('http://ec.europa.eu/avservices/play.cfm?autoplay=true&lg=EN&ref=I-162747&sublg=none&tin=10&tout=59', $iframe_url);
 
     // Create a media content with an invalid reference.
-    $this->drupalGet('media/add');
+    $this->drupalGet('media/add/media_av_portal');
     $page->fillField('Media AV Portal Video', 'http://ec.europa.eu/avservices/play.cfm?autoplay=true&lg=EN&ref=I-12345678987654321');
     $page->pressButton('Save');
 
@@ -106,7 +106,7 @@ class MediaAVPortalCreateContentTest extends WebDriverTestBase {
     $assert_session = $this->assertSession();
 
     // Create a media content with a valid reference.
-    $this->drupalGet('media/add');
+    $this->drupalGet('media/add/media_av_portal');
     $page->fillField('Media AV Portal Video', 'http://ec.europa.eu/avservices/play.cfm?autoplay=true&lg=EN&ref=I-162747');
     $page->pressButton('Save');
 
