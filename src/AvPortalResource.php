@@ -79,6 +79,7 @@ class AvPortalResource {
     $data = reset($this->data['media_json']);
     if (isset($data['INT']['THUMB'])) {
       $parsed = UrlHelper::parse($data['INT']['THUMB']);
+
       return $parsed['path'] ?? NULL;
     }
 

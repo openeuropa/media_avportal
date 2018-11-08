@@ -73,7 +73,7 @@ class AvPortalClient {
    *   The reference.
    *
    * @return \Drupal\media_avportal\AvPortalResource|null
-   *   The resource,
+   *   The resource.
    *
    * @throws \Exception
    */
