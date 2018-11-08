@@ -97,7 +97,7 @@ class AvPortalClient {
   public function getVideoThumbnail(AvPortalResource $resource):? string {
     $url = $resource->getThumbnailUrl();
 
-    if (NULL === $url) {
+    if ($url === NULL) {
       return NULL;
     }
 

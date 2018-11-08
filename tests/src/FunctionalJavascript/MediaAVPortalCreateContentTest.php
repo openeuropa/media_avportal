@@ -93,8 +93,6 @@ class MediaAVPortalCreateContentTest extends WebDriverTestBase {
     $page->fillField('Media AV Portal Video', 'http://ec.europa.eu/avservices/play.cfm?autoplay=true&lg=EN&ref=I-abcde');
     $page->pressButton('Save');
 
-    sleep(1000);
-
     $assert_session->pageTextContains('The given URL does not match an AV Portal URL.');
   }
 
