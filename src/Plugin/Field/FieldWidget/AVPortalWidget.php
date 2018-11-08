@@ -97,7 +97,9 @@ class AVPortalWidget extends StringTextfieldWidget {
         // Extract numeric values only.
         preg_match('/(\d+)/', $url['query']['ref'], $matches);
 
-        $value['value'] = 'I-' . $matches[0];
+        if (isset($matches[0])) {
+          $value['value'] = 'I-' . $matches[0];
+        }
 
         return $value;
       },
