@@ -69,7 +69,7 @@ class AVPortalVideoResourceConstraintValidator extends ConstraintValidator imple
     $reference = $source->getSourceFieldValue($media);
     $resource = $this->avPortalClient->getResource($reference);
 
-    if (NULL === $resource) {
+    if ($resource === NULL) {
       $this->context->addViolation($constraint->unknownProviderMessage, ['%ref%' => $reference]);
     }
   }

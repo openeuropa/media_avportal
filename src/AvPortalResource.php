@@ -71,7 +71,7 @@ class AvPortalResource {
    *   The thumbnail URL if it exists, NULL otherwise.
    */
   public function getThumbnailUrl():? string {
-    if ([] === $this->data['media_json']) {
+    if ($this->data['media_json'] === []) {
       return NULL;
     }
 
