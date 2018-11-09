@@ -32,6 +32,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * )
  */
 class AVPortalFormatter extends FormatterBase implements ContainerFactoryPluginInterface {
+
   /**
    * The default width.
    */
@@ -238,7 +239,7 @@ class AVPortalFormatter extends FormatterBase implements ContainerFactoryPluginI
 
     $resource_ref = $item->{$main_property};
 
-    if ('' === $resource_ref) {
+    if ($resource_ref === '') {
       return [];
     }
 

@@ -30,7 +30,7 @@ class AVPortalWidget extends StringTextfieldWidget {
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
     $element = parent::formElement($items, $delta, $element, $form, $form_state);
-    $message = $this->t('You can link to media from AV Portal entering a URL of the form https://ec.europa.eu/avservices/video/player.cfm?sitelang=en&ref=[REF]');
+    $message = $this->t('You can link to media from AV Portal by entering a URL in the format https://ec.europa.eu/avservices/video/player.cfm?sitelang=en&ref=[REF]');
 
     $element['value']['#description'] = $message;
 
@@ -53,27 +53,19 @@ class AVPortalWidget extends StringTextfieldWidget {
   }
 
   /**
-   * Validate.
-   *
-   * @param array $element
-   *   The element.
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
-   *   The form state.
-   *
-   * @return bool
-   *   True is the element has been validated correctly, False otherwise.
+   * {@inheritdoc}
    */
   public static function validate(array $element, FormStateInterface $form_state): bool {
     $value = $element['value']['#value'];
 
-    $listPatterns = [
+    $patterns = [
       // url: http://ec.europa.eu/avservices/video/player.cfm.
       '@ec\.europa\.eu/avservices/video/player\.cfm\?(.+)@i',
       // url: http://ec.europa.eu/avservices/play.cfm.
       '@ec\.europa\.eu/avservices/play\.cfm\?(.+)@i',
     ];
 
-    foreach ($listPatterns as $pattern) {
+    foreach ($patterns as $pattern) {
       if (preg_match($pattern, $value)) {
         return TRUE;
       }

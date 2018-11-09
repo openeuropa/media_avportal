@@ -16,6 +16,7 @@ use Symfony\Component\Validator\ConstraintValidator;
  * Validates AVPortal resource URLs.
  */
 class AVPortalVideoResourceConstraintValidator extends ConstraintValidator implements ContainerInjectionInterface {
+
   /**
    * The logger service.
    *
@@ -28,7 +29,7 @@ class AVPortalVideoResourceConstraintValidator extends ConstraintValidator imple
    *
    * @var \Drupal\media_avportal\AvPortalClient
    */
-  private $avPortalClient;
+  protected $avPortalClient;
 
   /**
    * Constructs a new AVPortalResourceConstraintValidator.
@@ -70,7 +71,7 @@ class AVPortalVideoResourceConstraintValidator extends ConstraintValidator imple
     $resource = $this->avPortalClient->getResource($reference);
 
     if ($resource === NULL) {
-      $this->context->addViolation($constraint->unknownProviderMessage, ['%ref%' => $reference]);
+      $this->context->addViolation($constraint->message, ['%ref%' => $reference]);
     }
   }
 

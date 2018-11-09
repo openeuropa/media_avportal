@@ -10,6 +10,7 @@ use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
  * Base class for Media AV Portal functional JavaScript tests.
  */
 class MediaAVPortalCreateContentTest extends WebDriverTestBase {
+
   /**
    * Modules to enable.
    *
@@ -84,13 +85,6 @@ class MediaAVPortalCreateContentTest extends WebDriverTestBase {
     // Create a media content with an invalid reference.
     $this->drupalGet('media/add/media_av_portal');
     $page->fillField('Media AV Portal Video', 'http://ec.europa.eu/avservices/play.cfm?autoplay=true&lg=EN&ref=I-12345678987654321');
-    $page->pressButton('Save');
-
-    $assert_session->pageTextContains('The given URL does not match an AV Portal URL.');
-
-    // Create a media content with an invalid reference.
-    $this->drupalGet('media/add/media_av_portal');
-    $page->fillField('Media AV Portal Video', 'http://ec.europa.eu/avservices/play.cfm?autoplay=true&lg=EN&ref=I-abcde');
     $page->pressButton('Save');
 
     $assert_session->pageTextContains('The given URL does not match an AV Portal URL.');
