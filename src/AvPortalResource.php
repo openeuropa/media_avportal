@@ -10,12 +10,13 @@ use Drupal\Component\Utility\UrlHelper;
  * Value object representing an AVPortal resource.
  */
 class AvPortalResource {
+
   /**
    * The data coming from the AV portal service for this resource.
    *
    * @var array
    */
-  private $data;
+  protected $data;
 
   /**
    * AvPortalResource constructor.

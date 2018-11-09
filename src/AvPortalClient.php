@@ -12,6 +12,7 @@ use GuzzleHttp\ClientInterface;
  * Client that interacts with the AV Portal.
  */
 class AvPortalClient {
+
   /**
    * The HTTP client.
    *
