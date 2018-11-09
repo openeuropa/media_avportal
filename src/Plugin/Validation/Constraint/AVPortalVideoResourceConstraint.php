@@ -16,11 +16,12 @@ use Symfony\Component\Validator\Constraint;
  * )
  */
 class AVPortalVideoResourceConstraint extends Constraint {
+
   /**
    * The error message if the URL does not match AV Portal provider.
    *
    * @var string
    */
-  public $unknownProviderMessage = 'The given URL does not match an AV Portal URL.';
+  public $message = 'The given URL does not match an AV Portal URL.';
 
 }

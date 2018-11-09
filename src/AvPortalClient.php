@@ -104,9 +104,7 @@ class AvPortalClient {
 
     $response = $this->httpClient->get($url);
 
-    return $response->getStatusCode() === 200 ?
-      (string) $response->getBody() :
-      NULL;
+    return $response->getStatusCode() === 200 ? (string) $response->getBody() : NULL;
   }
 
   /**
