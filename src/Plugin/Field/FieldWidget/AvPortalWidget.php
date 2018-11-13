@@ -23,7 +23,7 @@ use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalVideo;
  *   },
  * )
  */
-class AVPortalWidget extends StringTextfieldWidget {
+class AvPortalWidget extends StringTextfieldWidget {
 
   /**
    * {@inheritdoc}

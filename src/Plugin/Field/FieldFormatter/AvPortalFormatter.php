@@ -31,7 +31,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   },
  * )
  */
-class AVPortalFormatter extends FormatterBase implements ContainerFactoryPluginInterface {
+class AvPortalFormatter extends FormatterBase implements ContainerFactoryPluginInterface {
 
   /**
    * The default width.
@@ -65,7 +65,7 @@ class AVPortalFormatter extends FormatterBase implements ContainerFactoryPluginI
   protected $avPortalClient;
 
   /**
-   * Constructs an AVPortalFormatter instance.
+   * Constructs an AvPortalFormatter instance.
    *
    * @param string $plugin_id
    *   The plugin ID for the formatter.

@@ -7,7 +7,7 @@ namespace Drupal\media_avportal;
 use Drupal\Component\Utility\UrlHelper;
 
 /**
- * Value object representing an AVPortal resource.
+ * Value object representing an AvPortal resource.
  */
 class AvPortalResource {
 
