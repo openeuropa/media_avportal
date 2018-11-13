@@ -61,37 +61,9 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
   }
 
   /**
-   * Tests the creation of an AV Portal media entity.
+   * Tests referencing of an AV Portal resource through the media entity.
    */
-  public function testCreateMediaContent() {
-    $session = $this->getSession();
-    $page = $session->getPage();
-    $assert_session = $this->assertSession();
-
-    // Create a media content with a valid reference.
-    $this->drupalGet('media/add/media_av_portal');
-    $page->fillField('Media AV Portal Video', 'http://ec.europa.eu/avservices/play.cfm?autoplay=true&lg=EN&ref=I-162747');
-    $page->pressButton('Save');
-
-    // Visit the new media content.
-    $page->clickLink('Midday press briefing from 25/10/2018');
-
-    // Check the iframe URL.
-    $iframe_url = $assert_session->elementExists('css', 'iframe')->getAttribute('src');
-    $this->assertEquals('http://ec.europa.eu/avservices/play.cfm?autoplay=true&lg=EN&ref=I-162747&sublg=none&tin=10&tout=59', $iframe_url);
-
-    // Create a media content with an invalid reference.
-    $this->drupalGet('media/add/media_av_portal');
-    $page->fillField('Media AV Portal Video', 'http://ec.europa.eu/avservices/play.cfm?autoplay=true&lg=EN&ref=I-12345678987654321');
-    $page->pressButton('Save');
-
-    $assert_session->pageTextContains('The given URL does not match an AV Portal URL.');
-  }
-
-  /**
-   * Tests the edit operation on an AV Portal media entity.
-   */
-  public function testEditMediaContent() {
+  public function testMediaContentReferencing(): void {
     $session = $this->getSession();
     $page = $session->getPage();
     $assert_session = $this->assertSession();
@@ -121,6 +93,13 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
     // Check the iframe URL.
     $iframe_url = $assert_session->elementExists('css', 'iframe')->getAttribute('src');
     $this->assertEquals('http://ec.europa.eu/avservices/play.cfm?autoplay=true&lg=EN&ref=I-163162&sublg=none&tin=10&tout=59', $iframe_url);
+
+    // Create a media content with an invalid reference.
+    $this->drupalGet('media/add/media_av_portal');
+    $page->fillField('Media AV Portal Video', 'http://ec.europa.eu/avservices/play.cfm?autoplay=true&lg=EN&ref=I-12345678987654321');
+    $page->pressButton('Save');
+
+    $assert_session->pageTextContains('The given URL does not match an AV Portal URL.');
   }
 
 }
