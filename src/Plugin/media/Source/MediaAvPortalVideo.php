@@ -16,7 +16,7 @@ use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\media\MediaSourceBase;
 use Drupal\media\MediaInterface;
 use Drupal\media\MediaTypeInterface;
-use Drupal\media_avportal\AvPortalClient;
+use Drupal\media_avportal\AvPortalClientInterface;
 use Drupal\media_avportal\AvPortalResource;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -43,7 +43,7 @@ class MediaAvPortalVideo extends MediaSourceBase implements MediaAvPortalInterfa
   /**
    * The AV Portal client.
    *
-   * @var \Drupal\media_avportal\AvPortalClient
+   * @var \Drupal\media_avportal\AvPortalClientInterface
    */
   protected $avPortalClient;
 
@@ -68,12 +68,12 @@ class MediaAvPortalVideo extends MediaSourceBase implements MediaAvPortalInterfa
    *   The logger channel for media.
    * @param \Drupal\Core\Messenger\MessengerInterface $messenger
    *   The messenger service.
-   * @param \Drupal\media_avportal\AvPortalClient $avPortalClient
+   * @param \Drupal\media_avportal\AvPortalClientInterface $avPortalClient
    *   The AV Portal client.
    *
    * @SuppressWarnings(PHPMD.ExcessiveParameterList)
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_type_manager, EntityFieldManagerInterface $entity_field_manager, ConfigFactoryInterface $config_factory, FieldTypePluginManagerInterface $field_type_manager, LoggerChannelInterface $logger, MessengerInterface $messenger, AvPortalClient $avPortalClient) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_type_manager, EntityFieldManagerInterface $entity_field_manager, ConfigFactoryInterface $config_factory, FieldTypePluginManagerInterface $field_type_manager, LoggerChannelInterface $logger, MessengerInterface $messenger, AvPortalClientInterface $avPortalClient) {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $entity_type_manager, $entity_field_manager, $field_type_manager, $config_factory);
     $this->logger = $logger;
     $this->messenger = $messenger;

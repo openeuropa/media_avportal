@@ -12,7 +12,7 @@ use GuzzleHttp\Exception\RequestException;
 /**
  * Client that interacts with the AV Portal.
  */
-class AvPortalClient {
+class AvPortalClient implements AvPortalClientInterface {
 
   /**
    * The module configuration.
@@ -42,15 +42,7 @@ class AvPortalClient {
   }
 
   /**
-   * Executes the query call for resources.
-   *
-   * @param array $options
-   *   The options.
-   *
-   * @return array|null
-   *   The array if the query succeeded, NULL otherwise.
-   *
-   * @throws \Exception
+   * {@inheritdoc}
    */
   public function query(array $options): ?array {
     $options += [
@@ -81,15 +73,7 @@ class AvPortalClient {
   }
 
   /**
-   * Returns a single resource.
-   *
-   * @param string $ref
-   *   The reference.
-   *
-   * @return \Drupal\media_avportal\AvPortalResource|null
-   *   The resource.
-   *
-   * @throws \Exception
+   * {@inheritdoc}
    */
   public function getResource(string $ref): ?AvPortalResource {
     $result = $this->query(['ref' => $ref]);
@@ -98,13 +82,7 @@ class AvPortalClient {
   }
 
   /**
-   * Returns the thumbnail file of a given resource.
-   *
-   * @param \Drupal\media_avportal\AvPortalResource $resource
-   *   The resource.
-   *
-   * @return null|string
-   *   The thumbnail file if it exists, null otherwise.
+   * {@inheritdoc}
    */
   public function getVideoThumbnail(AvPortalResource $resource): ?string {
     $url = $resource->getThumbnailUrl();
