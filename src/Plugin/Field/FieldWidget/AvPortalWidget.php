@@ -55,7 +55,7 @@ class AvPortalWidget extends StringTextfieldWidget {
   /**
    * {@inheritdoc}
    */
-  public static function validate(array $element, FormStateInterface $form_state): bool {
+  public static function validate(array $element, FormStateInterface $form_state): void {
     $value = $element['value']['#value'];
 
     $patterns = [
@@ -67,11 +67,11 @@ class AvPortalWidget extends StringTextfieldWidget {
 
     foreach ($patterns as $pattern) {
       if (preg_match($pattern, $value)) {
-        return TRUE;
+        return;
       }
     }
 
-    return FALSE;
+    $form_state->setError($element['value'], t('Invalid URL format specified.'));
   }
 
   /**
