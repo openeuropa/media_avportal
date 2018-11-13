@@ -5,7 +5,6 @@ declare(strict_types = 1);
 namespace Drupal\media_avportal\Plugin\Validation\Constraint;
 
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\media_avportal\AvPortalClient;
 use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -18,13 +17,6 @@ use Symfony\Component\Validator\ConstraintValidator;
 class AvPortalVideoResourceConstraintValidator extends ConstraintValidator implements ContainerInjectionInterface {
 
   /**
-   * The logger service.
-   *
-   * @var \Drupal\Core\Logger\LoggerChannelInterface
-   */
-  protected $logger;
-
-  /**
    * The AV portal client.
    *
    * @var \Drupal\media_avportal\AvPortalClient
@@ -34,13 +26,10 @@ class AvPortalVideoResourceConstraintValidator extends ConstraintValidator imple
   /**
    * Constructs a new AvPortalResourceConstraintValidator.
    *
-   * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $logger_factory
-   *   The logger service.
    * @param \Drupal\media_avportal\AvPortalClient $avPortalClient
    *   The AV portal client.
    */
-  public function __construct(LoggerChannelFactoryInterface $logger_factory, AvPortalClient $avPortalClient) {
-    $this->logger = $logger_factory->get('media');
+  public function __construct(AvPortalClient $avPortalClient) {
     $this->avPortalClient = $avPortalClient;
   }
 
@@ -49,7 +38,6 @@ class AvPortalVideoResourceConstraintValidator extends ConstraintValidator imple
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('logger.factory'),
       $container->get('media_avportal.client')
     );
   }

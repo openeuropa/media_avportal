@@ -86,9 +86,11 @@ class AvPortalWidget extends StringTextfieldWidget {
           return $value;
         }
 
-        // Extract numeric values only.
         preg_match('/(\d+)/', $url['query']['ref'], $matches);
 
+        // The reference should be in the format I-xxxx where x are numbers.
+        // Sometimes no dash is present, so we have to normalise the reference
+        // back.
         if (isset($matches[0])) {
           $value['value'] = 'I-' . $matches[0];
         }
@@ -105,7 +107,7 @@ class AvPortalWidget extends StringTextfieldWidget {
   public static function isApplicable(FieldDefinitionInterface $field_definition) {
     $target_bundle = $field_definition->getTargetBundle();
 
-    if (NULL === $target_bundle || !parent::isApplicable($field_definition) || $field_definition->getTargetEntityTypeId() !== 'media') {
+    if (!$target_bundle || !parent::isApplicable($field_definition) || $field_definition->getTargetEntityTypeId() !== 'media') {
       return FALSE;
     }
 

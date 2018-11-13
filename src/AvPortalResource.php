@@ -51,15 +51,19 @@ class AvPortalResource {
    * @return string
    *   The title.
    */
-  public function getTitle(string $langcode = 'EN'):? string {
+  public function getTitle(string $langcode = 'EN'): ?string {
+    if (!isset($this->data['titles_json']) || !is_array($this->data['titles_json'])) {
+      return NULL;
+    }
+
     $titles = $this->data['titles_json'];
     if (isset($titles[$langcode])) {
       return $titles[$langcode];
     }
 
-    $langcode = 'EN';
-    if (isset($titles[$langcode])) {
-      return $titles[$langcode];
+    // Fallback to english if the specified langcode is not present.
+    if (isset($titles['EN'])) {
+      return $titles['EN'];
     }
 
     return NULL;
@@ -71,8 +75,8 @@ class AvPortalResource {
    * @return null|string
    *   The thumbnail URL if it exists, NULL otherwise.
    */
-  public function getThumbnailUrl():? string {
-    if ($this->data['media_json'] === []) {
+  public function getThumbnailUrl(): ?string {
+    if (!isset($this->data['media_json']) || !is_array($this->data['media_json'])) {
       return NULL;
     }
 
