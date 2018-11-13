@@ -9,7 +9,7 @@ use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
 /**
  * Base class for Media AV Portal functional JavaScript tests.
  */
-class MediaAVPortalCreateContentTest extends WebDriverTestBase {
+class MediaAvPortalCreateContentTest extends WebDriverTestBase {
 
   /**
    * Modules to enable.
@@ -61,11 +61,9 @@ class MediaAVPortalCreateContentTest extends WebDriverTestBase {
   }
 
   /**
-   * Test media type "Media AV Portal" creation.
-   *
-   * @throws \Throwable
+   * Tests the creation of an AV Portal media entity.
    */
-  public function testMediaContentCreation() {
+  public function testCreateMediaContent() {
     $session = $this->getSession();
     $page = $session->getPage();
     $assert_session = $this->assertSession();
@@ -80,7 +78,7 @@ class MediaAVPortalCreateContentTest extends WebDriverTestBase {
 
     // Check the iframe URL.
     $iframe_url = $assert_session->elementExists('css', 'iframe')->getAttribute('src');
-    self::assertEquals('http://ec.europa.eu/avservices/play.cfm?autoplay=true&lg=EN&ref=I-162747&sublg=none&tin=10&tout=59', $iframe_url);
+    $this->assertEquals('http://ec.europa.eu/avservices/play.cfm?autoplay=true&lg=EN&ref=I-162747&sublg=none&tin=10&tout=59', $iframe_url);
 
     // Create a media content with an invalid reference.
     $this->drupalGet('media/add/media_av_portal');
@@ -91,11 +89,9 @@ class MediaAVPortalCreateContentTest extends WebDriverTestBase {
   }
 
   /**
-   * Test media type "Media AV Portal" edition.
-   *
-   * @throws \Throwable
+   * Tests the edit operation on an AV Portal media entity.
    */
-  public function testMediaContentEdition() {
+  public function testEditMediaContent() {
     $session = $this->getSession();
     $page = $session->getPage();
     $assert_session = $this->assertSession();
@@ -110,7 +106,7 @@ class MediaAVPortalCreateContentTest extends WebDriverTestBase {
 
     // Check the iframe URL.
     $iframe_url = $assert_session->elementExists('css', 'iframe')->getAttribute('src');
-    self::assertEquals('http://ec.europa.eu/avservices/play.cfm?autoplay=true&lg=EN&ref=I-162747&sublg=none&tin=10&tout=59', $iframe_url);
+    $this->assertEquals('http://ec.europa.eu/avservices/play.cfm?autoplay=true&lg=EN&ref=I-162747&sublg=none&tin=10&tout=59', $iframe_url);
 
     // Edit the newly created media.
     $this->drupalGet('media/1/edit');
@@ -124,7 +120,7 @@ class MediaAVPortalCreateContentTest extends WebDriverTestBase {
 
     // Check the iframe URL.
     $iframe_url = $assert_session->elementExists('css', 'iframe')->getAttribute('src');
-    self::assertEquals('http://ec.europa.eu/avservices/play.cfm?autoplay=true&lg=EN&ref=I-163162&sublg=none&tin=10&tout=59', $iframe_url);
+    $this->assertEquals('http://ec.europa.eu/avservices/play.cfm?autoplay=true&lg=EN&ref=I-163162&sublg=none&tin=10&tout=59', $iframe_url);
   }
 
 }

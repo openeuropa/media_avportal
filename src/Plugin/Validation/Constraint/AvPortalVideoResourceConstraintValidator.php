@@ -13,9 +13,9 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
 /**
- * Validates AVPortal resource URLs.
+ * Validates AvPortal resource URLs.
  */
-class AVPortalVideoResourceConstraintValidator extends ConstraintValidator implements ContainerInjectionInterface {
+class AvPortalVideoResourceConstraintValidator extends ConstraintValidator implements ContainerInjectionInterface {
 
   /**
    * The logger service.
@@ -32,7 +32,7 @@ class AVPortalVideoResourceConstraintValidator extends ConstraintValidator imple
   protected $avPortalClient;
 
   /**
-   * Constructs a new AVPortalResourceConstraintValidator.
+   * Constructs a new AvPortalResourceConstraintValidator.
    *
    * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $logger_factory
    *   The logger service.

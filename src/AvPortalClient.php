@@ -28,7 +28,7 @@ class AvPortalClient {
   protected $config;
 
   /**
-   * Constructs an AVPortalClient object.
+   * Constructs an AvPortalClient object.
    *
    * @param \GuzzleHttp\ClientInterface $http_client
    *   The HTTP client.
