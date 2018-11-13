@@ -124,8 +124,8 @@ class AvPortalFormatter extends FormatterBase implements ContainerFactoryPluginI
    */
   public static function defaultSettings(): array {
     return [
-      'max_width' => 0,
-      'max_height' => 0,
+      'max_width' => self::DEFAULT_WIDTH,
+      'max_height' => self::DEFAULT_HEIGHT,
     ] + parent::defaultSettings();
   }
 
@@ -226,12 +226,10 @@ class AvPortalFormatter extends FormatterBase implements ContainerFactoryPluginI
    *
    * @return array
    *   The Drupal element.
-   *
-   * @throws \Exception
    */
   protected function viewElement(FieldItemInterface $item): array {
-    $max_width = $this->getSetting('max_width') ?: self::DEFAULT_WIDTH;
-    $max_height = $this->getSetting('max_height') ?: self::DEFAULT_HEIGHT;
+    $max_width = $this->getSetting('max_width');
+    $max_height = $this->getSetting('max_height');
 
     $main_property = $item->getFieldDefinition()
       ->getFieldStorageDefinition()
