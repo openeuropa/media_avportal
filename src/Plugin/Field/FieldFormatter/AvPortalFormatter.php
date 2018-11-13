@@ -15,7 +15,7 @@ use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Url;
 use Drupal\media\Entity\MediaType;
-use Drupal\media_avportal\AvPortalClient;
+use Drupal\media_avportal\AvPortalClientInterface;
 use Drupal\media_avportal\AvPortalResource;
 use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalVideo;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -44,11 +44,11 @@ class AvPortalFormatter extends FormatterBase implements ContainerFactoryPluginI
   public const DEFAULT_HEIGHT = 390;
 
   /**
-   * The logger service.
+   * The AV Portal client.
    *
-   * @var \Drupal\Core\Logger\LoggerChannelInterface
+   * @var \Drupal\media_avportal\AvPortalClientInterface
    */
-  protected $logger;
+  protected $avPortalClient;
 
   /**
    * The AV Portal settings config.
@@ -58,11 +58,11 @@ class AvPortalFormatter extends FormatterBase implements ContainerFactoryPluginI
   protected $config;
 
   /**
-   * The AV Portal client.
+   * The logger service.
    *
-   * @var \Drupal\media_avportal\AvPortalClient
+   * @var \Drupal\Core\Logger\LoggerChannelInterface
    */
-  protected $avPortalClient;
+  protected $logger;
 
   /**
    * Constructs an AvPortalFormatter instance.
@@ -85,14 +85,14 @@ class AvPortalFormatter extends FormatterBase implements ContainerFactoryPluginI
    *   The messenger service.
    * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $logger_factory
    *   The logger factory service.
-   * @param \Drupal\media_avportal\AvPortalClient $avPortalClient
+   * @param \Drupal\media_avportal\AvPortalClientInterface $avPortalClient
    *   The AV Portal client.
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
    *   The config factory.
    *
    * @SuppressWarnings(PHPMD.ExcessiveParameterList)
    */
-  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, $label, $view_mode, array $third_party_settings, MessengerInterface $messenger, LoggerChannelFactoryInterface $logger_factory, AvPortalClient $avPortalClient, ConfigFactoryInterface $configFactory) {
+  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, $label, $view_mode, array $third_party_settings, MessengerInterface $messenger, LoggerChannelFactoryInterface $logger_factory, AvPortalClientInterface $avPortalClient, ConfigFactoryInterface $configFactory) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
     $this->messenger = $messenger;
     $this->logger = $logger_factory->get('media');

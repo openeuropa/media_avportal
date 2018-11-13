@@ -5,7 +5,7 @@ declare(strict_types = 1);
 namespace Drupal\media_avportal\Plugin\Validation\Constraint;
 
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Drupal\media_avportal\AvPortalClient;
+use Drupal\media_avportal\AvPortalClientInterface;
 use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Validator\Constraint;
@@ -19,17 +19,17 @@ class AvPortalVideoResourceConstraintValidator extends ConstraintValidator imple
   /**
    * The AV portal client.
    *
-   * @var \Drupal\media_avportal\AvPortalClient
+   * @var \Drupal\media_avportal\AvPortalClientInterface
    */
   protected $avPortalClient;
 
   /**
    * Constructs a new AvPortalResourceConstraintValidator.
    *
-   * @param \Drupal\media_avportal\AvPortalClient $avPortalClient
+   * @param \Drupal\media_avportal\AvPortalClientInterface $avPortalClient
    *   The AV portal client.
    */
-  public function __construct(AvPortalClient $avPortalClient) {
+  public function __construct(AvPortalClientInterface $avPortalClient) {
     $this->avPortalClient = $avPortalClient;
   }
 
