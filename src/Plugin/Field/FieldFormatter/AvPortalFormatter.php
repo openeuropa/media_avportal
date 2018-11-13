@@ -237,7 +237,7 @@ class AvPortalFormatter extends FormatterBase implements ContainerFactoryPluginI
 
     $resource_ref = $item->{$main_property};
 
-    if ($resource_ref === '') {
+    if (empty($resource_ref)) {
       return [];
     }
 
