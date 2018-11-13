@@ -3,11 +3,11 @@ media_avportal.settings:
   label: 'Media AV Portal settings'
   mapping:
     client_api_uri:
-      type: string
+      type: uri
       label: 'Client API uri'
       description: 'The API uri endpoint.'
     iframe_base_uri:
-      type: string
+      type: uri
       label: 'iFrame base uri'
       description: 'The base URI used in the src attribute of the iframe.'
 

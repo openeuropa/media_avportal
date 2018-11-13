@@ -173,9 +173,10 @@ class MediaAvPortalVideo extends MediaSourceBase implements MediaAvPortalInterfa
    */
   public function validateConfigurationForm(array &$form, FormStateInterface $form_state) {
     $thumbnails_directory = $form_state->getValue('thumbnails_directory');
-
-    if (file_valid_uri($thumbnails_directory) === FALSE) {
-      $form_state->setErrorByName('thumbnails_directory', $this->t('@path is not a valid path.', ['@path' => $thumbnails_directory]));
+    if (!file_valid_uri($thumbnails_directory)) {
+      $form_state->setErrorByName('thumbnails_directory', $this->t('@path is not a valid path.', [
+        '@path' => $thumbnails_directory,
+      ]));
     }
   }
 
