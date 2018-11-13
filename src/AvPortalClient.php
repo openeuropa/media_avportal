@@ -7,6 +7,7 @@ namespace Drupal\media_avportal;
 use Drupal\Component\Serialization\Json;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Exception\RequestException;
 
 /**
  * Client that interacts with the AV Portal.
@@ -14,18 +15,18 @@ use GuzzleHttp\ClientInterface;
 class AvPortalClient {
 
   /**
-   * The HTTP client.
-   *
-   * @var \GuzzleHttp\ClientInterface|\GuzzleHttp\Client
-   */
-  protected $httpClient;
-
-  /**
    * The module configuration.
    *
    * @var \Drupal\Core\Config\ImmutableConfig
    */
   protected $config;
+
+  /**
+   * The HTTP client.
+   *
+   * @var \GuzzleHttp\ClientInterface
+   */
+  protected $httpClient;
 
   /**
    * Constructs an AvPortalClient object.
@@ -61,8 +62,20 @@ class AvPortalClient {
       'type' => 'VIDEO',
     ];
 
-    $response = $this->httpClient->get($this->config->get('client_api_uri'), ['query' => $options]);
-    $response = Json::decode((string) $response->getBody())['response'];
+    try {
+      $raw_response = $this->httpClient->get($this->config->get('client_api_uri'), ['query' => $options]);
+      // @todo log if the response is not valid JSON.
+      $response = Json::decode((string) $raw_response->getBody());
+    }
+    catch (RequestException $exception) {
+      // @todo Log the exception.
+      $response = NULL;
+    }
+
+    // Convert invalid responses to empty ones.
+    if ($response === NULL) {
+      $response = [];
+    }
 
     return $this->resourcesFromResponse($response);
   }
@@ -78,12 +91,10 @@ class AvPortalClient {
    *
    * @throws \Exception
    */
-  public function getResource(string $ref):? AvPortalResource {
+  public function getResource(string $ref): ?AvPortalResource {
     $result = $this->query(['ref' => $ref]);
 
-    $result['resources'] += [$ref => NULL];
-
-    return $result['resources'][$ref];
+    return $result['resources'][$ref] ?? NULL;
   }
 
   /**
@@ -95,7 +106,7 @@ class AvPortalClient {
    * @return null|string
    *   The thumbnail file if it exists, null otherwise.
    */
-  public function getVideoThumbnail(AvPortalResource $resource):? string {
+  public function getVideoThumbnail(AvPortalResource $resource): ?string {
     $url = $resource->getThumbnailUrl();
 
     if ($url === NULL) {
@@ -117,20 +128,21 @@ class AvPortalClient {
    *   The resources array with references and their corresponding object.
    */
   protected function resourcesFromResponse(array $response): array {
-    if ($response['numFound'] === 0) {
+    if (!isset($response['response']) || empty($response['response']['numFound']) || !isset($response['response']['docs'])) {
       return [
         'num_found' => 0,
         'resources' => [],
       ];
     }
 
+    $payload = $response['response'];
     $resources = [];
-    foreach ($response['docs'] as $doc) {
+    foreach ($payload['docs'] as $doc) {
       $resources[$doc['ref']] = new AvPortalResource($doc);
     }
 
     return [
-      'num_found' => $response['numFound'],
+      'num_found' => $payload['numFound'],
       'resources' => $resources,
     ];
   }
