@@ -1,0 +1,4 @@
+services:
+  media_avportal.client:
+    class: Drupal\media_avportal\AvPortalClient
+    arguments: ['@http_client', '@config.factory']

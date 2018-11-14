@@ -1,0 +1,34 @@
+media_avportal.settings:
+  type: config_object
+  label: 'Media AV Portal settings'
+  mapping:
+    client_api_uri:
+      type: uri
+      label: 'Client API uri'
+      description: 'The API uri endpoint.'
+    iframe_base_uri:
+      type: uri
+      label: 'iFrame base uri'
+      description: 'The base URI used in the src attribute of the iframe.'
+
+media.source.media_avportal_video:
+  type: media.source.field_aware
+  label: 'Media AV Portal source configuration'
+  mapping:
+    thumbnails_directory:
+      type: uri
+      label: 'URI of thumbnail storage directory'
+
+field.formatter.settings.avportal:
+  type: mapping
+  label: 'Media AV Portal display format settings'
+  mapping:
+    max_width:
+      type: integer
+      label: 'Maximum width'
+    max_height:
+      type: integer
+      label: 'Maximum height'
+
+field.widget.settings.avportal_textfield:
+  type: field.widget.settings.string_textfield
