@@ -20,22 +20,18 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
     'system',
     'node',
     'field_ui',
-    'views_ui',
     'media_avportal',
   ];
 
   /**
-   * {@inheritdoc}
+   * Tests the AV Portal media entity.
    */
-  public function setUp() {
-    parent::setUp();
+  public function testAvPortalMediaEntity(): void {
     $session = $this->getSession();
     $page = $session->getPage();
     $assert_session = $this->assertSession();
 
-    // This first drupalGet() is needed.
-    $this->drupalGet('<front>');
-
+    // Log in as an administrator.
     $user = $this->drupalCreateUser([], NULL, TRUE);
     $this->drupalLogin($user);
 
@@ -51,22 +47,13 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
     );
     $assert_session->selectExists('Resource title')->selectOption('name');
     $page->pressButton('Save');
-    $page->hasContent('The media type Media AV Portal has been added.');
+    $page->hasContent('The media type Media AV Portal Test has been added.');
 
-    // Set the formatter.
+    // Set the formatter so that we can view Media of this type.
     $config = $this->config('core.entity_view_display.media.media_av_portal.default');
     $config->set('content.field_media_media_avportal_video.type', 'avportal');
     $config->set('content.field_media_media_avportal_video.settings', []);
     $config->save();
-  }
-
-  /**
-   * Tests referencing of an AV Portal resource through the media entity.
-   */
-  public function testMediaContentReferencing(): void {
-    $session = $this->getSession();
-    $page = $session->getPage();
-    $assert_session = $this->assertSession();
 
     // Create a media content with a valid reference.
     $this->drupalGet('media/add/media_av_portal');
@@ -79,6 +66,8 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
     // Check the iframe URL.
     $iframe_url = $assert_session->elementExists('css', 'iframe')->getAttribute('src');
     $this->assertEquals('http://ec.europa.eu/avservices/play.cfm?autoplay=true&lg=EN&ref=I-162747&sublg=none&tin=10&tout=59', $iframe_url);
+
+    // @todo assert the width and height of the iframe.
 
     // Edit the newly created media.
     $this->drupalGet('media/1/edit');
@@ -99,7 +88,12 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
     $page->fillField('Media AV Portal Video', 'http://ec.europa.eu/avservices/play.cfm?autoplay=true&lg=EN&ref=I-12345678987654321');
     $page->pressButton('Save');
 
-    $assert_session->pageTextContains('The given URL does not match an AV Portal URL.');
+    // Create a media content with an invalid resource URL.
+    $this->drupalGet('media/add/media_av_portal');
+    $page->fillField('Media AV Portal Video', 'http://example.com/play.cfm?autoplay=true&lg=EN&ref=I-12345678987654321');
+    $page->pressButton('Save');
+
+    $assert_session->pageTextContains('Invalid URL format specified.');
   }
 
 }
