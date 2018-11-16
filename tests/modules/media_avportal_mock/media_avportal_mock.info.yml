@@ -1,0 +1,4 @@
+name: Media AV Portal Mock
+description: Provides a middleware for the returning mocked responses from AV Portal. Do not use this in production.
+core: 8.x
+type: module

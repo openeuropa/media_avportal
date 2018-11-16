@@ -1,0 +1,89 @@
+{
+  "responseHeader": {
+    "status": 0,
+    "QTime": 14,
+    "params": {
+      "pagesize": "15",
+      "ref": "I-162747",
+      "index": "1",
+      "hasmedia": "1",
+      "fl": "type,ref,doc_ref,titles_json,duration,shootstartdate,media_json,mediaorder_json,summary_json",
+      "proxy": "true",
+      "serverName": "wlpc0099",
+      "type": "VIDEO",
+      "wt": "json"
+    }
+  },
+  "response": {
+    "numFound": 1,
+    "start": 0,
+    "docs": [
+      {
+        "ref": "I-162747",
+        "duration": "85.9",
+        "titles_json": {
+          "FR": "Point de presse de la mi-journée du 25\/10\/2018",
+          "EN": "Midday press briefing from 25\/10\/2018"
+        },
+        "summary_json": {
+          "FR": "During today's EC midday press briefing, this topic has been touched on:<br>COMMISSION - EC President Juncker phone call with Chancellor Merkel: - Q&A ",
+          "EN": "During today's EC midday press briefing, this topic has been touched on:<br>COMMISSION - EC President Juncker phone call with Chancellor Merkel: - Q&A "
+        },
+        "shootstartdate": "20181025 12:17",
+        "mediaorder_json": [
+          {
+            "INT": {
+              "SUPPORTS": "WEB",
+              "TEXT": "Original",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          },
+          {
+            "EN": {
+              "SUPPORTS": "WEB",
+              "TEXT": "English",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          },
+          {
+            "FR": {
+              "SUPPORTS": "WEB",
+              "TEXT": "Français",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          }
+        ],
+        "media_json": {
+          "16:9": {
+            "FR": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/07\/162747\/THUMB_M_I162747INT1W_05.jpg?latest=0006614044",
+              "MP3": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/07\/162747\/MP3_I162747FR1W.mp3?latest=0006614048",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/07\/162747\/THUMB_I162747INT1W_05.jpg?latest=0006614042",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/07\/162747\/LR_I162747FR1W.mp4?latest=0006614046"
+            },
+            "EN": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/07\/162747\/THUMB_M_I162747INT1W_05.jpg?latest=0006614034",
+              "MP3": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/07\/162747\/MP3_I162747EN1W.mp3?latest=0006614038",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/07\/162747\/THUMB_I162747INT1W_05.jpg?latest=0006614032",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/07\/162747\/LR_I162747EN1W.mp4?latest=0006614036"
+            },
+            "INT": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/07\/162747\/THUMB_M_I162747INT1W_05.jpg?latest=0006614330",
+              "HDMP4": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/07\/162747\/HD_I162747INT1W.mp4?latest=0006614336",
+              "MP3": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/07\/162747\/MP3_I162747INT1W.mp3?latest=0006614334",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/07\/162747\/THUMB_I162747INT1W_05.jpg?latest=0006614328",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/07\/162747\/LR_I162747INT1W.mp4?latest=0006614332"
+            }
+          }
+        },
+        "type": "VIDEO"
+      }
+    ]
+  }
+}
