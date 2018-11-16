@@ -44,7 +44,7 @@ class AvPortalClient implements AvPortalClientInterface {
   /**
    * {@inheritdoc}
    */
-  public function query(array $options): ?array {
+  public function query(array $options = []): ?array {
     $options += [
       'fl' => 'type,ref,doc_ref,titles_json,duration,shootstartdate,media_json,mediaorder_json,summary_json',
       'hasmedia' => 1,
