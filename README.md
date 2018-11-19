@@ -5,6 +5,34 @@
 
 Media AV Portal adds the [European Audiovisual Services](http://ec.europa.eu/avservices/) as a supported media provider.
 
+# Mock service
+
+The project also comes with a test module that provides a mock to the remote AV Portal service. Meaning that tests do not have to be run against the remote service.
+
+## How to use the mock
+
+Enable the `media_avportal_mock` inside a given test and all HTTP requests going to AV Portal API will be intercepted automatically. These, then, will return predefined responses that can be inspected in the `responses` folder of the mock module.
+
+By default, there are 3 types of requests that are mocked:
+
+* A default request with no options
+* A request for a given resource (the options contain the `ref` key)
+* A request that searches for a given term (the options contain the `kwand` key)
+
+Additionally, any request to a resource thumbnail will return a local thumbnail image.
+
+## Extending the mock
+
+If another module needs to test interactions that require more responses, these can be provided via an event subscriber (to the `AvPortalMockEvent` event).
+
+In the subscriber, 3 types of responses (in JSON format) can be provided:
+
+* Individual resources
+* Search results for a given term
+* A default response to replace the existing one
+
+As an example, you can see the subscriber that provides the default resources, `AvPortalMockEventSubscriber`.
+
 **Table of contents:**
 
 - [Installation](#installation)

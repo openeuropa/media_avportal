@@ -6,6 +6,7 @@ namespace Drupal\media_avportal_mock;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use GuzzleHttp\Promise\FulfilledPromise;
+use GuzzleHttp\Promise\PromiseInterface;
 use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -89,7 +90,7 @@ class AvPortalClientMiddleware {
    * @return \GuzzleHttp\Promise\PromiseInterface
    *   The Guzzle promise.
    */
-  protected function createServicePromise(RequestInterface $request) {
+  protected function createServicePromise(RequestInterface $request): PromiseInterface {
     // Dispatch event to gather the JSON data for responses.
     $event = new AvPortalMockEvent($request);
     $event = $this->eventDispatcher->dispatch(AvPortalMockEvent::AV_PORTAL_MOCK_EVENT, $event);
@@ -101,16 +102,7 @@ class AvPortalClientMiddleware {
 
     if (isset($params['ref'])) {
       // It means we are requesting a particular resource.
-      $resources = $event->getResources();
-      if (isset($resources[$params['ref']])) {
-        $resource = $resources[$params['ref']];
-        $response = new Response(200, [], $resource);
-        return new FulfilledPromise($response);
-      }
-      // If our ref is not mocked, we consider it as a not found resource.
-      $resource = $resources['not-found'];
-      $response = new Response(200, [], $resource);
-      return new FulfilledPromise($response);
+      return $this->createIndividualResourcePromise($event->getResources(), $params['ref']);
     }
 
     // If we are searching, we need to look at some search responses.
@@ -123,6 +115,48 @@ class AvPortalClientMiddleware {
       $json = $event->getDefault();
     }
 
+    return $this->createPaginatedJsonPromise($json, $params);
+  }
+
+  /**
+   * Handles the case of a request to a single resource.
+   *
+   * @param array $resources
+   *   Mocked and available resources.
+   * @param string $ref
+   *   The resource reference.
+   *
+   * @return \GuzzleHttp\Promise\FulfilledPromise
+   *   The middleware promise.
+   */
+  protected function createIndividualResourcePromise(array $resources, string $ref): PromiseInterface {
+    if (isset($resources[$ref])) {
+      $resource = $resources[$ref];
+      $response = new Response(200, [], $resource);
+      return new FulfilledPromise($response);
+    }
+
+    // If our ref is not mocked, we consider it as a not found resource.
+    $resource = $resources['not-found'];
+    $response = new Response(200, [], $resource);
+    return new FulfilledPromise($response);
+  }
+
+  /**
+   * Creates a paginated JSON response from an existing mocked JSON response.
+   *
+   * Responses with multiple resources can be paginated so this method takes
+   * care of the mocked responses to return only the relevant items.
+   *
+   * @param string $json
+   *   The mocked JSON response.
+   * @param array $params
+   *   The request parameters that contain the pagination info.
+   *
+   * @return \GuzzleHttp\Promise\FulfilledPromise
+   *   The middleware promise.
+   */
+  protected function createPaginatedJsonPromise(string $json, array $params): PromiseInterface {
     // For both default and search query, we need to account for pagination.
     $decoded = json_decode($json);
     // Index starts with 1 in AV Portal so we need to subtract 1.
