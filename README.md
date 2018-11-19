@@ -12,14 +12,15 @@ Media AV Portal adds the [European Audiovisual Services](http://ec.europa.eu/avs
   - [Project setup](#project-setup)
   - [Using Docker Compose](#using-docker-compose)
   - [Disable Drupal 8 caching](#disable-drupal-8-caching)
-- [Demo module](#demo-module)
+- [Contributing](#contributing)
+- [Versioning](#versioning)
 
 ## Installation
 
 The recommended way of installing the module is via [Composer][2].
 
 ```bash
-$ composer require drupal/media_avportal
+composer require drupal/media_avportal
 ```
 
 ### Enable the module
@@ -27,7 +28,7 @@ $ composer require drupal/media_avportal
 In order to enable the module in your project run:
 
 ```bash
-$ ./vendor/bin/drush en media_avportal -y
+./vendor/bin/drush en media_avportal -y
 ```
 
 ## Development
@@ -44,7 +45,7 @@ such as:
 Download all required PHP code by running:
 
 ```bash
-$ composer install
+composer install
 ```
 
 This will build a fully functional Drupal test site in the `./build` directory that can be used to develop and showcase
@@ -53,13 +54,7 @@ the module's functionality.
 Before setting up and installing the site make sure to customize default configuration values by copying [runner.yml.dist](runner.yml.dist)
 to `./runner.yml` and overriding relevant properties.
 
-To set up the project run:
-
-```bash
-$ ./vendor/bin/run drupal:site-setup
-```
-
-This will:
+This will also:
 
 - Symlink the theme in  `./build/modules/custom/media_avportal` so that it's available for the test site
 - Setup Drush and Drupal's settings using values from `./runner.yml.dist`. This includes adding parameters for EULogin
@@ -68,7 +63,7 @@ This will:
 After a successful setup install the site by running:
 
 ```bash
-$ ./vendor/bin/run drupal:site-install
+./vendor/bin/run drupal:site-install
 ```
 
 This will:
@@ -78,43 +73,64 @@ This will:
 
 ### Using Docker Compose
 
-The setup procedure described above can be unified and sensitively simplified by using Docker Compose.
+Alternatively, you can build a development site using [Docker](https://www.docker.com/get-docker) and 
+[Docker Compose](https://docs.docker.com/compose/) with the provided configuration.
 
-Requirements:
+Docker provides the necessary services and tools such as a web server and a database server to get the site running, 
+regardless of your local host configuration.
 
-- [Docker][8]
-- [Docker-compose][9]
+#### Requirements:
 
-Copy `docker-compose.yml.dist` into `docker-compose.override.yml`.
+- [Docker](https://www.docker.com/get-docker)
+- [Docker Compose](https://docs.docker.com/compose/)
 
-You can make any alterations you need for your local Docker setup.
+#### Configuration
+
+By default, Docker Compose reads two files, a `docker-compose.yml` and an optional `docker-compose.override.yml` file.
+By convention, the `docker-compose.yml` contains your base configuration and it's provided by default.
+The override file, as its name implies, can contain configuration overrides for existing services or entirely new 
+services.
+If a service is defined in both files, Docker Compose merges the configurations.
+
+Find more information on Docker Compose extension mechanism on [the official Docker Compose documentation](https://docs.docker.com/compose/extends/).
+
+#### Usage
 
 To start, run:
 
 ```bash
-$ docker-compose up
+docker-compose up
 ```
 
-It's advised to not daemonize `docker-compose` so you can turn it off (CTRL+C) quickly when you're done working.
-However, if you'd like to daemonize it, you can use the `-d` flag:
+It's advised to not daemonize `docker-compose` so you can turn it off (`CTRL+C`) quickly when you're done working.
+However, if you'd like to daemonize it, you have to add the flag `-d`:
 
 ```bash
-$ docker-compose up -d
+docker-compose up -d
 ```
 
 Then:
 
 ```bash
-$ docker-compose exec web composer install
-$ docker-compose exec web ./vendor/bin/run drupal:site-install
+docker-compose exec web composer install
+docker-compose exec web ./vendor/bin/run drupal:site-install
 ```
 
-Your test site will be available at [http://localhost:8080/build](http://localhost:8080/build).
+Using default configuration, the development site files should be available in the `build` directory and the development site
+should be available at: [http://127.0.0.1:8080/build](http://127.0.0.1:8080/build).
 
-Run tests as follows:
+#### Running the tests
+
+To run the grumphp checks:
 
 ```bash
-$ docker-compose exec -u www-data web ./vendor/bin/phpunit
+docker-compose exec web ./vendor/bin/grumphp run
+```
+
+To run the phpunit tests:
+
+```bash
+docker-compose exec web ./vendor/bin/phpunit
 ```
 
 ### Disable Drupal 8 caching
@@ -124,8 +140,8 @@ Manually disabling Drupal 8 caching is a laborious process that is well describe
 Alternatively you can use the following Drupal Console commands to disable/enable Drupal 8 caching:
 
 ```bash
-$ ./vendor/bin/drupal site:mode dev  # Disable all caches.
-$ ./vendor/bin/drupal site:mode prod # Enable all caches.
+./vendor/bin/drupal site:mode dev  # Disable all caches.
+./vendor/bin/drupal site:mode prod # Enable all caches.
 ```
 
 Note: to fully disable Twig caching the following additional manual steps are required:
@@ -133,7 +149,7 @@ Note: to fully disable Twig caching the following additional manual steps are re
 1. Open `./build/sites/default/services.yml`
 2. Set `cache: false` in `twig.config:` property. E.g.:
 
-```yml
+```yaml
 parameters:
  twig.config:
    cache: false
@@ -142,6 +158,14 @@ parameters:
 3. Rebuild Drupal cache: `./vendor/bin/drush cr`
 
 This is due to the following [Drupal Console issue][11].
+
+## Contributing
+
+Please read [the full documentation](https://github.com/openeuropa/openeuropa) for details on our code of conduct, and the process for submitting pull requests to us.
+
+## Versioning
+
+We use [SemVer](http://semver.org/) for versioning. For the available versions, see the [tags on this repository](https://github.com/openeuropa/media_avportal/tags).
 
 [2]: https://www.drupal.org/docs/develop/using-composer/using-composer-to-manage-drupal-site-dependencies#managing-contributed
 [3]: https://github.com/openeuropa/task-runner
