@@ -1,0 +1,10 @@
+services:
+  media_avportal_mock.client_middleware:
+    class: Drupal\media_avportal_mock\AvPortalClientMiddleware
+    arguments: ['@config.factory', '@event_dispatcher']
+    tags:
+      - { name: http_client_middleware }
+  media_avportal_mock.event_subscriber:
+    class: Drupal\media_avportal_mock\EventSubscriber\AvPortalMockEventSubscriber
+    tags:
+      - { name: event_subscriber }

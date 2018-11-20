@@ -1,0 +1,59 @@
+{
+  "responseHeader": {
+    "status": 0,
+    "QTime": 20,
+    "params": {
+      "pagesize": "15",
+      "ref": "I-163162",
+      "index": "1",
+      "hasmedia": "1",
+      "fl": "type,ref,doc_ref,titles_json,duration,shootstartdate,media_json,mediaorder_json,summary_json",
+      "proxy": "true",
+      "serverName": "wlpc0099",
+      "type": "VIDEO",
+      "wt": "json"
+    }
+  },
+  "response": {
+    "numFound": 1,
+    "start": 0,
+    "docs": [
+      {
+        "ref": "I-163162",
+        "duration": "0",
+        "titles_json": {
+          "FR": " Economic and Financial Affairs Council - Arrivals",
+          "EN": " Economic and Financial Affairs Council - Arrivals"
+        },
+        "summary_json": {
+          "FR": " Start of the arrivals",
+          "EN": " Start of the arrivals"
+        },
+        "shootstartdate": "20181106 08:12",
+        "mediaorder_json": [
+          {
+            "INT": {
+              "SUPPORTS": "WEB",
+              "TEXT": "Original",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          }
+        ],
+        "media_json": {
+          "16:9": {
+            "INT": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/02\/163162\/THUMB_M_I163162INT1W_04.jpg?latest=0006625964",
+              "HDMP4": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/02\/163162\/HD_I163162INT1W.mp4?latest=0006625970",
+              "MP3": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/02\/163162\/MP3_I163162INT1W.mp3?latest=0006625968",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/02\/163162\/THUMB_I163162INT1W_04.jpg?latest=0006625962",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/02\/163162\/LR_I163162INT1W.mp4?latest=0006625966"
+            }
+          }
+        },
+        "type": "VIDEO"
+      }
+    ]
+  }
+}
