@@ -1,2 +1,2 @@
 client_api_uri: "https://ec.europa.eu/tools/b2services/proxy/avssearch/avsportal/avshandler"
-iframe_base_uri: "http://ec.europa.eu/avservices/play.cfm"
+iframe_base_uri: "//ec.europa.eu/avservices/play.cfm"
