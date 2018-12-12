@@ -66,7 +66,8 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
 
     // Check the iframe URL.
     $iframe_url = $assert_session->elementExists('css', 'iframe')->getAttribute('src');
-    $this->assertEquals('http://ec.europa.eu/avservices/play.cfm?autoplay=true&lg=EN&ref=I-162747&sublg=none&tin=10&tout=59', $iframe_url);
+    $this->assertContains('ec.europa.eu/avservices/play.cfm', $iframe_url);
+    $this->assertContains('ref=I-162747', $iframe_url);
 
     // @todo assert the width and height of the iframe.
 
@@ -74,7 +75,7 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
     $this->drupalGet('media/1/edit');
 
     // Update the field.
-    $page->fillField('Media AV Portal Video', 'https://ec.europa.eu/avservices/video/player.cfm?sitelang=en&ref=I-163162');
+    $page->fillField('Media AV Portal Video', 'http://ec.europa.eu/avservices/video/player.cfm?sitelang=en&ref=I-163162');
     $page->pressButton('Save');
 
     // Visit the updated media content.
@@ -82,7 +83,8 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
 
     // Check the iframe URL.
     $iframe_url = $assert_session->elementExists('css', 'iframe')->getAttribute('src');
-    $this->assertEquals('http://ec.europa.eu/avservices/play.cfm?autoplay=true&lg=EN&ref=I-163162&sublg=none&tin=10&tout=59', $iframe_url);
+    $this->assertContains('ec.europa.eu/avservices/play.cfm', $iframe_url);
+    $this->assertContains('ref=I-163162', $iframe_url);
 
     // Create a media content with an invalid reference.
     $this->drupalGet('media/add/media_av_portal');
