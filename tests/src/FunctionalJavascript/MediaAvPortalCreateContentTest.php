@@ -58,7 +58,7 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
 
     // Create a media content with a valid reference.
     $this->drupalGet('media/add/media_av_portal');
-    $page->fillField('Media AV Portal Video', 'http//ec.europa.eu/avservices/play.cfm?autoplay=true&lg=EN&ref=I-162747');
+    $page->fillField('Media AV Portal Video', 'http://ec.europa.eu/avservices/play.cfm?autoplay=true&lg=EN&ref=I-162747');
     $page->pressButton('Save');
 
     // Visit the new media content.
