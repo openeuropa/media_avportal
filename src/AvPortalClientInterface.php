@@ -40,6 +40,6 @@ interface AvPortalClientInterface {
    * @return null|string
    *   The thumbnail file if it exists, null otherwise.
    */
-  public function getVideoThumbnail(AvPortalResource $resource): ?string;
+  public function getThumbnail(AvPortalResource $resource): ?string;
 
 }
