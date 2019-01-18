@@ -84,7 +84,7 @@ class AvPortalClient implements AvPortalClientInterface {
   /**
    * {@inheritdoc}
    */
-  public function getVideoThumbnail(AvPortalResource $resource): ?string {
+  public function getThumbnail(AvPortalResource $resource): ?string {
     $url = $resource->getThumbnailUrl();
 
     if ($url === NULL) {

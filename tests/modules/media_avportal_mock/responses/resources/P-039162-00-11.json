@@ -1,0 +1,52 @@
+{
+  "responseHeader": {
+    "status": 0,
+    "QTime": 17,
+    "params": {
+      "ref": "P-039162/00-11",
+      "pagesize": "15",
+      "index": "1",
+      "fl": "ref,doc_ref,titles_json,duration,shootstartdate,media_json,mediaorder_json,summary_json",
+      "proxy": "true",
+      "serverName": "wlpc0100",
+      "hasMedia": "1",
+      "wt": "json"
+    }
+  },
+  "response": {
+    "numFound": 1,
+    "start": 0,
+    "docs": [
+      {
+        "ref": "P-039162/00-11",
+        "doc_ref": "P-039162",
+        "titles_json": {
+          "FR": "Andrus Ansip, Vice-Président de la CE, s'exprime devant la plénière du Parlement européen à l'occasion du lancement de la présidence roumaine du Conseil de l'UE",
+          "EN": "Andrus Ansip Vice-President of the EC addresses the Plenary of the European Parliament on the beginning of the Romanian Presidency of the Council of the EU"
+        },
+        "summary_json": {
+          "FR": "Viorica Dăncilă, à l'avant-plan (de dos), et Andrus Ansip",
+          "EN": "Viorica Dăncilă, in the foreground (from behind), and Andrus Ansip"
+        },
+        "shootstartdate": "20190115 15:00",
+        "media_json": {
+          "MED": {
+            "PIXH": 640,
+            "PIXL": 426,
+            "PATH": "store2\/2\/P039162-732322.jpg"
+          },
+          "HIGH": {
+            "PIXH": 3522,
+            "PIXL": 2348,
+            "PATH": "store2\/2\/P039162-947497.jpg"
+          },
+          "LOW": {
+            "PIXH": 200,
+            "PIXL": 133,
+            "PATH": "store2\/2\/P039162-538037.jpg"
+          }
+        }
+      }
+    ]
+  }
+}

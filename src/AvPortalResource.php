@@ -11,6 +11,12 @@ use Drupal\Component\Utility\UrlHelper;
  */
 class AvPortalResource {
 
+
+  /**
+   * Used for building the full path of photos and thumbnails.
+   */
+  const AVPORTAL_PHOTO_URL = 'http://ec.europa.eu/avservices/avs/files/video6/repository/prod/photo/store/';
+
   /**
    * The data coming from the AV portal service for this resource.
    *
@@ -40,6 +46,16 @@ class AvPortalResource {
    */
   public function getRef(): string {
     return $this->data['ref'];
+  }
+
+  /**
+   * Get the reference.
+   *
+   * @return string
+   *   The reference.
+   */
+  public function getType(): string {
+    return $this->data['type'];
   }
 
   /**
@@ -81,11 +97,15 @@ class AvPortalResource {
     }
 
     // We default to the first aspect ratio.
-    $data = reset($this->data['media_json']);
-    if (isset($data['INT']['THUMB'])) {
-      $parsed = UrlHelper::parse($data['INT']['THUMB']);
+    $media_json = reset($this->data['media_json']);
+
+    if ($this->getType() == 'VIDEO' && isset($media_json['INT']['THUMB'])) {
+      $parsed = UrlHelper::parse($media_json['INT']['THUMB']);
 
       return $parsed['path'] ?? NULL;
+    }
+    elseif ($this->getType() == 'PHOTO' && isset($media_json['MED']['PATH'])) {
+      return self::AVPORTAL_PHOTO_URL . $media_json['MED']['PATH'];
     }
 
     return NULL;
