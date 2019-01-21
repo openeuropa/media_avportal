@@ -139,7 +139,7 @@ class MediaAvPortalBaseSource extends MediaSourceBase implements MediaAvPortalIn
    */
   public function getSourceFieldConstraints() {
     return [
-      'avportal_video_resource' => [],
+      'avportal_resource' => [],
     ];
   }
 
