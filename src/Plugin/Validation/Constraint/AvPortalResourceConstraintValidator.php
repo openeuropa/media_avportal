@@ -14,7 +14,7 @@ use Symfony\Component\Validator\ConstraintValidator;
 /**
  * Validates AvPortal resource URLs.
  */
-class AvPortalVideoResourceConstraintValidator extends ConstraintValidator implements ContainerInjectionInterface {
+class AvPortalResourceConstraintValidator extends ConstraintValidator implements ContainerInjectionInterface {
 
   /**
    * The AV portal client.
@@ -56,6 +56,7 @@ class AvPortalVideoResourceConstraintValidator extends ConstraintValidator imple
     }
 
     $reference = $source->getSourceFieldValue($media);
+    var_dump($reference);
     $resource = $this->avPortalClient->getResource($reference);
 
     if ($resource === NULL) {

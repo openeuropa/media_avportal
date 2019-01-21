@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraint;
  *   type = {"link", "string", "string_long"}
  * )
  */
-class AvPortalVideoResourceConstraint extends Constraint {
+class AvPortalResourceConstraint extends Constraint {
 
   /**
    * The error message if the URL does not match AV Portal provider.
