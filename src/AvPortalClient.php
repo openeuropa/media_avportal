@@ -51,7 +51,6 @@ class AvPortalClient implements AvPortalClientInterface {
       'wt' => 'json',
       'index' => 1,
       'pagesize' => 15,
-      'type' => 'VIDEO',
     ];
 
     try {

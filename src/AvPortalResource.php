@@ -97,11 +97,11 @@ class AvPortalResource {
     }
 
     // We default to the first aspect ratio.
-    $media_json = reset($this->data['media_json']);
+    $media_json = $this->data['media_json'];
+    $first_media_json = reset($media_json);
 
-    if ($this->getType() == 'VIDEO' && isset($media_json['INT']['THUMB'])) {
-      $parsed = UrlHelper::parse($media_json['INT']['THUMB']);
-
+    if ($this->getType() == 'VIDEO' && isset($first_media_json['INT']['THUMB'])) {
+      $parsed = UrlHelper::parse($first_media_json['INT']['THUMB']);
       return $parsed['path'] ?? NULL;
     }
     elseif ($this->getType() == 'PHOTO' && isset($media_json['MED']['PATH'])) {
