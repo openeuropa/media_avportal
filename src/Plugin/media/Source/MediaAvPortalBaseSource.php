@@ -106,6 +106,7 @@ class MediaAvPortalBaseSource extends MediaSourceBase implements MediaAvPortalIn
     return [
       'title' => $this->t('Resource title'),
       'thumbnail_uri' => $this->t('Local URI of the thumbnail'),
+      'uri' => $this->t('Photo URI'),
     ];
   }
 
@@ -126,6 +127,9 @@ class MediaAvPortalBaseSource extends MediaSourceBase implements MediaAvPortalIn
 
       case 'thumbnail_uri':
         return $this->getLocalThumbnailUri($resource) ?: parent::getMetadata($media, 'thumbnail_uri');
+
+      case 'title':
+        return $resource->getTitle();
 
       case 'title':
         return $resource->getTitle();
