@@ -4,6 +4,8 @@ declare(strict_types = 1);
 
 namespace Drupal\media_avportal\Plugin\media\Source;
 
+use Drupal\media\MediaInterface;
+
 /**
  * Provides a media source plugin for Media AV Portal resources.
  *
@@ -16,5 +18,35 @@ namespace Drupal\media_avportal\Plugin\media\Source;
  * )
  */
 class MediaAvPortalPhoto extends MediaAvPortalBaseSource {
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getMetadataAttributes(): array {
+    return [
+      'title' => $this->t('Resource title'),
+      'thumbnail_uri' => $this->t('Local URI of the thumbnail'),
+      'photo_uri' => $this->t('Photo URI'),
+    ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getMetadata(MediaInterface $media, $name) {
+    $media_ref = $this->getSourceFieldValue($media);
+    $resource = $this->avPortalClient->getResource($media_ref);
+    if (!$resource) {
+      $this->messenger->addError($this->t('The Media resource was not found.'));
+      return NULL;
+    }
+
+    switch ($name) {
+      case 'photo_uri':
+        return $resource->getPhotoUri();
+    }
+
+    return parent::getMetadata($media, $name);
+  }
 
 }
