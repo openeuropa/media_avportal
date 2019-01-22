@@ -24,14 +24,14 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Plugin implementation of the 'avportal' formatter.
  *
  * @FieldFormatter(
- *   id = "avportal",
- *   label = @Translation("AV Portal iframe"),
+ *   id = "avportal_video",
+ *   label = @Translation("AV Portal Video iframe"),
  *   field_types = {
  *     "string",
  *   },
  * )
  */
-class AvPortalFormatter extends FormatterBase implements ContainerFactoryPluginInterface {
+class AvPortalVideoFormatter extends FormatterBase implements ContainerFactoryPluginInterface {
 
   /**
    * The default width.
