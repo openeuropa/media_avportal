@@ -10,6 +10,7 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\Plugin\Field\FieldWidget\StringTextfieldWidget;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\media\Entity\MediaType;
+use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalPhoto;
 use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalVideo;
 
 /**
@@ -25,12 +26,15 @@ use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalVideo;
  */
 class AvPortalWidget extends StringTextfieldWidget {
 
+  const AVPORTAL_VIDEO = 'video';
+  const AVPORTAL_PHOTO = 'photo';
+
   /**
    * {@inheritdoc}
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
     $element = parent::formElement($items, $delta, $element, $form, $form_state);
-    $message = $this->t('You can link to media from AV Portal by entering a URL in the format https://ec.europa.eu/avservices/video/player.cfm?sitelang=en&ref=[REF]');
+    $message = $this->t('You can link to media from AV Portal by entering a URL in the formats https://ec.europa.eu/avservices/video/player.cfm?sitelang=en&ref=[REF] or https://ec.europa.eu/avservices/photo/photoDetails.cfm?sitelang=en&ref=[REF]');
 
     $element['value']['#description'] = $message;
 
@@ -45,8 +49,17 @@ class AvPortalWidget extends StringTextfieldWidget {
       [static::class, 'validate'],
     ];
 
+    $matches = [];
+
     if (!empty($element['value']['#default_value'])) {
-      $element['value']['#default_value'] = 'https://ec.europa.eu/avservices/video/player.cfm?sitelang=en&ref=' . $element['value']['#default_value'];
+      // Video.
+      if (preg_match('/I\-(\d+)/', $element['value']['#default_value'])) {
+        $element['value']['#default_value'] = 'https://ec.europa.eu/avservices/video/player.cfm?sitelang=en&ref=' . $element['value']['#default_value'];
+      }
+      // Photo.
+      elseif (preg_match('/P\-(\d+)\/(\d+)\-(\d+)/', $element['value']['#default_value'], $matches)) {
+        $element['value']['#default_value'] = 'https://ec.europa.eu/avservices/photo/photoDetails.cfm?sitelang=en&ref=' . $matches[1] . '#' . ($matches[3] - 1);
+      }
     }
 
     return $element;
@@ -58,14 +71,9 @@ class AvPortalWidget extends StringTextfieldWidget {
   public static function validate(array $element, FormStateInterface $form_state): void {
     $value = $element['value']['#value'];
 
-    $patterns = [
-      // url: http://ec.europa.eu/avservices/video/player.cfm.
-      '@ec\.europa\.eu/avservices/video/player\.cfm\?(.+)@i',
-      // url: http://ec.europa.eu/avservices/play.cfm.
-      '@ec\.europa\.eu/avservices/play\.cfm\?(.+)@i',
-    ];
+    $patterns = self::getPatterns();
 
-    foreach ($patterns as $pattern) {
+    foreach ($patterns as $pattern => $type) {
       if (preg_match($pattern, $value)) {
         return;
       }
@@ -75,24 +83,58 @@ class AvPortalWidget extends StringTextfieldWidget {
   }
 
   /**
+   * Get valid url patterns and their type.
+   *
+   * @return array
+   *   The supported patterns.
+   */
+  protected static function getPatterns() {
+    return [
+      '@ec\.europa\.eu/avservices/video/player\.cfm\?(.+)@i' => self::AVPORTAL_VIDEO,
+      '@ec\.europa\.eu/avservices/play\.cfm\?(.+)@i' => self::AVPORTAL_VIDEO,
+      '@ec\.europa\.eu/avservices/photo/photoDetails.cfm?(.+)@i' => self::AVPORTAL_PHOTO,
+    ];
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function massageFormValues(array $values, array $form, FormStateInterface $form_state) {
     return array_map(
       function (array $value) {
+
+        $patterns = self::getPatterns();
+        foreach ($patterns as $pattern => $type) {
+          if (preg_match($pattern, $value['value'])) {
+            break;
+          }
+        }
+
         $url = UrlHelper::parse($value['value']);
 
         if (!isset($url['query']['ref'])) {
           return $value;
         }
 
-        preg_match('/(\d+)/', $url['query']['ref'], $matches);
+        if ($type == self::AVPORTAL_VIDEO) {
+          preg_match('/(\d+)/', $url['query']['ref'], $matches);
 
-        // The reference should be in the format I-xxxx where x are numbers.
-        // Sometimes no dash is present, so we have to normalise the reference
-        // back.
-        if (isset($matches[0])) {
-          $value['value'] = 'I-' . $matches[0];
+          // The reference should be in the format I-xxxx where x are numbers.
+          // Sometimes no dash is present, so we have to normalise the reference
+          // back.
+          if (isset($matches[0])) {
+            $value['value'] = 'I-' . $matches[0];
+          }
+        }
+        elseif ($type == self::AVPORTAL_PHOTO) {
+          preg_match('/(\d+)/', $url['query']['ref'], $matches);
+          // The reference should be in the format P-xxxx-00-yy where xxxx and
+          // yy are numbers.
+          // Sometimes no dash is present, so we have to normalise the reference
+          // back.
+          if (isset($matches[0])) {
+            $value['value'] = 'P-' . $matches[0] . '/00-' . sprintf('%02d', $url['fragment'] + 1);
+          }
         }
 
         return $value;
@@ -111,7 +153,8 @@ class AvPortalWidget extends StringTextfieldWidget {
       return FALSE;
     }
 
-    return MediaType::load($target_bundle)->getSource() instanceof MediaAvPortalVideo;
+    $source = MediaType::load($target_bundle)->getSource();
+    return ($source instanceof MediaAvPortalVideo || $source instanceof MediaAvPortalPhoto);
   }
 
 }
