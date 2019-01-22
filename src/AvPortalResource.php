@@ -59,6 +59,16 @@ class AvPortalResource {
   }
 
   /**
+   * Get the Photo URI (for PHOTOS).
+   *
+   * @return string
+   *   The photo Uri
+   */
+  public function getPhotoUri(): string {
+    return $this->data['media_json']['HIGH']['PATH'];
+  }
+
+  /**
    * Returns the title of the resource.
    *
    * @param string $langcode
@@ -105,7 +115,7 @@ class AvPortalResource {
       return $parsed['path'] ?? NULL;
     }
     elseif ($this->getType() == 'PHOTO' && isset($media_json['MED']['PATH'])) {
-      return self::AVPORTAL_PHOTO_URL . $media_json['MED']['PATH'];
+      return self::AVPORTAL_PHOTO_URL . $media_json['HIGH']['PATH'];
     }
 
     return NULL;
