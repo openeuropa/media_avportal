@@ -56,7 +56,6 @@ class AvPortalResourceConstraintValidator extends ConstraintValidator implements
     }
 
     $reference = $source->getSourceFieldValue($media);
-    var_dump($reference);
     $resource = $this->avPortalClient->getResource($reference);
 
     if ($resource === NULL) {
