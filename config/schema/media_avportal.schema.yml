@@ -22,6 +22,14 @@ media.source.media_avportal_video:
       type: uri
       label: 'URI of thumbnail storage directory'
 
+media.source.media_avportal_photo:
+  type: media.source.field_aware
+  label: 'Media AV Portal source configuration'
+  mapping:
+    thumbnails_directory:
+      type: uri
+      label: 'URI of thumbnail storage directory'
+
 field.formatter.settings.avportal:
   type: mapping
   label: 'Media AV Portal display format settings'
