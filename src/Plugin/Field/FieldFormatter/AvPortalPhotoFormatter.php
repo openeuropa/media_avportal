@@ -173,6 +173,7 @@ class AvPortalPhotoFormatter extends FormatterBase implements ContainerFactoryPl
 
     return [
       '#theme' => 'image',
+      '#attributes' => ['class' => 'avportal-photo'],
       '#uri' => $this->config->get('photos_base_uri') . $resource->getPhotoUri(),
     ];
   }
