@@ -7,7 +7,7 @@ Media AV Portal adds the [European Audiovisual Services](http://ec.europa.eu/avs
 
 # Mock service
 
-The project also comes with a test module that provides a mock to the remote AV Portal service. Meaning that tests do not have to be run against the remote service.
+The project also comes with a test module that provides a mock to the remote AV Portal service. Meaning that tests do not have to be run against the remote service but local resources are used.
 
 ## How to use the mock
 
