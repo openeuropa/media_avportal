@@ -66,7 +66,7 @@ class AvPortalClientMiddleware {
         }
 
         // AV Portal thumbnails.
-        if ($uri->getHost() === 'defiris.ec.streamcloud.be') {
+        if ($uri->getHost() === 'defiris.ec.streamcloud.be' || strpos($uri->getPath(), 'avservices/avs/files/video6/repository/prod/photo/store/')) {
           $thumbnail = file_get_contents(drupal_get_path('module', 'media') . '/images/icons/no-thumbnail.png');
           $response = new Response(200, [], $thumbnail);
           return new FulfilledPromise($response);
@@ -100,7 +100,9 @@ class AvPortalClientMiddleware {
     $params = [];
     parse_str($query, $params);
 
+    // Replace | with / .
     if (isset($params['ref'])) {
+      $params['ref'] = str_replace('/', '|', $params['ref']);
       // It means we are requesting a particular resource.
       return $this->createIndividualResourcePromise($event->getResources(), $params['ref']);
     }
