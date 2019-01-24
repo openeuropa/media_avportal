@@ -41,12 +41,9 @@ class MediaAvPortalPhoto extends MediaAvPortalBaseSource {
       return NULL;
     }
 
-    switch ($name) {
-      case 'photo_uri':
-        return $resource->getPhotoUri();
+    if ($name == 'photo_uri') {
+      return parent::getMetadata($media, $name);
     }
-
-    return parent::getMetadata($media, $name);
   }
 
 }

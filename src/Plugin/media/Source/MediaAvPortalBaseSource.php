@@ -102,7 +102,7 @@ class MediaAvPortalBaseSource extends MediaSourceBase implements MediaAvPortalIn
   /**
    * {@inheritdoc}
    */
-  public function getMetadataAttributes(): array {
+  public function getMetadataAttributes() {
     return [
       'title' => $this->t('Resource title'),
       'thumbnail_uri' => $this->t('Local URI of the thumbnail'),
@@ -131,8 +131,6 @@ class MediaAvPortalBaseSource extends MediaSourceBase implements MediaAvPortalIn
       case 'title':
         return $resource->getTitle();
 
-      case 'title':
-        return $resource->getTitle();
     }
 
     return NULL;
