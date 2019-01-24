@@ -114,7 +114,7 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
     $user = $this->drupalCreateUser([], NULL, TRUE);
     $this->drupalLogin($user);
 
-    // Create the Media AV portal media video bundle.
+    // Create the Media AV portal media photo bundle.
     $this->drupalGet('admin/structure/media/add');
     $page->fillField('label', 'Media AV Portal Photo');
     $this->assertNotEmpty(
