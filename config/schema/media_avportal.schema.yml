@@ -30,7 +30,7 @@ media.source.media_avportal_photo:
       type: uri
       label: 'URI of thumbnail storage directory'
 
-field.formatter.settings.avportal:
+field.formatter.settings.avportal_video:
   type: mapping
   label: 'Media AV Portal display format settings'
   mapping:
