@@ -10,7 +10,7 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\Plugin\Field\FieldWidget\StringTextfieldWidget;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\media\Entity\MediaType;
-use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalInterface;
+use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalSourceInterface;
 
 /**
  * Plugin implementation of the 'avportal_textfield' widget.
@@ -99,7 +99,6 @@ class AvPortalWidget extends StringTextfieldWidget {
    * {@inheritdoc}
    */
   public function massageFormValues(array $values, array $form, FormStateInterface $form_state) {
-
     // Converts the full url used in the widget to store only the proper ref
     // in the field value.
     return array_map(
@@ -107,9 +106,10 @@ class AvPortalWidget extends StringTextfieldWidget {
 
         // Detects which pattern we are using setting its type: VIDEO or Photo.
         $patterns = self::getPatterns();
-        foreach ($patterns as $pattern => $type) {
+        $type = NULL;
+        foreach ($patterns as $pattern => $pattern_type) {
           if (preg_match($pattern, $value['value'])) {
-            break;
+            $type = $pattern_type;
           }
         }
 
@@ -157,7 +157,7 @@ class AvPortalWidget extends StringTextfieldWidget {
     }
 
     $source = MediaType::load($target_bundle)->getSource();
-    return ($source instanceof MediaAvPortalInterface);
+    return ($source instanceof MediaAvPortalSourceInterface);
   }
 
 }

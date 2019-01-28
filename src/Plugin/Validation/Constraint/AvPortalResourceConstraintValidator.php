@@ -6,7 +6,7 @@ namespace Drupal\media_avportal\Plugin\Validation\Constraint;
 
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\media_avportal\AvPortalClientInterface;
-use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalInterface;
+use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalSourceInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -48,11 +48,11 @@ class AvPortalResourceConstraintValidator extends ConstraintValidator implements
   public function validate($items, Constraint $constraint) {
     /** @var \Drupal\media\MediaInterface $media */
     $media = $items->getEntity();
-    /** @var \Drupal\media_avportal\Plugin\media\Source\MediaAvPortalVideo $source */
+    /** @var \Drupal\media_avportal\Plugin\media\Source\MediaAvPortalVideoSource $source */
     $source = $media->getSource();
 
-    if (!($source instanceof MediaAvPortalInterface)) {
-      throw new \LogicException('Media source must implement ' . MediaAvPortalInterface::class);
+    if (!($source instanceof MediaAvPortalSourceInterface)) {
+      throw new \LogicException('Media source must implement ' . MediaAvPortalSourceInterface::class);
     }
 
     $reference = $source->getSourceFieldValue($media);

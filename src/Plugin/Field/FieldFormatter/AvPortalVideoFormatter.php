@@ -17,7 +17,7 @@ use Drupal\Core\Url;
 use Drupal\media\Entity\MediaType;
 use Drupal\media_avportal\AvPortalClientInterface;
 use Drupal\media_avportal\AvPortalResource;
-use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalVideo;
+use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalVideoSource;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -198,7 +198,7 @@ class AvPortalVideoFormatter extends FormatterBase implements ContainerFactoryPl
       if ($media_type_id !== NULL) {
         $media_type = MediaType::load($media_type_id);
 
-        return $media_type && $media_type->getSource() instanceof MediaAvPortalVideo;
+        return $media_type && $media_type->getSource() instanceof MediaAvPortalVideoSource;
       }
     }
 

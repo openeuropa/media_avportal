@@ -23,7 +23,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Media Source base class for AV Portal Sources.
  */
-class MediaAvPortalBaseSource extends MediaSourceBase implements MediaAvPortalInterface {
+class MediaAvPortalSourceSourceBase extends MediaSourceBase implements MediaAvPortalSourceInterface {
 
   /**
    * The logger channel for media.
@@ -203,19 +203,8 @@ class MediaAvPortalBaseSource extends MediaSourceBase implements MediaAvPortalIn
    *   The local thumbnail URI, or NULL if it could not be downloaded, or if the
    *   resource has no thumbnail at all.
    */
-  protected function getLocalThumbnailUri(AvPortalResource $resource) {
+  protected function getLocalThumbnailUri(AvPortalResource $resource):? string {
     $remote_thumbnail_url = $resource->getThumbnailUrl();
-    return $this->importRemoteThumbnail($remote_thumbnail_url);
-  }
-
-  /**
-   * Imports remote thumbnail as an unmanaged file.
-   *
-   * @param string $remote_thumbnail_url
-   *   Remote thumbnail url.
-   */
-  protected function importRemoteThumbnail($remote_thumbnail_url = NULL) {
-
     // If there is no resource, there's nothing for us to fetch here.
     if (!$remote_thumbnail_url) {
       return NULL;
@@ -231,6 +220,22 @@ class MediaAvPortalBaseSource extends MediaSourceBase implements MediaAvPortalIn
       return $local_thumbnail_uri;
     }
 
+    return $this->importRemoteThumbnail($resource, $local_thumbnail_uri);
+  }
+
+  /**
+   * Imports a remote thumbnail as an unmanaged file.
+   *
+   * @param \Drupal\media_avportal\AvPortalResource $resource
+   *   The AV Portal resource.
+   * @param string $local_thumbnail_uri
+   *   The local thumbnail URI.
+   *
+   * @return null|string
+   *   The local thumbnail URI, or NULL if it could not be downloaded, or if the
+   *   resource has no thumbnail at all.
+   */
+  protected function importRemoteThumbnail(AvPortalResource $resource, string $local_thumbnail_uri):? string {
     // The local thumbnail doesn't exist yet, so try to download it. First,
     // ensure that the destination directory is writable, and if it's not,
     // log an error and bail out.
@@ -245,7 +250,7 @@ class MediaAvPortalBaseSource extends MediaSourceBase implements MediaAvPortalIn
     if (!$thumbnail) {
       $error_message = 'Could not download remote thumbnail from {url}.';
       $error_context = [
-        'url' => $remote_thumbnail_url,
+        'url' => $resource->getThumbnailUrl(),
       ];
       $this->logger->warning($error_message, $error_context);
       return NULL;

@@ -90,6 +90,10 @@ class AvPortalClient implements AvPortalClientInterface {
       return NULL;
     }
 
+    if (in_array($resource->getType(), ['PHOTO', 'REPORTAGE'])) {
+      $url = $this->config->get('photos_base_uri') . $url;
+    }
+
     $response = $this->httpClient->get($url);
 
     return $response->getStatusCode() === 200 ? (string) $response->getBody() : NULL;

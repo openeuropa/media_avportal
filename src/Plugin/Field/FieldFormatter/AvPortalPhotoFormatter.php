@@ -15,7 +15,7 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\media\Entity\MediaType;
 use Drupal\media_avportal\AvPortalClientInterface;
 use Drupal\media_avportal\AvPortalResource;
-use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalPhoto;
+use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalPhotoSource;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -117,12 +117,8 @@ class AvPortalPhotoFormatter extends FormatterBase implements ContainerFactoryPl
 
     if (parent::isApplicable($field_definition)) {
       $media_type_id = $field_definition->getTargetBundle();
-
-      if ($media_type_id !== NULL) {
-        $media_type = MediaType::load($media_type_id);
-
-        return $media_type && $media_type->getSource() instanceof MediaAvPortalPhoto;
-      }
+      $media_type = MediaType::load($media_type_id);
+      return $media_type && $media_type->getSource() instanceof MediaAvPortalPhotoSource;
     }
 
     return FALSE;
@@ -171,7 +167,7 @@ class AvPortalPhotoFormatter extends FormatterBase implements ContainerFactoryPl
 
     return [
       '#theme' => 'image',
-      '#attributes' => ['class' => 'avportal-photo'],
+      '#attributes' => ['class' => ['avportal-photo']],
       '#uri' => $this->config->get('photos_base_uri') . $resource->getPhotoUri(),
     ];
   }
