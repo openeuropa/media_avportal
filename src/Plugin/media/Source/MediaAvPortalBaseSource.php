@@ -106,7 +106,6 @@ class MediaAvPortalBaseSource extends MediaSourceBase implements MediaAvPortalIn
     return [
       'title' => $this->t('Resource title'),
       'thumbnail_uri' => $this->t('Local URI of the thumbnail'),
-      'uri' => $this->t('Photo URI'),
     ];
   }
 
