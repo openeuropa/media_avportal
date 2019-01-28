@@ -25,7 +25,7 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
   ];
 
   /**
-   * Tests the AV Portal media entity.
+   * Tests the AV Portal video media entity.
    */
   public function testAvPortalVideoMediaEntity(): void {
 
@@ -103,7 +103,7 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
   }
 
   /**
-   * Tests the AV Portal media entity.
+   * Tests the AV Portal photo media entity.
    */
   public function testAvPortalPhotoMediaEntity(): void {
     $session = $this->getSession();
