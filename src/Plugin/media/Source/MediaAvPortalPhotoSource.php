@@ -23,9 +23,7 @@ class MediaAvPortalPhotoSource extends MediaAvPortalSourceBase {
    * {@inheritdoc}
    */
   public function getMetadataAttributes(): array {
-    return [
-      'title' => $this->t('Resource title'),
-      'thumbnail_uri' => $this->t('Local URI of the thumbnail'),
+    return parent::getMetadataAttributes() + [
       'photo_uri' => $this->t('Photo URI'),
     ];
   }
