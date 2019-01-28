@@ -10,7 +10,9 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\Plugin\Field\FieldWidget\StringTextfieldWidget;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\media\Entity\MediaType;
+use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalPhotoSource;
 use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalSourceInterface;
+use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalVideoSource;
 
 /**
  * Plugin implementation of the 'avportal_textfield' widget.
@@ -44,9 +46,20 @@ class AvPortalWidget extends StringTextfieldWidget {
       ];
     }
 
-    $element['#element_validate'] = [
-      [static::class, 'validate'],
-    ];
+    // Custom validation depending on the type.
+    $target_bundle = $this->fieldDefinition->getTargetBundle();
+    $source = MediaType::load($target_bundle)->getSource();
+
+    if ($source instanceof MediaAvPortalPhotoSource) {
+      $element['#element_validate'] = [
+        [static::class, 'validatePhoto'],
+      ];
+    }
+    elseif ($source instanceof MediaAvPortalVideoSource) {
+      $element['#element_validate'] = [
+        [static::class, 'validateVideo'],
+      ];
+    }
 
     $matches = [];
 
@@ -67,13 +80,27 @@ class AvPortalWidget extends StringTextfieldWidget {
   /**
    * {@inheritdoc}
    */
-  public static function validate(array $element, FormStateInterface $form_state): void {
+  public static function validatePhoto(array $element, FormStateInterface $form_state, $validated_type): void {
+    self::validate($element, $form_state, self::AVPORTAL_PHOTO);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function validateVideo(array $element, FormStateInterface $form_state, $validated_type): void {
+    self::validate($element, $form_state, self::AVPORTAL_VIDEO);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function validate(array $element, FormStateInterface $form_state, $validated_type): void {
     $value = $element['value']['#value'];
 
     $patterns = self::getPatterns();
 
     foreach ($patterns as $pattern => $type) {
-      if (preg_match($pattern, $value)) {
+      if (preg_match($pattern, $value) && $type == $validated_type) {
         return;
       }
     }
