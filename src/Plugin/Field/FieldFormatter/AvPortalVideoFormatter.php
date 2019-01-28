@@ -21,7 +21,7 @@ use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalVideo;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Plugin implementation of the 'avportal' formatter.
+ * Plugin implementation of the 'avportal_video' formatter.
  *
  * @FieldFormatter(
  *   id = "avportal_video",
@@ -65,7 +65,7 @@ class AvPortalVideoFormatter extends FormatterBase implements ContainerFactoryPl
   protected $logger;
 
   /**
-   * Constructs an AvPortalFormatter instance.
+   * Constructs an AvPortalVideoFormatter instance.
    *
    * @param string $plugin_id
    *   The plugin ID for the formatter.
