@@ -10,8 +10,7 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\Plugin\Field\FieldWidget\StringTextfieldWidget;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\media\Entity\MediaType;
-use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalPhoto;
-use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalVideo;
+use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalInterface;
 
 /**
  * Plugin implementation of the 'avportal_textfield' widget.
@@ -154,7 +153,7 @@ class AvPortalWidget extends StringTextfieldWidget {
     }
 
     $source = MediaType::load($target_bundle)->getSource();
-    return ($source instanceof MediaAvPortalVideo || $source instanceof MediaAvPortalPhoto);
+    return ($source instanceof MediaAvPortalInterface);
   }
 
 }
