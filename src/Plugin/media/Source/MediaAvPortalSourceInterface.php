@@ -9,4 +9,4 @@ use Drupal\media\MediaSourceFieldConstraintsInterface;
 /**
  * Common interface for source plugins that use the AV Portal.
  */
-interface MediaAvPortalInterface extends MediaSourceFieldConstraintsInterface {}
+interface MediaAvPortalSourceInterface extends MediaSourceFieldConstraintsInterface {}

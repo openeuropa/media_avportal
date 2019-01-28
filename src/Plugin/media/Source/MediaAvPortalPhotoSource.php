@@ -17,7 +17,7 @@ use Drupal\media\MediaInterface;
  *   default_thumbnail_filename = "no-thumbnail.png",
  * )
  */
-class MediaAvPortalPhoto extends MediaAvPortalBaseSource {
+class MediaAvPortalPhotoSource extends MediaAvPortalSourceSourceBase {
 
   /**
    * {@inheritdoc}
@@ -46,14 +46,6 @@ class MediaAvPortalPhoto extends MediaAvPortalBaseSource {
     }
 
     return parent::getMetadata($media, $name);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function getLocalThumbnailUri(AvPortalResource $resource) {
-    $remote_thumbnail_url = $this->config->get('photos_base_uri') . $resource->getThumbnailUrl();
-    return $this->importRemoteThumbnail($remote_thumbnail_url);
   }
 
 }

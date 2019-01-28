@@ -15,4 +15,4 @@ namespace Drupal\media_avportal\Plugin\media\Source;
  *   default_thumbnail_filename = "no-thumbnail.png",
  * )
  */
-class MediaAvPortalVideo extends MediaAvPortalBaseSource {}
+class MediaAvPortalVideoSource extends MediaAvPortalSourceSourceBase {}
