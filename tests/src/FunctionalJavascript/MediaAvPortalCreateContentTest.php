@@ -142,13 +142,10 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
     // Visit the new media content.
     $page->clickLink('Euro with miniature figurines');
 
-    // Check the iframe URL.
-    // @todo assert the image got printed
+    // Check the image URL.
     $image_url = $assert_session->elementExists('css', 'img.avportal-photo')->getAttribute('src');
     $this->assertContains('ec.europa.eu/avservices/avs/files/video6/repository/prod/photo/store/', $image_url);
     $this->assertContains('P038924-352937.jpg', $image_url);
-
-    // @todo assert the width and height of the iframe.
 
     // Edit the newly created media.
     $this->drupalGet('media/1/edit');
