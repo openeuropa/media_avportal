@@ -99,9 +99,13 @@ class AvPortalWidget extends StringTextfieldWidget {
    * {@inheritdoc}
    */
   public function massageFormValues(array $values, array $form, FormStateInterface $form_state) {
+
+    // Converts the full url used in the widget to store only the proper ref
+    // in the field value.
     return array_map(
       function (array $value) {
 
+        // Detects which pattern we are using setting its type: VIDEO or Photo.
         $patterns = self::getPatterns();
         foreach ($patterns as $pattern => $type) {
           if (preg_match($pattern, $value['value'])) {
