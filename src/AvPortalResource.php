@@ -12,11 +12,6 @@ use Drupal\Component\Utility\UrlHelper;
 class AvPortalResource {
 
   /**
-   * Used for building the full path of photos and thumbnails.
-   */
-  const AVPORTAL_PHOTO_URL = 'http://ec.europa.eu/avservices/avs/files/video6/repository/prod/photo/store/';
-
-  /**
    * The data coming from the AV portal service for this resource.
    *
    * @var array
@@ -114,7 +109,7 @@ class AvPortalResource {
       return $parsed['path'] ?? NULL;
     }
     elseif (in_array($this->getType(), ['PHOTO', 'REPORTAGE']) && isset($media_json['MED']['PATH'])) {
-      return self::AVPORTAL_PHOTO_URL . $media_json['HIGH']['PATH'];
+      return $media_json['HIGH']['PATH'];
     }
 
     return NULL;

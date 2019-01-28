@@ -48,4 +48,12 @@ class MediaAvPortalPhoto extends MediaAvPortalBaseSource {
     return parent::getMetadata($media, $name);
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  protected function getLocalThumbnailUri(AvPortalResource $resource) {
+    $remote_thumbnail_url = $this->config->get('photos_base_uri') . $resource->getThumbnailUrl();
+    return $this->importRemoteThumbnail($remote_thumbnail_url);
+  }
+
 }

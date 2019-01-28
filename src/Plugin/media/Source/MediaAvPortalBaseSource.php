@@ -62,14 +62,17 @@ class MediaAvPortalBaseSource extends MediaSourceBase implements MediaAvPortalIn
    *   The messenger service.
    * @param \Drupal\media_avportal\AvPortalClientInterface $avPortalClient
    *   The AV Portal client.
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
+   *   The config factory.
    *
    * @SuppressWarnings(PHPMD.ExcessiveParameterList)
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_type_manager, EntityFieldManagerInterface $entity_field_manager, ConfigFactoryInterface $config_factory, FieldTypePluginManagerInterface $field_type_manager, LoggerChannelInterface $logger, MessengerInterface $messenger, AvPortalClientInterface $avPortalClient) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_type_manager, EntityFieldManagerInterface $entity_field_manager, ConfigFactoryInterface $config_factory, FieldTypePluginManagerInterface $field_type_manager, LoggerChannelInterface $logger, MessengerInterface $messenger, AvPortalClientInterface $avPortalClient, ConfigFactoryInterface $configFactory) {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $entity_type_manager, $entity_field_manager, $field_type_manager, $config_factory);
     $this->logger = $logger;
     $this->messenger = $messenger;
     $this->avPortalClient = $avPortalClient;
+    $this->config = $configFactory->get('media_avportal.settings');
   }
 
   /**
@@ -86,7 +89,8 @@ class MediaAvPortalBaseSource extends MediaSourceBase implements MediaAvPortalIn
       $container->get('plugin.manager.field.field_type'),
       $container->get('logger.factory')->get('media'),
       $container->get('messenger'),
-      $container->get('media_avportal.client')
+      $container->get('media_avportal.client'),
+      $container->get('config.factory')
     );
   }
 
@@ -200,8 +204,19 @@ class MediaAvPortalBaseSource extends MediaSourceBase implements MediaAvPortalIn
    *   resource has no thumbnail at all.
    */
   protected function getLocalThumbnailUri(AvPortalResource $resource) {
-    // If there is no resource, there's nothing for us to fetch here.
     $remote_thumbnail_url = $resource->getThumbnailUrl();
+    return $this->importRemoteThumbnail($remote_thumbnail_url);
+  }
+
+  /**
+   * Imports remote thumbnail as an unmanaged file.
+   *
+   * @param string $remote_thumbnail_url
+   *   Remote thumbnail url.
+   */
+  protected function importRemoteThumbnail($remote_thumbnail_url = NULL) {
+
+    // If there is no resource, there's nothing for us to fetch here.
     if (!$remote_thumbnail_url) {
       return NULL;
     }
