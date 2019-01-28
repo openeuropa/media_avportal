@@ -11,7 +11,6 @@ use Drupal\Component\Utility\UrlHelper;
  */
 class AvPortalResource {
 
-
   /**
    * Used for building the full path of photos and thumbnails.
    */

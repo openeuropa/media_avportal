@@ -19,7 +19,7 @@ use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalPhoto;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Plugin implementation of the 'avportal' formatter.
+ * Plugin implementation of the 'avportal_photo' formatter.
  *
  * @FieldFormatter(
  *   id = "avportal_photo",
@@ -30,7 +30,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * )
  */
 class AvPortalPhotoFormatter extends FormatterBase implements ContainerFactoryPluginInterface {
-
 
   /**
    * The AV Portal client.
@@ -54,7 +53,7 @@ class AvPortalPhotoFormatter extends FormatterBase implements ContainerFactoryPl
   protected $logger;
 
   /**
-   * Constructs an AvPortalFormatter instance.
+   * Constructs an AvPortalPhotoFormatter instance.
    *
    * @param string $plugin_id
    *   The plugin ID for the formatter.
@@ -152,7 +151,6 @@ class AvPortalPhotoFormatter extends FormatterBase implements ContainerFactoryPl
    *   The Drupal element.
    */
   protected function viewElement(FieldItemInterface $item): array {
-
     $main_property = $item->getFieldDefinition()
       ->getFieldStorageDefinition()
       ->getMainPropertyName();
