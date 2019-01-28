@@ -128,49 +128,46 @@ class AvPortalWidget extends StringTextfieldWidget {
   public function massageFormValues(array $values, array $form, FormStateInterface $form_state) {
     // Converts the full url used in the widget to store only the proper ref
     // in the field value.
-    return array_map(
-      function (array $value) {
+    foreach ($values as $value) {
 
-        // Detects which pattern we are using setting its type: VIDEO or Photo.
-        $patterns = self::getPatterns();
-        $type = NULL;
-        foreach ($patterns as $pattern => $pattern_type) {
-          if (preg_match($pattern, $value['value'])) {
-            $type = $pattern_type;
-          }
+      // Detects which pattern we are using setting its type: VIDEO or Photo.
+      $patterns = self::getPatterns();
+      $type = NULL;
+      foreach ($patterns as $pattern => $pattern_type) {
+        if (preg_match($pattern, $value['value'])) {
+          $type = $pattern_type;
         }
+      }
 
-        $url = UrlHelper::parse($value['value']);
+      $url = UrlHelper::parse($value['value']);
 
-        if (!isset($url['query']['ref'])) {
-          return $value;
-        }
-
-        if ($type == self::AVPORTAL_VIDEO) {
-          preg_match('/(\d+)/', $url['query']['ref'], $matches);
-
-          // The reference should be in the format I-xxxx where x are numbers.
-          // Sometimes no dash is present, so we have to normalise the reference
-          // back.
-          if (isset($matches[0])) {
-            $value['value'] = 'I-' . $matches[0];
-          }
-        }
-        elseif ($type == self::AVPORTAL_PHOTO) {
-          preg_match('/(\d+)/', $url['query']['ref'], $matches);
-          // The reference should be in the format P-xxxx-00-yy where xxxx and
-          // yy are numbers.
-          // Sometimes no dash is present, so we have to normalise the reference
-          // back.
-          if (isset($matches[0])) {
-            $value['value'] = 'P-' . $matches[0] . '/00-' . sprintf('%02d', $url['fragment'] + 1);
-          }
-        }
-
+      if (!isset($url['query']['ref'])) {
         return $value;
-      },
-      $values
-    );
+      }
+
+      if ($type == self::AVPORTAL_VIDEO) {
+        preg_match('/(\d+)/', $url['query']['ref'], $matches);
+
+        // The reference should be in the format I-xxxx where x are numbers.
+        // Sometimes no dash is present, so we have to normalise the reference
+        // back.
+        if (isset($matches[0])) {
+          $value['value'] = 'I-' . $matches[0];
+        }
+      }
+      elseif ($type == self::AVPORTAL_PHOTO) {
+        preg_match('/(\d+)/', $url['query']['ref'], $matches);
+        // The reference should be in the format P-xxxx-00-yy where xxxx and
+        // yy are numbers.
+        // Sometimes no dash is present, so we have to normalise the reference
+        // back.
+        if (isset($matches[0])) {
+          $value['value'] = 'P-' . $matches[0] . '/00-' . sprintf('%02d', $url['fragment'] + 1);
+        }
+      }
+
+      return $value;
+    }
   }
 
   /**
