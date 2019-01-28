@@ -17,7 +17,7 @@ use Drupal\media\MediaInterface;
  *   default_thumbnail_filename = "no-thumbnail.png",
  * )
  */
-class MediaAvPortalPhotoSource extends MediaAvPortalSourceSourceBase {
+class MediaAvPortalPhotoSource extends MediaAvPortalSourceBase {
 
   /**
    * {@inheritdoc}
