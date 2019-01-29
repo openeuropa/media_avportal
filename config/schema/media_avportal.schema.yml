@@ -12,11 +12,11 @@ media_avportal.settings:
       description: 'The base URI used in the src attribute of the iframe.'
     photos_base_uri:
       type: uri
-      label: 'iFrame base uri'
-      description: 'The base URI used in the src attribute of the iframe.'
+      label: 'Photo base uri'
+      description: 'The base URI used to in photo resources.'
 media.source.media_avportal_video:
   type: media.source.field_aware
-  label: 'Media AV Portal source configuration'
+  label: 'Media AV Portal video source configuration'
   mapping:
     thumbnails_directory:
       type: uri
@@ -24,7 +24,7 @@ media.source.media_avportal_video:
 
 media.source.media_avportal_photo:
   type: media.source.field_aware
-  label: 'Media AV Portal source configuration'
+  label: 'Media AV Portal image source configuration'
   mapping:
     thumbnails_directory:
       type: uri
