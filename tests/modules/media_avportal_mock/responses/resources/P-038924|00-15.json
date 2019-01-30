@@ -1,0 +1,53 @@
+{
+  "responseHeader": {
+    "status": 0,
+    "QTime": 18,
+    "params": {
+      "ref": "P-038924/00-15",
+      "pagesize": "15",
+      "index": "1",
+      "fl": "type,ref,doc_ref,titles_json,duration,shootstartdate,media_json,mediaorder_json,summary_json",
+      "proxy": "true",
+      "serverName": "wlpc0099",
+      "hasMedia": "1",
+      "wt": "json"
+    }
+  },
+  "response": {
+    "numFound": 1,
+    "start": 0,
+    "docs": [
+      {
+        "ref": "P-038924/00-15",
+        "doc_ref": "P-038924",
+        "titles_json": {
+          "FR": "Euro avec des figurines miniatures",
+          "EN": "Euro with miniature figurines"
+        },
+        "summary_json": {
+          "FR": "Euro avec des figurines miniatures",
+          "EN": "Euro with miniature figurines"
+        },
+        "type": "PHOTO",
+        "shootstartdate": "20181130 00:00",
+        "media_json": {
+          "MED": {
+            "PIXH": 426,
+            "PIXL": 640,
+            "PATH": "store2\/4\/P038924-35966.jpg"
+          },
+          "HIGH": {
+            "PIXH": 3455,
+            "PIXL": 5183,
+            "PATH": "store2\/4\/P038924-352937.jpg"
+          },
+          "LOW": {
+            "PIXH": 133,
+            "PIXL": 200,
+            "PATH": "store2\/4\/P038924-230558.jpg"
+          }
+        }
+      }
+    ]
+  }
+}

@@ -17,21 +17,21 @@ use Drupal\Core\Url;
 use Drupal\media\Entity\MediaType;
 use Drupal\media_avportal\AvPortalClientInterface;
 use Drupal\media_avportal\AvPortalResource;
-use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalVideo;
+use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalVideoSource;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Plugin implementation of the 'avportal' formatter.
+ * Plugin implementation of the 'avportal_video' formatter.
  *
  * @FieldFormatter(
- *   id = "avportal",
- *   label = @Translation("AV Portal iframe"),
+ *   id = "avportal_video",
+ *   label = @Translation("AV Portal Video iframe"),
  *   field_types = {
  *     "string",
  *   },
  * )
  */
-class AvPortalFormatter extends FormatterBase implements ContainerFactoryPluginInterface {
+class AvPortalVideoFormatter extends FormatterBase implements ContainerFactoryPluginInterface {
 
   /**
    * The default width.
@@ -65,7 +65,7 @@ class AvPortalFormatter extends FormatterBase implements ContainerFactoryPluginI
   protected $logger;
 
   /**
-   * Constructs an AvPortalFormatter instance.
+   * Constructs an AvPortalVideoFormatter instance.
    *
    * @param string $plugin_id
    *   The plugin ID for the formatter.
@@ -198,7 +198,7 @@ class AvPortalFormatter extends FormatterBase implements ContainerFactoryPluginI
       if ($media_type_id !== NULL) {
         $media_type = MediaType::load($media_type_id);
 
-        return $media_type && $media_type->getSource() instanceof MediaAvPortalVideo;
+        return $media_type && $media_type->getSource() instanceof MediaAvPortalVideoSource;
       }
     }
 

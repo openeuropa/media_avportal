@@ -1,0 +1,36 @@
+<?php
+
+/**
+ * @file
+ * Contains installation hooks.
+ */
+
+declare(strict_types = 1);
+
+/**
+ * Implements hook_update_N().
+ *
+ * Updates fields using previous avportal formatter.
+ */
+function media_avportal_update_8001() {
+  $properties = [
+    'targetEntityType' => 'media',
+  ];
+
+  $view_displays = \Drupal::entityManager()->getStorage('entity_view_display')->loadByProperties($properties);
+  if (!$view_displays) {
+    return;
+  }
+
+  foreach ($view_displays as $view_display) {
+    foreach ($view_display->getComponents() as $field => $component) {
+      if ($component['type'] !== 'avportal') {
+        continue;
+      }
+
+      $component['type'] = 'avportal_video';
+      $view_display->setComponent($field, $component);
+      $view_display->save();
+    }
+  }
+}

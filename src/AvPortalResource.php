@@ -43,6 +43,26 @@ class AvPortalResource {
   }
 
   /**
+   * Get the reference.
+   *
+   * @return string
+   *   The reference.
+   */
+  public function getType(): string {
+    return $this->data['type'];
+  }
+
+  /**
+   * Get the Photo URI (for PHOTOS).
+   *
+   * @return string
+   *   The photo Uri
+   */
+  public function getPhotoUri(): string {
+    return $this->data['media_json']['HIGH']['PATH'];
+  }
+
+  /**
    * Returns the title of the resource.
    *
    * @param string $langcode
@@ -81,11 +101,15 @@ class AvPortalResource {
     }
 
     // We default to the first aspect ratio.
-    $data = reset($this->data['media_json']);
-    if (isset($data['INT']['THUMB'])) {
-      $parsed = UrlHelper::parse($data['INT']['THUMB']);
+    $media_json = $this->data['media_json'];
+    $first_media_json = reset($media_json);
 
+    if ($this->getType() == 'VIDEO' && isset($first_media_json['INT']['THUMB'])) {
+      $parsed = UrlHelper::parse($first_media_json['INT']['THUMB']);
       return $parsed['path'] ?? NULL;
+    }
+    elseif (in_array($this->getType(), ['PHOTO', 'REPORTAGE']) && isset($media_json['HIGH']['PATH'])) {
+      return $media_json['HIGH']['PATH'];
     }
 
     return NULL;

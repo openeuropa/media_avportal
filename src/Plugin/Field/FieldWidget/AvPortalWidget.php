@@ -5,12 +5,17 @@ declare(strict_types = 1);
 namespace Drupal\media_avportal\Plugin\Field\FieldWidget;
 
 use Drupal\Component\Utility\UrlHelper;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\Plugin\Field\FieldWidget\StringTextfieldWidget;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\media\Entity\MediaType;
-use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalVideo;
+use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalPhotoSource;
+use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalSourceInterface;
+use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalVideoSource;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Plugin implementation of the 'avportal_textfield' widget.
@@ -23,17 +28,71 @@ use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalVideo;
  *   },
  * )
  */
-class AvPortalWidget extends StringTextfieldWidget {
+class AvPortalWidget extends StringTextfieldWidget implements ContainerFactoryPluginInterface {
+
+  const AVPORTAL_VIDEO = 'video';
+  const AVPORTAL_PHOTO = 'photo';
+
+  /**
+   * The entity type manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
+   * Constructs a AvPortalWidget object.
+   *
+   * @param string $plugin_id
+   *   The plugin_id for the widget.
+   * @param mixed $plugin_definition
+   *   The plugin implementation definition.
+   * @param \Drupal\Core\Field\FieldDefinitionInterface $field_definition
+   *   The definition of the field to which the widget is associated.
+   * @param array $settings
+   *   The widget settings.
+   * @param array $third_party_settings
+   *   Any third party settings.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
+   *   The entity type manager.
+   */
+  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, array $third_party_settings, EntityTypeManagerInterface $entityTypeManager) {
+    parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $third_party_settings);
+    $this->entityTypeManager = $entityTypeManager;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static(
+      $plugin_id,
+      $plugin_definition,
+      $configuration['field_definition'],
+      $configuration['settings'],
+      $configuration['third_party_settings'],
+      $container->get('entity_type.manager')
+    );
+  }
 
   /**
    * {@inheritdoc}
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
     $element = parent::formElement($items, $delta, $element, $form, $form_state);
-    $message = $this->t('You can link to media from AV Portal by entering a URL in the format https://ec.europa.eu/avservices/video/player.cfm?sitelang=en&ref=[REF]');
+    $target_bundle = $this->fieldDefinition->getTargetBundle();
+    $source = $this->entityTypeManager->getStorage('media_type')->load($target_bundle)->getSource();
+
+    // Element description.
+    $formats = [
+      'media_avportal_video' => 'https://ec.europa.eu/avservices/video/player.cfm?sitelang=en&ref=[REF]',
+      'media_avportal_photo' => 'https://ec.europa.eu/avservices/photo/photoDetails.cfm?sitelang=en&ref=[REF]',
+    ];
+    $message = $this->t('You can link to media from AV Portal by entering a URL in the format @format', ['@format' => $formats[$source->getPluginId()]]);
 
     $element['value']['#description'] = $message;
 
+    // Custom validation depending on the type.
     if (!empty($element['#value']['#description'])) {
       $element['value']['#description'] = [
         '#theme' => 'item_list',
@@ -41,32 +100,80 @@ class AvPortalWidget extends StringTextfieldWidget {
       ];
     }
 
-    $element['#element_validate'] = [
-      [static::class, 'validate'],
-    ];
+    if ($source instanceof MediaAvPortalPhotoSource) {
+      $element['#element_validate'] = [
+        [static::class, 'validatePhoto'],
+      ];
+    }
+    elseif ($source instanceof MediaAvPortalVideoSource) {
+      $element['#element_validate'] = [
+        [static::class, 'validateVideo'],
+      ];
+    }
+
+    $matches = [];
 
     if (!empty($element['value']['#default_value'])) {
-      $element['value']['#default_value'] = 'https://ec.europa.eu/avservices/video/player.cfm?sitelang=en&ref=' . $element['value']['#default_value'];
+      // Video.
+      if (preg_match('/I\-(\d+)/', $element['value']['#default_value'])) {
+        $element['value']['#default_value'] = 'https://ec.europa.eu/avservices/video/player.cfm?sitelang=en&ref=' . $element['value']['#default_value'];
+      }
+      // Photo.
+      elseif (preg_match('/P\-(\d+)\/(\d+)\-(\d+)/', $element['value']['#default_value'], $matches)) {
+        $element['value']['#default_value'] = 'https://ec.europa.eu/avservices/photo/photoDetails.cfm?sitelang=en&ref=' . $matches[1] . '#' . ($matches[3] - 1);
+      }
     }
 
     return $element;
   }
 
   /**
-   * {@inheritdoc}
+   * Validates the AV Portal Photo element.
+   *
+   * @param array $element
+   *   The form element.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   *
+   * @see self::formElement()
    */
-  public static function validate(array $element, FormStateInterface $form_state): void {
+  public static function validatePhoto(array $element, FormStateInterface $form_state): void {
+    self::validate($element, $form_state, self::AVPORTAL_PHOTO);
+  }
+
+  /**
+   * Validates the AV Portal Video element.
+   *
+   * @param array $element
+   *   The form element.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   *
+   * @see self::formElement()
+   */
+  public static function validateVideo(array $element, FormStateInterface $form_state): void {
+    self::validate($element, $form_state, self::AVPORTAL_VIDEO);
+  }
+
+  /**
+   * Validates the AV Portal element for a given type of resource.
+   *
+   * @param array $element
+   *   The form element.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   * @param string $element_type
+   *   The form element type being validated: photo or video.
+   *
+   * @see self::formElement()
+   */
+  public static function validate(array $element, FormStateInterface $form_state, string $element_type): void {
     $value = $element['value']['#value'];
 
-    $patterns = [
-      // url: http://ec.europa.eu/avservices/video/player.cfm.
-      '@ec\.europa\.eu/avservices/video/player\.cfm\?(.+)@i',
-      // url: http://ec.europa.eu/avservices/play.cfm.
-      '@ec\.europa\.eu/avservices/play\.cfm\?(.+)@i',
-    ];
+    $patterns = self::getPatterns();
 
-    foreach ($patterns as $pattern) {
-      if (preg_match($pattern, $value)) {
+    foreach ($patterns as $pattern => $type) {
+      if (preg_match($pattern, $value) && $type == $element_type) {
         return;
       }
     }
@@ -75,17 +182,43 @@ class AvPortalWidget extends StringTextfieldWidget {
   }
 
   /**
+   * Get valid url patterns and their type.
+   *
+   * @return array
+   *   The supported patterns.
+   */
+  protected static function getPatterns(): array {
+    return [
+      '@ec\.europa\.eu/avservices/video/player\.cfm\?(.+)@i' => self::AVPORTAL_VIDEO,
+      '@ec\.europa\.eu/avservices/play\.cfm\?(.+)@i' => self::AVPORTAL_VIDEO,
+      '@ec\.europa\.eu/avservices/photo/photoDetails.cfm?(.+)@i' => self::AVPORTAL_PHOTO,
+    ];
+  }
+
+  /**
    * {@inheritdoc}
    */
-  public function massageFormValues(array $values, array $form, FormStateInterface $form_state) {
-    return array_map(
-      function (array $value) {
-        $url = UrlHelper::parse($value['value']);
+  public function massageFormValues(array $values, array $form, FormStateInterface $form_state): array {
+    // Converts the full url used in the widget to store only the proper ref
+    // in the field value.
+    foreach ($values as $value) {
 
-        if (!isset($url['query']['ref'])) {
-          return $value;
+      // Detects which pattern we are using setting its type: VIDEO or Photo.
+      $patterns = self::getPatterns();
+      $type = NULL;
+      foreach ($patterns as $pattern => $pattern_type) {
+        if (preg_match($pattern, $value['value'])) {
+          $type = $pattern_type;
         }
+      }
 
+      $url = UrlHelper::parse($value['value']);
+
+      if (!isset($url['query']['ref'])) {
+        return $value;
+      }
+
+      if ($type == self::AVPORTAL_VIDEO) {
         preg_match('/(\d+)/', $url['query']['ref'], $matches);
 
         // The reference should be in the format I-xxxx where x are numbers.
@@ -94,24 +227,34 @@ class AvPortalWidget extends StringTextfieldWidget {
         if (isset($matches[0])) {
           $value['value'] = 'I-' . $matches[0];
         }
+      }
+      elseif ($type == self::AVPORTAL_PHOTO) {
+        preg_match('/(\d+)/', $url['query']['ref'], $matches);
+        // The reference should be in the format P-xxxx-00-yy where xxxx and
+        // yy are numbers.
+        // Sometimes no dash is present, so we have to normalise the reference
+        // back.
+        if (isset($matches[0])) {
+          $value['value'] = 'P-' . $matches[0] . '/00-' . sprintf('%02d', $url['fragment'] + 1);
+        }
+      }
 
-        return $value;
-      },
-      $values
-    );
+      return $value;
+    }
   }
 
   /**
    * {@inheritdoc}
    */
-  public static function isApplicable(FieldDefinitionInterface $field_definition) {
+  public static function isApplicable(FieldDefinitionInterface $field_definition): bool {
     $target_bundle = $field_definition->getTargetBundle();
 
     if (!$target_bundle || !parent::isApplicable($field_definition) || $field_definition->getTargetEntityTypeId() !== 'media') {
       return FALSE;
     }
 
-    return MediaType::load($target_bundle)->getSource() instanceof MediaAvPortalVideo;
+    $source = MediaType::load($target_bundle)->getSource();
+    return ($source instanceof MediaAvPortalSourceInterface);
   }
 
 }

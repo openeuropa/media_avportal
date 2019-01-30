@@ -25,9 +25,10 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
   ];
 
   /**
-   * Tests the AV Portal media entity.
+   * Tests the AV Portal video media entity.
    */
-  public function testAvPortalMediaEntity(): void {
+  public function testAvPortalVideoMediaEntity(): void {
+
     $session = $this->getSession();
     $page = $session->getPage();
     $assert_session = $this->assertSession();
@@ -36,9 +37,9 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
     $user = $this->drupalCreateUser([], NULL, TRUE);
     $this->drupalLogin($user);
 
-    // Create the Media AV portal media bundle.
+    // Create the Media AV portal media video bundle.
     $this->drupalGet('admin/structure/media/add');
-    $page->fillField('label', 'Media AV Portal');
+    $page->fillField('label', 'Media AV Portal video');
     $this->assertNotEmpty(
       $assert_session->waitForElementVisible('css', '.machine-name-value')
     );
@@ -48,16 +49,16 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
     );
     $assert_session->selectExists('Resource title')->selectOption('name');
     $page->pressButton('Save');
-    $page->hasContent('The media type Media AV Portal Test has been added.');
+    $page->hasContent('The media type Media AV Portal video Test has been added.');
 
     // Set the formatter so that we can view Media of this type.
-    $config = $this->config('core.entity_view_display.media.media_av_portal.default');
-    $config->set('content.field_media_media_avportal_video.type', 'avportal');
+    $config = $this->config('core.entity_view_display.media.media_av_portal_video.default');
+    $config->set('content.field_media_media_avportal_video.type', 'avportal_video');
     $config->set('content.field_media_media_avportal_video.settings', []);
     $config->save();
 
     // Create a media content with a valid reference.
-    $this->drupalGet('media/add/media_av_portal');
+    $this->drupalGet('media/add/media_av_portal_video');
     $page->fillField('Media AV Portal Video', 'http://ec.europa.eu/avservices/play.cfm?autoplay=true&lg=EN&ref=I-162747');
     $page->pressButton('Save');
 
@@ -87,15 +88,90 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
     $this->assertContains('ref=I-163162', $iframe_url);
 
     // Create a media content with an invalid reference.
-    $this->drupalGet('media/add/media_av_portal');
+    $this->drupalGet('media/add/media_av_portal_video');
     $page->fillField('Media AV Portal Video', 'http://ec.europa.eu/avservices/play.cfm?autoplay=true&lg=EN&ref=I-12345678987654321');
     $page->pressButton('Save');
 
     $assert_session->pageTextContains('The given URL does not match an AV Portal URL.');
 
     // Create a media content with an invalid resource URL.
-    $this->drupalGet('media/add/media_av_portal');
+    $this->drupalGet('media/add/media_av_portal_video');
     $page->fillField('Media AV Portal Video', 'http://example.com/play.cfm?autoplay=true&lg=EN&ref=I-12345678987654321');
+    $page->pressButton('Save');
+
+    $assert_session->pageTextContains('Invalid URL format specified.');
+  }
+
+  /**
+   * Tests the AV Portal photo media entity.
+   */
+  public function testAvPortalPhotoMediaEntity(): void {
+    $session = $this->getSession();
+    $page = $session->getPage();
+    $assert_session = $this->assertSession();
+
+    // Log in as an administrator.
+    $user = $this->drupalCreateUser([], NULL, TRUE);
+    $this->drupalLogin($user);
+
+    // Create the Media AV portal media photo bundle.
+    $this->drupalGet('admin/structure/media/add');
+    $page->fillField('label', 'Media AV Portal Photo');
+    $this->assertNotEmpty(
+      $assert_session->waitForElementVisible('css', '.machine-name-value')
+    );
+    $assert_session->selectExists('Media source')->selectOption('media_avportal_photo');
+    $this->assertNotEmpty(
+      $assert_session->waitForElementVisible('css', 'fieldset[data-drupal-selector="edit-source-configuration"]')
+    );
+    $assert_session->selectExists('Resource title')->selectOption('name');
+    $page->pressButton('Save');
+    $page->hasContent('The media type Media AV Portal photo Test has been added.');
+
+    // Set the formatter so that we can view Media of this type.
+    $config = $this->config('core.entity_view_display.media.media_av_portal_photo.default');
+    $config->set('content.field_media_media_avportal_photo.type', 'avportal_photo');
+    $config->set('content.field_media_media_avportal_photo.settings', []);
+    $config->save();
+
+    // Create a media content with a valid reference.
+    $this->drupalGet('media/add/media_av_portal_photo');
+    $page->fillField('Media AV Portal Photo', 'https://ec.europa.eu/avservices/photo/photoDetails.cfm?sitelang=en&ref=038924#14');
+    $page->pressButton('Save');
+
+    // Visit the new media content.
+    $page->clickLink('Euro with miniature figurines');
+
+    // Check the image URL.
+    $image_url = $assert_session->elementExists('css', 'img.avportal-photo')->getAttribute('src');
+    $this->assertContains('ec.europa.eu/avservices/avs/files/video6/repository/prod/photo/store/', $image_url);
+    $this->assertContains('P038924-352937.jpg', $image_url);
+
+    // Edit the newly created media.
+    $this->drupalGet('media/1/edit');
+
+    // Update the field.
+    $page->fillField('Media AV Portal Photo', 'https://ec.europa.eu/avservices/photo/photoDetails.cfm?sitelang=en&ref=P-039162#11');
+    $page->pressButton('Save');
+
+    // Visit the updated media content.
+    $page->clickLink('Andrus Ansip Vice-President of the EC addresses the Plenary of the European Parliament on the beginning of the Romanian Presidency of the Council of the EU');
+
+    // Check the image URL.
+    $image_url = $assert_session->elementExists('css', 'img.avportal-photo')->getAttribute('src');
+    $this->assertContains('ec.europa.eu/avservices/avs/files/video6/repository/prod/photo/store/', $image_url);
+    $this->assertContains('P039162-137797.jpg', $image_url);
+
+    // Create a media content with an invalid reference.
+    $this->drupalGet('media/add/media_av_portal_photo');
+    $page->fillField('Media AV Portal Photo', 'https://ec.europa.eu/avservices/photo/photoDetails.cfm?sitelang=en&ref=P-0391620#11');
+    $page->pressButton('Save');
+
+    $assert_session->pageTextContains('The given URL does not match an AV Portal URL.');
+
+    // Create a media content with an invalid resource URL.
+    $this->drupalGet('media/add/media_av_portal_photo');
+    $page->fillField('Media AV Portal Photo', 'https://example.com/avservices/photo/photoDetails.cfm?sitelang=en&ref=P-039162#11');
     $page->pressButton('Save');
 
     $assert_session->pageTextContains('Invalid URL format specified.');

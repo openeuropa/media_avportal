@@ -51,7 +51,6 @@ class AvPortalClient implements AvPortalClientInterface {
       'wt' => 'json',
       'index' => 1,
       'pagesize' => 15,
-      'type' => 'VIDEO',
     ];
 
     try {
@@ -84,11 +83,15 @@ class AvPortalClient implements AvPortalClientInterface {
   /**
    * {@inheritdoc}
    */
-  public function getVideoThumbnail(AvPortalResource $resource): ?string {
+  public function getThumbnail(AvPortalResource $resource): ?string {
     $url = $resource->getThumbnailUrl();
 
     if ($url === NULL) {
       return NULL;
+    }
+
+    if (in_array($resource->getType(), ['PHOTO', 'REPORTAGE'])) {
+      $url = $this->config->get('photos_base_uri') . $url;
     }
 
     $response = $this->httpClient->get($url);

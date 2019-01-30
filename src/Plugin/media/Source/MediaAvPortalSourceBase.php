@@ -21,17 +21,9 @@ use Drupal\media_avportal\AvPortalResource;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Provides a media source plugin for Media AV Portal resources.
- *
- * @MediaSource(
- *   id = "media_avportal_video",
- *   label = @Translation("Media AV Portal Video"),
- *   description = @Translation("Media AV portal Video plugin."),
- *   allowed_field_types = {"string"},
- *   default_thumbnail_filename = "no-thumbnail.png",
- * )
+ * Media Source base class for AV Portal Sources.
  */
-class MediaAvPortalVideo extends MediaSourceBase implements MediaAvPortalInterface {
+class MediaAvPortalSourceBase extends MediaSourceBase implements MediaAvPortalSourceInterface {
 
   /**
    * The logger channel for media.
@@ -70,14 +62,17 @@ class MediaAvPortalVideo extends MediaSourceBase implements MediaAvPortalInterfa
    *   The messenger service.
    * @param \Drupal\media_avportal\AvPortalClientInterface $avPortalClient
    *   The AV Portal client.
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
+   *   The config factory.
    *
    * @SuppressWarnings(PHPMD.ExcessiveParameterList)
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_type_manager, EntityFieldManagerInterface $entity_field_manager, ConfigFactoryInterface $config_factory, FieldTypePluginManagerInterface $field_type_manager, LoggerChannelInterface $logger, MessengerInterface $messenger, AvPortalClientInterface $avPortalClient) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_type_manager, EntityFieldManagerInterface $entity_field_manager, ConfigFactoryInterface $config_factory, FieldTypePluginManagerInterface $field_type_manager, LoggerChannelInterface $logger, MessengerInterface $messenger, AvPortalClientInterface $avPortalClient, ConfigFactoryInterface $configFactory) {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $entity_type_manager, $entity_field_manager, $field_type_manager, $config_factory);
     $this->logger = $logger;
     $this->messenger = $messenger;
     $this->avPortalClient = $avPortalClient;
+    $this->config = $configFactory->get('media_avportal.settings');
   }
 
   /**
@@ -94,7 +89,8 @@ class MediaAvPortalVideo extends MediaSourceBase implements MediaAvPortalInterfa
       $container->get('plugin.manager.field.field_type'),
       $container->get('logger.factory')->get('media'),
       $container->get('messenger'),
-      $container->get('media_avportal.client')
+      $container->get('media_avportal.client'),
+      $container->get('config.factory')
     );
   }
 
@@ -110,7 +106,7 @@ class MediaAvPortalVideo extends MediaSourceBase implements MediaAvPortalInterfa
   /**
    * {@inheritdoc}
    */
-  public function getMetadataAttributes(): array {
+  public function getMetadataAttributes() {
     return [
       'title' => $this->t('Resource title'),
       'thumbnail_uri' => $this->t('Local URI of the thumbnail'),
@@ -137,6 +133,7 @@ class MediaAvPortalVideo extends MediaSourceBase implements MediaAvPortalInterfa
 
       case 'title':
         return $resource->getTitle();
+
     }
 
     return NULL;
@@ -147,7 +144,7 @@ class MediaAvPortalVideo extends MediaSourceBase implements MediaAvPortalInterfa
    */
   public function getSourceFieldConstraints() {
     return [
-      'avportal_video_resource' => [],
+      'avportal_resource' => [],
     ];
   }
 
@@ -206,9 +203,9 @@ class MediaAvPortalVideo extends MediaSourceBase implements MediaAvPortalInterfa
    *   The local thumbnail URI, or NULL if it could not be downloaded, or if the
    *   resource has no thumbnail at all.
    */
-  protected function getLocalThumbnailUri(AvPortalResource $resource) {
-    // If there is no resource, there's nothing for us to fetch here.
+  protected function getLocalThumbnailUri(AvPortalResource $resource):? string {
     $remote_thumbnail_url = $resource->getThumbnailUrl();
+    // If there is no resource, there's nothing for us to fetch here.
     if (!$remote_thumbnail_url) {
       return NULL;
     }
@@ -223,6 +220,26 @@ class MediaAvPortalVideo extends MediaSourceBase implements MediaAvPortalInterfa
       return $local_thumbnail_uri;
     }
 
+    return $this->importRemoteThumbnail($resource, $local_thumbnail_uri);
+  }
+
+  /**
+   * Imports a remote thumbnail as an unmanaged file.
+   *
+   * @param \Drupal\media_avportal\AvPortalResource $resource
+   *   The AV Portal resource.
+   * @param string $local_thumbnail_uri
+   *   The local thumbnail URI.
+   *
+   * @return null|string
+   *   The local thumbnail URI, or NULL if it could not be downloaded, or if the
+   *   resource has no thumbnail at all.
+   */
+  protected function importRemoteThumbnail(AvPortalResource $resource, string $local_thumbnail_uri):? string {
+
+    $configuration = $this->getConfiguration();
+    $directory = $configuration['thumbnails_directory'];
+
     // The local thumbnail doesn't exist yet, so try to download it. First,
     // ensure that the destination directory is writable, and if it's not,
     // log an error and bail out.
@@ -233,11 +250,11 @@ class MediaAvPortalVideo extends MediaSourceBase implements MediaAvPortalInterfa
       return NULL;
     }
 
-    $thumbnail = $this->avPortalClient->getVideoThumbnail($resource);
+    $thumbnail = $this->avPortalClient->getThumbnail($resource);
     if (!$thumbnail) {
       $error_message = 'Could not download remote thumbnail from {url}.';
       $error_context = [
-        'url' => $remote_thumbnail_url,
+        'url' => $resource->getThumbnailUrl(),
       ];
       $this->logger->warning($error_message, $error_context);
       return NULL;
