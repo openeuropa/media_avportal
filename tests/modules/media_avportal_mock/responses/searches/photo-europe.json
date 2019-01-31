@@ -1,0 +1,487 @@
+{
+  "responseHeader": {
+    "status": 0,
+    "QTime": 28,
+    "params": {
+      "pagesize": "15",
+      "index": "1",
+      "fl": "type,ref,doc_ref,titles_json,duration,shootstartdate,media_json,mediaorder_json,summary_json",
+      "kwand": "europe",
+      "proxy": "true",
+      "serverName": "wlpc0099",
+      "type": "PHOTO",
+      "hasMedia": "1",
+      "wt": "json"
+    }
+  },
+  "response": {
+    "numFound": 35870,
+    "start": 0,
+    "docs": [
+      {
+        "ref": "P-039300/00-05",
+        "doc_ref": "P-039300",
+        "titles_json": {
+          "FR": "Participation de Jean-Claude Juncker, président de la CE, au débat sur  l'avenir de l'Europe avec les membres du Parlement européen",
+          "EN": "Participation of Jean-Claude Juncker, President of the EC, at debate on the future of Europe, with Members of the European Parliament "
+        },
+        "summary_json": {
+          "FR": "Jean-Claude Juncker, Jyrki Katainen, Juha Sipilä",
+          "EN": "Jean-Claude Juncker, Jyrki Katainen, Juha Sipilä"
+        },
+        "type": "PHOTO",
+        "shootstartdate": "20190131 09:00",
+        "media_json": {
+          "MED": {
+            "PIXH": 426,
+            "PIXL": 640,
+            "PATH": "store2\/0\/P039300-294231.jpg"
+          },
+          "HIGH": {
+            "PIXH": 2805,
+            "PIXL": 4208,
+            "PATH": "store2\/0\/P039300-591310.jpg"
+          },
+          "LOW": {
+            "PIXH": 133,
+            "PIXL": 200,
+            "PATH": "store2\/0\/P039300-906197.jpg"
+          }
+        }
+      },
+      {
+        "ref": "P-039300/00-11",
+        "doc_ref": "P-039300",
+        "titles_json": {
+          "FR": "Participation de Jean-Claude Juncker, président de la CE, au débat sur  l'avenir de l'Europe avec les membres du Parlement européen",
+          "EN": "Participation of Jean-Claude Juncker, President of the EC, at debate on the future of Europe, with Members of the European Parliament "
+        },
+        "summary_json": {
+          "FR": "Jean-Claude Juncker, Jyrki Katainen, Juha Sipilä",
+          "EN": "Jean-Claude Juncker, Jyrki Katainen, Juha Sipilä"
+        },
+        "type": "PHOTO",
+        "shootstartdate": "20190131 09:00",
+        "media_json": {
+          "MED": {
+            "PIXH": 426,
+            "PIXL": 640,
+            "PATH": "store2\/0\/P039300-865916.jpg"
+          },
+          "HIGH": {
+            "PIXH": 2839,
+            "PIXL": 4258,
+            "PATH": "store2\/0\/P039300-690829.jpg"
+          },
+          "LOW": {
+            "PIXH": 133,
+            "PIXL": 200,
+            "PATH": "store2\/0\/P039300-448628.jpg"
+          }
+        }
+      },
+      {
+        "ref": "P-039300/00-16",
+        "doc_ref": "P-039300",
+        "titles_json": {
+          "FR": "Participation de Jean-Claude Juncker, président de la CE, au débat sur  l'avenir de l'Europe avec les membres du Parlement européen",
+          "EN": "Participation of Jean-Claude Juncker, President of the EC, at debate on the future of Europe, with Members of the European Parliament "
+        },
+        "summary_json": {
+          "EN": "Jean-Claude Juncker, Manfred Weber"
+        },
+        "type": "PHOTO",
+        "shootstartdate": "20190131 09:00",
+        "media_json": {
+          "MED": {
+            "PIXH": 426,
+            "PIXL": 640,
+            "PATH": "store2\/0\/P039300-677135.jpg"
+          },
+          "HIGH": {
+            "PIXH": 2951,
+            "PIXL": 4427,
+            "PATH": "store2\/0\/P039300-874859.jpg"
+          },
+          "LOW": {
+            "PIXH": 133,
+            "PIXL": 200,
+            "PATH": "store2\/0\/P039300-979640.jpg"
+          }
+        }
+      },
+      {
+        "ref": "P-039300/00-01",
+        "doc_ref": "P-039300",
+        "titles_json": {
+          "FR": "Participation de Jean-Claude Juncker, président de la CE, au débat sur  l'avenir de l'Europe avec les membres du Parlement européen",
+          "EN": "Participation of Jean-Claude Juncker, President of the EC, at debate on the future of Europe, with Members of the European Parliament "
+        },
+        "summary_json": {
+          "FR": "Jean-Claude Juncker, Jyrki Katainen, Juha Sipilä",
+          "EN": "Jean-Claude Juncker, Jyrki Katainen, Juha Sipilä"
+        },
+        "type": "PHOTO",
+        "shootstartdate": "20190131 09:00",
+        "media_json": {
+          "MED": {
+            "PIXH": 426,
+            "PIXL": 640,
+            "PATH": "store2\/0\/P039300-875582.jpg"
+          },
+          "HIGH": {
+            "PIXH": 3712,
+            "PIXL": 5568,
+            "PATH": "store2\/0\/P039300-762690.jpg"
+          },
+          "LOW": {
+            "PIXH": 133,
+            "PIXL": 200,
+            "PATH": "store2\/0\/P039300-494370.jpg"
+          }
+        }
+      },
+      {
+        "ref": "P-039300/00-06",
+        "doc_ref": "P-039300",
+        "titles_json": {
+          "FR": "Participation de Jean-Claude Juncker, président de la CE, au débat sur  l'avenir de l'Europe avec les membres du Parlement européen",
+          "EN": "Participation of Jean-Claude Juncker, President of the EC, at debate on the future of Europe, with Members of the European Parliament "
+        },
+        "summary_json": {
+          "FR": "Juha Sipilä",
+          "EN": "Juha Sipilä"
+        },
+        "type": "PHOTO",
+        "shootstartdate": "20190131 09:00",
+        "media_json": {
+          "MED": {
+            "PIXH": 640,
+            "PIXL": 426,
+            "PATH": "store2\/0\/P039300-869124.jpg"
+          },
+          "HIGH": {
+            "PIXH": 5112,
+            "PIXL": 3408,
+            "PATH": "store2\/0\/P039300-863008.jpg"
+          },
+          "LOW": {
+            "PIXH": 200,
+            "PIXL": 133,
+            "PATH": "store2\/0\/P039300-706903.jpg"
+          }
+        }
+      },
+      {
+        "ref": "P-039300/00-07",
+        "doc_ref": "P-039300",
+        "titles_json": {
+          "FR": "Participation de Jean-Claude Juncker, président de la CE, au débat sur  l'avenir de l'Europe avec les membres du Parlement européen",
+          "EN": "Participation of Jean-Claude Juncker, President of the EC, at debate on the future of Europe, with Members of the European Parliament "
+        },
+        "summary_json": {
+          "FR": "Vue générale",
+          "EN": "General view"
+        },
+        "type": "PHOTO",
+        "shootstartdate": "20190131 09:00",
+        "media_json": {
+          "MED": {
+            "PIXH": 426,
+            "PIXL": 640,
+            "PATH": "store2\/0\/P039300-554592.jpg"
+          },
+          "HIGH": {
+            "PIXH": 3712,
+            "PIXL": 5568,
+            "PATH": "store2\/0\/P039300-108172.jpg"
+          },
+          "LOW": {
+            "PIXH": 133,
+            "PIXL": 200,
+            "PATH": "store2\/0\/P039300-652023.jpg"
+          }
+        }
+      },
+      {
+        "ref": "P-039300/00-15",
+        "doc_ref": "P-039300",
+        "titles_json": {
+          "FR": "Participation de Jean-Claude Juncker, président de la CE, au débat sur  l'avenir de l'Europe avec les membres du Parlement européen",
+          "EN": "Participation of Jean-Claude Juncker, President of the EC, at debate on the future of Europe, with Members of the European Parliament "
+        },
+        "summary_json": {
+          "FR": "Jean-Claude Juncker",
+          "EN": "Jean-Claude Juncker"
+        },
+        "type": "PHOTO",
+        "shootstartdate": "20190131 09:00",
+        "media_json": {
+          "MED": {
+            "PIXH": 426,
+            "PIXL": 640,
+            "PATH": "store2\/0\/P039300-539282.jpg"
+          },
+          "HIGH": {
+            "PIXH": 3712,
+            "PIXL": 5568,
+            "PATH": "store2\/0\/P039300-7740.jpg"
+          },
+          "LOW": {
+            "PIXH": 133,
+            "PIXL": 200,
+            "PATH": "store2\/0\/P039300-373313.jpg"
+          }
+        }
+      },
+      {
+        "ref": "P-039300/00-03",
+        "doc_ref": "P-039300",
+        "titles_json": {
+          "FR": "Participation de Jean-Claude Juncker, président de la CE, au débat sur  l'avenir de l'Europe avec les membres du Parlement européen",
+          "EN": "Participation of Jean-Claude Juncker, President of the EC, at debate on the future of Europe, with Members of the European Parliament "
+        },
+        "summary_json": {
+          "FR": "Jean-Claude Juncker, à gauche, et Jyrki Katainen",
+          "EN": "Jean-Claude Juncker, on the left, and Jyrki Katainen"
+        },
+        "type": "PHOTO",
+        "shootstartdate": "20190131 09:00",
+        "media_json": {
+          "MED": {
+            "PIXH": 426,
+            "PIXL": 640,
+            "PATH": "store2\/0\/P039300-990447.jpg"
+          },
+          "HIGH": {
+            "PIXH": 2466,
+            "PIXL": 3699,
+            "PATH": "store2\/0\/P039300-289894.jpg"
+          },
+          "LOW": {
+            "PIXH": 133,
+            "PIXL": 200,
+            "PATH": "store2\/0\/P039300-812589.jpg"
+          }
+        }
+      },
+      {
+        "ref": "P-039300/00-14",
+        "doc_ref": "P-039300",
+        "titles_json": {
+          "FR": "Participation de Jean-Claude Juncker, président de la CE, au débat sur  l'avenir de l'Europe avec les membres du Parlement européen",
+          "EN": "Participation of Jean-Claude Juncker, President of the EC, at debate on the future of Europe, with Members of the European Parliament "
+        },
+        "summary_json": {
+          "FR": "Jean-Claude Juncker",
+          "EN": "Jean-Claude Juncker"
+        },
+        "type": "PHOTO",
+        "shootstartdate": "20190131 09:00",
+        "media_json": {
+          "MED": {
+            "PIXH": 640,
+            "PIXL": 426,
+            "PATH": "store2\/0\/P039300-487781.jpg"
+          },
+          "HIGH": {
+            "PIXH": 5568,
+            "PIXL": 3712,
+            "PATH": "store2\/0\/P039300-530741.jpg"
+          },
+          "LOW": {
+            "PIXH": 200,
+            "PIXL": 133,
+            "PATH": "store2\/0\/P039300-70626.jpg"
+          }
+        }
+      },
+      {
+        "ref": "P-039300/00-09",
+        "doc_ref": "P-039300",
+        "titles_json": {
+          "FR": "Participation de Jean-Claude Juncker, président de la CE, au débat sur  l'avenir de l'Europe avec les membres du Parlement européen",
+          "EN": "Participation of Jean-Claude Juncker, President of the EC, at debate on the future of Europe, with Members of the European Parliament "
+        },
+        "summary_json": {
+          "FR": "Jean-Claude Juncker, à gauche, et Jyrki Katainen",
+          "EN": "Jean-Claude Juncker, on the left, and Jyrki Katainen"
+        },
+        "type": "PHOTO",
+        "shootstartdate": "20190131 09:00",
+        "media_json": {
+          "MED": {
+            "PIXH": 426,
+            "PIXL": 640,
+            "PATH": "store2\/0\/P039300-619826.jpg"
+          },
+          "HIGH": {
+            "PIXH": 3272,
+            "PIXL": 4908,
+            "PATH": "store2\/0\/P039300-859485.jpg"
+          },
+          "LOW": {
+            "PIXH": 133,
+            "PIXL": 200,
+            "PATH": "store2\/0\/P039300-835718.jpg"
+          }
+        }
+      },
+      {
+        "ref": "P-039300/00-13",
+        "doc_ref": "P-039300",
+        "titles_json": {
+          "FR": "Participation de Jean-Claude Juncker, président de la CE, au débat sur  l'avenir de l'Europe avec les membres du Parlement européen",
+          "EN": "Participation of Jean-Claude Juncker, President of the EC, at debate on the future of Europe, with Members of the European Parliament "
+        },
+        "summary_json": {
+          "FR": "Jean-Claude Juncker, à gauche, et Jyrki Katainen",
+          "EN": "Jean-Claude Juncker, on the left, and Jyrki Katainen"
+        },
+        "type": "PHOTO",
+        "shootstartdate": "20190131 09:00",
+        "media_json": {
+          "MED": {
+            "PIXH": 426,
+            "PIXL": 640,
+            "PATH": "store2\/0\/P039300-814601.jpg"
+          },
+          "HIGH": {
+            "PIXH": 3051,
+            "PIXL": 4576,
+            "PATH": "store2\/0\/P039300-743790.jpg"
+          },
+          "LOW": {
+            "PIXH": 133,
+            "PIXL": 200,
+            "PATH": "store2\/0\/P039300-680618.jpg"
+          }
+        }
+      },
+      {
+        "ref": "P-039300/00-10",
+        "doc_ref": "P-039300",
+        "titles_json": {
+          "FR": "Participation de Jean-Claude Juncker, président de la CE, au débat sur  l'avenir de l'Europe avec les membres du Parlement européen",
+          "EN": "Participation of Jean-Claude Juncker, President of the EC, at debate on the future of Europe, with Members of the European Parliament "
+        },
+        "summary_json": {
+          "FR": "Jean-Claude Juncker, à gauche, et Jyrki Katainen",
+          "EN": "Jean-Claude Juncker, on the left, and Jyrki Katainen"
+        },
+        "type": "PHOTO",
+        "shootstartdate": "20190131 09:00",
+        "media_json": {
+          "MED": {
+            "PIXH": 640,
+            "PIXL": 426,
+            "PATH": "store2\/0\/P039300-834267.jpg"
+          },
+          "HIGH": {
+            "PIXH": 5568,
+            "PIXL": 3712,
+            "PATH": "store2\/0\/P039300-508915.jpg"
+          },
+          "LOW": {
+            "PIXH": 200,
+            "PIXL": 133,
+            "PATH": "store2\/0\/P039300-358701.jpg"
+          }
+        }
+      },
+      {
+        "ref": "P-039300/00-12",
+        "doc_ref": "P-039300",
+        "titles_json": {
+          "FR": "Participation de Jean-Claude Juncker, président de la CE, au débat sur  l'avenir de l'Europe avec les membres du Parlement européen",
+          "EN": "Participation of Jean-Claude Juncker, President of the EC, at debate on the future of Europe, with Members of the European Parliament "
+        },
+        "summary_json": {
+          "FR": "Jean-Claude Juncker, à gauche, et Jyrki Katainen",
+          "EN": "Jean-Claude Juncker, on the left, and Jyrki Katainen"
+        },
+        "type": "PHOTO",
+        "shootstartdate": "20190131 09:00",
+        "media_json": {
+          "MED": {
+            "PIXH": 426,
+            "PIXL": 640,
+            "PATH": "store2\/0\/P039300-482013.jpg"
+          },
+          "HIGH": {
+            "PIXH": 2597,
+            "PIXL": 3896,
+            "PATH": "store2\/0\/P039300-922992.jpg"
+          },
+          "LOW": {
+            "PIXH": 133,
+            "PIXL": 200,
+            "PATH": "store2\/0\/P039300-435740.jpg"
+          }
+        }
+      },
+      {
+        "ref": "P-039300/00-04",
+        "doc_ref": "P-039300",
+        "titles_json": {
+          "FR": "Participation de Jean-Claude Juncker, président de la CE, au débat sur  l'avenir de l'Europe avec les membres du Parlement européen",
+          "EN": "Participation of Jean-Claude Juncker, President of the EC, at debate on the future of Europe, with Members of the European Parliament "
+        },
+        "summary_json": {
+          "FR": "Jean-Claude Juncker",
+          "EN": "Jean-Claude Juncker"
+        },
+        "type": "PHOTO",
+        "shootstartdate": "20190131 09:00",
+        "media_json": {
+          "MED": {
+            "PIXH": 426,
+            "PIXL": 640,
+            "PATH": "store2\/0\/P039300-985791.jpg"
+          },
+          "HIGH": {
+            "PIXH": 3712,
+            "PIXL": 5568,
+            "PATH": "store2\/0\/P039300-426351.jpg"
+          },
+          "LOW": {
+            "PIXH": 133,
+            "PIXL": 200,
+            "PATH": "store2\/0\/P039300-680090.jpg"
+          }
+        }
+      },
+      {
+        "ref": "P-039322/00-19",
+        "doc_ref": "P-039322",
+        "titles_json": {
+          "FR": "Conférernce de presse de Frans Timmermans, premier vice-président de la CE, et Jyrki Katainen, vice-président de la CE, sur le document de réflexion \u201C Vers une Europe durable d\u2019ici 2030\u201D",
+          "EN": "Press conference of Frans Timmermans, First Vice-President of the EC, and Jyrki Katainen, Vice-President of the EC, on the Reflection Paper 'Towards a Sustainable Europe by 2030'"
+        },
+        "summary_json": {
+          "FR": "Frans Timmermans, à gauche, et Jyrki Katainen, à droite",
+          "EN": "Frans Timmermans, on the left, and Jyrki Katainen, on the right"
+        },
+        "type": "PHOTO",
+        "shootstartdate": "20190130 12:00",
+        "media_json": {
+          "MED": {
+            "PIXH": 343,
+            "PIXL": 640,
+            "PATH": "store2\/2\/P039322-993580.jpg"
+          },
+          "HIGH": {
+            "PIXH": 1953,
+            "PIXL": 3641,
+            "PATH": "store2\/2\/P039322-633519.jpg"
+          },
+          "LOW": {
+            "PIXH": 107,
+            "PIXL": 200,
+            "PATH": "store2\/2\/P039322-963678.jpg"
+          }
+        }
+      }
+    ]
+  }
+}
