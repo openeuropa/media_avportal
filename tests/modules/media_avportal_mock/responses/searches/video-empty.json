@@ -1,0 +1,23 @@
+{
+  "responseHeader": {
+    "status": 0,
+    "QTime": 21,
+    "params": {
+      "pagesize": "15",
+      "ref": "I-12345678987654321",
+      "index": "1",
+      "hasmedia": "1",
+      "kwand": "",
+      "fl": "type,ref,doc_ref,titles_json,duration,shootstartdate,media_json,mediaorder_json,summary_json",
+      "proxy": "true",
+      "serverName": "wlpc0100",
+      "type": "VIDEO",
+      "wt": "json"
+    }
+  },
+  "response": {
+    "numFound": 0,
+    "start": 0,
+    "docs": []
+  }
+}

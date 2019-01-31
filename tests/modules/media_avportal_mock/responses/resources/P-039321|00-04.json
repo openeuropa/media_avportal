@@ -1,0 +1,53 @@
+{
+  "responseHeader": {
+    "status": 0,
+    "QTime": 18,
+    "params": {
+      "ref": "P-039321/00-04",
+      "pagesize": "15",
+      "index": "1",
+      "fl": "type,ref,doc_ref,titles_json,duration,shootstartdate,media_json,mediaorder_json,summary_json",
+      "proxy": "true",
+      "serverName": "wlpc0100",
+      "hasMedia": "1",
+      "wt": "json"
+    }
+  },
+  "response": {
+    "numFound": 1,
+    "start": 0,
+    "docs": [
+      {
+        "ref": "P-039321/00-04",
+        "doc_ref": "P-039321",
+        "titles_json": {
+          "FR": "Visite de Federica Mogherini, vice-présidente de la CE, et Johannes Hahn, membre de la CE, en Roumanie",
+          "EN": "Visit by Federica Mogherini, Vice-President of the EC, and Johannes Hahn, Member of the EC, to Romania"
+        },
+        "summary_json": {
+          "FR": "Federica Mogherini",
+          "EN": "Federica Mogherini"
+        },
+        "type": "PHOTO",
+        "shootstartdate": "20190130 17:30",
+        "media_json": {
+          "MED": {
+            "PIXH": 426,
+            "PIXL": 640,
+            "PATH": "store2\/1\/P039321-225309.jpg"
+          },
+          "HIGH": {
+            "PIXH": 3113,
+            "PIXL": 4670,
+            "PATH": "store2\/1\/P039321-615406.jpg"
+          },
+          "LOW": {
+            "PIXH": 133,
+            "PIXL": 200,
+            "PATH": "store2\/1\/P039321-605816.jpg"
+          }
+        }
+      }
+    ]
+  }
+}
