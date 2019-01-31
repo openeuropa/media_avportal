@@ -110,18 +110,20 @@ class AvPortalMockEvent extends Event {
    * @return string
    *   The default JSON.
    */
-  public function getDefault(): ?string {
-    return $this->default;
+  public function getDefault(string $type): ?string {
+    return $this->default[$type] ?? NULL;
   }
 
   /**
    * Setter.
    *
+   * @param string $type
+   *   The type.
    * @param string $default
    *   The default JSON.
    */
-  public function setDefault(string $default): void {
-    $this->default = $default;
+  public function setDefault(string $type, string $default): void {
+    $this->default[$type] = $default;
   }
 
 }
