@@ -107,21 +107,22 @@ class AvPortalClientMiddleware {
       return $this->createIndividualResourcePromise($event->getResources(), $params['ref']);
     }
 
+    $resource_type = 'all';
     if (!empty($params['type']) && $params['type'] == 'VIDEO') {
-      $search_type = 'video';
+      $resource_type = 'video';
     }
     elseif (!empty($params['type']) && $params['type'] == 'PHOTO') {
-      $search_type = 'photo';
+      $resource_type = 'photo';
     }
 
     // If we are searching, we need to look at some search responses.
     if (isset($params['kwand'])) {
       $searches = $event->getSearches();
-      $json = isset($searches[$search_type . '-' . $params['kwand']]) ? $searches[$search_type . '-' . $params['kwand']] : $searches[$search_type . '-empty'];
+      $json = isset($searches[$resource_type . '-' . $params['kwand']]) ? $searches[$resource_type . '-' . $params['kwand']] : $searches[$resource_type . '-empty'];
     }
     else {
       // Otherwise, we default to the regular response.
-      $json = $event->getDefault($search_type);
+      $json = $event->getDefault($resource_type);
     }
 
     return $this->createPaginatedJsonPromise($json, $params);

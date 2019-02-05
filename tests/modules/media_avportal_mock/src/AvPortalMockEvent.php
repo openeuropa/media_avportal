@@ -41,7 +41,7 @@ class AvPortalMockEvent extends Event {
   /**
    * The default JSON response data.
    *
-   * @var string
+   * @var array
    */
   protected $default;
 
@@ -107,22 +107,25 @@ class AvPortalMockEvent extends Event {
   /**
    * Getter.
    *
+   * @param string $type
+   *   The type of default to get.
+   *
    * @return string
    *   The default JSON.
    */
-  public function getDefault(string $type): ?string {
+  public function getDefault(string $type = 'video'): ?string {
     return $this->default[$type] ?? NULL;
   }
 
   /**
    * Setter.
    *
-   * @param string $type
-   *   The type.
    * @param string $default
    *   The default JSON.
+   * @param string $type
+   *   The type of default to set.
    */
-  public function setDefault(string $type, string $default): void {
+  public function setDefault(string $default, string $type = 'video'): void {
     $this->default[$type] = $default;
   }
 

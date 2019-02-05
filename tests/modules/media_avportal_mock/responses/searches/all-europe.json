@@ -1,0 +1,1070 @@
+{
+  "responseHeader": {
+    "status": 0,
+    "QTime": 25,
+    "params": {
+      "pagesize": "15",
+      "index": "1",
+      "hasmedia": "1",
+      "fl": "type,ref,doc_ref,titles_json,duration,shootstartdate,media_json,mediaorder_json,summary_json",
+      "kwand": "europe",
+      "proxy": "true",
+      "serverName": "wlpc0099",
+      "type": "",
+      "wt": "json"
+    }
+  },
+  "response": {
+    "numFound": 15,
+    "start": 0,
+    "docs": [
+      {
+        "ref": "I-163675",
+        "duration": "",
+        "titles_json": {
+          "FR": " Start-up Europe Award Ceremony",
+          "EN": " Start-up Europe Award Ceremony"
+        },
+        "shootstartdate": "20181115 00:00",
+        "type": "VIDEO"
+      },
+      {
+        "ref": "I-163634",
+        "duration": "269",
+        "titles_json": {
+          "FR": " EDIT \/ RECORDED Commissioner Mariya GABRIEL in Sofia, Bulgaria 1\/2",
+          "EN": " EDIT \/ RECORDED Commissioner Mariya GABRIEL in Sofia, Bulgaria 1\/2"
+        },
+        "summary_json": {
+          "FR": " Start-up Europe Summit - Start-up Europe Award Ceremony",
+          "EN": " Start-up Europe Summit - Start-up Europe Award Ceremony"
+        },
+        "shootstartdate": "20181115 00:00",
+        "mediaorder_json": [
+          {
+            "INT": {
+              "SUPPORTS": "WEB",
+              "TEXT": "Original",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          }
+        ],
+        "media_json": {
+          "16:9": {
+            "INT": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/14\/163634\/THUMB_M_I163634INT1W_5.jpg?latest=0006673870",
+              "HDMP4": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/14\/163634\/HD_I163634INT1W.mp4?latest=0006673876",
+              "MP3": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/14\/163634\/MP3_I163634INT1W.mp3?latest=0006673874",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/14\/163634\/THUMB_I163634INT1W_5.jpg?latest=0006673868",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/14\/163634\/LR_I163634INT1W.mp4?latest=0006673872"
+            }
+          }
+        },
+        "type": "VIDEO"
+      },
+      {
+        "ref": "I-163655",
+        "duration": "434.7",
+        "titles_json": {
+          "FR": " Commissioner Mariya GABRIEL in Sofia, Bulgaria 1\/2",
+          "EN": " Commissioner Mariya GABRIEL in Sofia, Bulgaria 1\/2"
+        },
+        "summary_json": {
+          "FR": " Start-up Europe Summit - Press point by Mariya GABRIEL, Member of the EC in charge of Digital Economy and Society",
+          "EN": " Start-up Europe Summit - Press point by Mariya GABRIEL, Member of the EC in charge of Digital Economy and Society"
+        },
+        "shootstartdate": "20181115 15:09",
+        "mediaorder_json": [
+          {
+            "INT": {
+              "SUPPORTS": "WEB",
+              "TEXT": "Original",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          }
+        ],
+        "media_json": {
+          "16:9": {
+            "INT": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/15\/163655\/THUMB_M_I163655INT1W_8.jpg?latest=0006673738",
+              "HDMP4": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/15\/163655\/HD_I163655INT1W.mp4?latest=0006673744",
+              "MP3": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/15\/163655\/MP3_I163655INT1W.mp3?latest=0006673742",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/15\/163655\/THUMB_I163655INT1W_8.jpg?latest=0006673736",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/15\/163655\/LR_I163655INT1W.mp4?latest=0006673740"
+            }
+          }
+        },
+        "type": "VIDEO"
+      },
+      {
+        "ref": "I-163635",
+        "duration": "139.9",
+        "titles_json": {
+          "FR": " Commissioner Mariya GABRIEL in Sofia, Bulgaria 1\/2",
+          "EN": " Commissioner Mariya GABRIEL in Sofia, Bulgaria 1\/2"
+        },
+        "summary_json": {
+          "FR": " Start-up Europe Summit - Signing Ceremony of the Joint Declaration on Reinforcing the CEE & Western Balkans Tech Entrepreneurship Ecosystems ",
+          "EN": " Start-up Europe Summit - Signing Ceremony of the Joint Declaration on Reinforcing the CEE & Western Balkans Tech Entrepreneurship Ecosystems "
+        },
+        "shootstartdate": "20181115 15:07",
+        "mediaorder_json": [
+          {
+            "INT": {
+              "SUPPORTS": "WEB",
+              "TEXT": "Original",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          }
+        ],
+        "media_json": {
+          "16:9": {
+            "INT": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/15\/163635\/THUMB_M_I163635INT1W_8.jpg?latest=0006672610",
+              "HDMP4": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/15\/163635\/HD_I163635INT1W.mp4?latest=0006672616",
+              "MP3": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/15\/163635\/MP3_I163635INT1W.mp3?latest=0006672614",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/15\/163635\/THUMB_I163635INT1W_8.jpg?latest=0006672608",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/15\/163635\/LR_I163635INT1W.mp4?latest=0006672612"
+            }
+          }
+        },
+        "type": "VIDEO"
+      },
+      {
+        "ref": "I-163600",
+        "duration": "1346.8",
+        "titles_json": {
+          "FR": " Commissioner Mariya GABRIEL in Sofia, Bulgaria 1\/2",
+          "EN": " Commissioner Mariya GABRIEL in Sofia, Bulgaria 1\/2"
+        },
+        "summary_json": {
+          "FR": " Start-up Europe Summit - keynote by  Mariya GABRIEL, Member of the EC in charge of Digital Economy and Society",
+          "EN": " Start-up Europe Summit - keynote by  Mariya GABRIEL, Member of the EC in charge of Digital Economy and Society"
+        },
+        "shootstartdate": "20181115 14:45",
+        "mediaorder_json": [
+          {
+            "INT": {
+              "SUPPORTS": "WEB",
+              "TEXT": "Original",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          }
+        ],
+        "media_json": {
+          "16:9": {
+            "INT": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/00\/163600\/THUMB_M_I163600INT1W_04.jpg?latest=0006674204",
+              "HDMP4": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/00\/163600\/HD_I163600INT1W.mp4?latest=0006674210",
+              "MP3": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/00\/163600\/MP3_I163600INT1W.mp3?latest=0006674208",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/00\/163600\/THUMB_I163600INT1W_04.jpg?latest=0006674202",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/00\/163600\/LR_I163600INT1W.mp4?latest=0006674206"
+            }
+          }
+        },
+        "type": "VIDEO"
+      },
+      {
+        "ref": "I-163636",
+        "duration": "803.3",
+        "titles_json": {
+          "FR": " Commissioner Mariya GABRIEL in Sofia, Bulgaria 2\/2",
+          "EN": " Commissioner Mariya GABRIEL in Sofia, Bulgaria 2\/2"
+        },
+        "summary_json": {
+          "FR": " Start-up Europe Summit - Closing remarks by Tomislav DONCHEV, Bulgarian Vice Prime Minister, and Mariya GABRIEL, Member of the EC in charge of Digital Economy and Society ",
+          "EN": " Start-up Europe Summit - Closing remarks by Tomislav DONCHEV, Bulgarian Vice Prime Minister, and Mariya GABRIEL, Member of the EC in charge of Digital Economy and Society "
+        },
+        "shootstartdate": "20181115 17:00",
+        "mediaorder_json": [
+          {
+            "INT": {
+              "SUPPORTS": "WEB",
+              "TEXT": "Original",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          }
+        ],
+        "media_json": {
+          "16:9": {
+            "INT": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/16\/163636\/THUMB_M_I163636INT1W_6.jpg?latest=0006674192",
+              "HDMP4": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/16\/163636\/HD_I163636INT1W.mp4?latest=0006674198",
+              "MP3": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/16\/163636\/MP3_I163636INT1W.mp3?latest=0006674196",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/16\/163636\/THUMB_I163636INT1W_6.jpg?latest=0006674190",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/16\/163636\/LR_I163636INT1W.mp4?latest=0006674194"
+            }
+          }
+        },
+        "type": "VIDEO"
+      },
+      {
+        "ref": "I-163385",
+        "duration": "247.8",
+        "titles_json": {
+          "FR": " Press conference on launch of the new website \" WHAT EUROPE DOES FOR ME\" : - extracts from the press conference",
+          "EN": " Press conference on launch of the new website \" WHAT EUROPE DOES FOR ME\" : - extracts from the press conference"
+        },
+        "shootstartdate": "20181114 13:45",
+        "mediaorder_json": [
+          {
+            "INT": {
+              "SUPPORTS": "WEB",
+              "TEXT": "Original",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          }
+        ],
+        "media_json": {
+          "16:9": {
+            "INT": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/05\/163385\/THUMB_M_I163385INT1W_2.jpg?latest=0006660372",
+              "HDMP4": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/05\/163385\/HD_I163385INT1W.mp4?latest=0006660378",
+              "MP3": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/05\/163385\/MP3_I163385INT1W.mp3?latest=0006660376",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/05\/163385\/THUMB_I163385INT1W_2.jpg?latest=0006660370",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/05\/163385\/LR_I163385INT1W.mp4?latest=0006660374"
+            }
+          }
+        },
+        "type": "VIDEO"
+      },
+      {
+        "ref": "I-163290",
+        "duration": "0",
+        "titles_json": {
+          "FR": " LIVE EP press conference Launch of the new website \" WHAT EUROPE DOES FOR ME\"",
+          "EN": " LIVE EP press conference Launch of the new website \" WHAT EUROPE DOES FOR ME\""
+        },
+        "summary_json": {
+          "FR": " Press conference by Antonio TAJANI, EP President",
+          "EN": " Press conference by Antonio TAJANI, EP President"
+        },
+        "shootstartdate": "20181114 10:09",
+        "mediaorder_json": [
+          {
+            "INT": {
+              "SUPPORTS": "WEB",
+              "TEXT": "Original",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          },
+          {
+            "EN": {
+              "SUPPORTS": "WEB",
+              "TEXT": "English",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          },
+          {
+            "FR": {
+              "SUPPORTS": "WEB",
+              "TEXT": "Français",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          },
+          {
+            "DE": {
+              "SUPPORTS": "WEB",
+              "TEXT": "Deutsch",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          },
+          {
+            "IT": {
+              "SUPPORTS": "WEB",
+              "TEXT": "Italiano",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          },
+          {
+            "ES": {
+              "SUPPORTS": "WEB",
+              "TEXT": "Espanol",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          },
+          {
+            "EL": {
+              "SUPPORTS": "WEB",
+              "TEXT": "Ελληνικά",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          },
+          {
+            "PL": {
+              "SUPPORTS": "WEB",
+              "TEXT": "Polski",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          }
+        ],
+        "media_json": {
+          "16:9": {
+            "PL": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/10\/163290\/THUMB_M_I163290INT1W_08.jpg?latest=0006657490",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/10\/163290\/THUMB_I163290INT1W_08.jpg?latest=0006657488",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/10\/163290\/LR_I163290PL1W.mp4?latest=0006657492"
+            },
+            "FR": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/10\/163290\/THUMB_M_I163290INT1W_08.jpg?latest=0006657450",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/10\/163290\/THUMB_I163290INT1W_08.jpg?latest=0006657448",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/10\/163290\/LR_I163290FR1W.mp4?latest=0006657452"
+            },
+            "EN": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/10\/163290\/THUMB_M_I163290INT1W_08.jpg?latest=0006657430",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/10\/163290\/THUMB_I163290INT1W_08.jpg?latest=0006657428",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/10\/163290\/LR_I163290EN1W.mp4?latest=0006657432"
+            },
+            "INT": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/10\/163290\/THUMB_M_I163290INT1W_08.jpg?latest=0006657462",
+              "HDMP4": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/10\/163290\/HD_I163290INT1W.mp4?latest=0006657470",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/10\/163290\/THUMB_I163290INT1W_08.jpg?latest=0006657458",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/10\/163290\/LR_I163290INT1W.mp4?latest=0006657464"
+            },
+            "ES": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/10\/163290\/THUMB_M_I163290INT1W_08.jpg?latest=0006657440",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/10\/163290\/THUMB_I163290INT1W_08.jpg?latest=0006657438",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/10\/163290\/LR_I163290ES1W.mp4?latest=0006657442"
+            },
+            "DE": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/10\/163290\/THUMB_M_I163290INT1W_08.jpg?latest=0006657420",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/10\/163290\/THUMB_I163290INT1W_08.jpg?latest=0006657418",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/10\/163290\/LR_I163290DE1W.mp4?latest=0006657422"
+            },
+            "IT": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/10\/163290\/THUMB_M_I163290INT1W_08.jpg?latest=0006657480",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/10\/163290\/THUMB_I163290INT1W_08.jpg?latest=0006657478",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/10\/163290\/LR_I163290IT1W.mp4?latest=0006657482"
+            },
+            "EL": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/10\/163290\/THUMB_M_I163290INT1W_08.jpg?latest=0006659549",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/10\/163290\/THUMB_I163290INT1W_08.jpg?latest=0006659547",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/10\/163290\/LR_I163290EL1W.mp4?latest=0006659551"
+            }
+          }
+        },
+        "type": "VIDEO"
+      },
+      {
+        "ref": "I-163299",
+        "duration": "2515.3",
+        "titles_json": {
+          "FR": " Crisis group's 2018 Watch List Policy Dialogue Day",
+          "EN": " Crisis group's 2018 Watch List Policy Dialogue Day"
+        },
+        "summary_json": {
+          "FR": " Session I Plenary - The EU as a Global peace actor Speakers - Federica MOGHERINI, High Representative of the Union for Foreign Affairs and Security Policy and Vice-President of the EC - Robert MALLEY, President and CEO at the International Crisis Group Moderator Rosa BALFOUR, Senior Fellow, Europe program, The German Marshall Fund of the United States",
+          "EN": " Session I Plenary - The EU as a Global peace actor Speakers - Federica MOGHERINI, High Representative of the Union for Foreign Affairs and Security Policy and Vice-President of the EC - Robert MALLEY, President and CEO at the International Crisis Group Moderator Rosa BALFOUR, Senior Fellow, Europe program, The German Marshall Fund of the United States"
+        },
+        "shootstartdate": "20181114 12:55",
+        "mediaorder_json": [
+          {
+            "INT": {
+              "SUPPORTS": "WEB",
+              "TEXT": "Original",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          }
+        ],
+        "media_json": {
+          "16:9": {
+            "INT": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/19\/163299\/THUMB_M_I163299INT1W_8.jpg?latest=0006659683",
+              "HDMP4": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/19\/163299\/HD_I163299INT1W.mp4?latest=0006659689",
+              "MP3": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/19\/163299\/MP3_I163299INT1W.mp3?latest=0006659687",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/19\/163299\/THUMB_I163299INT1W_8.jpg?latest=0006659681",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/19\/163299\/LR_I163299INT1W.mp4?latest=0006659685"
+            }
+          }
+        },
+        "type": "VIDEO"
+      },
+      {
+        "ref": "I-162933",
+        "duration": "1622.1",
+        "titles_json": {
+          "FR": " LIVE EP Plenary session Debate with Angela MERKEL, Chancellor of Germany on the Future of Europe ",
+          "EN": " LIVE EP Plenary session Debate with Angela MERKEL, Chancellor of Germany on the Future of Europe "
+        },
+        "summary_json": {
+          "FR": " Opening statement by Angela MERKEL, Chancellor of Germany on the Future of Europe ",
+          "EN": " Opening statement by Angela MERKEL, Chancellor of Germany on the Future of Europe "
+        },
+        "shootstartdate": "20181113 00:00",
+        "mediaorder_json": [
+          {
+            "INT": {
+              "SUPPORTS": "WEB",
+              "TEXT": "Original",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          },
+          {
+            "EN": {
+              "SUPPORTS": "WEB",
+              "TEXT": "English",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          },
+          {
+            "FR": {
+              "SUPPORTS": "WEB",
+              "TEXT": "Français",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          },
+          {
+            "DE": {
+              "SUPPORTS": "WEB",
+              "TEXT": "Deutsch",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          },
+          {
+            "IT": {
+              "SUPPORTS": "WEB",
+              "TEXT": "Italiano",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          },
+          {
+            "ES": {
+              "SUPPORTS": "WEB",
+              "TEXT": "Espanol",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          },
+          {
+            "EL": {
+              "SUPPORTS": "WEB",
+              "TEXT": "Ελληνικά",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          },
+          {
+            "PT": {
+              "SUPPORTS": "WEB",
+              "TEXT": "Português",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          },
+          {
+            "NL": {
+              "SUPPORTS": "WEB",
+              "TEXT": "Nederlands",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          },
+          {
+            "DA": {
+              "SUPPORTS": "WEB",
+              "TEXT": "Dansk",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          },
+          {
+            "FI": {
+              "SUPPORTS": "WEB",
+              "TEXT": "Suomi",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          },
+          {
+            "SV": {
+              "SUPPORTS": "WEB",
+              "TEXT": "Svenska",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          },
+          {
+            "CS": {
+              "SUPPORTS": "WEB",
+              "TEXT": "Čeština",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          },
+          {
+            "ET": {
+              "SUPPORTS": "WEB",
+              "TEXT": "Eesti",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          },
+          {
+            "LV": {
+              "SUPPORTS": "WEB",
+              "TEXT": "Latviešu",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          },
+          {
+            "LT": {
+              "SUPPORTS": "WEB",
+              "TEXT": "Lietuvių",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          },
+          {
+            "HU": {
+              "SUPPORTS": "WEB",
+              "TEXT": "Magyar",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          },
+          {
+            "MT": {
+              "SUPPORTS": "WEB",
+              "TEXT": "Malti",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          },
+          {
+            "PL": {
+              "SUPPORTS": "WEB",
+              "TEXT": "Polski",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          },
+          {
+            "SK": {
+              "SUPPORTS": "WEB",
+              "TEXT": "Slovenčina",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          },
+          {
+            "SL": {
+              "SUPPORTS": "WEB",
+              "TEXT": "Slovenščina",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          },
+          {
+            "BG": {
+              "SUPPORTS": "WEB",
+              "TEXT": "български",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          },
+          {
+            "RO": {
+              "SUPPORTS": "WEB",
+              "TEXT": "Română",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          },
+          {
+            "HR": {
+              "SUPPORTS": "WEB",
+              "TEXT": "Hrvatski",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          }
+        ],
+        "media_json": {
+          "16:9": {
+            "LV": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/THUMB_M_I162933INT1W_07.jpg?latest=0006649680",
+              "MP3": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/MP3_I162933LV1W.mp3?latest=0006649684",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/THUMB_I162933INT1W_07.jpg?latest=0006649678",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/LR_I162933LV1W.mp4?latest=0006649682"
+            },
+            "LT": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/THUMB_M_I162933INT1W_07.jpg?latest=0006649670",
+              "MP3": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/MP3_I162933LT1W.mp3?latest=0006649674",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/THUMB_I162933INT1W_07.jpg?latest=0006649668",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/LR_I162933LT1W.mp4?latest=0006649672"
+            },
+            "CS": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/THUMB_M_I162933INT1W_07.jpg?latest=0006649400",
+              "MP3": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/MP3_I162933CS1W.mp3?latest=0006649404",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/THUMB_I162933INT1W_07.jpg?latest=0006649398",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/LR_I162933CS1W.mp4?latest=0006649402"
+            },
+            "HR": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/THUMB_M_I162933INT1W_07.jpg?latest=0006649832",
+              "MP3": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/MP3_I162933HR1W.mp3?latest=0006649838",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/THUMB_I162933INT1W_07.jpg?latest=0006649828",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/LR_I162933HR1W.mp4?latest=0006649834"
+            },
+            "SL": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/THUMB_M_I162933INT1W_07.jpg?latest=0006649860",
+              "MP3": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/MP3_I162933SL1W.mp3?latest=0006649864",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/THUMB_I162933INT1W_07.jpg?latest=0006649858",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/LR_I162933SL1W.mp4?latest=0006649862"
+            },
+            "SK": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/THUMB_M_I162933INT1W_07.jpg?latest=0006649712",
+              "MP3": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/MP3_I162933SK1W.mp3?latest=0006649718",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/THUMB_I162933INT1W_07.jpg?latest=0006649708",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/LR_I162933SK1W.mp4?latest=0006649714"
+            },
+            "DA": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/THUMB_M_I162933INT1W_07.jpg?latest=0006649412",
+              "MP3": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/MP3_I162933DA1W.mp3?latest=0006649418",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/THUMB_I162933INT1W_07.jpg?latest=0006649408",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/LR_I162933DA1W.mp4?latest=0006649414"
+            },
+            "RO": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/THUMB_M_I162933INT1W_07.jpg?latest=0006649850",
+              "MP3": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/MP3_I162933RO1W.mp3?latest=0006649854",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/THUMB_I162933INT1W_07.jpg?latest=0006649848",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/LR_I162933RO1W.mp4?latest=0006649852"
+            },
+            "IT": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/THUMB_M_I162933INT1W_07.jpg?latest=0006649510",
+              "MP3": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/MP3_I162933IT1W.mp3?latest=0006649514",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/THUMB_I162933INT1W_07.jpg?latest=0006649508",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/LR_I162933IT1W.mp4?latest=0006649512"
+            },
+            "MT": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/THUMB_M_I162933INT1W_07.jpg?latest=0006649690",
+              "MP3": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/MP3_I162933MT1W.mp3?latest=0006649694",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/THUMB_I162933INT1W_07.jpg?latest=0006649688",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/LR_I162933MT1W.mp4?latest=0006649692"
+            },
+            "HU": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/THUMB_M_I162933INT1W_07.jpg?latest=0006649652",
+              "MP3": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/MP3_I162933HU1W.mp3?latest=0006649658",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/THUMB_I162933INT1W_07.jpg?latest=0006649648",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/LR_I162933HU1W.mp4?latest=0006649654"
+            },
+            "PT": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/THUMB_M_I162933INT1W_07.jpg?latest=0006649532",
+              "MP3": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/MP3_I162933PT1W.mp3?latest=0006649538",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/THUMB_I162933INT1W_07.jpg?latest=0006649528",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/LR_I162933PT1W.mp4?latest=0006649535"
+            },
+            "PL": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/THUMB_M_I162933INT1W_07.jpg?latest=0006649700",
+              "MP3": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/MP3_I162933PL1W.mp3?latest=0006649704",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/THUMB_I162933INT1W_07.jpg?latest=0006649698",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/LR_I162933PL1W.mp4?latest=0006649702"
+            },
+            "FR": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/THUMB_M_I162933INT1W_07.jpg?latest=0006649490",
+              "MP3": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/MP3_I162933FR1W.mp3?latest=0006649494",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/THUMB_I162933INT1W_07.jpg?latest=0006649488",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/LR_I162933FR1W.mp4?latest=0006649492"
+            },
+            "BG": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/THUMB_M_I162933INT1W_07.jpg?latest=0006649820",
+              "MP3": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/MP3_I162933BG1W.mp3?latest=0006649824",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/THUMB_I162933INT1W_07.jpg?latest=0006649818",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/LR_I162933BG1W.mp4?latest=0006649822"
+            },
+            "SV": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/THUMB_M_I162933INT1W_07.jpg?latest=0006649550",
+              "MP3": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/MP3_I162933SV1W.mp3?latest=0006649554",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/THUMB_I162933INT1W_07.jpg?latest=0006649548",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/LR_I162933SV1W.mp4?latest=0006649552"
+            },
+            "EN": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/THUMB_M_I162933INT1W_07.jpg?latest=0006649450",
+              "MP3": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/MP3_I162933EN1W.mp3?latest=0006649454",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/THUMB_I162933INT1W_07.jpg?latest=0006649448",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/LR_I162933EN1W.mp4?latest=0006649452"
+            },
+            "ET": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/THUMB_M_I162933INT1W_07.jpg?latest=0006649640",
+              "MP3": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/MP3_I162933ET1W.mp3?latest=0006649644",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/THUMB_I162933INT1W_07.jpg?latest=0006649638",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/LR_I162933ET1W.mp4?latest=0006649642"
+            },
+            "INT": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/THUMB_M_I162933INT1W_07.jpg?latest=0006651085",
+              "HDMP4": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/HD_I162933INT1W.mp4?latest=0006651091",
+              "MP3": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/MP3_I162933INT1W.mp3?latest=0006651089",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/THUMB_I162933INT1W_07.jpg?latest=0006651083",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/LR_I162933INT1W.mp4?latest=0006651087"
+            },
+            "ES": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/THUMB_M_I162933INT1W_07.jpg?latest=0006649460",
+              "MP3": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/MP3_I162933ES1W.mp3?latest=0006649464",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/THUMB_I162933INT1W_07.jpg?latest=0006649458",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/LR_I162933ES1W.mp4?latest=0006649462"
+            },
+            "NL": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/THUMB_M_I162933INT1W_07.jpg?latest=0006649520",
+              "MP3": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/MP3_I162933NL1W.mp3?latest=0006649524",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/THUMB_I162933INT1W_07.jpg?latest=0006649518",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/LR_I162933NL1W.mp4?latest=0006649522"
+            },
+            "DE": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/THUMB_M_I162933INT1W_07.jpg?latest=0006649430",
+              "MP3": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/MP3_I162933DE1W.mp3?latest=0006649434",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/THUMB_I162933INT1W_07.jpg?latest=0006649428",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/LR_I162933DE1W.mp4?latest=0006649432"
+            },
+            "EL": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/THUMB_M_I162933INT1W_07.jpg?latest=0006649440",
+              "MP3": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/MP3_I162933EL1W.mp3?latest=0006649444",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/THUMB_I162933INT1W_07.jpg?latest=0006649438",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/LR_I162933EL1W.mp4?latest=0006649442"
+            },
+            "FI": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/THUMB_M_I162933INT1W_07.jpg?latest=0006649472",
+              "MP3": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/MP3_I162933FI1W.mp3?latest=0006649478",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/THUMB_I162933INT1W_07.jpg?latest=0006649468",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/13\/162933\/LR_I162933FI1W.mp4?latest=0006649474"
+            }
+          }
+        },
+        "type": "VIDEO"
+      },
+      {
+        "ref": "I-163252",
+        "duration": "187.6",
+        "titles_json": {
+          "FR": " Debate with Angela MERKEL, Chancellor of Germany on the Future of Europe: - extracts from the MEPs debate",
+          "EN": " Debate with Angela MERKEL, Chancellor of Germany on the Future of Europe: - extracts from the MEPs debate"
+        },
+        "shootstartdate": "20181113 00:00",
+        "mediaorder_json": [
+          {
+            "INT": {
+              "SUPPORTS": "WEB",
+              "TEXT": "Original",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          }
+        ],
+        "media_json": {
+          "16:9": {
+            "INT": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/12\/163252\/THUMB_M_I163252INT1W_3.jpg?latest=0006652035",
+              "HDMP4": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/12\/163252\/HD_I163252INT1W.mp4?latest=0006652041",
+              "MP3": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/12\/163252\/MP3_I163252INT1W.mp3?latest=0006652039",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/12\/163252\/THUMB_I163252INT1W_3.jpg?latest=0006652033",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/12\/163252\/LR_I163252INT1W.mp4?latest=0006652037"
+            }
+          }
+        },
+        "type": "VIDEO"
+      },
+      {
+        "ref": "I-162938",
+        "duration": "0",
+        "titles_json": {
+          "FR": " LIVE EP Plenary session Debate with Angela MERKEL, Chancellor of Germany on the Future of Europe ",
+          "EN": " LIVE EP Plenary session Debate with Angela MERKEL, Chancellor of Germany on the Future of Europe "
+        },
+        "summary_json": {
+          "FR": " Catch the eye ",
+          "EN": " Catch the eye "
+        },
+        "shootstartdate": "20181113 00:00",
+        "mediaorder_json": [
+          {
+            "INT": {
+              "SUPPORTS": "WEB",
+              "TEXT": "Original",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          },
+          {
+            "EN": {
+              "SUPPORTS": "WEB",
+              "TEXT": "English",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          },
+          {
+            "FR": {
+              "SUPPORTS": "WEB",
+              "TEXT": "Français",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          },
+          {
+            "DE": {
+              "SUPPORTS": "WEB",
+              "TEXT": "Deutsch",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          },
+          {
+            "IT": {
+              "SUPPORTS": "WEB",
+              "TEXT": "Italiano",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          },
+          {
+            "ES": {
+              "SUPPORTS": "WEB",
+              "TEXT": "Espanol",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          },
+          {
+            "EL": {
+              "SUPPORTS": "WEB",
+              "TEXT": "Ελληνικά",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          },
+          {
+            "PL": {
+              "SUPPORTS": "WEB",
+              "TEXT": "Polski",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          },
+          {
+            "RO": {
+              "SUPPORTS": "WEB",
+              "TEXT": "Română",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          }
+        ],
+        "media_json": {
+          "16:9": {
+            "PL": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/18\/162938\/THUMB_M_I162938INT1W_05.jpg?latest=0006649560",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/18\/162938\/THUMB_I162938INT1W_05.jpg?latest=0006649558",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/18\/162938\/LR_I162938PL1W.mp4?latest=0006649562"
+            },
+            "FR": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/18\/162938\/THUMB_M_I162938INT1W_05.jpg?latest=0006649110",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/18\/162938\/THUMB_I162938INT1W_05.jpg?latest=0006649108",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/18\/162938\/LR_I162938FR1W.mp4?latest=0006649114"
+            },
+            "EN": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/18\/162938\/THUMB_M_I162938INT1W_05.jpg?latest=0006648318",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/18\/162938\/THUMB_I162938INT1W_05.jpg?latest=0006648316",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/18\/162938\/LR_I162938EN1W.mp4?latest=0006648320"
+            },
+            "INT": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/18\/162938\/THUMB_M_I162938INT1W_05.jpg?latest=0006649150",
+              "HDMP4": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/18\/162938\/HD_I162938INT1W.mp4?latest=0006649156",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/18\/162938\/THUMB_I162938INT1W_05.jpg?latest=0006649148",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/18\/162938\/LR_I162938INT1W.mp4?latest=0006649152"
+            },
+            "ES": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/18\/162938\/THUMB_M_I162938INT1W_05.jpg?latest=0006648330",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/18\/162938\/THUMB_I162938INT1W_05.jpg?latest=0006648326",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/18\/162938\/LR_I162938ES1W.mp4?latest=0006648334"
+            },
+            "DE": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/18\/162938\/THUMB_M_I162938INT1W_05.jpg?latest=0006648286",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/18\/162938\/THUMB_I162938INT1W_05.jpg?latest=0006648284",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/18\/162938\/LR_I162938DE1W.mp4?latest=0006648288"
+            },
+            "RO": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/18\/162938\/THUMB_M_I162938INT1W_05.jpg?latest=0006649580",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/18\/162938\/THUMB_I162938INT1W_05.jpg?latest=0006649578",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/18\/162938\/LR_I162938RO1W.mp4?latest=0006649582"
+            },
+            "IT": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/18\/162938\/THUMB_M_I162938INT1W_05.jpg?latest=0006649160",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/18\/162938\/THUMB_I162938INT1W_05.jpg?latest=0006649158",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/18\/162938\/LR_I162938IT1W.mp4?latest=0006649162"
+            },
+            "EL": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/18\/162938\/THUMB_M_I162938INT1W_05.jpg?latest=0006648308",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/18\/162938\/THUMB_I162938INT1W_05.jpg?latest=0006648306",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/18\/162938\/LR_I162938EL1W.mp4?latest=0006648310"
+            }
+          }
+        },
+        "type": "VIDEO"
+      },
+      {
+        "ref": "I-163250",
+        "duration": "262.8",
+        "titles_json": {
+          "FR": " Debate with Angela MERKEL, Chancellor of Germany on the Future of Europe: - extracts from the opening statements",
+          "EN": " Debate with Angela MERKEL, Chancellor of Germany on the Future of Europe: - extracts from the opening statements"
+        },
+        "shootstartdate": "20181113 17:45",
+        "mediaorder_json": [
+          {
+            "INT": {
+              "SUPPORTS": "WEB",
+              "TEXT": "Original",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          }
+        ],
+        "media_json": {
+          "16:9": {
+            "INT": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/10\/163250\/THUMB_M_I163250INT1W_3.jpg?latest=0006652003",
+              "HDMP4": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/10\/163250\/HD_I163250INT1W.mp4?latest=0006652009",
+              "MP3": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/10\/163250\/MP3_I163250INT1W.mp3?latest=0006652007",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/10\/163250\/THUMB_I163250INT1W_3.jpg?latest=0006652001",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/10\/163250\/LR_I163250INT1W.mp4?latest=0006652005"
+            }
+          }
+        },
+        "type": "VIDEO"
+      },
+      {
+        "ref": "I-163411",
+        "duration": "210.8",
+        "titles_json": {
+          "FR": " Debate with Angela MERKEL, Chancellor of Germany on the Future of Europe:  - extracts from the closing statement",
+          "EN": " Debate with Angela MERKEL, Chancellor of Germany on the Future of Europe:  - extracts from the closing statement"
+        },
+        "shootstartdate": "20181113 19:00",
+        "mediaorder_json": [
+          {
+            "INT": {
+              "SUPPORTS": "WEB",
+              "TEXT": "Original",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          }
+        ],
+        "media_json": {
+          "16:9": {
+            "INT": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/11\/163411\/THUMB_M_I163411INT1W_3.jpg?latest=0006653648",
+              "HDMP4": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/11\/163411\/HD_I163411INT1W.mp4?latest=0006653654",
+              "MP3": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/11\/163411\/MP3_I163411INT1W.mp3?latest=0006653652",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/11\/163411\/THUMB_I163411INT1W_3.jpg?latest=0006653646",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/11\/163411\/LR_I163411INT1W.mp4?latest=0006653650"
+            }
+          }
+        },
+        "type": "VIDEO"
+      },
+      {
+        "ref": "I-163245",
+        "duration": "129",
+        "titles_json": {
+          "FR": " Antonio TAJANI, EP President meets with Angela MERKEL, Chancellor of Germany on the Future of Europe: - arrival and roundtable",
+          "EN": " Antonio TAJANI, EP President meets with Angela MERKEL, Chancellor of Germany on the Future of Europe: - arrival and roundtable"
+        },
+        "shootstartdate": "20181113 22:15",
+        "mediaorder_json": [
+          {
+            "INT": {
+              "SUPPORTS": "WEB",
+              "TEXT": "Original",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          }
+        ],
+        "media_json": {
+          "16:9": {
+            "INT": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/05\/163245\/THUMB_M_I163245INT1W_4.jpg?latest=0006650278",
+              "HDMP4": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/05\/163245\/HD_I163245INT1W.mp4?latest=0006650284",
+              "MP3": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/05\/163245\/MP3_I163245INT1W.mp3?latest=0006650282",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/05\/163245\/THUMB_I163245INT1W_4.jpg?latest=0006650276",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/05\/163245\/LR_I163245INT1W.mp4?latest=0006650280"
+            }
+          }
+        },
+        "type": "VIDEO"
+      }
+    ]
+  }
+}
