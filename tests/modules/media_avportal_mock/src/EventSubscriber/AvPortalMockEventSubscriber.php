@@ -48,6 +48,9 @@ class AvPortalMockEventSubscriber implements EventSubscriberInterface {
     if (!$event->getDefault('video')) {
       $event->setDefault(file_get_contents(drupal_get_path('module', 'media_avportal_mock') . '/responses/video-default.json'), 'video');
     }
+    if (!$event->getDefault('all')) {
+      $event->setDefault(file_get_contents(drupal_get_path('module', 'media_avportal_mock') . '/responses/all-default.json'), 'all');
+    }
     if (!$event->getDefault('photo')) {
       $event->setDefault(file_get_contents(drupal_get_path('module', 'media_avportal_mock') . '/responses/photo-default.json'), 'photo');
     }
