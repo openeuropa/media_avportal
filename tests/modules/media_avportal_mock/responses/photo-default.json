@@ -1,0 +1,486 @@
+{
+  "responseHeader": {
+    "status": 0,
+    "QTime": 40,
+    "params": {
+      "pagesize": "15",
+      "index": "1",
+      "fl": "type,ref,doc_ref,titles_json,duration,shootstartdate,media_json,mediaorder_json,summary_json",
+      "proxy": "true",
+      "serverName": "wlpc0100",
+      "type": "PHOTO",
+      "hasMedia": "1",
+      "wt": "json"
+    }
+  },
+  "response": {
+    "numFound": 224255,
+    "start": 0,
+    "docs": [
+      {
+        "ref": "P-039321/00-04",
+        "doc_ref": "P-039321",
+        "titles_json": {
+          "FR": "Visite de Federica Mogherini, vice-présidente de la CE, et Johannes Hahn, membre de la CE, en Roumanie",
+          "EN": "Visit by Federica Mogherini, Vice-President of the EC, and Johannes Hahn, Member of the EC, to Romania"
+        },
+        "summary_json": {
+          "FR": "Federica Mogherini",
+          "EN": "Federica Mogherini"
+        },
+        "type": "PHOTO",
+        "shootstartdate": "20190130 17:30",
+        "media_json": {
+          "MED": {
+            "PIXH": 426,
+            "PIXL": 640,
+            "PATH": "store2\/1\/P039321-225309.jpg"
+          },
+          "HIGH": {
+            "PIXH": 3113,
+            "PIXL": 4670,
+            "PATH": "store2\/1\/P039321-615406.jpg"
+          },
+          "LOW": {
+            "PIXH": 133,
+            "PIXL": 200,
+            "PATH": "store2\/1\/P039321-605816.jpg"
+          }
+        }
+      },
+      {
+        "ref": "P-039321/00-05",
+        "doc_ref": "P-039321",
+        "titles_json": {
+          "FR": "Visite de Federica Mogherini, vice-présidente de la CE, et Johannes Hahn, membre de la CE, en Roumanie",
+          "EN": "Visit by Federica Mogherini, Vice-President of the EC, and Johannes Hahn, Member of the EC, to Romania"
+        },
+        "summary_json": {
+          "FR": "Federica Mogherini",
+          "EN": "Federica Mogherini"
+        },
+        "type": "PHOTO",
+        "shootstartdate": "20190130 17:30",
+        "media_json": {
+          "MED": {
+            "PIXH": 426,
+            "PIXL": 640,
+            "PATH": "store2\/1\/P039321-937559.jpg"
+          },
+          "HIGH": {
+            "PIXH": 3648,
+            "PIXL": 5472,
+            "PATH": "store2\/1\/P039321-25217.jpg"
+          },
+          "LOW": {
+            "PIXH": 133,
+            "PIXL": 200,
+            "PATH": "store2\/1\/P039321-547496.jpg"
+          }
+        }
+      },
+      {
+        "ref": "P-039321/00-08",
+        "doc_ref": "P-039321",
+        "titles_json": {
+          "FR": "Visite de Federica Mogherini, vice-présidente de la CE, et Johannes Hahn, membre de la CE, en Roumanie",
+          "EN": "Visit by Federica Mogherini, Vice-President of the EC, and Johannes Hahn, Member of the EC, to Romania"
+        },
+        "summary_json": {
+          "FR": "Federica Mogherini avant une réunion avec Florence Parly, ministre française des forces armées.",
+          "EN": "Federica Mogherini before the meeting with Florence Parly, French Minister of the Armed Forces."
+        },
+        "type": "PHOTO",
+        "shootstartdate": "20190130 17:30",
+        "media_json": {
+          "MED": {
+            "PIXH": 426,
+            "PIXL": 640,
+            "PATH": "store2\/1\/P039321-327232.jpg"
+          },
+          "HIGH": {
+            "PIXH": 3083,
+            "PIXL": 4625,
+            "PATH": "store2\/1\/P039321-141447.jpg"
+          },
+          "LOW": {
+            "PIXH": 133,
+            "PIXL": 200,
+            "PATH": "store2\/1\/P039321-734460.jpg"
+          }
+        }
+      },
+      {
+        "ref": "P-039321/00-01",
+        "doc_ref": "P-039321",
+        "titles_json": {
+          "FR": "Visite de Federica Mogherini, vice-présidente de la CE, et Johannes Hahn, membre de la CE, en Roumanie",
+          "EN": "Visit by Federica Mogherini, Vice-President of the EC, and Johannes Hahn, Member of the EC, to Romania"
+        },
+        "summary_json": {
+          "FR": "Jens Stoltenberg, Secrétaire général de l'OTAN, a droite, et Federica Mogherini. ",
+          "EN": "Jens Stoltenberg, Secretary General of NATO, on the right, and Federica Mogherini. "
+        },
+        "type": "PHOTO",
+        "shootstartdate": "20190130 17:30",
+        "media_json": {
+          "MED": {
+            "PIXH": 426,
+            "PIXL": 640,
+            "PATH": "store2\/1\/P039321-490438.jpg"
+          },
+          "HIGH": {
+            "PIXH": 3227,
+            "PIXL": 4841,
+            "PATH": "store2\/1\/P039321-776326.jpg"
+          },
+          "LOW": {
+            "PIXH": 133,
+            "PIXL": 200,
+            "PATH": "store2\/1\/P039321-424300.jpg"
+          }
+        }
+      },
+      {
+        "ref": "P-039321/00-02",
+        "doc_ref": "P-039321",
+        "titles_json": {
+          "FR": "Visite de Federica Mogherini, vice-présidente de la CE, et Johannes Hahn, membre de la CE, en Roumanie",
+          "EN": "Visit by Federica Mogherini, Vice-President of the EC, and Johannes Hahn, Member of the EC, to Romania"
+        },
+        "summary_json": {
+          "FR": "Le ministre roumain de la Défense, Gabriel Les, à droite, accueille Federica Mogherini à Bucarest. ",
+          "EN": "Romanian Minister of Defense Gabriel Les, on the right, welcomes Federica Mogherini to Bucharest. "
+        },
+        "type": "PHOTO",
+        "shootstartdate": "20190130 17:30",
+        "media_json": {
+          "MED": {
+            "PIXH": 426,
+            "PIXL": 640,
+            "PATH": "store2\/1\/P039321-184153.jpg"
+          },
+          "HIGH": {
+            "PIXH": 3097,
+            "PIXL": 4645,
+            "PATH": "store2\/1\/P039321-690993.jpg"
+          },
+          "LOW": {
+            "PIXH": 133,
+            "PIXL": 200,
+            "PATH": "store2\/1\/P039321-453909.jpg"
+          }
+        }
+      },
+      {
+        "ref": "P-039321/00-03",
+        "doc_ref": "P-039321",
+        "titles_json": {
+          "FR": "Visite de Federica Mogherini, vice-présidente de la CE, et Johannes Hahn, membre de la CE, en Roumanie",
+          "EN": "Visit by Federica Mogherini, Vice-President of the EC, and Johannes Hahn, Member of the EC, to Romania"
+        },
+        "summary_json": {
+          "FR": "Le ministre roumain de la Défense, Gabriel Les, à droite, accueille Federica Mogherini à Bucarest. ",
+          "EN": "Romanian Minister of Defense Gabriel Les, on the right, welcomes Federica Mogherini to Bucharest. "
+        },
+        "type": "PHOTO",
+        "shootstartdate": "20190130 17:30",
+        "media_json": {
+          "MED": {
+            "PIXH": 426,
+            "PIXL": 640,
+            "PATH": "store2\/1\/P039321-227196.jpg"
+          },
+          "HIGH": {
+            "PIXH": 2279,
+            "PIXL": 3418,
+            "PATH": "store2\/1\/P039321-711159.jpg"
+          },
+          "LOW": {
+            "PIXH": 133,
+            "PIXL": 200,
+            "PATH": "store2\/1\/P039321-640759.jpg"
+          }
+        }
+      },
+      {
+        "ref": "P-039321/00-07",
+        "doc_ref": "P-039321",
+        "titles_json": {
+          "FR": "Visite de Federica Mogherini, vice-présidente de la CE, et Johannes Hahn, membre de la CE, en Roumanie",
+          "EN": "Visit by Federica Mogherini, Vice-President of the EC, and Johannes Hahn, Member of the EC, to Romania"
+        },
+        "summary_json": {
+          "FR": "Federica Mogherini, a droite, lors d'un dîner des ministres de la défense de l\u2019UE. ",
+          "EN": "Federica Mogherini, on the right, at EU Defence Ministers dinner.  "
+        },
+        "type": "PHOTO",
+        "shootstartdate": "20190130 17:30",
+        "media_json": {
+          "MED": {
+            "PIXH": 426,
+            "PIXL": 640,
+            "PATH": "store2\/1\/P039321-18745.jpg"
+          },
+          "HIGH": {
+            "PIXH": 3431,
+            "PIXL": 5146,
+            "PATH": "store2\/1\/P039321-659745.jpg"
+          },
+          "LOW": {
+            "PIXH": 133,
+            "PIXL": 200,
+            "PATH": "store2\/1\/P039321-68303.jpg"
+          }
+        }
+      },
+      {
+        "ref": "P-039321/00-06",
+        "doc_ref": "P-039321",
+        "titles_json": {
+          "FR": "Visite de Federica Mogherini, vice-présidente de la CE, et Johannes Hahn, membre de la CE, en Roumanie",
+          "EN": "Visit by Federica Mogherini, Vice-President of the EC, and Johannes Hahn, Member of the EC, to Romania"
+        },
+        "summary_json": {
+          "FR": "Vue generale: Federica Mogherini lors d'un dîner des ministres de la défense de l\u2019UE.  ",
+          "EN": "General view: Federica Mogherini at EU Defence Ministers working dinner.  "
+        },
+        "type": "PHOTO",
+        "shootstartdate": "20190130 17:30",
+        "media_json": {
+          "MED": {
+            "PIXH": 426,
+            "PIXL": 640,
+            "PATH": "store2\/1\/P039321-84080.jpg"
+          },
+          "HIGH": {
+            "PIXH": 3569,
+            "PIXL": 5354,
+            "PATH": "store2\/1\/P039321-384682.jpg"
+          },
+          "LOW": {
+            "PIXH": 133,
+            "PIXL": 200,
+            "PATH": "store2\/1\/P039321-403622.jpg"
+          }
+        }
+      },
+      {
+        "ref": "P-039321/00-10",
+        "doc_ref": "P-039321",
+        "titles_json": {
+          "FR": "Visite de Federica Mogherini, vice-présidente de la CE, et Johannes Hahn, membre de la CE, en Roumanie",
+          "EN": "Visit by Federica Mogherini, Vice-President of the EC, and Johannes Hahn, Member of the EC, to Romania"
+        },
+        "summary_json": {
+          "FR": "Florence Parly, ministre française des forces armées, quatrième à droite, et Federica Mogherini lors d'une réunion.",
+          "EN": "Florence Parly, French Minister of the Armed Forces, fourth right, and Federica Mogherini during a meeting."
+        },
+        "type": "PHOTO",
+        "shootstartdate": "20190130 17:30",
+        "media_json": {
+          "MED": {
+            "PIXH": 426,
+            "PIXL": 640,
+            "PATH": "store2\/1\/P039321-399701.jpg"
+          },
+          "HIGH": {
+            "PIXH": 3259,
+            "PIXL": 4888,
+            "PATH": "store2\/1\/P039321-632832.jpg"
+          },
+          "LOW": {
+            "PIXH": 133,
+            "PIXL": 200,
+            "PATH": "store2\/1\/P039321-395067.jpg"
+          }
+        }
+      },
+      {
+        "ref": "P-039321/00-11",
+        "doc_ref": "P-039321",
+        "titles_json": {
+          "FR": "Visite de Federica Mogherini, vice-présidente de la CE, et Johannes Hahn, membre de la CE, en Roumanie",
+          "EN": "Visit by Federica Mogherini, Vice-President of the EC, and Johannes Hahn, Member of the EC, to Romania"
+        },
+        "summary_json": {
+          "FR": "Florence Parly, ministre française des forces armées, deuxième à droite (de dos), et Federica Mogherini lors d'une réunion.",
+          "EN": "Florence Parly, French Minister of the Armed Forces, second right (back), and Fedeirca Mogherini during a meeting."
+        },
+        "type": "PHOTO",
+        "shootstartdate": "20190130 17:30",
+        "media_json": {
+          "MED": {
+            "PIXH": 426,
+            "PIXL": 640,
+            "PATH": "store2\/1\/P039321-971517.jpg"
+          },
+          "HIGH": {
+            "PIXH": 3043,
+            "PIXL": 4564,
+            "PATH": "store2\/1\/P039321-436526.jpg"
+          },
+          "LOW": {
+            "PIXH": 133,
+            "PIXL": 200,
+            "PATH": "store2\/1\/P039321-695476.jpg"
+          }
+        }
+      },
+      {
+        "ref": "P-039321/00-09",
+        "doc_ref": "P-039321",
+        "titles_json": {
+          "FR": "Visite de Federica Mogherini, vice-présidente de la CE, et Johannes Hahn, membre de la CE, en Bulgaria",
+          "EN": "Visit by Federica Mogherini, Vice-President of the EC, and Johannes Hahn, Member of the EC, to Bulgaria"
+        },
+        "summary_json": {
+          "FR": "Federica Mogherini lors d'une réunion avec Florence Parly, ministre française des forces armées.",
+          "EN": "Federica Mogherini during a meeting with Florence Parly, French Minister of the Armed Forces."
+        },
+        "type": "PHOTO",
+        "shootstartdate": "20190130 17:30",
+        "media_json": {
+          "MED": {
+            "PIXH": 426,
+            "PIXL": 640,
+            "PATH": "store2\/1\/P039321-856699.jpg"
+          },
+          "HIGH": {
+            "PIXH": 3081,
+            "PIXL": 4621,
+            "PATH": "store2\/1\/P039321-269917.jpg"
+          },
+          "LOW": {
+            "PIXH": 133,
+            "PIXL": 200,
+            "PATH": "store2\/1\/P039321-768819.jpg"
+          }
+        }
+      },
+      {
+        "ref": "P-039321/00-12",
+        "doc_ref": "P-039321",
+        "titles_json": {
+          "FR": "Visite de Federica Mogherini, vice-présidente de la CE, et Johannes Hahn, membre de la CE, en Roumanie",
+          "EN": "Visit by Federica Mogherini, Vice-President of the EC, and Johannes Hahn, Member of the EC, to Romania"
+        },
+        "summary_json": {
+          "FR": "Federica Mogherini lors d'une réunion de travail avec les ministres de la Défense de l'UE.",
+          "EN": "Federica Mogherini during a working session with EU Defence Ministers."
+        },
+        "type": "PHOTO",
+        "shootstartdate": "20190130 17:30",
+        "media_json": {
+          "MED": {
+            "PIXH": 426,
+            "PIXL": 640,
+            "PATH": "store2\/1\/P039321-948293.jpg"
+          },
+          "HIGH": {
+            "PIXH": 3196,
+            "PIXL": 4794,
+            "PATH": "store2\/1\/P039321-957356.jpg"
+          },
+          "LOW": {
+            "PIXH": 133,
+            "PIXL": 200,
+            "PATH": "store2\/1\/P039321-73263.jpg"
+          }
+        }
+      },
+      {
+        "ref": "P-039269/00-03",
+        "doc_ref": "P-039269",
+        "titles_json": {
+          "FR": "Visite de Paavo Tapio Lipponen, ancien Premier ministre finlandais, à la CE",
+          "EN": "Visit of Paavo Tapio Lipponen, former Finnish Prime Minister, to the EC"
+        },
+        "summary_json": {
+          "FR": "Paavo Tapio Lipponen, à droite, et Karmenu Vella",
+          "EN": "Paavo Tapio Lipponen, on the right, and Karmenu Vella"
+        },
+        "type": "PHOTO",
+        "shootstartdate": "20190130 15:30",
+        "media_json": {
+          "MED": {
+            "PIXH": 375,
+            "PIXL": 640,
+            "PATH": "store2\/9\/P039269-839068.jpg"
+          },
+          "HIGH": {
+            "PIXH": 2004,
+            "PIXL": 3414,
+            "PATH": "store2\/9\/P039269-103584.jpg"
+          },
+          "LOW": {
+            "PIXH": 117,
+            "PIXL": 200,
+            "PATH": "store2\/9\/P039269-558047.jpg"
+          }
+        }
+      },
+      {
+        "ref": "P-039269/00-10",
+        "doc_ref": "P-039269",
+        "titles_json": {
+          "FR": "Visite de Paavo Tapio Lipponen, ancien Premier ministre finlandais, à la CE",
+          "EN": "Visit of Paavo Tapio Lipponen, former Finnish Prime Minister, to the EC"
+        },
+        "summary_json": {
+          "EN": "Jean-Claude Juncker, Tapio Lipponen"
+        },
+        "type": "PHOTO",
+        "shootstartdate": "20190130 15:30",
+        "media_json": {
+          "MED": {
+            "PIXH": 426,
+            "PIXL": 640,
+            "PATH": "store2\/9\/P039269-909020.jpg"
+          },
+          "HIGH": {
+            "PIXH": 3235,
+            "PIXL": 4853,
+            "PATH": "store2\/9\/P039269-202910.jpg"
+          },
+          "LOW": {
+            "PIXH": 133,
+            "PIXL": 200,
+            "PATH": "store2\/9\/P039269-427348.jpg"
+          }
+        }
+      },
+      {
+        "ref": "P-039269/00-05",
+        "doc_ref": "P-039269",
+        "titles_json": {
+          "FR": "Visite de Paavo Tapio Lipponen, ancien Premier ministre finlandais, à la CE",
+          "EN": "Visit of Paavo Tapio Lipponen, former Finnish Prime Minister, to the EC"
+        },
+        "summary_json": {
+          "FR": "Paavo Tapio Lipponen, à droite, et Carlos Moedas",
+          "EN": "Paavo Tapio Lipponen, on the right, and Carlos Moedas"
+        },
+        "type": "PHOTO",
+        "shootstartdate": "20190130 15:30",
+        "media_json": {
+          "MED": {
+            "PIXH": 640,
+            "PIXL": 487,
+            "PATH": "store2\/9\/P039269-361687.jpg"
+          },
+          "HIGH": {
+            "PIXH": 3466,
+            "PIXL": 2638,
+            "PATH": "store2\/9\/P039269-33511.jpg"
+          },
+          "LOW": {
+            "PIXH": 200,
+            "PIXL": 152,
+            "PATH": "store2\/9\/P039269-891912.jpg"
+          }
+        }
+      }
+    ]
+  }
+}

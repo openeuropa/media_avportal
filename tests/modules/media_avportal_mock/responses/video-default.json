@@ -1,0 +1,243 @@
+{
+  "responseHeader": {
+    "status": 0,
+    "QTime": 29,
+    "params": {
+      "pagesize": "15",
+      "index": "1",
+      "hasmedia": "1",
+      "fl": "type,ref,doc_ref,titles_json,duration,shootstartdate,media_json,mediaorder_json,summary_json",
+      "proxy": "true",
+      "serverName": "wlpc0099",
+      "type": "VIDEO",
+      "wt": "json"
+    }
+  },
+  "response": {
+    "numFound": 15,
+    "start": 0,
+    "docs": [
+      {
+        "ref": "I-163595",
+        "duration": "944.8",
+        "titles_json": {
+          "FR": " ",
+          "EN": " "
+        },
+        "summary_json": {
+          "FR": " ESA - Student orbital project",
+          "EN": " ESA - Student orbital project"
+        },
+        "shootstartdate": "20181116 07:30",
+        "mediaorder_json": [
+          {
+            "INT": {
+              "SUPPORTS": "WEB",
+              "TEXT": "Original",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          },
+          {
+            "EN": {
+              "SUPPORTS": "WEB",
+              "TEXT": "English",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
+          }
+        ],
+        "media_json": {
+          "16:9": {
+            "EN": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/15\/163595\/THUMB_M_I163595INT1W_6.jpg?latest=0006674278",
+              "MP3": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/15\/163595\/MP3_I163595EN1W.mp3?latest=0006674282",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/15\/163595\/THUMB_I163595INT1W_6.jpg?latest=0006674276",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/15\/163595\/LR_I163595EN1W.mp4?latest=0006674280"
+            },
+            "INT": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/15\/163595\/THUMB_M_I163595INT1W_6.jpg?latest=0006672590",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/15\/163595\/THUMB_I163595INT1W_6.jpg?latest=0006672588",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/15\/163595\/LR_I163595INT1W.mp4?latest=0006672592"
+            }
+          }
+        },
+        "type": "VIDEO"
+      },
+      {
+        "ref": "I-163308",
+        "duration": "",
+        "titles_json": {
+          "FR": " LIVE \"Subsidiarity - as a building principle of the European Union\" Conference in Bregenz, Austria - Welcome, keynote speech and interviews",
+          "EN": " LIVE \"Subsidiarity - as a building principle of the European Union\" Conference in Bregenz, Austria - Welcome, keynote speech and interviews"
+        },
+        "summary_json": {
+          "FR": "  - Welcome to the political segment by Gernot BLÜMEL, Austrian Federal Minister for the EU, Arts, Culture and Media - Keynote speech by  Frans TIMMERMANS, First Vice-President of the EC in charge of Better Regulation, Inter-Institutional Relations, the Rule of Law and the Charter of Fundamental Rights, and Chairman of the Task Force on Subsidiarity, Proportionality and \"Doing Less More Efficiently\" - Interviews Melania-Gabriela CIOT, Romania Secretary of State for European Affairs at the Ministry of Foreign Affairs Karl-Heinz LAMBERTZ, President of the Committee of the Regions Markus WALLNER, Landeshauptmann of Vorarlberg",
+          "EN": "  - Welcome to the political segment by Gernot BLÜMEL, Austrian Federal Minister for the EU, Arts, Culture and Media - Keynote speech by  Frans TIMMERMANS, First Vice-President of the EC in charge of Better Regulation, Inter-Institutional Relations, the Rule of Law and the Charter of Fundamental Rights, and Chairman of the Task Force on Subsidiarity, Proportionality and \"Doing Less More Efficiently\" - Interviews Melania-Gabriela CIOT, Romania Secretary of State for European Affairs at the Ministry of Foreign Affairs Karl-Heinz LAMBERTZ, President of the Committee of the Regions Markus WALLNER, Landeshauptmann of Vorarlberg"
+        },
+        "shootstartdate": "20181116 00:00",
+        "type": "VIDEO"
+      },
+      {
+        "ref": "I-163707",
+        "duration": "",
+        "titles_json": {
+          "FR": " Arrivals and doorsteps",
+          "EN": " Arrivals and doorsteps"
+        },
+        "shootstartdate": "20181116 00:00",
+        "type": "VIDEO"
+      },
+      {
+        "ref": "I-163706",
+        "duration": "",
+        "titles_json": {
+          "FR": " LIVE Economic and Financial Affairs Council (Budget) - Arrivals",
+          "EN": " LIVE Economic and Financial Affairs Council (Budget) - Arrivals"
+        },
+        "summary_json": {
+          "FR": " Arrivals and doorsteps",
+          "EN": " Arrivals and doorsteps"
+        },
+        "shootstartdate": "20181116 00:00",
+        "type": "VIDEO"
+      },
+      {
+        "ref": "I-163331",
+        "duration": "",
+        "titles_json": {
+          "FR": " LIVE Economic and Financial Affairs Council (Budget) - Arrivals",
+          "EN": " LIVE Economic and Financial Affairs Council (Budget) - Arrivals"
+        },
+        "summary_json": {
+          "FR": " Start of the arrivals ",
+          "EN": " Start of the arrivals "
+        },
+        "shootstartdate": "20181116 08:59",
+        "type": "VIDEO"
+      },
+      {
+        "ref": "I-163692",
+        "duration": "",
+        "titles_json": {
+          "FR": " Arrivals and doorsteps",
+          "EN": " Arrivals and doorsteps"
+        },
+        "shootstartdate": "20181116 00:00",
+        "type": "VIDEO"
+      },
+      {
+        "ref": "I-163694",
+        "duration": "",
+        "titles_json": {
+          "FR": " Donald TUSK, President of the European Council, receives Sebastian KURZ, Austrian Federal Chancellor:",
+          "EN": " Donald TUSK, President of the European Council, receives Sebastian KURZ, Austrian Federal Chancellor:"
+        },
+        "shootstartdate": "20181116 00:00",
+        "type": "VIDEO"
+      },
+      {
+        "ref": "I-163337",
+        "duration": "",
+        "titles_json": {
+          "FR": " Economic and Financial Affairs Council (Budget) - Press conference by the Austrian Presidency and the European Commission",
+          "EN": " Economic and Financial Affairs Council (Budget) - Press conference by the Austrian Presidency and the European Commission"
+        },
+        "summary_json": {
+          "FR": " Press conference opening remarks by the European Commission",
+          "EN": " Press conference opening remarks by the European Commission"
+        },
+        "shootstartdate": "20181116 00:00",
+        "type": "VIDEO"
+      },
+      {
+        "ref": "I-163601",
+        "duration": "",
+        "titles_json": {
+          "FR": " Commissioner Johannes HAHN in Tunis, Tunisia",
+          "EN": " Commissioner Johannes HAHN in Tunis, Tunisia"
+        },
+        "summary_json": {
+          "FR": " \"Rethinking the Euro-Mediterranean cultural partnership\" Conference The Mediterranean in the 21st century - Opening speech by  Johannes HAHN, Member of the EC in charge of European Neighbourhood Policy and Enlargement Negotiations",
+          "EN": " \"Rethinking the Euro-Mediterranean cultural partnership\" Conference The Mediterranean in the 21st century - Opening speech by  Johannes HAHN, Member of the EC in charge of European Neighbourhood Policy and Enlargement Negotiations"
+        },
+        "shootstartdate": "20181116 00:00",
+        "type": "VIDEO"
+      },
+      {
+        "ref": "I-163339",
+        "duration": "",
+        "titles_json": {
+          "FR": " Economic and Financial Affairs Council (Budget) - Press conference by the Austrian Presidency and the European Commission",
+          "EN": " Economic and Financial Affairs Council (Budget) - Press conference by the Austrian Presidency and the European Commission"
+        },
+        "summary_json": {
+          "FR": " Recorded cutaways",
+          "EN": " Recorded cutaways"
+        },
+        "shootstartdate": "20181116 00:00",
+        "type": "VIDEO"
+      },
+      {
+        "ref": "I-163665",
+        "duration": "",
+        "titles_json": {
+          "FR": " STOCKSHOTS EP",
+          "EN": " STOCKSHOTS EP"
+        },
+        "summary_json": {
+          "FR": " United Kingdom and the European Parliament: updated version",
+          "EN": " United Kingdom and the European Parliament: updated version"
+        },
+        "shootstartdate": "20181116 00:00",
+        "type": "VIDEO"
+      },
+      {
+        "ref": "I-163333",
+        "duration": "",
+        "titles_json": {
+          "FR": " Economic and Financial Affairs Council (Budget): - all non-doorsteps arrivals",
+          "EN": " Economic and Financial Affairs Council (Budget): - all non-doorsteps arrivals"
+        },
+        "shootstartdate": "20181116 00:00",
+        "type": "VIDEO"
+      },
+      {
+        "ref": "I-163454",
+        "duration": "",
+        "titles_json": {
+          "FR": "  Jean-Claude JUNCKER, President of the EC, receives Arno KOMPATSCHER, Landeshauptmann of the Autonomous Province of Bolzano \u2013 South Tyrol:",
+          "EN": "  Jean-Claude JUNCKER, President of the EC, receives Arno KOMPATSCHER, Landeshauptmann of the Autonomous Province of Bolzano \u2013 South Tyrol:"
+        },
+        "shootstartdate": "20181116 00:00",
+        "type": "VIDEO"
+      },
+      {
+        "ref": "I-163329",
+        "duration": "",
+        "titles_json": {
+          "FR": " EC Midday press briefing of 16\/11\/2018",
+          "EN": " EC Midday press briefing of 16\/11\/2018"
+        },
+        "summary_json": {
+          "FR": " Recorded cutaways:",
+          "EN": " Recorded cutaways:"
+        },
+        "shootstartdate": "20181116 00:00",
+        "type": "VIDEO"
+      },
+      {
+        "ref": "I-163693",
+        "duration": "",
+        "titles_json": {
+          "FR": " Announcements:",
+          "EN": " Announcements:"
+        },
+        "shootstartdate": "20181116 00:00",
+        "type": "VIDEO"
+      }
+    ]
+  }
+}
