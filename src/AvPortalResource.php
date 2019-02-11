@@ -108,8 +108,13 @@ class AvPortalResource {
       $parsed = UrlHelper::parse($first_media_json['INT']['THUMB']);
       return $parsed['path'] ?? NULL;
     }
-    elseif (in_array($this->getType(), ['PHOTO', 'REPORTAGE']) && isset($media_json['HIGH']['PATH'])) {
-      return $media_json['HIGH']['PATH'];
+    elseif (in_array($this->getType(), ['PHOTO', 'REPORTAGE'])) {
+      $resolutions = ['LOW', 'MED', 'HIGH'];
+      foreach ($resolutions as $resolution) {
+        if (isset($media_json[$resolution]['PATH'])) {
+          return $media_json[$resolution]['PATH'];
+        }
+      }
     }
 
     return NULL;
