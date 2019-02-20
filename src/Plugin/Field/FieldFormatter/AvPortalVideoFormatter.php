@@ -259,12 +259,12 @@ class AvPortalVideoFormatter extends FormatterBase implements ContainerFactoryPl
       'tout' => 59,
     ];
 
-    // @todo: We are't using Html::getUniqueID()
-    //   because the function changes the ID.
     return [
       '#type' => 'html_tag',
       '#tag' => 'iframe',
       '#attributes' => [
+         // We are not using Html::getUniqueID() because the function changes
+        // the ID.
         'id' => 'videoplayer' . $resource_ref,
         'src' => Url::fromUri($this->config->get('iframe_base_uri'), ['query' => $query])->toString(),
         'frameborder' => 0,
