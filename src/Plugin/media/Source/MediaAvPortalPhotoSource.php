@@ -22,6 +22,24 @@ class MediaAvPortalPhotoSource extends MediaAvPortalSourceBase {
   /**
    * {@inheritdoc}
    */
+  public function getSupportedUrlsFormat() {
+    return [
+      'https://ec.europa.eu/avservices/photo/photoDetails.cfm?sitelang=en&ref=[REF]',
+    ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getSupportedUrlsPatterns() {
+    return [
+      '@ec\.europa\.eu/avservices/photo/photoDetails.cfm?(.+)@i',
+    ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getMetadataAttributes(): array {
     return parent::getMetadataAttributes() + [
       'photo_uri' => $this->t('Photo URI'),

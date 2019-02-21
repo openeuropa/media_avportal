@@ -13,6 +13,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\media\Entity\MediaType;
 use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalPhotoSource;
+use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalSourceBase;
 use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalSourceInterface;
 use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalVideoSource;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -30,15 +31,19 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class AvPortalWidget extends StringTextfieldWidget implements ContainerFactoryPluginInterface {
 
-  const AVPORTAL_VIDEO = 'video';
-  const AVPORTAL_PHOTO = 'photo';
-
   /**
    * The entity type manager.
    *
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
   protected $entityTypeManager;
+
+  /**
+   * The source field media source.
+   *
+   * @var |Drupal\media_avportal\Plugin\media\Source\MediaAvPortalSourceInterface
+   */
+  protected $source;
 
   /**
    * Constructs a AvPortalWidget object.
@@ -59,6 +64,8 @@ class AvPortalWidget extends StringTextfieldWidget implements ContainerFactoryPl
   public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, array $third_party_settings, EntityTypeManagerInterface $entityTypeManager) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $third_party_settings);
     $this->entityTypeManager = $entityTypeManager;
+    $target_bundle = $this->fieldDefinition->getTargetBundle();
+    $this->source = $this->entityTypeManager->getStorage('media_type')->load($target_bundle)->getSource();
   }
 
   /**
@@ -80,15 +87,11 @@ class AvPortalWidget extends StringTextfieldWidget implements ContainerFactoryPl
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
     $element = parent::formElement($items, $delta, $element, $form, $form_state);
-    $target_bundle = $this->fieldDefinition->getTargetBundle();
-    $source = $this->entityTypeManager->getStorage('media_type')->load($target_bundle)->getSource();
 
     // Element description.
-    $formats = [
-      'media_avportal_video' => 'https://ec.europa.eu/avservices/video/player.cfm?sitelang=en&ref=[REF]',
-      'media_avportal_photo' => 'https://ec.europa.eu/avservices/photo/photoDetails.cfm?sitelang=en&ref=[REF]',
-    ];
-    $message = $this->t('You can link to media from AV Portal by entering a URL in the format @format', ['@format' => $formats[$source->getPluginId()]]);
+    $formats = $this->source->getSupportedUrlsFormat();
+    $referenceUrl = reset($formats);
+    $message = $this->t('You can link to media from AV Portal by entering a URL in the formats: @formats', ['@formats' => implode(',', $formats)]);
 
     $element['value']['#description'] = $message;
 
@@ -100,14 +103,10 @@ class AvPortalWidget extends StringTextfieldWidget implements ContainerFactoryPl
       ];
     }
 
-    if ($source instanceof MediaAvPortalPhotoSource) {
+    if ($this->source instanceof MediaAvPortalSourceBase) {
+      $element['#valid_urls'] = $this->source->getSupportedUrlsPatterns();
       $element['#element_validate'] = [
-        [static::class, 'validatePhoto'],
-      ];
-    }
-    elseif ($source instanceof MediaAvPortalVideoSource) {
-      $element['#element_validate'] = [
-        [static::class, 'validateVideo'],
+        [static::class, 'validate'],
       ];
     }
 
@@ -116,43 +115,15 @@ class AvPortalWidget extends StringTextfieldWidget implements ContainerFactoryPl
     if (!empty($element['value']['#default_value'])) {
       // Video.
       if (preg_match('/I\-(\d+)/', $element['value']['#default_value'])) {
-        $element['value']['#default_value'] = 'https://ec.europa.eu/avservices/video/player.cfm?sitelang=en&ref=' . $element['value']['#default_value'];
+        $element['value']['#default_value'] = str_replace('[REF]', $element['value']['#default_value'], $referenceUrl);
       }
       // Photo.
       elseif (preg_match('/P\-(\d+)\/(\d+)\-(\d+)/', $element['value']['#default_value'], $matches)) {
-        $element['value']['#default_value'] = 'https://ec.europa.eu/avservices/photo/photoDetails.cfm?sitelang=en&ref=' . $matches[1] . '#' . ($matches[3] - 1);
+        $element['value']['#default_value'] = str_replace('[REF]', $matches[1] . '#' . ($matches[3] - 1), $referenceUrl);
       }
     }
 
     return $element;
-  }
-
-  /**
-   * Validates the AV Portal Photo element.
-   *
-   * @param array $element
-   *   The form element.
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
-   *   The form state.
-   *
-   * @see self::formElement()
-   */
-  public static function validatePhoto(array $element, FormStateInterface $form_state): void {
-    self::validate($element, $form_state, self::AVPORTAL_PHOTO);
-  }
-
-  /**
-   * Validates the AV Portal Video element.
-   *
-   * @param array $element
-   *   The form element.
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
-   *   The form state.
-   *
-   * @see self::formElement()
-   */
-  public static function validateVideo(array $element, FormStateInterface $form_state): void {
-    self::validate($element, $form_state, self::AVPORTAL_VIDEO);
   }
 
   /**
@@ -162,37 +133,21 @@ class AvPortalWidget extends StringTextfieldWidget implements ContainerFactoryPl
    *   The form element.
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The form state.
-   * @param string $element_type
-   *   The form element type being validated: photo or video.
    *
    * @see self::formElement()
    */
-  public static function validate(array $element, FormStateInterface $form_state, string $element_type): void {
+  public static function validate(array $element, FormStateInterface $form_state): void {
     $value = $element['value']['#value'];
 
-    $patterns = self::getPatterns();
+    $patterns = $element['#valid_urls'];
 
-    foreach ($patterns as $pattern => $type) {
-      if (preg_match($pattern, $value) && $type == $element_type) {
+    foreach ($patterns as $pattern) {
+      if (preg_match($pattern, $value)) {
         return;
       }
     }
 
     $form_state->setError($element['value'], t('Invalid URL format specified.'));
-  }
-
-  /**
-   * Get valid url patterns and their type.
-   *
-   * @return array
-   *   The supported patterns.
-   */
-  protected static function getPatterns(): array {
-    return [
-      '@ec\.europa\.eu/avservices/video/player\.cfm\?(.+)@i' => self::AVPORTAL_VIDEO,
-      '@ec\.europa\.eu/avservices/play\.cfm\?(.+)@i' => self::AVPORTAL_VIDEO,
-      '@ec\.europa\.eu/avservices/photo/photoDetails.cfm?(.+)@i' => self::AVPORTAL_PHOTO,
-    ];
   }
 
   /**
@@ -203,22 +158,13 @@ class AvPortalWidget extends StringTextfieldWidget implements ContainerFactoryPl
     // in the field value.
     foreach ($values as $value) {
 
-      // Detects which pattern we are using setting its type: VIDEO or Photo.
-      $patterns = self::getPatterns();
-      $type = NULL;
-      foreach ($patterns as $pattern => $pattern_type) {
-        if (preg_match($pattern, $value['value'])) {
-          $type = $pattern_type;
-        }
-      }
-
       $url = UrlHelper::parse($value['value']);
 
       if (!isset($url['query']['ref'])) {
         return $value;
       }
 
-      if ($type == self::AVPORTAL_VIDEO) {
+      if ($this->source instanceof  MediaAvPortalVideoSource) {
         preg_match('/(\d+)/', $url['query']['ref'], $matches);
 
         // The reference should be in the format I-xxxx where x are numbers.
@@ -228,7 +174,7 @@ class AvPortalWidget extends StringTextfieldWidget implements ContainerFactoryPl
           $value['value'] = 'I-' . $matches[0];
         }
       }
-      elseif ($type == self::AVPORTAL_PHOTO) {
+      elseif ($this->source instanceof MediaAvPortalPhotoSource) {
         preg_match('/(\d+)/', $url['query']['ref'], $matches);
         // The reference should be in the format P-xxxx-00-yy where xxxx and
         // yy are numbers.

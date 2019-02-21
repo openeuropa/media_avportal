@@ -23,7 +23,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Media Source base class for AV Portal Sources.
  */
-class MediaAvPortalSourceBase extends MediaSourceBase implements MediaAvPortalSourceInterface {
+abstract class MediaAvPortalSourceBase extends MediaSourceBase implements MediaAvPortalSourceInterface {
 
   /**
    * The logger channel for media.

@@ -15,4 +15,25 @@ namespace Drupal\media_avportal\Plugin\media\Source;
  *   default_thumbnail_filename = "no-thumbnail.png",
  * )
  */
-class MediaAvPortalVideoSource extends MediaAvPortalSourceBase {}
+class MediaAvPortalVideoSource extends MediaAvPortalSourceBase {
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getSupportedUrlsFormat() {
+    return [
+      'https://ec.europa.eu/avservices/video/player.cfm?sitelang=en&ref=[REF]',
+    ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getSupportedUrlsPatterns() {
+    return [
+      '@ec\.europa\.eu/avservices/video/player\.cfm\?(.+)@i',
+      '@ec\.europa\.eu/avservices/play\.cfm\?(.+)@i',
+    ];
+  }
+
+}
