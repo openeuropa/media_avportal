@@ -115,13 +115,18 @@ class AvPortalPhotoFormatter extends FormatterBase implements ContainerFactoryPl
       return FALSE;
     }
 
-    if (parent::isApplicable($field_definition)) {
-      $media_type_id = $field_definition->getTargetBundle();
-      $media_type = MediaType::load($media_type_id);
-      return $media_type && $media_type->getSource() instanceof MediaAvPortalPhotoSource;
+    if (!parent::isApplicable($field_definition)) {
+      return FALSE;
     }
 
-    return FALSE;
+    $media_type_id = $field_definition->getTargetBundle();
+    if (!$media_type_id) {
+      // Can be a base field.
+      return FALSE;
+    }
+
+    $media_type = MediaType::load($media_type_id);
+    return $media_type && $media_type->getSource() instanceof MediaAvPortalPhotoSource;
   }
 
   /**
