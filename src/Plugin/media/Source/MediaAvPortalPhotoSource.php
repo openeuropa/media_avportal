@@ -22,7 +22,7 @@ class MediaAvPortalPhotoSource extends MediaAvPortalSourceBase {
   /**
    * {@inheritdoc}
    */
-  public function getSupportedUrlsFormat() {
+  public function getSupportedUrlsFormat() : array {
     return [
       'https://ec.europa.eu/avservices/photo/photoDetails.cfm?sitelang=en&ref=[REF]',
     ];
@@ -31,7 +31,7 @@ class MediaAvPortalPhotoSource extends MediaAvPortalSourceBase {
   /**
    * {@inheritdoc}
    */
-  public function getSupportedUrlsPatterns() {
+  public function getSupportedUrlsPatterns() : array {
     return [
       '@ec\.europa\.eu/avservices/photo/photoDetails.cfm?(.+)@i',
     ];
