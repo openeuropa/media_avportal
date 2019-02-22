@@ -264,10 +264,16 @@ class AvPortalVideoFormatter extends FormatterBase implements ContainerFactoryPl
       '#type' => 'html_tag',
       '#tag' => 'iframe',
       '#attributes' => [
+         // We are not using Html::getUniqueID() because the function changes
+        // the ID.
+        'id' => 'videoplayer' . $resource_ref,
         'src' => Url::fromUri($this->config->get('iframe_base_uri'), ['query' => $query])->toString(),
         'frameborder' => 0,
         'scrolling' => FALSE,
         'allowtransparency' => TRUE,
+        'allowfullscreen' => TRUE,
+        'webkitallowfullscreen' => TRUE,
+        'mozallowfullscreen' => TRUE,
         'width' => $max_width,
         'height' => $max_height,
       ],
