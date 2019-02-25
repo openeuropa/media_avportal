@@ -39,7 +39,7 @@ class AvPortalWidget extends StringTextfieldWidget implements ContainerFactoryPl
   /**
    * The media source for the field.
    *
-   * @var |Drupal\media_avportal\Plugin\media\Source\MediaAvPortalSourceInterface
+   * @var \Drupal\media_avportal\Plugin\media\Source\MediaAvPortalSourceInterface
    */
   protected $source;
 
