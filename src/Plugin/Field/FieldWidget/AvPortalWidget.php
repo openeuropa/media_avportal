@@ -39,7 +39,7 @@ class AvPortalWidget extends StringTextfieldWidget implements ContainerFactoryPl
   protected $entityTypeManager;
 
   /**
-   * The source field media source.
+   * The media source for the field.
    *
    * @var |Drupal\media_avportal\Plugin\media\Source\MediaAvPortalSourceInterface
    */
@@ -89,8 +89,8 @@ class AvPortalWidget extends StringTextfieldWidget implements ContainerFactoryPl
     $element = parent::formElement($items, $delta, $element, $form, $form_state);
 
     // Element description.
-    $formats = $this->source->getSupportedUrlsFormat();
-    $referenceUrl = reset($formats);
+    $formats = $this->source->getSupportedUrlFormats();
+    $reference_url = reset($formats);
     $message = $this->t('You can link to media from AV Portal by entering a URL in the formats: @formats', ['@formats' => implode(',', $formats)]);
 
     $element['value']['#description'] = $message;
@@ -104,7 +104,7 @@ class AvPortalWidget extends StringTextfieldWidget implements ContainerFactoryPl
     }
 
     if ($this->source instanceof MediaAvPortalSourceBase) {
-      $element['#valid_urls'] = $this->source->getSupportedUrlsPatterns();
+      $element['#valid_urls'] = $this->source->getSupportedUrlPatterns();
       $element['#element_validate'] = [
         [static::class, 'validate'],
       ];
@@ -115,11 +115,11 @@ class AvPortalWidget extends StringTextfieldWidget implements ContainerFactoryPl
     if (!empty($element['value']['#default_value'])) {
       // Video.
       if (preg_match('/I\-(\d+)/', $element['value']['#default_value'])) {
-        $element['value']['#default_value'] = str_replace('[REF]', $element['value']['#default_value'], $referenceUrl);
+        $element['value']['#default_value'] = str_replace('[REF]', $element['value']['#default_value'], $reference_url);
       }
       // Photo.
       elseif (preg_match('/P\-(\d+)\/(\d+)\-(\d+)/', $element['value']['#default_value'], $matches)) {
-        $element['value']['#default_value'] = str_replace('[REF]', $matches[1] . '#' . ($matches[3] - 1), $referenceUrl);
+        $element['value']['#default_value'] = str_replace('[REF]', $matches[1] . '#' . ($matches[3] - 1), $reference_url);
       }
     }
 

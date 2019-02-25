@@ -14,11 +14,11 @@ interface MediaAvPortalSourceInterface extends MediaSourceFieldConstraintsInterf
   /**
    * Gets list of supported url formats.
    */
-  public function getSupportedUrlsFormat(): array;
+  public function getSupportedUrlFormats(): array;
 
   /**
    * Gets list of supported url patterns.
    */
-  public function getSupportedUrlsPatterns(): array;
+  public function getSupportedUrlPatterns(): array;
 
 }

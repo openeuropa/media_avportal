@@ -20,7 +20,7 @@ class MediaAvPortalVideoSource extends MediaAvPortalSourceBase {
   /**
    * {@inheritdoc}
    */
-  public function getSupportedUrlsFormat(): array {
+  public function getSupportedUrlFormats(): array {
     return [
       'https://ec.europa.eu/avservices/video/player.cfm?sitelang=en&ref=[REF]',
     ];
@@ -29,7 +29,7 @@ class MediaAvPortalVideoSource extends MediaAvPortalSourceBase {
   /**
    * {@inheritdoc}
    */
-  public function getSupportedUrlsPatterns(): array {
+  public function getSupportedUrlPatterns(): array {
     return [
       '@ec\.europa\.eu/avservices/video/player\.cfm\?(.+)@i',
       '@ec\.europa\.eu/avservices/play\.cfm\?(.+)@i',
