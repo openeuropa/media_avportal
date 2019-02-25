@@ -21,4 +21,26 @@ interface MediaAvPortalSourceInterface extends MediaSourceFieldConstraintsInterf
    */
   public function getSupportedUrlPatterns(): array;
 
+  /**
+   * Transforms string url with resource reference to a simple reference string.
+   *
+   * @param string $url
+   *   The url to transform.
+   *
+   * @return string
+   *   The transformed url.
+   */
+  public function transformUrlToReference(string $url): ?string;
+
+  /**
+   * Transforms a resource reference string to full url with reference.
+   *
+   * @param string $reference
+   *   The reference to transform.
+   *
+   * @return string
+   *   The transformed Url.
+   */
+  public function transformReferenceToUrl(string $reference): ?string;
+
 }

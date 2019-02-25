@@ -36,4 +36,31 @@ class MediaAvPortalVideoSource extends MediaAvPortalSourceBase {
     ];
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function transformUrlToReference(string $url): ?string {
+    preg_match('/(\d+)/', $url, $matches);
+
+    // The reference should be in the format I-xxxx where x are numbers.
+    // Sometimes no dash is present, so we have to normalise the reference
+    // back.
+    if (isset($matches[0])) {
+      return 'I-' . $matches[0];
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function transformReferenceToUrl(string $reference): ?string {
+
+    $formats = $this->getSupportedUrlFormats();
+    $reference_url = reset($formats);
+
+    if (preg_match('/I\-(\d+)/', $reference)) {
+      return str_replace('[REF]', $reference, $reference_url);
+    }
+  }
+
 }

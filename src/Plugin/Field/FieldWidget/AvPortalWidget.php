@@ -12,10 +12,8 @@ use Drupal\Core\Field\Plugin\Field\FieldWidget\StringTextfieldWidget;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\media\Entity\MediaType;
-use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalPhotoSource;
 use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalSourceBase;
 use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalSourceInterface;
-use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalVideoSource;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -110,17 +108,8 @@ class AvPortalWidget extends StringTextfieldWidget implements ContainerFactoryPl
       ];
     }
 
-    $matches = [];
-
     if (!empty($element['value']['#default_value'])) {
-      // Video.
-      if (preg_match('/I\-(\d+)/', $element['value']['#default_value'])) {
-        $element['value']['#default_value'] = str_replace('[REF]', $element['value']['#default_value'], $reference_url);
-      }
-      // Photo.
-      elseif (preg_match('/P\-(\d+)\/(\d+)\-(\d+)/', $element['value']['#default_value'], $matches)) {
-        $element['value']['#default_value'] = str_replace('[REF]', $matches[1] . '#' . ($matches[3] - 1), $reference_url);
-      }
+      $element['value']['#default_value'] = $this->source->transformReferenceToUrl($element['value']['#default_value']);
     }
 
     return $element;
@@ -164,25 +153,10 @@ class AvPortalWidget extends StringTextfieldWidget implements ContainerFactoryPl
         return $value;
       }
 
-      if ($this->source instanceof  MediaAvPortalVideoSource) {
-        preg_match('/(\d+)/', $url['query']['ref'], $matches);
+      $reference = $this->source->transformUrlToReference($url['query']['ref']);
 
-        // The reference should be in the format I-xxxx where x are numbers.
-        // Sometimes no dash is present, so we have to normalise the reference
-        // back.
-        if (isset($matches[0])) {
-          $value['value'] = 'I-' . $matches[0];
-        }
-      }
-      elseif ($this->source instanceof MediaAvPortalPhotoSource) {
-        preg_match('/(\d+)/', $url['query']['ref'], $matches);
-        // The reference should be in the format P-xxxx-00-yy where xxxx and
-        // yy are numbers.
-        // Sometimes no dash is present, so we have to normalise the reference
-        // back.
-        if (isset($matches[0])) {
-          $value['value'] = 'P-' . $matches[0] . '/00-' . sprintf('%02d', $url['fragment'] + 1);
-        }
+      if (!empty($reference)) {
+        $value['value'] = $reference;
       }
 
       return $value;

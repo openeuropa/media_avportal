@@ -64,4 +64,32 @@ class MediaAvPortalPhotoSource extends MediaAvPortalSourceBase {
     return parent::getMetadata($media, $name);
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function transformUrlToReference(string $url): ?string {
+    preg_match('/(\d+)/', $url, $matches);
+    // The reference should be in the format P-xxxx-00-yy where xxxx and
+    // yy are numbers.
+    // Sometimes no dash is present, so we have to normalise the reference
+    // back.
+    if (isset($matches[0])) {
+      return 'P-' . $matches[0] . '/00-' . sprintf('%02d', $url['fragment'] + 1);
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function transformReferenceToUrl(string $reference): ?string {
+
+    $formats = $this->getSupportedUrlFormats();
+    $reference_url = reset($formats);
+    $matches = [];
+
+    if (preg_match('/P\-(\d+)\/(\d+)\-(\d+)/', $reference, $matches)) {
+      return str_replace('[REF]', $matches[1] . '#' . ($matches[3] - 1), $reference_url);
+    }
+  }
+
 }
