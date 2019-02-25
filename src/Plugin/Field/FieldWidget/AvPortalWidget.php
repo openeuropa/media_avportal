@@ -12,7 +12,6 @@ use Drupal\Core\Field\Plugin\Field\FieldWidget\StringTextfieldWidget;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\media\Entity\MediaType;
-use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalSourceBase;
 use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalSourceInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -100,12 +99,10 @@ class AvPortalWidget extends StringTextfieldWidget implements ContainerFactoryPl
       ];
     }
 
-    if ($this->source instanceof MediaAvPortalSourceBase) {
-      $element['#valid_urls'] = $this->source->getSupportedUrlPatterns();
-      $element['#element_validate'] = [
-        [static::class, 'validate'],
-      ];
-    }
+    $element['#valid_urls'] = $this->source->getSupportedUrlPatterns();
+    $element['#element_validate'] = [
+      [static::class, 'validate'],
+    ];
 
     if (!empty($element['value']['#default_value'])) {
       $element['value']['#default_value'] = $this->source->transformReferenceToUrl($element['value']['#default_value']);
