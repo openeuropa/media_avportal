@@ -4,7 +4,6 @@ declare(strict_types = 1);
 
 namespace Drupal\media_avportal\Plugin\Field\FieldWidget;
 
-use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
@@ -143,13 +142,7 @@ class AvPortalWidget extends StringTextfieldWidget implements ContainerFactoryPl
     // in the field value.
     foreach ($values as $value) {
 
-      $url = UrlHelper::parse($value['value']);
-
-      if (!isset($url['query']['ref'])) {
-        return $value;
-      }
-
-      $reference = $this->source->transformUrlToReference($url);
+      $reference = $this->source->transformUrlToReference($value['value']);
 
       if (!empty($reference)) {
         $value['value'] = $reference;

@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Drupal\media_avportal\Plugin\media\Source;
 
+use Drupal\Component\Utility\UrlHelper;
 use Drupal\media\MediaInterface;
 
 /**
@@ -67,14 +68,21 @@ class MediaAvPortalPhotoSource extends MediaAvPortalSourceBase {
   /**
    * {@inheritdoc}
    */
-  public function transformUrlToReference(array $url): string {
-    preg_match('/(\d+)/', $url['query']['ref'], $matches);
+  public function transformUrlToReference(string $url): string {
+
+    $structured_url = UrlHelper::parse($url);
+
+    if (!isset($structured_url['query']['ref'])) {
+      return $url;
+    }
+
+    preg_match('/(\d+)/', $structured_url['query']['ref'], $matches);
     // The reference should be in the format P-xxxx-00-yy where xxxx and
     // yy are numbers.
     // Sometimes no dash is present, so we have to normalise the reference
     // back.
     if (isset($matches[0])) {
-      return 'P-' . $matches[0] . '/00-' . sprintf('%02d', $url['fragment'] + 1);
+      return 'P-' . $matches[0] . '/00-' . sprintf('%02d', $structured_url['fragment'] + 1);
     }
 
     return '';
