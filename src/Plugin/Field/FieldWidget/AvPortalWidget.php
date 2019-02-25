@@ -153,7 +153,7 @@ class AvPortalWidget extends StringTextfieldWidget implements ContainerFactoryPl
         return $value;
       }
 
-      $reference = $this->source->transformUrlToReference($url['query']['ref']);
+      $reference = $this->source->transformUrlToReference($url);
 
       if (!empty($reference)) {
         $value['value'] = $reference;
