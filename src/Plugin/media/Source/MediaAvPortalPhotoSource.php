@@ -67,7 +67,7 @@ class MediaAvPortalPhotoSource extends MediaAvPortalSourceBase {
   /**
    * {@inheritdoc}
    */
-  public function transformUrlToReference(array $url): ?string {
+  public function transformUrlToReference(array $url): string {
     preg_match('/(\d+)/', $url['query']['ref'], $matches);
     // The reference should be in the format P-xxxx-00-yy where xxxx and
     // yy are numbers.
@@ -76,12 +76,14 @@ class MediaAvPortalPhotoSource extends MediaAvPortalSourceBase {
     if (isset($matches[0])) {
       return 'P-' . $matches[0] . '/00-' . sprintf('%02d', $url['fragment'] + 1);
     }
+
+    return '';
   }
 
   /**
    * {@inheritdoc}
    */
-  public function transformReferenceToUrl(string $reference): ?string {
+  public function transformReferenceToUrl(string $reference): string {
 
     $formats = $this->getSupportedUrlFormats();
     $reference_url = reset($formats);
@@ -90,6 +92,8 @@ class MediaAvPortalPhotoSource extends MediaAvPortalSourceBase {
     if (preg_match('/P\-(\d+)\/(\d+)\-(\d+)/', $reference, $matches)) {
       return str_replace('[REF]', $matches[1] . '#' . ($matches[3] - 1), $reference_url);
     }
+
+    return '';
   }
 
 }

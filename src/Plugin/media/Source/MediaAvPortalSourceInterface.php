@@ -30,7 +30,7 @@ interface MediaAvPortalSourceInterface extends MediaSourceFieldConstraintsInterf
    * @return string
    *   The transformed url.
    */
-  public function transformUrlToReference(array $url): ?string;
+  public function transformUrlToReference(array $url): string;
 
   /**
    * Transforms a resource reference string to full url with reference.
@@ -41,6 +41,6 @@ interface MediaAvPortalSourceInterface extends MediaSourceFieldConstraintsInterf
    * @return string
    *   The transformed Url.
    */
-  public function transformReferenceToUrl(string $reference): ?string;
+  public function transformReferenceToUrl(string $reference): string;
 
 }
