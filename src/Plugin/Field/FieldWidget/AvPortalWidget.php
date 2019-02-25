@@ -88,7 +88,6 @@ class AvPortalWidget extends StringTextfieldWidget implements ContainerFactoryPl
 
     // Element description.
     $formats = $this->source->getSupportedUrlFormats();
-    $reference_url = reset($formats);
     $message = $this->t('You can link to media from AV Portal by entering a URL in the formats: @formats', ['@formats' => implode(',', $formats)]);
 
     $element['value']['#description'] = $message;
