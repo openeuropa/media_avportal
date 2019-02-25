@@ -39,8 +39,8 @@ class MediaAvPortalVideoSource extends MediaAvPortalSourceBase {
   /**
    * {@inheritdoc}
    */
-  public function transformUrlToReference(string $url): ?string {
-    preg_match('/(\d+)/', $url, $matches);
+  public function transformUrlToReference(array $url): ?string {
+    preg_match('/(\d+)/', $url['query']['ref'], $matches);
 
     // The reference should be in the format I-xxxx where x are numbers.
     // Sometimes no dash is present, so we have to normalise the reference
