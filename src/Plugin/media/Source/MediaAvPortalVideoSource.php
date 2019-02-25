@@ -39,7 +39,7 @@ class MediaAvPortalVideoSource extends MediaAvPortalSourceBase {
   /**
    * {@inheritdoc}
    */
-  public function transformUrlToReference(array $url): ?string {
+  public function transformUrlToReference(array $url): string {
     preg_match('/(\d+)/', $url['query']['ref'], $matches);
 
     // The reference should be in the format I-xxxx where x are numbers.
@@ -48,12 +48,14 @@ class MediaAvPortalVideoSource extends MediaAvPortalSourceBase {
     if (isset($matches[0])) {
       return 'I-' . $matches[0];
     }
+
+    return '';
   }
 
   /**
    * {@inheritdoc}
    */
-  public function transformReferenceToUrl(string $reference): ?string {
+  public function transformReferenceToUrl(string $reference): string {
 
     $formats = $this->getSupportedUrlFormats();
     $reference_url = reset($formats);
@@ -61,6 +63,8 @@ class MediaAvPortalVideoSource extends MediaAvPortalSourceBase {
     if (preg_match('/I\-(\d+)/', $reference)) {
       return str_replace('[REF]', $reference, $reference_url);
     }
+
+    return '';
   }
 
 }
