@@ -236,7 +236,6 @@ abstract class MediaAvPortalSourceBase extends MediaSourceBase implements MediaA
    *   resource has no thumbnail at all.
    */
   protected function importRemoteThumbnail(AvPortalResource $resource, string $local_thumbnail_uri):? string {
-
     $configuration = $this->getConfiguration();
     $directory = $configuration['thumbnails_directory'];
 
