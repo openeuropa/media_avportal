@@ -4,6 +4,8 @@ declare(strict_types = 1);
 
 namespace Drupal\media_avportal\Plugin\media\Source;
 
+use Drupal\Component\Utility\UrlHelper;
+
 /**
  * Provides a media source plugin for Media AV Portal resources.
  *
@@ -40,7 +42,6 @@ class MediaAvPortalVideoSource extends MediaAvPortalSourceBase {
    * {@inheritdoc}
    */
   public function transformUrlToReference(string $url): string {
-
     $structured_url = UrlHelper::parse($url);
 
     if (!isset($structured_url['query']['ref'])) {
@@ -63,7 +64,6 @@ class MediaAvPortalVideoSource extends MediaAvPortalSourceBase {
    * {@inheritdoc}
    */
   public function transformReferenceToUrl(string $reference): string {
-
     $formats = $this->getSupportedUrlFormats();
     $reference_url = reset($formats);
 
