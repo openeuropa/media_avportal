@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Drupal\media_avportal\Plugin\media\Source;
 
+use Drupal\Component\Utility\UrlHelper;
 use Drupal\media\MediaInterface;
 
 /**
@@ -18,6 +19,24 @@ use Drupal\media\MediaInterface;
  * )
  */
 class MediaAvPortalPhotoSource extends MediaAvPortalSourceBase {
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getSupportedUrlFormats(): array {
+    return [
+      'https://ec.europa.eu/avservices/photo/photoDetails.cfm?sitelang=en&ref=[REF]',
+    ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getSupportedUrlPatterns(): array {
+    return [
+      '@ec\.europa\.eu/avservices/photo/photoDetails.cfm?(.+)@i',
+    ];
+  }
 
   /**
    * {@inheritdoc}
@@ -44,6 +63,43 @@ class MediaAvPortalPhotoSource extends MediaAvPortalSourceBase {
     }
 
     return parent::getMetadata($media, $name);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function transformUrlToReference(string $url): string {
+    $structured_url = UrlHelper::parse($url);
+
+    if (!isset($structured_url['query']['ref'])) {
+      return $url;
+    }
+
+    preg_match('/(\d+)/', $structured_url['query']['ref'], $matches);
+    // The reference should be in the format P-xxxx-00-yy where xxxx and
+    // yy are numbers.
+    // Sometimes no dash is present, so we have to normalise the reference
+    // back.
+    if (isset($matches[0])) {
+      return 'P-' . $matches[0] . '/00-' . sprintf('%02d', $structured_url['fragment'] + 1);
+    }
+
+    return '';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function transformReferenceToUrl(string $reference): string {
+    $formats = $this->getSupportedUrlFormats();
+    $reference_url = reset($formats);
+    $matches = [];
+
+    if (preg_match('/P\-(\d+)\/(\d+)\-(\d+)/', $reference, $matches)) {
+      return str_replace('[REF]', $matches[1] . '#' . ($matches[3] - 1), $reference_url);
+    }
+
+    return '';
   }
 
 }
