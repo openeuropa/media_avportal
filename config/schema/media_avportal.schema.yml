@@ -32,7 +32,7 @@ media.source.media_avportal_photo:
 
 field.formatter.settings.avportal_video:
   type: mapping
-  label: 'Media AV Portal display format settings'
+  label: 'Media AV Portal video display format settings'
   mapping:
     max_width:
       type: integer
@@ -40,6 +40,14 @@ field.formatter.settings.avportal_video:
     max_height:
       type: integer
       label: 'Maximum height'
+
+field.formatter.settings.avportal_photo:
+  type: mapping
+  label: 'Media AV Portal photo display format settings'
+  mapping:
+    image_style:
+      type: string
+      label: 'Image style'
 
 field.widget.settings.avportal_textfield:
   type: field.widget.settings.string_textfield

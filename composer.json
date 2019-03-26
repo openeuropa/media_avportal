@@ -18,7 +18,7 @@
         "drupal/ctools": "^3.0",
         "drush/drush": "~9.0@stable",
         "nikic/php-parser": "~3.0",
-        "openeuropa/code-review": "^1.0.0-alpha4",
+        "openeuropa/code-review": "^1.0.0-beta2",
         "openeuropa/drupal-core-require-dev": "~8.6@dev",
         "openeuropa/task-runner": "~1.0",
         "phpunit/phpunit": "~6.0"
