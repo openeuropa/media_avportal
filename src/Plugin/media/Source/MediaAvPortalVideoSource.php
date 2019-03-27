@@ -3,7 +3,6 @@
 declare(strict_types = 1);
 
 namespace Drupal\media_avportal\Plugin\media\Source;
-
 use Drupal\Component\Utility\UrlHelper;
 
 /**
@@ -24,7 +23,7 @@ class MediaAvPortalVideoSource extends MediaAvPortalSourceBase {
    */
   public function getSupportedUrlFormats(): array {
     return [
-      'https://ec.europa.eu/avservices/video/player.cfm?sitelang=en&ref=[REF]',
+      'https://audiovisual.ec.europa.eu/en/video/[REF]',
     ];
   }
 
@@ -33,28 +32,18 @@ class MediaAvPortalVideoSource extends MediaAvPortalSourceBase {
    */
   public function getSupportedUrlPatterns(): array {
     return [
-      '@ec\.europa\.eu/avservices/video/player\.cfm\?(.+)@i',
-      '@ec\.europa\.eu/avservices/play\.cfm\?(.+)@i',
+      '@audiovisual\.ec\.europa\.eu\/(.*)\/video\/(I\-\d+)@i' => 'transformFullUrlToReference'
     ];
   }
 
   /**
    * {@inheritdoc}
    */
-  public function transformUrlToReference(string $url): string {
-    $structured_url = UrlHelper::parse($url);
+  public function transformFullUrlToReference(string $pattern,string $url): string {
 
-    if (!isset($structured_url['query']['ref'])) {
-      return $url;
-    }
-
-    preg_match('/(\d+)/', $structured_url['query']['ref'], $matches);
-
-    // The reference should be in the format I-xxxx where x are numbers.
-    // Sometimes no dash is present, so we have to normalise the reference
-    // back.
-    if (isset($matches[0])) {
-      return 'I-' . $matches[0];
+    preg_match_all($pattern, $url, $matches);
+    if (!empty($matches)) {
+      return $matches[2][0];
     }
 
     return '';
@@ -64,6 +53,7 @@ class MediaAvPortalVideoSource extends MediaAvPortalSourceBase {
    * {@inheritdoc}
    */
   public function transformReferenceToUrl(string $reference): string {
+
     $formats = $this->getSupportedUrlFormats();
     $reference_url = reset($formats);
 

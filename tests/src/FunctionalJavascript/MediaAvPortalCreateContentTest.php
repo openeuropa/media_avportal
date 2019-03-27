@@ -59,7 +59,7 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
 
     // Create a media content with a valid reference.
     $this->drupalGet('media/add/media_av_portal_video');
-    $page->fillField('Media AV Portal Video', 'http://ec.europa.eu/avservices/play.cfm?autoplay=true&lg=EN&ref=I-162747');
+    $page->fillField('Media AV Portal Video', 'https://audiovisual.ec.europa.eu/en/video/I-162747');
     $page->pressButton('Save');
 
     // Visit the new media content.
@@ -76,7 +76,7 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
     $this->drupalGet('media/1/edit');
 
     // Update the field.
-    $page->fillField('Media AV Portal Video', 'http://ec.europa.eu/avservices/video/player.cfm?sitelang=en&ref=I-163162');
+    $page->fillField('Media AV Portal Video', 'https://audiovisual.ec.europa.eu/en/video/I-163162');
     $page->pressButton('Save');
 
     // Visit the updated media content.
@@ -89,14 +89,14 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
 
     // Create a media content with an invalid reference.
     $this->drupalGet('media/add/media_av_portal_video');
-    $page->fillField('Media AV Portal Video', 'http://ec.europa.eu/avservices/play.cfm?autoplay=true&lg=EN&ref=I-12345678987654321');
+    $page->fillField('Media AV Portal Video', 'https://audiovisual.ec.europa.eu/en/video/I-12345678987654321');
     $page->pressButton('Save');
 
     $assert_session->pageTextContains('The given URL does not match an AV Portal URL.');
 
     // Create a media content with an invalid resource URL.
     $this->drupalGet('media/add/media_av_portal_video');
-    $page->fillField('Media AV Portal Video', 'http://example.com/play.cfm?autoplay=true&lg=EN&ref=I-12345678987654321');
+    $page->fillField('Media AV Portal Video', 'https://example.com/en/video/I-12345678987654321');
     $page->pressButton('Save');
 
     $assert_session->pageTextContains('Invalid URL format specified.');
@@ -136,7 +136,7 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
 
     // Create a media content with a valid reference.
     $this->drupalGet('media/add/media_av_portal_photo');
-    $page->fillField('Media AV Portal Photo', 'https://ec.europa.eu/avservices/photo/photoDetails.cfm?sitelang=en&ref=038924#14');
+    $page->fillField('Media AV Portal Photo', 'https://audiovisual.ec.europa.eu/en/photo/P-038924~2F00-15');
     $page->pressButton('Save');
 
     // Visit the new media content.
@@ -151,7 +151,7 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
     $this->drupalGet('media/1/edit');
 
     // Update the field.
-    $page->fillField('Media AV Portal Photo', 'https://ec.europa.eu/avservices/photo/photoDetails.cfm?sitelang=en&ref=P-039162#11');
+    $page->fillField('Media AV Portal Photo', 'https://audiovisual.ec.europa.eu/en/photo/P-039162~2F00-12');
     $page->pressButton('Save');
 
     // Visit the updated media content.
@@ -164,14 +164,14 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
 
     // Create a media content with an invalid reference.
     $this->drupalGet('media/add/media_av_portal_photo');
-    $page->fillField('Media AV Portal Photo', 'https://ec.europa.eu/avservices/photo/photoDetails.cfm?sitelang=en&ref=P-0391620#11');
+    $page->fillField('Media AV Portal Photo', 'https://audiovisual.ec.europa.eu/en/photo/P-0391620~2F00-12');
     $page->pressButton('Save');
 
     $assert_session->pageTextContains('The given URL does not match an AV Portal URL.');
 
     // Create a media content with an invalid resource URL.
     $this->drupalGet('media/add/media_av_portal_photo');
-    $page->fillField('Media AV Portal Photo', 'https://example.com/avservices/photo/photoDetails.cfm?sitelang=en&ref=P-039162#11');
+    $page->fillField('Media AV Portal Photo', 'https://example.com/en/photo/P-0391620~2F00-12');
     $page->pressButton('Save');
 
     $assert_session->pageTextContains('Invalid URL format specified.');
