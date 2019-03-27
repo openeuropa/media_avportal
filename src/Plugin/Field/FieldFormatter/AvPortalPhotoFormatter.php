@@ -183,8 +183,13 @@ class AvPortalPhotoFormatter extends FormatterBase implements ContainerFactoryPl
 
     $media_type_id = $field_definition->getTargetBundle();
     if (!$media_type_id) {
-      // Can be a base field.
-      return FALSE;
+      // Can be a base field but we need to allow this formatter to be used in
+      // those cases as well if needed. Moreover, Views fields also don't have
+      // an idea yet of the bundle when determining whether the settings of this
+      // formatter can be used in the view field if the formatter is selected.
+      // So we rely on developers not using this formatter on fields where it
+      // doesn't make any sense.
+      return TRUE;
     }
 
     $media_type = MediaType::load($media_type_id);
@@ -264,6 +269,7 @@ class AvPortalPhotoFormatter extends FormatterBase implements ContainerFactoryPl
    */
   public function calculateDependencies(): array {
     $dependencies = parent::calculateDependencies();
+    // The image styles are a dependency of this formatter.
     $style_id = $this->getSetting('image_style');
     /** @var \Drupal\image\ImageStyleInterface $style */
     if ($style_id && $style = $this->entityTypeManager->getStorage('image_style')->load($style_id)) {
@@ -278,6 +284,8 @@ class AvPortalPhotoFormatter extends FormatterBase implements ContainerFactoryPl
    */
   public function onDependencyRemoval(array $dependencies): bool {
     $changed = parent::onDependencyRemoval($dependencies);
+    // Ensure that the image style gets changed if the configured one is removed
+    // and a replacement is specified.
     $style_id = $this->getSetting('image_style');
     /** @var \Drupal\image\ImageStyleStorageInterface $storage */
     $storage = $this->entityTypeManager->getStorage('image_style');
