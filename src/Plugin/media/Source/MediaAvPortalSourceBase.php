@@ -151,6 +151,20 @@ abstract class MediaAvPortalSourceBase extends MediaSourceBase implements MediaA
   /**
    * {@inheritdoc}
    */
+  public function transformUrlToReference(string $url): string {
+
+    $patterns = $this->getSupportedUrlPatterns();
+
+    foreach ($patterns as $pattern => $callback) {
+      if (preg_match($pattern, $url)) {
+        return call_user_func([$this, $callback], $pattern, $url);
+      }
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
     $form = parent::buildConfigurationForm($form, $form_state);
 
@@ -236,6 +250,7 @@ abstract class MediaAvPortalSourceBase extends MediaSourceBase implements MediaA
    *   resource has no thumbnail at all.
    */
   protected function importRemoteThumbnail(AvPortalResource $resource, string $local_thumbnail_uri):? string {
+
     $configuration = $this->getConfiguration();
     $directory = $configuration['thumbnails_directory'];
 

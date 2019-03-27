@@ -98,7 +98,7 @@ class AvPortalWidget extends StringTextfieldWidget implements ContainerFactoryPl
       ];
     }
 
-    $element['#valid_urls'] = $this->source->getSupportedUrlPatterns();
+    $element['#valid_urls'] = array_keys($this->source->getSupportedUrlPatterns());
     $element['#element_validate'] = [
       [static::class, 'validate'],
     ];
