@@ -3,7 +3,6 @@
 declare(strict_types = 1);
 
 namespace Drupal\media_avportal\Plugin\media\Source;
-use Drupal\Component\Utility\UrlHelper;
 
 /**
  * Provides a media source plugin for Media AV Portal resources.
@@ -32,14 +31,14 @@ class MediaAvPortalVideoSource extends MediaAvPortalSourceBase {
    */
   public function getSupportedUrlPatterns(): array {
     return [
-      '@audiovisual\.ec\.europa\.eu\/(.*)\/video\/(I\-\d+)@i' => 'transformFullUrlToReference'
+      '@audiovisual\.ec\.europa\.eu\/(.*)\/video\/(I\-\d+)@i' => 'transformFullUrlToReference',
     ];
   }
 
   /**
    * {@inheritdoc}
    */
-  public function transformFullUrlToReference(string $pattern,string $url): string {
+  public function transformFullUrlToReference(string $pattern, string $url): string {
 
     preg_match_all($pattern, $url, $matches);
     if (!empty($matches)) {
