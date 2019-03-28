@@ -4,7 +4,6 @@ declare(strict_types = 1);
 
 namespace Drupal\media_avportal\Plugin\media\Source;
 
-use Drupal\Component\Utility\UrlHelper;
 use Drupal\media\MediaInterface;
 
 /**
@@ -25,7 +24,7 @@ class MediaAvPortalPhotoSource extends MediaAvPortalSourceBase {
    */
   public function getSupportedUrlFormats(): array {
     return [
-      'https://audiovisual.ec.europa.eu/en/photo/[REF]'
+      'https://audiovisual.ec.europa.eu/en/photo/[REF]',
     ];
   }
 
@@ -34,7 +33,7 @@ class MediaAvPortalPhotoSource extends MediaAvPortalSourceBase {
    */
   public function getSupportedUrlPatterns(): array {
     return [
-      '@audiovisual\.ec\.europa\.eu/(.*)/photo/(P\-.*\~2F.*)@i' => 'transformFullUrlToReference'
+      '@audiovisual\.ec\.europa\.eu/(.*)/photo/(P\-.*\~2F.*)@i' => 'transformFullUrlToReference',
     ];
   }
 
@@ -65,21 +64,22 @@ class MediaAvPortalPhotoSource extends MediaAvPortalSourceBase {
     return parent::getMetadata($media, $name);
   }
 
-
   /**
-   * Callback function to transform url to a reference
+   * Callback function to transform url to a reference.
+   *
    * @param string $pattern
-   *  The pattern.
+   *   The pattern.
    * @param string $url
-   *  The url.
+   *   The url.
+   *
    * @return string
-   *  The reference.
+   *   The reference.
    */
   public function transformFullUrlToReference(string $pattern, string $url): string {
 
     preg_match_all($pattern, $url, $matches);
     if (!empty($matches)) {
-      // converts the slash in the photo id
+      // Converts the slash in the photo id.
       return str_replace("~2F", "/", $matches[2][0]);
     }
 
