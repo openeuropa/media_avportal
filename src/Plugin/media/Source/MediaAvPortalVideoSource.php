@@ -23,6 +23,7 @@ class MediaAvPortalVideoSource extends MediaAvPortalSourceBase {
   public function getSupportedUrlFormats(): array {
     return [
       'https://audiovisual.ec.europa.eu/en/video/[REF]',
+      'https://ec.europa.eu/avservices/photo/photoDetails.cfm?sitelang=en&ref=[REF]',
     ];
   }
 
@@ -32,6 +33,7 @@ class MediaAvPortalVideoSource extends MediaAvPortalSourceBase {
   public function getSupportedUrlPatterns(): array {
     return [
       '@audiovisual\.ec\.europa\.eu\/(.*)\/video\/(I\-\d+)@i' => 'transformFullUrlToReference',
+      '@ec\.europa\.eu\/avservices\/video\/player\.cfm\?(.*)ref\=(I\-\d+)@i' => 'transformFullUrlToReference'
     ];
   }
 
