@@ -23,7 +23,7 @@ class MediaAvPortalVideoSource extends MediaAvPortalSourceBase {
   public function getSupportedUrlFormats(): array {
     return [
       'https://audiovisual.ec.europa.eu/en/video/[REF]',
-      'https://ec.europa.eu/avservices/photo/photoDetails.cfm?sitelang=en&ref=[REF]',
+      'https://ec.europa.eu/avservices/video/player.cfm?sitelang=en&ref=[REF]',
     ];
   }
 
