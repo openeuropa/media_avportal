@@ -12,7 +12,7 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
  *
  * @codingStandardsIgnoreStart PSR1.Methods.CamelCapsMethodName
  */
-class AvPortalPhotoWrapper implements StreamWrapperInterface {
+class AvPortalPhotoStreamWrapper implements StreamWrapperInterface {
 
   use StringTranslationTrait;
 
@@ -93,7 +93,12 @@ class AvPortalPhotoWrapper implements StreamWrapperInterface {
    */
   public function getExternalUrl() {
     $path = str_replace('\\', '/', $this->getTarget());
-    // We hardcode the JPG path extension.
+    // The stream wrapper URI expects an image extension because otherwise it
+    // cannot be used for generating image styles. When the latter happens, the
+    // extension is checked to determine whether the file is supported by the
+    // available image toolkit. We default to (assume) JPG as the resources
+    // are photos.
+    // @see \Drupal\image\Entity\ImageStyle::supportsUri().
     $path = str_replace('.jpg', '', $path);
     $resource = $this->client->getResource($path);
     if (!$resource) {

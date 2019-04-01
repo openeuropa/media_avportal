@@ -59,11 +59,7 @@ class AvPortalResource {
    *   The photo Uri
    */
   public function getPhotoUri(): string {
-    if (!isset($this->data['media_json']) || !isset($this->data['media_json']['HIGH'])) {
-      return '';
-    }
-
-    return $this->data['media_json']['HIGH']['PATH'];
+    return $this->data['media_json']['HIGH']['PATH'] ?? '';
   }
 
   /**

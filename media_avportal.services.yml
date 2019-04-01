@@ -3,6 +3,6 @@ services:
     class: Drupal\media_avportal\AvPortalClient
     arguments: ['@http_client', '@config.factory']
   media_avportal.photo_stream_wrapper:
-    class: Drupal\media_avportal\StreamWrapper\AvPortalPhotoWrapper
+    class: Drupal\media_avportal\StreamWrapper\AvPortalPhotoStreamWrapper
     tags:
       - { name: stream_wrapper, scheme: avportal }

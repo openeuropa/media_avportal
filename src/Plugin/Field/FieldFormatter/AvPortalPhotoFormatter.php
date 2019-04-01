@@ -183,12 +183,10 @@ class AvPortalPhotoFormatter extends FormatterBase implements ContainerFactoryPl
 
     $media_type_id = $field_definition->getTargetBundle();
     if (!$media_type_id) {
-      // Can be a base field but we need to allow this formatter to be used in
-      // those cases as well if needed. Moreover, Views fields also don't have
-      // an idea yet of the bundle when determining whether the settings of this
-      // formatter can be used in the view field if the formatter is selected.
-      // So we rely on developers not using this formatter on fields where it
-      // doesn't make any sense.
+      // We need to allow to use this formatter also in cases where the field is
+      // not bundle-specific, like when it's a base field or it's used as a
+      // formatter for Views. So we rely on developers not using this formatter
+      // on fields where it doesn't make any sense.
       return TRUE;
     }
 
@@ -239,18 +237,19 @@ class AvPortalPhotoFormatter extends FormatterBase implements ContainerFactoryPl
 
     if (!$resource instanceof AvPortalResource) {
       $this->logger->error('Could not retrieve the remote reference (@ref).', ['@ref' => $resource_ref]);
-
       return [];
     }
 
     $cache = new CacheableMetadata();
 
     $image_style = $this->settings['image_style'];
-    $theme = $image_style !== "" ? 'image_style' : 'image';
+    $theme = $image_style !== '' ? 'image_style' : 'image';
 
     $build = [
       '#theme' => $theme,
       '#attributes' => ['class' => ['avportal-photo']],
+      // We need to append an image prefix to the stream URI.
+      // @see \Drupal\media_avportal\StreamWrapper\AvPortalPhotoStreamWrapper::getExternalUrl().
       '#uri' => 'avportal://' . $resource_ref . '.jpg',
     ];
 
@@ -270,6 +269,7 @@ class AvPortalPhotoFormatter extends FormatterBase implements ContainerFactoryPl
   public function calculateDependencies(): array {
     $dependencies = parent::calculateDependencies();
     // The image styles are a dependency of this formatter.
+    // @see \Drupal\image\Plugin\Field\FieldFormatter\ImageFormatter.
     $style_id = $this->getSetting('image_style');
     /** @var \Drupal\image\ImageStyleInterface $style */
     if ($style_id && $style = $this->entityTypeManager->getStorage('image_style')->load($style_id)) {
@@ -286,6 +286,7 @@ class AvPortalPhotoFormatter extends FormatterBase implements ContainerFactoryPl
     $changed = parent::onDependencyRemoval($dependencies);
     // Ensure that the image style gets changed if the configured one is removed
     // and a replacement is specified.
+    // @see \Drupal\image\Plugin\Field\FieldFormatter\ImageFormatter.
     $style_id = $this->getSetting('image_style');
     /** @var \Drupal\image\ImageStyleStorageInterface $storage */
     $storage = $this->entityTypeManager->getStorage('image_style');
