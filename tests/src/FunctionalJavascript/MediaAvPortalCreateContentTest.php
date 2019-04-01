@@ -28,7 +28,6 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
    * Tests the AV Portal video media entity.
    */
   public function testAvPortalVideoMediaEntity(): void {
-
     $session = $this->getSession();
     $page = $session->getPage();
     $assert_session = $this->assertSession();
@@ -131,7 +130,9 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
     // Set the formatter so that we can view Media of this type.
     $config = $this->config('core.entity_view_display.media.media_av_portal_photo.default');
     $config->set('content.field_media_media_avportal_photo.type', 'avportal_photo');
-    $config->set('content.field_media_media_avportal_photo.settings', []);
+    $config->set('content.field_media_media_avportal_photo.settings', [
+      'image_style' => '',
+    ]);
     $config->save();
 
     // Create a media content with a valid reference.
@@ -175,6 +176,20 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
     $page->pressButton('Save');
 
     $assert_session->pageTextContains('Invalid URL format specified.');
+
+    // Test that the formatter works with the image styles.
+    $config = $this->config('core.entity_view_display.media.media_av_portal_photo.default');
+    $config->set('content.field_media_media_avportal_photo.settings', [
+      'image_style' => 'large',
+    ]);
+    $config->save();
+    // We need to invalidate this cache tag because otherwise the change in
+    // config does not show up. This is normally handled by the Entity display
+    // form save which we are not reproducing here.
+    $this->container->get('cache_tags.invalidator')->invalidateTags(['media_view']);
+    $this->drupalGet('media/1');
+    $image_url = $assert_session->elementExists('css', 'img.avportal-photo')->getAttribute('src');
+    $this->assertContains('files/styles/large/avportal/P-039162/00-12.jpg', $image_url);
   }
 
 }

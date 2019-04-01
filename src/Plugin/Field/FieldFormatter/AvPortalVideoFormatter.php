@@ -198,8 +198,11 @@ class AvPortalVideoFormatter extends FormatterBase implements ContainerFactoryPl
 
     $media_type_id = $field_definition->getTargetBundle();
     if (!$media_type_id) {
-      // Can be a base field.
-      return FALSE;
+      // We need to allow to use this formatter also in cases where the field is
+      // not bundle-specific, like when it's a base field or it's used as a
+      // formatter for Views. So we rely on developers not using this formatter
+      // on fields where it doesn't make any sense.
+      return TRUE;
     }
 
     $media_type = MediaType::load($media_type_id);
