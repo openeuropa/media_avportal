@@ -71,6 +71,7 @@ class MediaAvPortalPhotoSource extends MediaAvPortalSourceBase {
    *   The pattern to check.
    * @param string $url
    *   The url.
+   *
    * @return string
    *   The reference extracted from the url.
    */
