@@ -86,7 +86,7 @@ class AvPortalWidget extends StringTextfieldWidget implements ContainerFactoryPl
 
     // Element description.
     $formats = $this->source->getSupportedUrlFormats();
-    $message = $this->t('You can link to media from AV Portal by entering a URL in the formats: @formats', ['@formats' => implode(',', $formats)]);
+    $message = $this->t('You can link to media from AV Portal by entering a URL in the formats: @formats', ['@formats' => implode(', ', $formats)]);
 
     $element['value']['#description'] = $message;
 
@@ -98,7 +98,7 @@ class AvPortalWidget extends StringTextfieldWidget implements ContainerFactoryPl
       ];
     }
 
-    $element['#valid_urls'] = $this->source->getSupportedUrlPatterns();
+    $element['#valid_urls'] = array_keys($this->source->getSupportedUrlPatterns());
     $element['#element_validate'] = [
       [static::class, 'validate'],
     ];
