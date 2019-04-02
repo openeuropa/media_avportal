@@ -15,6 +15,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\image\ImageStyleInterface;
 use Drupal\media\Entity\MediaType;
 use Drupal\media_avportal\AvPortalClientInterface;
 use Drupal\media_avportal\AvPortalResource;
@@ -242,8 +243,14 @@ class AvPortalPhotoFormatter extends FormatterBase implements ContainerFactoryPl
 
     $cache = new CacheableMetadata();
 
-    $image_style = $this->settings['image_style'];
-    $theme = $image_style !== '' ? 'image_style' : 'image';
+    $image_style = $this->settings['image_style'] ?? NULL;
+    $theme = 'image';
+    if ($image_style && $image_style !== '') {
+      $image_style = $this->entityTypeManager->getStorage('image_style')->load($image_style);
+      if ($image_style instanceof ImageStyleInterface) {
+        $theme = 'image_style';
+      }
+    }
 
     $build = [
       '#theme' => $theme,
@@ -254,8 +261,8 @@ class AvPortalPhotoFormatter extends FormatterBase implements ContainerFactoryPl
     ];
 
     if ($theme === 'image_style') {
-      $build['#style_name'] = $image_style;
-      $cache->addCacheTags($this->entityTypeManager->getStorage('image_style')->load($image_style)->getCacheTags());
+      $build['#style_name'] = $image_style->id();
+      $cache->addCacheableDependency($image_style);
     }
 
     $cache->applyTo($build);
