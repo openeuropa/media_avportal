@@ -65,7 +65,7 @@ class MediaAvPortalPhotoSource extends MediaAvPortalSourceBase {
   }
 
   /**
-   * Callback function that handles Full Url Video patterns.
+   * Callback function that handles Full Url Photo patterns.
    *
    * @param string $pattern
    *   The pattern to check.
