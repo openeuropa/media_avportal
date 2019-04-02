@@ -38,7 +38,14 @@ class MediaAvPortalVideoSource extends MediaAvPortalSourceBase {
   }
 
   /**
-   * {@inheritdoc}
+   * Callback function that handles Full Url Video patterns.
+   *
+   * @param string $pattern
+   *   The pattern to check.
+   * @param string $url
+   *   The url.
+   * @return string
+   *   The reference extracted from the url.
    */
   public function handleVideoFullUrlPattern(string $pattern, string $url): string {
 
