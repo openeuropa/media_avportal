@@ -32,15 +32,15 @@ class MediaAvPortalVideoSource extends MediaAvPortalSourceBase {
    */
   public function getSupportedUrlPatterns(): array {
     return [
-      '@audiovisual\.ec\.europa\.eu\/(.*)\/video\/(I\-\d+)@i' => 'transformFullUrlToReference',
-      '@ec\.europa\.eu\/avservices\/video\/player\.cfm\?(.*)ref\=(I\-\d+)@i' => 'transformFullUrlToReference',
+      '@audiovisual\.ec\.europa\.eu\/(.*)\/video\/(I\-\d+)@i' => 'handleVideoFullUrlPattern',
+      '@ec\.europa\.eu\/avservices\/video\/player\.cfm\?(.*)ref\=(I\-\d+)@i' => 'handleVideoFullUrlPattern',
     ];
   }
 
   /**
    * {@inheritdoc}
    */
-  public function transformFullUrlToReference(string $pattern, string $url): string {
+  public function handleVideoFullUrlPattern(string $pattern, string $url): string {
 
     preg_match_all($pattern, $url, $matches);
     if (!empty($matches)) {

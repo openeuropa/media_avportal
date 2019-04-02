@@ -33,7 +33,7 @@ class MediaAvPortalPhotoSource extends MediaAvPortalSourceBase {
    */
   public function getSupportedUrlPatterns(): array {
     return [
-      '@audiovisual\.ec\.europa\.eu/(.*)/photo/(P\-.*\~2F.*)@i' => 'transformFullUrlToReference',
+      '@audiovisual\.ec\.europa\.eu/(.*)/photo/(P\-.*\~2F.*)@i' => 'handlePhotoFullUrlPattern',
     ];
   }
 
@@ -75,7 +75,7 @@ class MediaAvPortalPhotoSource extends MediaAvPortalSourceBase {
    * @return string
    *   The reference.
    */
-  public function transformFullUrlToReference(string $pattern, string $url): string {
+  public function handlePhotoFullUrlPattern(string $pattern, string $url): string {
 
     preg_match_all($pattern, $url, $matches);
     if (!empty($matches)) {
