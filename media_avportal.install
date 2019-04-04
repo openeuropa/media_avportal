@@ -34,3 +34,15 @@ function media_avportal_update_8001() {
     }
   }
 }
+
+/**
+ * Implements hook_update_N().
+ *
+ * Updates avportal webservice endpoint.
+ */
+function media_avportal_update_8002() {
+  $config_factory = \Drupal::configFactory();
+  $config = $config_factory->getEditable('media_avportal.settings');
+  $config->set('client_api_uri', 'https://gfdwwnbuul.execute-api.eu-west-1.amazonaws.com/avsportal/avsportal');
+  $config->save(TRUE);
+}
