@@ -21,7 +21,7 @@
         "drush/drush": "~9.0",
         "nikic/php-parser": "^3.1.5",
         "openeuropa/code-review": "~1.0@beta",
-        "openeuropa/drupal-core-require-dev": "^8.6",
+        "openeuropa/drupal-core-require-dev": "^8.6.4",
         "openeuropa/task-runner": "~1.0@beta",
         "phpunit/phpunit": "~6.0"
     },
