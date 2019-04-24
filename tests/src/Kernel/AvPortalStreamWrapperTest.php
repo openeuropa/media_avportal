@@ -17,6 +17,7 @@ class AvPortalStreamWrapperTest extends KernelTestBase {
    */
   protected static $modules = [
     'system',
+    'remote_stream_wrapper',
     'media_avportal',
     'media_avportal_mock',
   ];
