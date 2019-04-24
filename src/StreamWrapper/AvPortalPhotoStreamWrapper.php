@@ -6,13 +6,14 @@ namespace Drupal\media_avportal\StreamWrapper;
 
 use Drupal\Core\StreamWrapper\StreamWrapperInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\remote_stream_wrapper\StreamWrapper\HttpStreamWrapper;
 
 /**
  * Stream wrapper for the remote AV Portal photos.
  *
  * @codingStandardsIgnoreStart PSR1.Methods.CamelCapsMethodName
  */
-class AvPortalPhotoStreamWrapper implements StreamWrapperInterface {
+class AvPortalPhotoStreamWrapper extends HttpStreamWrapper {
 
   use StringTranslationTrait;
 
@@ -35,7 +36,7 @@ class AvPortalPhotoStreamWrapper implements StreamWrapperInterface {
    *
    * @var \Drupal\Core\Config\ImmutableConfig
    */
-  protected $config;
+  protected $configuration;
 
   /**
    * The resource handle.
@@ -50,7 +51,7 @@ class AvPortalPhotoStreamWrapper implements StreamWrapperInterface {
   public function __construct() {
     // Dependency injection does not work with stream wrappers.
     $this->client = \Drupal::service('media_avportal.client');
-    $this->config = \Drupal::configFactory()->get('media_avportal.settings');
+    $this->configuration = \Drupal::configFactory()->get('media_avportal.settings');
   }
 
   /**
@@ -105,7 +106,7 @@ class AvPortalPhotoStreamWrapper implements StreamWrapperInterface {
       return NULL;
     }
 
-    return $this->config->get('photos_base_uri') . $resource->getPhotoUri();
+    return $this->configuration->get('photos_base_uri') . $resource->getPhotoUri();
   }
 
   /**
@@ -130,161 +131,9 @@ class AvPortalPhotoStreamWrapper implements StreamWrapperInterface {
       return FALSE;
     }
 
-    $parsed = parse_url($url);
-    if (!isset($parsed['scheme'])) {
-      $url = 'https:' . $url;
-    }
+    $url = $this->getFullExternalUrl($url);
 
-    $this->handle = ($options && STREAM_REPORT_ERRORS) ? fopen($url, $mode) : @fopen($url, $mode);
-
-    return (bool) $this->handle;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function dir_closedir() {
-    return FALSE;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function dir_opendir($path, $options) {
-    return FALSE;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function dir_readdir() {
-    return FALSE;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function dir_rewinddir() {
-    return FALSE;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function mkdir($path, $mode, $options) {
-    return FALSE;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function rename($path_from, $path_to) {
-    return FALSE;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function rmdir($path, $options) {
-    return FALSE;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function stream_cast($cast_as) {
-    return FALSE;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function stream_close() {
-    return fclose($this->handle);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function stream_eof() {
-    return feof($this->handle);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function stream_flush() {
-    return FALSE;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function stream_lock($operation) {
-    return FALSE;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function stream_metadata($path, $option, $value) {
-    return FALSE;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function stream_read($count) {
-    return fread($this->handle, $count);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function stream_seek($offset, $whence = SEEK_SET) {
-    return FALSE;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function stream_set_option($option, $arg1, $arg2) {
-    return FALSE;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function stream_stat() {
-    return FALSE;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function stream_tell() {
-    return FALSE;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function stream_truncate($new_size) {
-    return FALSE;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function stream_write($data) {
-    return FALSE;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function unlink($path) {
-    return FALSE;
+    return parent::stream_open($url, $mode, $options, $opened_path);
   }
 
   /**
@@ -300,19 +149,28 @@ class AvPortalPhotoStreamWrapper implements StreamWrapperInterface {
       return FALSE;
     }
 
-    // We don't have any information about the file since it is remote. So we
-    // just return an array with a single value to indicate that the file is
-    // actually there.
-    return [
-      0 => TRUE,
-    ];
+    $url = $this->configuration->get('photos_base_uri') . $resource->getPhotoUri();
+    $url = $this->getFullExternalUrl($url);
+
+    return parent::url_stat($url, $flags);
   }
 
   /**
-   * {@inheritdoc}
+   * Appends the scheme to the external URL retrieved by getExternalUrl().
+   *
+   * @param string $url
+   *   The external URL.
+   *
+   * @return string
+   *   The full external URL.
    */
-  public function dirname($uri = NULL) {
-    return FALSE;
+  protected function getFullExternalUrl(string $url): string {
+    $parsed = parse_url($url);
+    if (!isset($parsed['scheme'])) {
+      $url = 'https:' . $url;
+    }
+
+    return $url;
   }
 
   /**
@@ -332,6 +190,13 @@ class AvPortalPhotoStreamWrapper implements StreamWrapperInterface {
     list($scheme, $target) = explode('://', $uri, 2);
 
     return trim($target, '\/');
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function preventUnmanagedFileImageStyleGeneration() {
+    return FALSE;
   }
 
 }
