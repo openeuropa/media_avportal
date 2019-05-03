@@ -25,6 +25,19 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
   ];
 
   /**
+   * {@inheritdoc}
+   */
+  protected function setUp() {
+    parent::setUp();
+    $config_factory = \Drupal::configFactory();
+    $config = $config_factory->getEditable('media.settings');
+    $config->set('standalone_url', TRUE);
+    $config->save();
+
+    $this->container->get('router.builder')->rebuild();
+  }
+
+  /**
    * Tests the AV Portal video media entity.
    */
   public function testAvPortalVideoMediaEntity(): void {

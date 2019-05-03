@@ -7,7 +7,7 @@
     "prefer-stable": true,
     "require": {
         "php": "^7.1",
-        "drupal/core": "^8.6",
+        "drupal/core": "^8.7",
         "drupal/remote_stream_wrapper": "^1.2"
     },
     "require-dev": {
@@ -15,13 +15,12 @@
         "drupal-composer/drupal-scaffold": "~2.5.2",
         "cweagans/composer-patches": "^1.6",
         "drupal/config_devel": "~1.2",
-        "drupal/console": "~1.0",
-        "drupal/ctools": "^3.0",
+        "drupal/console": "^1.6",
         "drupal/drupal-extension": "~4.0",
         "drush/drush": "~9.0",
         "nikic/php-parser": "^3.1.5",
         "openeuropa/code-review": "~1.0@beta",
-        "openeuropa/drupal-core-require-dev": "^8.6.4",
+        "openeuropa/drupal-core-require-dev": "^8.7",
         "openeuropa/task-runner": "~1.0@beta",
         "phpunit/phpunit": "~6.0"
     },
