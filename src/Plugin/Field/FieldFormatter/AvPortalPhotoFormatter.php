@@ -84,22 +84,22 @@ class AvPortalPhotoFormatter extends FormatterBase implements ContainerFactoryPl
    *   The messenger service.
    * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $logger_factory
    *   The logger factory service.
-   * @param \Drupal\media_avportal\AvPortalClientInterface $avPortalClient
+   * @param \Drupal\media_avportal\AvPortalClientInterface $avportal_client
    *   The AV Portal client.
-   * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *   The config factory.
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager.
    *
    * @SuppressWarnings(PHPMD.ExcessiveParameterList)
    */
-  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, $label, $view_mode, array $third_party_settings, MessengerInterface $messenger, LoggerChannelFactoryInterface $logger_factory, AvPortalClientInterface $avPortalClient, ConfigFactoryInterface $configFactory, EntityTypeManagerInterface $entityTypeManager) {
+  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, $label, $view_mode, array $third_party_settings, MessengerInterface $messenger, LoggerChannelFactoryInterface $logger_factory, AvPortalClientInterface $avportal_client, ConfigFactoryInterface $config_factory, EntityTypeManagerInterface $entity_type_manager) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
     $this->messenger = $messenger;
     $this->logger = $logger_factory->get('media');
-    $this->avPortalClient = $avPortalClient;
-    $this->config = $configFactory->get('media_avportal.settings');
-    $this->entityTypeManager = $entityTypeManager;
+    $this->avPortalClient = $avportal_client;
+    $this->config = $config_factory->get('media_avportal.settings');
+    $this->entityTypeManager = $entity_type_manager;
   }
 
   /**
@@ -199,14 +199,19 @@ class AvPortalPhotoFormatter extends FormatterBase implements ContainerFactoryPl
    * {@inheritdoc}
    */
   public function viewElements(FieldItemListInterface $items, $langcode): array {
-    $cache = new CacheableMetadata();
-    $list_cache_tags = $this->entityTypeManager->getDefinition('image_style')->getListCacheTags();
-    $cache->addCacheTags($list_cache_tags);
-
     $elements = [];
 
     foreach ($items as $delta => $item) {
       $elements[$delta] = $this->viewElement($item);
+    }
+
+    $cache = new CacheableMetadata();
+    $image_style = $this->settings['image_style'] ?? NULL;
+    if ($image_style && $image_style !== '') {
+      $image_style = $this->entityTypeManager->getStorage('image_style')->load($image_style);
+      if ($image_style instanceof ImageStyleInterface) {
+        $cache->addCacheableDependency($image_style);
+      }
     }
 
     $cache->applyTo($elements);
@@ -241,8 +246,6 @@ class AvPortalPhotoFormatter extends FormatterBase implements ContainerFactoryPl
       return [];
     }
 
-    $cache = new CacheableMetadata();
-
     $image_style = $this->settings['image_style'] ?? NULL;
     $theme = 'image';
     if ($image_style && $image_style !== '') {
@@ -262,10 +265,7 @@ class AvPortalPhotoFormatter extends FormatterBase implements ContainerFactoryPl
 
     if ($theme === 'image_style') {
       $build['#style_name'] = $image_style->id();
-      $cache->addCacheableDependency($image_style);
     }
-
-    $cache->applyTo($build);
 
     return $build;
   }

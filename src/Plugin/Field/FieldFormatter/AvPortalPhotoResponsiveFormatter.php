@@ -4,7 +4,6 @@ declare(strict_types = 1);
 
 namespace Drupal\media_avportal\Plugin\Field\FieldFormatter;
 
-use Drupal\Core\Cache\Cache;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
@@ -24,6 +23,7 @@ use Drupal\media_avportal\AvPortalClientInterface;
 use Drupal\media_avportal\AvPortalResource;
 use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalPhotoSource;
 use Drupal\responsive_image\Entity\ResponsiveImageStyle;
+use Drupal\responsive_image\ResponsiveImageStyleInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -82,7 +82,7 @@ class AvPortalPhotoResponsiveFormatter extends FormatterBase implements Containe
   protected $linkGenerator;
 
   /**
-   * Constructs an AvPortalPhotoFormatter instance.
+   * Constructs an AvPortalPhotoResponsiveFormatter instance.
    *
    * @param string $plugin_id
    *   The plugin ID for the formatter.
@@ -102,11 +102,11 @@ class AvPortalPhotoResponsiveFormatter extends FormatterBase implements Containe
    *   The messenger service.
    * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $logger_factory
    *   The logger factory service.
-   * @param \Drupal\media_avportal\AvPortalClientInterface $avPortalClient
+   * @param \Drupal\media_avportal\AvPortalClientInterface $avportal_client
    *   The AV Portal client.
-   * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *   The config factory.
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager.
    * @param \Drupal\Core\Utility\LinkGeneratorInterface $link_generator
    *   The link generator service.
@@ -115,13 +115,13 @@ class AvPortalPhotoResponsiveFormatter extends FormatterBase implements Containe
    *
    * @SuppressWarnings(PHPMD.ExcessiveParameterList)
    */
-  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, $label, $view_mode, array $third_party_settings, MessengerInterface $messenger, LoggerChannelFactoryInterface $logger_factory, AvPortalClientInterface $avPortalClient, ConfigFactoryInterface $configFactory, EntityTypeManagerInterface $entityTypeManager, LinkGeneratorInterface $link_generator, AccountInterface $current_user) {
+  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, $label, $view_mode, array $third_party_settings, MessengerInterface $messenger, LoggerChannelFactoryInterface $logger_factory, AvPortalClientInterface $avportal_client, ConfigFactoryInterface $config_factory, EntityTypeManagerInterface $entity_type_manager, LinkGeneratorInterface $link_generator, AccountInterface $current_user) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
     $this->messenger = $messenger;
     $this->logger = $logger_factory->get('media');
-    $this->avPortalClient = $avPortalClient;
-    $this->config = $configFactory->get('media_avportal.settings');
-    $this->entityTypeManager = $entityTypeManager;
+    $this->avPortalClient = $avportal_client;
+    $this->config = $config_factory->get('media_avportal.settings');
+    $this->entityTypeManager = $entity_type_manager;
     $this->linkGenerator = $link_generator;
     $this->currentUser = $current_user;
   }
@@ -151,7 +151,7 @@ class AvPortalPhotoResponsiveFormatter extends FormatterBase implements Containe
   /**
    * {@inheritdoc}
    */
-  public static function defaultSettings() {
+  public static function defaultSettings(): array {
     return [
       'responsive_image_style' => '',
     ] + parent::defaultSettings();
@@ -160,14 +160,13 @@ class AvPortalPhotoResponsiveFormatter extends FormatterBase implements Containe
   /**
    * {@inheritdoc}
    */
-  public function settingsForm(array $form, FormStateInterface $form_state) {
+  public function settingsForm(array $form, FormStateInterface $form_state): array {
     $responsive_image_options = [];
+    /** @var \Drupal\responsive_image\ResponsiveImageStyleInterface[] $responsive_image_styles */
     $responsive_image_styles = $this->entityTypeManager->getStorage('responsive_image_style')->loadMultiple();
-    if ($responsive_image_styles && !empty($responsive_image_styles)) {
-      foreach ($responsive_image_styles as $machine_name => $responsive_image_style) {
-        if ($responsive_image_style->hasImageStyleMappings()) {
-          $responsive_image_options[$machine_name] = $responsive_image_style->label();
-        }
+    foreach ($responsive_image_styles as $machine_name => $responsive_image_style) {
+      if ($responsive_image_style->hasImageStyleMappings()) {
+        $responsive_image_options[$machine_name] = $responsive_image_style->label();
       }
     }
 
@@ -175,7 +174,6 @@ class AvPortalPhotoResponsiveFormatter extends FormatterBase implements Containe
       '#title' => t('Responsive image style'),
       '#type' => 'select',
       '#default_value' => $this->getSetting('responsive_image_style') ?: NULL,
-      '#empty_option' => $this->t('None (original image)'),
       '#required' => TRUE,
       '#options' => $responsive_image_options,
       '#description' => [
@@ -190,7 +188,7 @@ class AvPortalPhotoResponsiveFormatter extends FormatterBase implements Containe
   /**
    * {@inheritdoc}
    */
-  public function settingsSummary() {
+  public function settingsSummary(): array {
     $summary = [];
 
     $responsive_image_style = $this->entityTypeManager->getStorage('responsive_image_style')->load($this->getSetting('responsive_image_style'));
@@ -216,6 +214,18 @@ class AvPortalPhotoResponsiveFormatter extends FormatterBase implements Containe
       return FALSE;
     }
 
+    // We don't want this formatter used if the Responsive Image module is not
+    // installed.
+    if (!\Drupal::moduleHandler()->moduleExists('responsive_image')) {
+      return FALSE;
+    }
+
+    // We don't want to use this formatter if there are no responsive image
+    // styles on the site.
+    if (empty(\Drupal::entityTypeManager()->getStorage('responsive_image_style')->loadMultiple())) {
+      return FALSE;
+    }
+
     $media_type_id = $field_definition->getTargetBundle();
     if (!$media_type_id) {
       // We need to allow to use this formatter also in cases where the field is
@@ -233,29 +243,30 @@ class AvPortalPhotoResponsiveFormatter extends FormatterBase implements Containe
    * {@inheritdoc}
    */
   public function viewElements(FieldItemListInterface $items, $langcode): array {
-
-    // Collect cache tags to be added for each item in the field.
-    $responsive_image_style = $this->entityTypeManager->getStorage('responsive_image_style')->load($this->getSetting('responsive_image_style'));
-    $image_styles_to_load = [];
-    $cache_tags = [];
-    if ($responsive_image_style) {
-      $cache_tags = Cache::mergeTags($cache_tags, $responsive_image_style->getCacheTags());
-      $image_styles_to_load = $responsive_image_style->getImageStyleIds();
-    }
-
-    $image_styles = $this->entityTypeManager->getStorage('image_style')->loadMultiple($image_styles_to_load);
-    foreach ($image_styles as $image_style) {
-      $cache_tags = Cache::mergeTags($cache_tags, $image_style->getCacheTags());
-    }
-
-    $cache = new CacheableMetadata();
-    $list_cache_tags = $this->entityTypeManager->getDefinition('responsive_image_style')->getListCacheTags();
-    $cache->addCacheTags($list_cache_tags);
-
     $elements = [];
 
     foreach ($items as $delta => $item) {
       $elements[$delta] = $this->viewElement($item);
+    }
+
+    $style_id = $this->getSetting('responsive_image_style');
+    if (!$style_id) {
+      return $elements;
+    }
+
+    $responsive_image_style = $this->entityTypeManager->getStorage('responsive_image_style')->load($style_id);
+    if (!$responsive_image_style instanceof ResponsiveImageStyleInterface) {
+      return $elements;
+    }
+
+    $cache = new CacheableMetadata();
+    $cache->addCacheableDependency($responsive_image_style);
+    if ($responsive_image_style->hasImageStyleMappings()) {
+      $image_styles = $responsive_image_style->getImageStyleIds();
+      $image_styles = $this->entityTypeManager->getStorage('image_style')->loadMultiple($image_styles);
+      foreach ($image_styles as $image_style) {
+        $cache->addCacheableDependency($image_style);
+      }
     }
 
     $cache->applyTo($elements);
@@ -290,8 +301,6 @@ class AvPortalPhotoResponsiveFormatter extends FormatterBase implements Containe
       return [];
     }
 
-    $cache = new CacheableMetadata();
-
     $responsive_image_style = $this->settings['responsive_image_style'] ?? NULL;
     $theme = 'image';
     if ($responsive_image_style && $responsive_image_style !== '') {
@@ -311,10 +320,7 @@ class AvPortalPhotoResponsiveFormatter extends FormatterBase implements Containe
 
     if ($theme === 'responsive_image') {
       $build['#responsive_image_style_id'] = $responsive_image_style->id();
-      $cache->addCacheableDependency($responsive_image_style);
     }
-
-    $cache->applyTo($build);
 
     return $build;
   }
@@ -322,14 +328,20 @@ class AvPortalPhotoResponsiveFormatter extends FormatterBase implements Containe
   /**
    * {@inheritdoc}
    */
-  public function calculateDependencies() {
+  public function calculateDependencies(): array {
     $dependencies = parent::calculateDependencies();
     $style_id = $this->getSetting('responsive_image_style');
-    /** @var \Drupal\responsive_image\ResponsiveImageStyleInterface $style */
-    if ($style_id && $style = ResponsiveImageStyle::load($style_id)) {
-      // Add the responsive image style as dependency.
-      $dependencies[$style->getConfigDependencyKey()][] = $style->getConfigDependencyName();
+    if (!$style_id) {
+      return $dependencies;
     }
+
+    $responsive_image_style = $this->entityTypeManager->getStorage('responsive_image_style')->load($style_id);
+    if (!$responsive_image_style instanceof ResponsiveImageStyleInterface) {
+      return $dependencies;
+    }
+
+    $dependencies[$responsive_image_style->getConfigDependencyKey()][] = $responsive_image_style->getConfigDependencyName();
+
     return $dependencies;
   }
 

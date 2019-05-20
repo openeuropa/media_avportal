@@ -49,5 +49,14 @@ field.formatter.settings.avportal_photo:
       type: string
       label: 'Image style'
 
+field.formatter.settings.avportal_photo_responsive:
+  type: mapping
+  label: 'Responsive image format settings'
+  mapping:
+    responsive_image_style:
+      type: string
+      label: 'Responsive image style'
+
+
 field.widget.settings.avportal_textfield:
   type: field.widget.settings.string_textfield

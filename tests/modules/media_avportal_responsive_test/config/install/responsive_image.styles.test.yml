@@ -1,0 +1,29 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - image.style.large
+    - image.style.medium
+    - image.style.thumbnail
+  module:
+    - media_avportal_responsive_test
+id: test
+label: Test
+image_style_mappings:
+  -
+    breakpoint_id: media_avportal_responsive_test.wide
+    multiplier: 1x
+    image_mapping_type: image_style
+    image_mapping: large
+  -
+    breakpoint_id: media_avportal_responsive_test.narrow
+    multiplier: 1x
+    image_mapping_type: image_style
+    image_mapping: medium
+  -
+    breakpoint_id: media_avportal_responsive_test.mobile
+    multiplier: 1x
+    image_mapping_type: image_style
+    image_mapping: thumbnail
+breakpoint_group: media_avportal_responsive_test
+fallback_image_style: '_original image_'

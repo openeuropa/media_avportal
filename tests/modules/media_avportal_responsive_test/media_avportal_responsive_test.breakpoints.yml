@@ -1,0 +1,14 @@
+media_avportal_responsive_test.mobile:
+  label: mobile
+  mediaQuery: '(min-width: 0px)'
+  weight: 1
+
+media_avportal_responsive_test.narrow:
+  label: narrow
+  mediaQuery: '(min-width: 560px)'
+  weight: 2
+
+media_avportal_responsive_test.wide:
+  label: wide
+  mediaQuery: '(min-width: 851px)'
+  weight: 3
