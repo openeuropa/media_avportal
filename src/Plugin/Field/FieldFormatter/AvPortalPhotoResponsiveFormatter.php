@@ -13,7 +13,6 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
-use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Url;
@@ -98,8 +97,6 @@ class AvPortalPhotoResponsiveFormatter extends FormatterBase implements Containe
    *   The view mode.
    * @param array $third_party_settings
    *   Any third party settings.
-   * @param \Drupal\Core\Messenger\MessengerInterface $messenger
-   *   The messenger service.
    * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $logger_factory
    *   The logger factory service.
    * @param \Drupal\media_avportal\AvPortalClientInterface $avportal_client
@@ -115,9 +112,8 @@ class AvPortalPhotoResponsiveFormatter extends FormatterBase implements Containe
    *
    * @SuppressWarnings(PHPMD.ExcessiveParameterList)
    */
-  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, $label, $view_mode, array $third_party_settings, MessengerInterface $messenger, LoggerChannelFactoryInterface $logger_factory, AvPortalClientInterface $avportal_client, ConfigFactoryInterface $config_factory, EntityTypeManagerInterface $entity_type_manager, LinkGeneratorInterface $link_generator, AccountInterface $current_user) {
+  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, $label, $view_mode, array $third_party_settings, LoggerChannelFactoryInterface $logger_factory, AvPortalClientInterface $avportal_client, ConfigFactoryInterface $config_factory, EntityTypeManagerInterface $entity_type_manager, LinkGeneratorInterface $link_generator, AccountInterface $current_user) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
-    $this->messenger = $messenger;
     $this->logger = $logger_factory->get('media');
     $this->avPortalClient = $avportal_client;
     $this->config = $config_factory->get('media_avportal.settings');
@@ -138,7 +134,6 @@ class AvPortalPhotoResponsiveFormatter extends FormatterBase implements Containe
       $configuration['label'],
       $configuration['view_mode'],
       $configuration['third_party_settings'],
-      $container->get('messenger'),
       $container->get('logger.factory'),
       $container->get('media_avportal.client'),
       $container->get('config.factory'),
@@ -303,7 +298,7 @@ class AvPortalPhotoResponsiveFormatter extends FormatterBase implements Containe
 
     $responsive_image_style = $this->settings['responsive_image_style'] ?? NULL;
     $theme = 'image';
-    if ($responsive_image_style && $responsive_image_style !== '') {
+    if (!empty($responsive_image_style)) {
       $responsive_image_style = $this->entityTypeManager->getStorage('responsive_image_style')->load($responsive_image_style);
       if ($responsive_image_style instanceof ResponsiveImageStyle) {
         $theme = 'responsive_image';

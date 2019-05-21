@@ -13,7 +13,6 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
-use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\image\ImageStyleInterface;
 use Drupal\media\Entity\MediaType;
@@ -80,8 +79,6 @@ class AvPortalPhotoFormatter extends FormatterBase implements ContainerFactoryPl
    *   The view mode.
    * @param array $third_party_settings
    *   Any third party settings.
-   * @param \Drupal\Core\Messenger\MessengerInterface $messenger
-   *   The messenger service.
    * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $logger_factory
    *   The logger factory service.
    * @param \Drupal\media_avportal\AvPortalClientInterface $avportal_client
@@ -93,9 +90,8 @@ class AvPortalPhotoFormatter extends FormatterBase implements ContainerFactoryPl
    *
    * @SuppressWarnings(PHPMD.ExcessiveParameterList)
    */
-  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, $label, $view_mode, array $third_party_settings, MessengerInterface $messenger, LoggerChannelFactoryInterface $logger_factory, AvPortalClientInterface $avportal_client, ConfigFactoryInterface $config_factory, EntityTypeManagerInterface $entity_type_manager) {
+  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, $label, $view_mode, array $third_party_settings, LoggerChannelFactoryInterface $logger_factory, AvPortalClientInterface $avportal_client, ConfigFactoryInterface $config_factory, EntityTypeManagerInterface $entity_type_manager) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
-    $this->messenger = $messenger;
     $this->logger = $logger_factory->get('media');
     $this->avPortalClient = $avportal_client;
     $this->config = $config_factory->get('media_avportal.settings');
@@ -114,7 +110,6 @@ class AvPortalPhotoFormatter extends FormatterBase implements ContainerFactoryPl
       $configuration['label'],
       $configuration['view_mode'],
       $configuration['third_party_settings'],
-      $container->get('messenger'),
       $container->get('logger.factory'),
       $container->get('media_avportal.client'),
       $container->get('config.factory'),
@@ -207,7 +202,7 @@ class AvPortalPhotoFormatter extends FormatterBase implements ContainerFactoryPl
 
     $cache = new CacheableMetadata();
     $image_style = $this->settings['image_style'] ?? NULL;
-    if ($image_style && $image_style !== '') {
+    if (!empty($image_style)) {
       $image_style = $this->entityTypeManager->getStorage('image_style')->load($image_style);
       if ($image_style instanceof ImageStyleInterface) {
         $cache->addCacheableDependency($image_style);
@@ -248,7 +243,7 @@ class AvPortalPhotoFormatter extends FormatterBase implements ContainerFactoryPl
 
     $image_style = $this->settings['image_style'] ?? NULL;
     $theme = 'image';
-    if ($image_style && $image_style !== '') {
+    if (!empty($image_style)) {
       $image_style = $this->entityTypeManager->getStorage('image_style')->load($image_style);
       if ($image_style instanceof ImageStyleInterface) {
         $theme = 'image_style';
