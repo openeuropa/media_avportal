@@ -1,8 +1,17 @@
 # Change Log
 
+## [8.x-1.0-beta2](https://github.com/openeuropa/media_avportal/tree/8.x-1.0-beta2) (2019-05-23)
+[Full Changelog](https://github.com/openeuropa/media_avportal/compare/8.x-1.0-beta1...8.x-1.0-beta2)
+
+**Merged pull requests:**
+
+- OPENEUROPA-1930: Update text filter parameter. [\#24](https://github.com/openeuropa/media_avportal/pull/24) ([imanoleguskiza](https://github.com/imanoleguskiza))
+- OPENEUROPA-1775: Add responsive image formatter. [\#22](https://github.com/openeuropa/media_avportal/pull/22) ([imanoleguskiza](https://github.com/imanoleguskiza))
+
 ## [8.x-1.0-beta1](https://github.com/openeuropa/media_avportal/tree/8.x-1.0-beta1) (2019-05-15)
 **Merged pull requests:**
 
+- OPENEUROPA-0000: Added changelog. [\#23](https://github.com/openeuropa/media_avportal/pull/23) ([hernani](https://github.com/hernani))
 - OPENEUROPA-1875: Update for 8.7 . [\#21](https://github.com/openeuropa/media_avportal/pull/21) ([hernani](https://github.com/hernani))
 - OPENEUROPA-1788: Fix dependencies. [\#20](https://github.com/openeuropa/media_avportal/pull/20) ([sergepavle](https://github.com/sergepavle))
 - OPENEUROPA-1844: Fixing AV Portal stream wrapper [\#19](https://github.com/openeuropa/media_avportal/pull/19) ([upchuk](https://github.com/upchuk))
