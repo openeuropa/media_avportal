@@ -17,7 +17,7 @@ By default, there are 3 types of requests that are mocked:
 
 * A default request with no options
 * A request for a given resource (the options contain the `ref` key)
-* A request that searches for a given term (the options contain the `kwand` key)
+* A request that searches for a given term (the options contain the `kwgg` key)
 
 Additionally, any request to a resource thumbnail will return a local thumbnail image.
 
