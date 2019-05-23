@@ -22,6 +22,9 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
     'field_ui',
     'media_avportal',
     'media_avportal_mock',
+    'image',
+    'responsive_image',
+    'media_avportal_responsive_test',
   ];
 
   /**
@@ -203,6 +206,60 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
     $this->drupalGet('media/1');
     $image_url = $assert_session->elementExists('css', 'img.avportal-photo')->getAttribute('src');
     $this->assertContains('files/styles/large/avportal/P-039162/00-12.jpg', $image_url);
+  }
+
+  /**
+   * Tests the AV Portal photo media entity with the responsive image formatter.
+   */
+  public function testAvPortalPhotoMediaEntityResponsive(): void {
+    $session = $this->getSession();
+    $page = $session->getPage();
+    $assert_session = $this->assertSession();
+
+    // Log in as an administrator.
+    $user = $this->drupalCreateUser([], NULL, TRUE);
+    $this->drupalLogin($user);
+
+    // Create the Media AV portal media photo bundle.
+    $this->drupalGet('admin/structure/media/add');
+    $page->fillField('label', 'Media AV Portal Photo');
+    $this->assertNotEmpty(
+      $assert_session->waitForElementVisible('css', '.machine-name-value')
+    );
+    $assert_session->selectExists('Media source')->selectOption('media_avportal_photo');
+    $this->assertNotEmpty(
+      $assert_session->waitForElementVisible('css', 'fieldset[data-drupal-selector="edit-source-configuration"]')
+    );
+    $assert_session->selectExists('Resource title')->selectOption('name');
+    $page->pressButton('Save');
+    $page->hasContent('The media type Media AV Portal photo Test has been added.');
+
+    // Set the formatter so that we can view Media of this type.
+    $config = $this->config('core.entity_view_display.media.media_av_portal_photo.default');
+    $config->set('content.field_media_media_avportal_photo.type', 'avportal_photo_responsive');
+    $config->set('content.field_media_media_avportal_photo.settings', [
+      'responsive_image_style' => 'test',
+    ]);
+    $config->save();
+
+    // Create a media content with a valid reference.
+    $this->drupalGet('media/add/media_av_portal_photo');
+    $page->fillField('Media AV Portal Photo', 'https://audiovisual.ec.europa.eu/en/photo/P-038924~2F00-15');
+    $page->pressButton('Save');
+
+    // Visit the new media content.
+    $page->clickLink('Euro with miniature figurines');
+
+    // Check the responsive source sets.
+    $picture = $assert_session->elementExists('css', 'picture');
+    $this->assertContains('styles/large/avportal/P-038924/00-15', $picture->find('css', 'source[media="(min-width: 851px)"]')->getAttribute('srcset'));
+    $this->assertContains('styles/medium/avportal/P-038924/00-15', $picture->find('css', 'source[media="(min-width: 560px)"]')->getAttribute('srcset'));
+    $this->assertContains('styles/thumbnail/avportal/P-038924/00-15', $picture->find('css', 'source[media="(min-width: 0px)"]')->getAttribute('srcset'));
+
+    // Check the image fallback URL.
+    $image_url = $picture->find('css', 'img.avportal-photo')->getAttribute('src');
+    $this->assertContains('ec.europa.eu/avservices/avs/files/video6/repository/prod/photo/store/', $image_url);
+    $this->assertContains('P038924-352937.jpg', $image_url);
   }
 
 }

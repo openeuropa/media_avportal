@@ -14,25 +14,29 @@ use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\image\ImageStyleInterface;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\Url;
+use Drupal\Core\Utility\LinkGeneratorInterface;
 use Drupal\media\Entity\MediaType;
 use Drupal\media_avportal\AvPortalClientInterface;
 use Drupal\media_avportal\AvPortalResource;
 use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalPhotoSource;
+use Drupal\responsive_image\Entity\ResponsiveImageStyle;
+use Drupal\responsive_image\ResponsiveImageStyleInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Plugin implementation of the 'avportal_photo' formatter.
+ * Plugin implementation of the 'avportal_photo_responsive' formatter.
  *
  * @FieldFormatter(
- *   id = "avportal_photo",
- *   label = @Translation("AV Portal Photo"),
+ *   id = "avportal_photo_responsive",
+ *   label = @Translation("AV Portal Photo Responsive"),
  *   field_types = {
  *     "string",
  *   },
  * )
  */
-class AvPortalPhotoFormatter extends FormatterBase implements ContainerFactoryPluginInterface {
+class AvPortalPhotoResponsiveFormatter extends FormatterBase implements ContainerFactoryPluginInterface {
 
   /**
    * The AV Portal client.
@@ -63,7 +67,21 @@ class AvPortalPhotoFormatter extends FormatterBase implements ContainerFactoryPl
   protected $entityTypeManager;
 
   /**
-   * Constructs an AvPortalPhotoFormatter instance.
+   * The current user.
+   *
+   * @var \Drupal\Core\Session\AccountInterface
+   */
+  protected $currentUser;
+
+  /**
+   * The link generator.
+   *
+   * @var \Drupal\Core\Utility\LinkGeneratorInterface
+   */
+  protected $linkGenerator;
+
+  /**
+   * Constructs an AvPortalPhotoResponsiveFormatter instance.
    *
    * @param string $plugin_id
    *   The plugin ID for the formatter.
@@ -87,15 +105,21 @@ class AvPortalPhotoFormatter extends FormatterBase implements ContainerFactoryPl
    *   The config factory.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager.
+   * @param \Drupal\Core\Utility\LinkGeneratorInterface $link_generator
+   *   The link generator service.
+   * @param \Drupal\Core\Session\AccountInterface $current_user
+   *   The current user.
    *
    * @SuppressWarnings(PHPMD.ExcessiveParameterList)
    */
-  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, $label, $view_mode, array $third_party_settings, LoggerChannelFactoryInterface $logger_factory, AvPortalClientInterface $avportal_client, ConfigFactoryInterface $config_factory, EntityTypeManagerInterface $entity_type_manager) {
+  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, $label, $view_mode, array $third_party_settings, LoggerChannelFactoryInterface $logger_factory, AvPortalClientInterface $avportal_client, ConfigFactoryInterface $config_factory, EntityTypeManagerInterface $entity_type_manager, LinkGeneratorInterface $link_generator, AccountInterface $current_user) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
     $this->logger = $logger_factory->get('media');
     $this->avPortalClient = $avportal_client;
     $this->config = $config_factory->get('media_avportal.settings');
     $this->entityTypeManager = $entity_type_manager;
+    $this->linkGenerator = $link_generator;
+    $this->currentUser = $current_user;
   }
 
   /**
@@ -113,31 +137,44 @@ class AvPortalPhotoFormatter extends FormatterBase implements ContainerFactoryPl
       $container->get('logger.factory'),
       $container->get('media_avportal.client'),
       $container->get('config.factory'),
-      $container->get('entity_type.manager')
+      $container->get('entity_type.manager'),
+      $container->get('link_generator'),
+      $container->get('current_user')
     );
   }
 
   /**
    * {@inheritdoc}
    */
-  public static function defaultSettings() {
+  public static function defaultSettings(): array {
     return [
-      'image_style' => '',
+      'responsive_image_style' => '',
     ] + parent::defaultSettings();
   }
 
   /**
    * {@inheritdoc}
    */
-  public function settingsForm(array $form, FormStateInterface $form_state) {
-    $image_styles = image_style_options(FALSE);
+  public function settingsForm(array $form, FormStateInterface $form_state): array {
+    $responsive_image_options = [];
+    /** @var \Drupal\responsive_image\ResponsiveImageStyleInterface[] $responsive_image_styles */
+    $responsive_image_styles = $this->entityTypeManager->getStorage('responsive_image_style')->loadMultiple();
+    foreach ($responsive_image_styles as $machine_name => $responsive_image_style) {
+      if ($responsive_image_style->hasImageStyleMappings()) {
+        $responsive_image_options[$machine_name] = $responsive_image_style->label();
+      }
+    }
 
-    $element['image_style'] = [
-      '#title' => $this->t('Image style'),
+    $element['responsive_image_style'] = [
+      '#title' => t('Responsive image style'),
       '#type' => 'select',
-      '#default_value' => $this->getSetting('image_style'),
-      '#empty_option' => $this->t('None (original image)'),
-      '#options' => $image_styles,
+      '#default_value' => $this->getSetting('responsive_image_style') ?: NULL,
+      '#required' => TRUE,
+      '#options' => $responsive_image_options,
+      '#description' => [
+        '#markup' => $this->linkGenerator->generate($this->t('Configure Responsive Image Styles'), new Url('entity.responsive_image_style.collection')),
+        '#access' => $this->currentUser->hasPermission('administer responsive image styles'),
+      ],
     ];
 
     return $element;
@@ -146,20 +183,15 @@ class AvPortalPhotoFormatter extends FormatterBase implements ContainerFactoryPl
   /**
    * {@inheritdoc}
    */
-  public function settingsSummary() {
+  public function settingsSummary(): array {
     $summary = [];
 
-    $image_styles = image_style_options(FALSE);
-    // Unset possible 'No defined styles' option.
-    unset($image_styles['']);
-    // Styles could be lost because of enabled/disabled modules that defines
-    // their styles in code.
-    $image_style_setting = $this->getSetting('image_style');
-    if (isset($image_styles[$image_style_setting])) {
-      $summary[] = $this->t('Image style: @style', ['@style' => $image_styles[$image_style_setting]]);
+    $responsive_image_style = $this->entityTypeManager->getStorage('responsive_image_style')->load($this->getSetting('responsive_image_style'));
+    if ($responsive_image_style) {
+      $summary[] = t('Responsive image style: @responsive_image_style', ['@responsive_image_style' => $responsive_image_style->label()]);
     }
     else {
-      $summary[] = $this->t('Original image');
+      $summary[] = t('Select a responsive image style.');
     }
 
     return $summary;
@@ -174,6 +206,18 @@ class AvPortalPhotoFormatter extends FormatterBase implements ContainerFactoryPl
     }
 
     if (!parent::isApplicable($field_definition)) {
+      return FALSE;
+    }
+
+    // We don't want this formatter used if the Responsive Image module is not
+    // installed.
+    if (!\Drupal::moduleHandler()->moduleExists('responsive_image')) {
+      return FALSE;
+    }
+
+    // We don't want to use this formatter if there are no responsive image
+    // styles on the site.
+    if (empty(\Drupal::entityTypeManager()->getStorage('responsive_image_style')->loadMultiple())) {
       return FALSE;
     }
 
@@ -200,11 +244,22 @@ class AvPortalPhotoFormatter extends FormatterBase implements ContainerFactoryPl
       $elements[$delta] = $this->viewElement($item);
     }
 
+    $style_id = $this->getSetting('responsive_image_style');
+    if (!$style_id) {
+      return $elements;
+    }
+
+    $responsive_image_style = $this->entityTypeManager->getStorage('responsive_image_style')->load($style_id);
+    if (!$responsive_image_style instanceof ResponsiveImageStyleInterface) {
+      return $elements;
+    }
+
     $cache = new CacheableMetadata();
-    $image_style = $this->settings['image_style'] ?? NULL;
-    if (!empty($image_style)) {
-      $image_style = $this->entityTypeManager->getStorage('image_style')->load($image_style);
-      if ($image_style instanceof ImageStyleInterface) {
+    $cache->addCacheableDependency($responsive_image_style);
+    if ($responsive_image_style->hasImageStyleMappings()) {
+      $image_styles = $responsive_image_style->getImageStyleIds();
+      $image_styles = $this->entityTypeManager->getStorage('image_style')->loadMultiple($image_styles);
+      foreach ($image_styles as $image_style) {
         $cache->addCacheableDependency($image_style);
       }
     }
@@ -241,12 +296,12 @@ class AvPortalPhotoFormatter extends FormatterBase implements ContainerFactoryPl
       return [];
     }
 
-    $image_style = $this->settings['image_style'] ?? NULL;
+    $responsive_image_style = $this->settings['responsive_image_style'] ?? NULL;
     $theme = 'image';
-    if (!empty($image_style)) {
-      $image_style = $this->entityTypeManager->getStorage('image_style')->load($image_style);
-      if ($image_style instanceof ImageStyleInterface) {
-        $theme = 'image_style';
+    if (!empty($responsive_image_style)) {
+      $responsive_image_style = $this->entityTypeManager->getStorage('responsive_image_style')->load($responsive_image_style);
+      if ($responsive_image_style instanceof ResponsiveImageStyle) {
+        $theme = 'responsive_image';
       }
     }
 
@@ -258,8 +313,8 @@ class AvPortalPhotoFormatter extends FormatterBase implements ContainerFactoryPl
       '#uri' => 'avportal://' . $resource_ref . '.jpg',
     ];
 
-    if ($theme === 'image_style') {
-      $build['#style_name'] = $image_style->id();
+    if ($theme === 'responsive_image') {
+      $build['#responsive_image_style_id'] = $responsive_image_style->id();
     }
 
     return $build;
@@ -270,40 +325,19 @@ class AvPortalPhotoFormatter extends FormatterBase implements ContainerFactoryPl
    */
   public function calculateDependencies(): array {
     $dependencies = parent::calculateDependencies();
-    // The image styles are a dependency of this formatter.
-    // @see \Drupal\image\Plugin\Field\FieldFormatter\ImageFormatter.
-    $style_id = $this->getSetting('image_style');
-    /** @var \Drupal\image\ImageStyleInterface $style */
-    if ($style_id && $style = $this->entityTypeManager->getStorage('image_style')->load($style_id)) {
-      $dependencies[$style->getConfigDependencyKey()][] = $style->getConfigDependencyName();
+    $style_id = $this->getSetting('responsive_image_style');
+    if (!$style_id) {
+      return $dependencies;
     }
+
+    $responsive_image_style = $this->entityTypeManager->getStorage('responsive_image_style')->load($style_id);
+    if (!$responsive_image_style instanceof ResponsiveImageStyleInterface) {
+      return $dependencies;
+    }
+
+    $dependencies[$responsive_image_style->getConfigDependencyKey()][] = $responsive_image_style->getConfigDependencyName();
 
     return $dependencies;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function onDependencyRemoval(array $dependencies): bool {
-    $changed = parent::onDependencyRemoval($dependencies);
-    // Ensure that the image style gets changed if the configured one is removed
-    // and a replacement is specified.
-    // @see \Drupal\image\Plugin\Field\FieldFormatter\ImageFormatter.
-    $style_id = $this->getSetting('image_style');
-    /** @var \Drupal\image\ImageStyleStorageInterface $storage */
-    $storage = $this->entityTypeManager->getStorage('image_style');
-    /** @var \Drupal\image\ImageStyleInterface $style */
-    if ($style_id && $style = $storage->load($style_id)) {
-      if (!empty($dependencies[$style->getConfigDependencyKey()][$style->getConfigDependencyName()])) {
-        $replacement_id = $storage->getReplacementId($style_id);
-        if ($replacement_id && $storage->load($replacement_id)) {
-          $this->setSetting('image_style', $replacement_id);
-          $changed = TRUE;
-        }
-      }
-    }
-
-    return $changed;
   }
 
 }
