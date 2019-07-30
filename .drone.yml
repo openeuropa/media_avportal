@@ -12,7 +12,7 @@ services:
     environment:
     - MYSQL_ALLOW_EMPTY_PASSWORD=yes
   selenium:
-    image: selenium/standalone-chrome:3
+    image: selenium/standalone-chrome:3.141.59-oxygen
     shm_size: 2g
     environment:
     - DISPLAY=:99
