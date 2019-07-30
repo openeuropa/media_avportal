@@ -163,17 +163,17 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
     $this->assertContains('ec.europa.eu/avservices/avs/files/video6/repository/prod/photo/store/', $image_url);
     $this->assertContains('P038924-352937.jpg', $image_url);
 
+    // We need to support both individual photos and photos inside albums.
     $photo_urls = [
       'https://audiovisual.ec.europa.eu/en/album/M-090909/P-039162~2F00-12',
       'https://audiovisual.ec.europa.eu/en/photo/P-039162~2F00-12',
     ];
 
-    // We could update photo with different URL formats supporting.
     foreach ($photo_urls as $photo_url) {
       // Edit the newly created media.
       $this->drupalGet('media/1/edit');
 
-      // Update the field with url from album.
+      // Update the field.
       $page->fillField('Media AV Portal Photo', $photo_url);
       $page->pressButton('Save');
 
