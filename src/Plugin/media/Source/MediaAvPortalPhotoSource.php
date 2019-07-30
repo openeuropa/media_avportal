@@ -34,6 +34,7 @@ class MediaAvPortalPhotoSource extends MediaAvPortalSourceBase {
   public function getSupportedUrlPatterns(): array {
     return [
       '@audiovisual\.ec\.europa\.eu/(.*)/photo/(P\-.*\~2F.*)@i' => 'handlePhotoFullUrlPattern',
+      '@audiovisual\.ec\.europa\.eu/(.*)/album/M\-[0-9]*/(P\-.*\~2F.*)@i' => 'handlePhotoFullUrlPattern',
     ];
   }
 
