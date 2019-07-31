@@ -86,7 +86,6 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
     $this->assertContains('ref=I-162747', $iframe_url);
 
     // @todo assert the width and height of the iframe.
-
     // Edit the newly created media.
     $this->drupalGet('media/1/edit');
 
@@ -164,20 +163,28 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
     $this->assertContains('ec.europa.eu/avservices/avs/files/video6/repository/prod/photo/store/', $image_url);
     $this->assertContains('P038924-352937.jpg', $image_url);
 
-    // Edit the newly created media.
-    $this->drupalGet('media/1/edit');
+    // We need to support both individual photos and photos inside albums.
+    $photo_urls = [
+      'https://audiovisual.ec.europa.eu/en/album/M-090909/P-039162~2F00-12',
+      'https://audiovisual.ec.europa.eu/en/photo/P-039162~2F00-12',
+    ];
 
-    // Update the field.
-    $page->fillField('Media AV Portal Photo', 'https://audiovisual.ec.europa.eu/en/photo/P-039162~2F00-12');
-    $page->pressButton('Save');
+    foreach ($photo_urls as $photo_url) {
+      // Edit the newly created media.
+      $this->drupalGet('media/1/edit');
 
-    // Visit the updated media content.
-    $page->clickLink('Andrus Ansip Vice-President of the EC addresses the Plenary of the European Parliament on the beginning of the Romanian Presidency of the Council of the EU');
+      // Update the field.
+      $page->fillField('Media AV Portal Photo', $photo_url);
+      $page->pressButton('Save');
 
-    // Check the image URL.
-    $image_url = $assert_session->elementExists('css', 'img.avportal-photo')->getAttribute('src');
-    $this->assertContains('ec.europa.eu/avservices/avs/files/video6/repository/prod/photo/store/', $image_url);
-    $this->assertContains('P039162-137797.jpg', $image_url);
+      // Visit the updated media content.
+      $page->clickLink('Andrus Ansip Vice-President of the EC addresses the Plenary of the European Parliament on the beginning of the Romanian Presidency of the Council of the EU');
+
+      // Check the image URL.
+      $image_url = $assert_session->elementExists('css', 'img.avportal-photo')->getAttribute('src');
+      $this->assertContains('ec.europa.eu/avservices/avs/files/video6/repository/prod/photo/store/', $image_url);
+      $this->assertContains('P039162-137797.jpg', $image_url);
+    }
 
     // Create a media content with an invalid reference.
     $this->drupalGet('media/add/media_av_portal_photo');
