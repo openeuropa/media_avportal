@@ -98,7 +98,7 @@ class MediaAvPortalPhotoSource extends MediaAvPortalSourceBase {
     $matches = [];
 
     if (preg_match('/(P\-\d+)\/(\d+)\-(\d+)/', $reference, $matches)) {
-      return str_replace('[REF]', $matches[1] . '~2F' . $matches[2] . '-' . ($matches[3] - 1), $reference_url);
+      return str_replace('[REF]', $matches[1] . '~2F' . $matches[2] . '-' . $matches[3], $reference_url);
     }
 
     return '';
