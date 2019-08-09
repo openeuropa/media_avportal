@@ -163,10 +163,14 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
     $this->assertContains('ec.europa.eu/avservices/avs/files/video6/repository/prod/photo/store/', $image_url);
     $this->assertContains('P038924-352937.jpg', $image_url);
 
+    // Make sure that the media URL is normalized back to the correct format.
+    $this->drupalGet('media/1/edit');
+    $this->assertSession()->fieldValueEquals('Media AV Portal Photo', 'https://audiovisual.ec.europa.eu/en/photo/P-038924~2F00-15');
+
     // We need to support both individual photos and photos inside albums.
     $photo_urls = [
-      'https://audiovisual.ec.europa.eu/en/album/M-090909/P-039162~2F00-12',
       'https://audiovisual.ec.europa.eu/en/photo/P-039162~2F00-12',
+      'https://audiovisual.ec.europa.eu/en/album/M-090909/P-039162~2F00-12',
     ];
 
     foreach ($photo_urls as $photo_url) {
@@ -185,6 +189,10 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
       $this->assertContains('ec.europa.eu/avservices/avs/files/video6/repository/prod/photo/store/', $image_url);
       $this->assertContains('P039162-137797.jpg', $image_url);
     }
+
+    // Make sure that the media URL is normalized back to the correct format.
+    $this->drupalGet('media/1/edit');
+    $this->assertSession()->fieldValueEquals('Media AV Portal Photo', reset($photo_urls));
 
     // Create a media content with an invalid reference.
     $this->drupalGet('media/add/media_av_portal_photo');
