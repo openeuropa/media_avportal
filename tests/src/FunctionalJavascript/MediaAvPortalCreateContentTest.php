@@ -163,8 +163,7 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
     $this->assertContains('ec.europa.eu/avservices/avs/files/video6/repository/prod/photo/store/', $image_url);
     $this->assertContains('P038924-352937.jpg', $image_url);
 
-    // Make sure that default value of media URL is normalized
-    // (have format like https://audiovisual.ec.europa.eu/en/photo/[REF]).
+    // Make sure that the media URL is normalized back to the correct format.
     $this->drupalGet('media/1/edit');
     $this->assertSession()->fieldValueEquals('Media AV Portal Photo', 'https://audiovisual.ec.europa.eu/en/photo/P-038924~2F00-15');
 
@@ -191,8 +190,7 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
       $this->assertContains('P039162-137797.jpg', $image_url);
     }
 
-    // Make sure that default value of media URL is normalized
-    // (have format like https://audiovisual.ec.europa.eu/en/photo/[REF]).
+    // Make sure that the media URL is normalized back to the correct format.
     $this->drupalGet('media/1/edit');
     $this->assertSession()->fieldValueEquals('Media AV Portal Photo', reset($photo_urls));
 
