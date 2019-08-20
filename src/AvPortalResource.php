@@ -133,6 +133,8 @@ class AvPortalResource {
     elseif (isset($this->data['languages'][0]) && isset($first_media_json[$this->data['languages'][0]]['THUMB'])) {
       return UrlHelper::parse($first_media_json[$this->data['languages'][0]]['THUMB'])['path'] ?? NULL;
     }
+
+    return NULL;
   }
 
   /**
@@ -151,6 +153,8 @@ class AvPortalResource {
         return $media_json[$resolution]['PATH'];
       }
     }
+
+    return NULL;
   }
 
   /**
