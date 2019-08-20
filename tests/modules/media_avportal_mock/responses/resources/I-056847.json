@@ -1,0 +1,240 @@
+{
+  "responseHeader": {
+    "status": 0,
+    "QTime": 9
+  },
+  "response": {
+    "numFound": 1,
+    "start": 0,
+    "content": "050",
+    "docs": [
+      {
+        "primary_key": "I-056847",
+        "sku": "I-056847",
+        "_id": "I-056847",
+        "ref": "I-056847",
+        "verifyid": "CHFZJPUOMFSFQPWJJNFGQZOUONUUQZUWEGZDDJFH",
+        "childobjects": "1",
+        "id": 1457972,
+        "duration": "241",
+        "preview": "0",
+        "status_json": {
+          "shortcut": "PROD",
+          "id": 586,
+          "titles": {
+            "DE": "DE-IN DISTRIBUTION",
+            "EN": "IN DISTRIBUTION",
+            "FR": "EN DIFFUSION"
+          }
+        },
+        "genre_json": {
+          "id": 42,
+          "titles": {
+            "DE": "Clip",
+            "EN": "Clip",
+            "FR": "Clip"
+          }
+        },
+        "genre": 42,
+        "cooperator_json": {
+          "I-056847-EN-1": {
+            "PRODUCER": {
+              "DE": {
+                "coop": [
+                  " EK - GD ENTR"
+                ],
+                "title": "Produzent"
+              },
+              "EN": {
+                "coop": [
+                  " EC - DG ENTR"
+                ],
+                "title": "Producer"
+              },
+              "FR": {
+                "coop": [
+                  " CE - DG ENTR"
+                ],
+                "title": "Producteur"
+              }
+            },
+            "EXECUTIVE_PRODUCER": {
+              "DE": {
+                "coop": [
+                  " Mostra Communication"
+                ],
+                "title": "Ausführender Produzent"
+              },
+              "EN": {
+                "coop": [
+                  " Mostra Communication"
+                ],
+                "title": "Executive producer"
+              },
+              "FR": {
+                "coop": [
+                  " Mostra Communication"
+                ],
+                "title": "Producteur exécutif"
+              }
+            }
+          }
+        },
+        "titles_json": {
+          "FR": "Space and You (short version)"
+        },
+        "summary_json": {
+          "FR": "L'espace joue dans notre quotidien un rôle plus important qu'on ne l'imagine. Du match de football aux prévisions météorologiques, les satellites spatiaux d'Europe joue un rôle indispensable dans le fonctionnement de notre société. Ajoutez à cela l'importance de l'information satellitaire au regard des préoccupations sociales au sens large, telles que les fluctuations du changement climatique et la planification stratégique des opérations humanitaires et vous vous rendrez vite compte de l'étendue et de l'influence des technologies et des systèmes spatiaux.",
+          "EN": "Space plays more of a role in our everyday lives than we might imagine. From watching our favourite football matches to weather forecasting, Europe's space satellites play an indispensable role in the day-to-day functioning of our society. Add this to the importance of satellite information with regards to larger societal concerns such as fluctuations in climate change and strategic planning for humanitarian operations, and suddenly, the scope and significance of space systems and space-based technologies are brought into focus."
+        },
+        "productiondate": "200803310000",
+        "previewCode": "",
+        "shootstartdate": "200803",
+        "shootenddate": "200803",
+        "mvtt_json": {
+          "I-056847": []
+        },
+        "msrt_json": {
+          "I-056847": []
+        },
+        "project": "0",
+        "project_json": {
+          "value": {
+            "EN": "[0] Migration",
+            "FR": "[0] Migration"
+          },
+          "id": "0"
+        },
+        "thesgen_json": [
+          {
+            "id": 833,
+            "value": {
+              "DE": "Neue Informations- und Kommunikationstechnologien",
+              "EN": "New information and communication technologies",
+              "FR": "Nouvelles technologies de l'information et de la communication"
+            }
+          },
+          {
+            "id": 1368,
+            "value": {
+              "DE": "Galileo",
+              "EN": "Galileo",
+              "FR": "Galileo"
+            }
+          },
+          {
+            "id": 1859,
+            "value": {
+              "DE": "Globales Satellitennavigationssystem",
+              "EN": "Global satellite navigation system",
+              "FR": "Système global de navigation par satellite"
+            }
+          },
+          {
+            "id": 3510,
+            "value": {
+              "DE": "***NULL_DE_1354174060_TIC",
+              "EN": "TIC",
+              "FR": "ICT"
+            }
+          },
+          {
+            "id": 6366,
+            "value": {
+              "DE": "NITK",
+              "EN": "NITC",
+              "FR": "NTIC"
+            }
+          }
+        ],
+        "thes_gen": [
+          833,
+          1368,
+          1859,
+          3510,
+          6366
+        ],
+        "location_json": [],
+        "copyright_json": {
+          "year": "2008",
+          "holders": {
+            "DE": [
+              "Europäische Gemeinschaften"
+            ],
+            "EN": [
+              "European Communities"
+            ],
+            "FR": [
+              "Communautés européennes"
+            ]
+          }
+        },
+        "search_date": "2008-03-31T05:03:00Z",
+        "audioorder_json": [
+          {
+            "EN": {
+              "ASPECT": {
+                "4:3": "TRUE"
+              },
+              "TEXT": "English"
+            }
+          }
+        ],
+        "hasAudio": "1",
+        "languages": [
+          "EN"
+        ],
+        "mediaorder_json": [
+          {
+            "EN": {
+              "SUPPORTS": "WEB",
+              "ASPECT": {
+                "4:3": "TRUE"
+              },
+              "TEXT": "English"
+            }
+          }
+        ],
+        "hasMedia": "1",
+        "media_json": {
+          "4:3": {
+            "EN": {
+              "MP3": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/07\/056847\/MP3_I056847EN1.mp3?latest=0000102402",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/07\/056847\/THUMB_I056847EN1.jpg?latest=0000102404",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/07\/056847\/LR_I056847EN1.mp4?latest=0000102398",
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/07\/056847\/THUMB_M_I056847EN1.jpg?latest=0000102406"
+            }
+          }
+        },
+        "time": "200803310000",
+        "views": 12,
+        "rating": "5",
+        "dg": 404,
+        "dg_json": {
+          "shortcut": "COMM",
+          "id": 404,
+          "titles": {
+            "DE": "Generaldirektion für Kommunikation",
+            "EN": "Directorate-General for Communication",
+            "FR": "Direction générale de la communication"
+          }
+        },
+        "type": "VIDEO",
+        "theme": [
+          773,
+          755,
+          756,
+          833,
+          811,
+          764,
+          795,
+          825
+        ],
+        "series_json": [],
+        "_version_": 1632782050182299648,
+        "popularity": 0,
+        "timestamp": "2019-05-06T11:31:45.514Z"
+      }
+    ]
+  }
+}

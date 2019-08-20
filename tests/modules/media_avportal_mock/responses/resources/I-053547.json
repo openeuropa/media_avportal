@@ -1,0 +1,358 @@
+{
+  "responseHeader": {
+    "status": 0,
+    "QTime": 8
+  },
+  "response": {
+    "numFound": 1,
+    "start": 0,
+    "content": "049",
+    "docs": [
+      {
+        "primary_key": "I-053547",
+        "sku": "I-053547",
+        "_id": "I-053547",
+        "ref": "I-053547",
+        "verifyid": "XJYTSDDQWTZNIMARMGUAMACZWGYXEDYQRZBOLRAD",
+        "childobjects": "4",
+        "id": 1454763,
+        "duration": "30",
+        "preview": "0",
+        "status_json": {
+          "shortcut": "PROD",
+          "id": 586,
+          "titles": {
+            "DE": "DE-IN DISTRIBUTION",
+            "EN": "IN DISTRIBUTION",
+            "FR": "EN DIFFUSION"
+          }
+        },
+        "genre_json": {
+          "id": 21,
+          "titles": {
+            "DE": "Werbung",
+            "EN": "Promotion",
+            "FR": "Promotion"
+          }
+        },
+        "genre": 21,
+        "cooperator_json": {
+          "I-053547-EN-1": {
+            "PRODUCER": {
+              "DE": {
+                "coop": [
+                  " EK - GD RTD"
+                ],
+                "title": "Produzent"
+              },
+              "EN": {
+                "coop": [
+                  " EC - DG RTD"
+                ],
+                "title": "Producer"
+              },
+              "FR": {
+                "coop": [
+                  " CE - DG RTD"
+                ],
+                "title": "Producteur"
+              }
+            },
+            "EXECUTIVE_PRODUCER": {
+              "DE": {
+                "coop": [
+                  " Medialab Technology"
+                ],
+                "title": "Ausführender Produzent"
+              },
+              "EN": {
+                "coop": [
+                  " Medialab Technology"
+                ],
+                "title": "Executive producer"
+              },
+              "FR": {
+                "coop": [
+                  " Medialab Technology"
+                ],
+                "title": "Producteur exécutif"
+              }
+            }
+          },
+          "I-053547-EN-2": {
+            "PRODUCER": {
+              "DE": {
+                "coop": [
+                  " EK - GD RTD"
+                ],
+                "title": "Produzent"
+              },
+              "EN": {
+                "coop": [
+                  " EC - DG RTD"
+                ],
+                "title": "Producer"
+              },
+              "FR": {
+                "coop": [
+                  " CE - DG RTD"
+                ],
+                "title": "Producteur"
+              }
+            },
+            "EXECUTIVE_PRODUCER": {
+              "DE": {
+                "coop": [
+                  " Medialab Technology"
+                ],
+                "title": "Ausführender Produzent"
+              },
+              "EN": {
+                "coop": [
+                  " Medialab Technology"
+                ],
+                "title": "Executive producer"
+              },
+              "FR": {
+                "coop": [
+                  " Medialab Technology"
+                ],
+                "title": "Producteur exécutif"
+              }
+            }
+          },
+          "I-053547-INT-1": {
+            "PRODUCER": {
+              "DE": {
+                "coop": [
+                  " EK - GD RTD"
+                ],
+                "title": "Produzent"
+              },
+              "EN": {
+                "coop": [
+                  " EC - DG RTD"
+                ],
+                "title": "Producer"
+              },
+              "FR": {
+                "coop": [
+                  " CE - DG RTD"
+                ],
+                "title": "Producteur"
+              }
+            },
+            "EXECUTIVE_PRODUCER": {
+              "DE": {
+                "coop": [
+                  " Medialab Technology"
+                ],
+                "title": "Ausführender Produzent"
+              },
+              "EN": {
+                "coop": [
+                  " Medialab Technology"
+                ],
+                "title": "Executive producer"
+              },
+              "FR": {
+                "coop": [
+                  " Medialab Technology"
+                ],
+                "title": "Producteur exécutif"
+              }
+            }
+          },
+          "I-053547-INT-2": {
+            "PRODUCER": {
+              "DE": {
+                "coop": [
+                  " EK - GD RTD"
+                ],
+                "title": "Produzent"
+              },
+              "EN": {
+                "coop": [
+                  " EC - DG RTD"
+                ],
+                "title": "Producer"
+              },
+              "FR": {
+                "coop": [
+                  " CE - DG RTD"
+                ],
+                "title": "Producteur"
+              }
+            },
+            "EXECUTIVE_PRODUCER": {
+              "DE": {
+                "coop": [
+                  " Medialab Technology"
+                ],
+                "title": "Ausführender Produzent"
+              },
+              "EN": {
+                "coop": [
+                  " Medialab Technology"
+                ],
+                "title": "Executive producer"
+              },
+              "FR": {
+                "coop": [
+                  " Medialab Technology"
+                ],
+                "title": "Producteur exécutif"
+              }
+            }
+          }
+        },
+        "titles_json": {
+          "FR": "Launch of the FP7: Clip 1 \"Ensemble\""
+        },
+        "summary_json": {
+          "FR": "Ces deux clips ont été produits à l'occasion du lancement du 7e programme cadre pour la recherche. Le Président de la Commission européenne, José Manuel Barroso, et d'autres Européens de premier plan, assisteront à une soirée sur la recherche européenne et ses réalisations, Les festivités débuteront par un spectacle centré sur un écran géant qui permettra de mettre en lumière la science et la recherche devant le siège du Conseil de l'UE et de la Commission européenne, en présence de la presse et de 500 invités du monde scientifique et politique. Ce spectacle sera suivi par une cérémonie au cours de laquelle les prix Descartes d'excellence scientifique et de communication scientifique seront décernés en présence de M. Janez Potocnik, le commissaire européen pour la recherche, et de Mme Annette Schavan, la ministre fédérale allemande chargée de l'éducation et de la recherche.Cette manifestation est organisée à la veille du Conseil européen de printemps de 2007. Il ne s'agit pas d'une coïncidence. La recherche joue indéniablement un rôle central dans la mise en place et le maintien d'une Europe compétitive et viable. L'organisation de cet événement parallèlement au traditionnel Conseil européen de printemps faisant suite au Conseil de Lisbonne permet de donner un signal fort quant à l'importance que l'UE accorde à la recherche."
+        },
+        "prod_loc_json": {
+          "id": 74,
+          "titles": {
+            "DE": "Paris",
+            "EN": "Paris",
+            "FR": "Paris"
+          }
+        },
+        "productiondate": "200703060000",
+        "previewCode": "",
+        "shootstartdate": "2007",
+        "shootenddate": "2007",
+        "mvtt_json": {
+          "I-053547": []
+        },
+        "msrt_json": {
+          "I-053547": []
+        },
+        "links_json": {
+          "URL": [
+            "http:\/\/www.ec.europa.eu\/research\/fp7\/index_en.cfm"
+          ]
+        },
+        "project": "0",
+        "project_json": {
+          "value": {
+            "EN": "[0] Migration",
+            "FR": "[0] Migration"
+          },
+          "id": "0"
+        },
+        "thesgen_json": [
+          {
+            "id": 421,
+            "value": {
+              "DE": "Forschung und Entwicklung",
+              "EN": "Research and development",
+              "FR": "Recherche et développement"
+            }
+          },
+          {
+            "id": 1357,
+            "value": {
+              "DE": "Rahmenprogramm für Forschung und technologische Entwicklung",
+              "EN": "Framework programme for research and technical development",
+              "FR": "Programme-cadre pour la recherche et le développement technologique"
+            }
+          }
+        ],
+        "thes_gen": [
+          421,
+          1357
+        ],
+        "location_json": [
+          {
+            "id": 202,
+            "value": {
+              "DE": "Brüssel - Rond-Point Schuman",
+              "EN": "Brussels - Rond Point Schuman",
+              "FR": "Bruxelles - Rond-Point Schuman"
+            }
+          }
+        ],
+        "thes_loc": [
+          202
+        ],
+        "copyright_json": {
+          "year": "2007",
+          "holders": {
+            "DE": [
+              "Europäische Gemeinschaften"
+            ],
+            "EN": [
+              "European Communities"
+            ],
+            "FR": [
+              "Communautés européennes"
+            ]
+          }
+        },
+        "search_date": "2007-03-06T05:03:00Z",
+        "audioorder_json": [
+          {
+            "INT": {
+              "ASPECT": {
+                "4:3": "TRUE"
+              },
+              "TEXT": "Original"
+            }
+          }
+        ],
+        "hasAudio": "1",
+        "languages": [
+          "INT"
+        ],
+        "mediaorder_json": [
+          {
+            "INT": {
+              "SUPPORTS": "WEB",
+              "ASPECT": {
+                "4:3": "TRUE"
+              },
+              "TEXT": "Original"
+            }
+          }
+        ],
+        "hasMedia": "1",
+        "media_json": {
+          "4:3": {
+            "INT": {
+              "MP3": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/07\/053547\/MP3_I053547INT1.mp3?latest=0000102624",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/07\/053547\/THUMB_I053547INT1.jpg?latest=0000102626",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/07\/053547\/LR_I053547INT1.mp4?latest=0000102620",
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/07\/053547\/THUMB_M_I053547INT1.jpg?latest=0000102628"
+            }
+          }
+        },
+        "time": "200703060000",
+        "views": 12,
+        "rating": "5",
+        "dg": 404,
+        "dg_json": {
+          "shortcut": "COMM",
+          "id": 404,
+          "titles": {
+            "DE": "Generaldirektion für Kommunikation",
+            "EN": "Directorate-General for Communication",
+            "FR": "Direction générale de la communication"
+          }
+        },
+        "type": "VIDEO",
+        "theme": [
+          817,
+          775,
+          756
+        ],
+        "series_json": [],
+        "_version_": 1632779145508290560,
+        "popularity": 0,
+        "timestamp": "2019-05-06T10:45:35.408Z"
+      }
+    ]
+  }
+}

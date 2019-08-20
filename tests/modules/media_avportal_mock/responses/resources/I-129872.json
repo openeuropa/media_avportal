@@ -1,0 +1,461 @@
+{
+  "responseHeader": {
+    "status": 0,
+    "QTime": 46
+  },
+  "response": {
+    "numFound": 1,
+    "start": 0,
+    "content": "050",
+    "docs": [
+      {
+        "primary_key": "I-129872",
+        "sku": "I-129872",
+        "_id": "I-129872",
+        "ref": "I-129872",
+        "verifyid": "KZVMWLACJHGFNRAKANSHLSSKSVPKTZVUMVYXXMYW",
+        "childobjects": "4",
+        "id": 1530673,
+        "duration": "38",
+        "preview": "0",
+        "status_json": {
+          "shortcut": "PROD",
+          "id": 586,
+          "titles": {
+            "DE": "DE-IN DISTRIBUTION",
+            "EN": "IN DISTRIBUTION",
+            "FR": "EN DIFFUSION"
+          }
+        },
+        "genre_json": {
+          "id": 42,
+          "titles": {
+            "DE": "Clip",
+            "EN": "Clip",
+            "FR": "Clip"
+          }
+        },
+        "genre": 42,
+        "cooperator_json": {
+          "I-129872-EN\/FR-1": {
+            "PRODUCER": {
+              "DE": {
+                "coop": [
+                  " Europäische Kommission - Audiovisueller Dienst"
+                ],
+                "title": "Produzent"
+              },
+              "EN": {
+                "coop": [
+                  " EC - Audiovisual Service"
+                ],
+                "title": "Producer"
+              },
+              "FR": {
+                "coop": [
+                  " CE - Service audiovisuel"
+                ],
+                "title": "Producteur"
+              }
+            },
+            "DIRECTOR": {
+              "DE": {
+                "coop": [
+                  "Catherine Vandezande"
+                ],
+                "title": "Regisseur"
+              },
+              "EN": {
+                "coop": [
+                  "Catherine Vandezande"
+                ],
+                "title": "Director"
+              },
+              "FR": {
+                "coop": [
+                  "Catherine Vandezande"
+                ],
+                "title": "Réalisateur"
+              }
+            },
+            "EXECUTIVE_PRODUCER": {
+              "DE": {
+                "coop": [
+                  " ALL TV"
+                ],
+                "title": "Ausführender Produzent"
+              },
+              "EN": {
+                "coop": [
+                  " ALL TV"
+                ],
+                "title": "Executive producer"
+              },
+              "FR": {
+                "coop": [
+                  " ALL TV"
+                ],
+                "title": "Producteur exécutif"
+              }
+            }
+          },
+          "I-129872-EN-1": {
+            "PRODUCER": {
+              "DE": {
+                "coop": [
+                  " Europäische Kommission - Audiovisueller Dienst"
+                ],
+                "title": "Produzent"
+              },
+              "EN": {
+                "coop": [
+                  " EC - Audiovisual Service"
+                ],
+                "title": "Producer"
+              },
+              "FR": {
+                "coop": [
+                  " CE - Service audiovisuel"
+                ],
+                "title": "Producteur"
+              }
+            },
+            "DIRECTOR": {
+              "DE": {
+                "coop": [
+                  "Catherine Vandezande"
+                ],
+                "title": "Regisseur"
+              },
+              "EN": {
+                "coop": [
+                  "Catherine Vandezande"
+                ],
+                "title": "Director"
+              },
+              "FR": {
+                "coop": [
+                  "Catherine Vandezande"
+                ],
+                "title": "Réalisateur"
+              }
+            },
+            "EXECUTIVE_PRODUCER": {
+              "DE": {
+                "coop": [
+                  " ALL TV"
+                ],
+                "title": "Ausführender Produzent"
+              },
+              "EN": {
+                "coop": [
+                  " ALL TV"
+                ],
+                "title": "Executive producer"
+              },
+              "FR": {
+                "coop": [
+                  " ALL TV"
+                ],
+                "title": "Producteur exécutif"
+              }
+            }
+          },
+          "I-129872-EN\/DE-1": {
+            "PRODUCER": {
+              "DE": {
+                "coop": [
+                  " Europäische Kommission - Audiovisueller Dienst"
+                ],
+                "title": "Produzent"
+              },
+              "EN": {
+                "coop": [
+                  " EC - Audiovisual Service"
+                ],
+                "title": "Producer"
+              },
+              "FR": {
+                "coop": [
+                  " CE - Service audiovisuel"
+                ],
+                "title": "Producteur"
+              }
+            },
+            "DIRECTOR": {
+              "DE": {
+                "coop": [
+                  "Catherine Vandezande"
+                ],
+                "title": "Regisseur"
+              },
+              "EN": {
+                "coop": [
+                  "Catherine Vandezande"
+                ],
+                "title": "Director"
+              },
+              "FR": {
+                "coop": [
+                  "Catherine Vandezande"
+                ],
+                "title": "Réalisateur"
+              }
+            },
+            "EXECUTIVE_PRODUCER": {
+              "DE": {
+                "coop": [
+                  " ALL TV"
+                ],
+                "title": "Ausführender Produzent"
+              },
+              "EN": {
+                "coop": [
+                  " ALL TV"
+                ],
+                "title": "Executive producer"
+              },
+              "FR": {
+                "coop": [
+                  " ALL TV"
+                ],
+                "title": "Producteur exécutif"
+              }
+            }
+          },
+          "I-129872-INT-1": {
+            "PRODUCER": {
+              "DE": {
+                "coop": [
+                  " Europäische Kommission - Audiovisueller Dienst"
+                ],
+                "title": "Produzent"
+              },
+              "EN": {
+                "coop": [
+                  " EC - Audiovisual Service"
+                ],
+                "title": "Producer"
+              },
+              "FR": {
+                "coop": [
+                  " CE - Service audiovisuel"
+                ],
+                "title": "Producteur"
+              }
+            },
+            "DIRECTOR": {
+              "DE": {
+                "coop": [
+                  "Catherine Vandezande"
+                ],
+                "title": "Regisseur"
+              },
+              "EN": {
+                "coop": [
+                  "Catherine Vandezande"
+                ],
+                "title": "Director"
+              },
+              "FR": {
+                "coop": [
+                  "Catherine Vandezande"
+                ],
+                "title": "Réalisateur"
+              }
+            },
+            "EXECUTIVE_PRODUCER": {
+              "DE": {
+                "coop": [
+                  " ALL TV"
+                ],
+                "title": "Ausführender Produzent"
+              },
+              "EN": {
+                "coop": [
+                  " ALL TV"
+                ],
+                "title": "Executive producer"
+              },
+              "FR": {
+                "coop": [
+                  " ALL TV"
+                ],
+                "title": "Producteur exécutif"
+              }
+            }
+          }
+        },
+        "titles_json": {
+          "FR": "Corps de solidarité européen - Teaser 2",
+          "EN": "European Solidarity Corps - Teaser 2"
+        },
+        "summary_json": {
+          "FR": "Ceci est une vidéo promotionnelle pour le Corps de solidarité Européen.",
+          "EN": "This is a promotional video for the European Solidarity Corps."
+        },
+        "prod_loc_json": {
+          "id": 2,
+          "titles": {
+            "DE": "Brüssel",
+            "EN": "Brussels",
+            "FR": "Bruxelles"
+          }
+        },
+        "productiondate": "201612070000",
+        "previewCode": "",
+        "shootstartdate": "",
+        "shootenddate": "",
+        "mvtt_json": {
+          "I-129872": []
+        },
+        "msrt_json": {
+          "I-129872": []
+        },
+        "project": "26296",
+        "project_json": {
+          "value": {
+            "EN": "Launch of the European Solidarity Corps",
+            "FR": "Lancement du Corps de solidarité européen"
+          },
+          "id": "26296"
+        },
+        "thesgen_json": [
+          {
+            "id": 1663,
+            "value": {
+              "DE": "Solidaritätsfonds der Europäischen Union",
+              "EN": "European Union Solidarity Fund",
+              "FR": "Fonds de solidarité de l'Union européenne"
+            }
+          },
+          {
+            "id": 5851,
+            "value": {
+              "DE": "Beschäftigung, Wachstum und Investitionen <Politische Priorität>",
+              "EN": "Jobs, Growth and Investment <Political priority>",
+              "FR": "Emploi, croissance et investissement <priorité politique>"
+            }
+          },
+          {
+            "id": 5857,
+            "value": {
+              "DE": "Justiz und Grundrechte <Politische Priorität>",
+              "EN": "Justice and Fundamental Rights <Political priority>",
+              "FR": "Justice et droits fondamentaux <priorité politique>"
+            }
+          },
+          {
+            "id": 6197,
+            "value": {
+              "DE": "Europäisches Solidaritätskorps",
+              "EN": "European Solidarity Corps",
+              "FR": "Corps européen de solidarité"
+            }
+          }
+        ],
+        "thes_gen": [
+          1663,
+          5851,
+          5857,
+          6197
+        ],
+        "location_json": [],
+        "copyright_json": {
+          "year": "2016",
+          "holders": {
+            "DE": [
+              "Europäische Union"
+            ],
+            "EN": [
+              "European Union"
+            ],
+            "FR": [
+              "Union européenne"
+            ]
+          }
+        },
+        "search_date": "2016-12-07T05:12:00Z",
+        "languages": [
+          "EN",
+          "EN/DE",
+          "EN/FR"
+        ],
+        "mediaorder_json": [
+          {
+            "EN": {
+              "SUPPORTS": "WEB",
+              "ASPECT": {
+                "16:9": "TRUE"
+              },
+              "TEXT": "English"
+            }
+          },
+          {
+            "EN\/DE": {
+              "SUPPORTS": "WEB",
+              "ASPECT": {
+                "16:9": "TRUE"
+              },
+              "TEXT": "English (Deutsch subtitle)"
+            }
+          },
+          {
+            "EN\/FR": {
+              "SUPPORTS": "WEB",
+              "ASPECT": {
+                "16:9": "TRUE"
+              },
+              "TEXT": "English (Français subtitle)"
+            }
+          }
+        ],
+        "hasMedia": "1",
+        "media_json": {
+          "16:9": {
+            "EN\/FR": {
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/12\/129872\/THUMB_I129872ENFR1W.jpg?latest=0004825500",
+              "HDMP4": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/12\/129872\/HD_I129872ENFR1W.mp4?latest=0004825506",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/12\/129872\/LR_I129872ENFR1W.mp4?latest=0004825504",
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/12\/129872\/THUMB_M_I129872ENFR1W.jpg?latest=0004825502"
+            },
+            "EN\/DE": {
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/12\/129872\/THUMB_I129872ENDE1W.jpg?latest=0004825510",
+              "HDMP4": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/12\/129872\/HD_I129872ENDE1W.mp4?latest=0004825516",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/12\/129872\/LR_I129872ENDE1W.mp4?latest=0004825514",
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/12\/129872\/THUMB_M_I129872ENDE1W.jpg?latest=0004825512"
+            },
+            "EN": {
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/12\/129872\/THUMB_I129872EN1W.jpg?latest=0004806152",
+              "HDMP4": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/12\/129872\/HD_I129872EN1W.mp4?latest=0004806158",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/12\/129872\/LR_I129872EN1W.mp4?latest=0004806156",
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/12\/129872\/THUMB_M_I129872EN1W.jpg?latest=0004806154"
+            }
+          }
+        },
+        "time": "201612070000",
+        "views": 12,
+        "rating": "5",
+        "dg": 404,
+        "dg_json": {
+          "shortcut": "COMM",
+          "id": 404,
+          "titles": {
+            "DE": "Generaldirektion für Kommunikation",
+            "EN": "Directorate-General for Communication",
+            "FR": "Direction générale de la communication"
+          }
+        },
+        "type": "VIDEO",
+        "theme": [
+          796,
+          762
+        ],
+        "series_json": [],
+        "_version_": 1632782646247424000,
+        "popularity": 0,
+        "timestamp": "2019-05-06T11:41:13.991Z"
+      }
+    ]
+  }
+}
