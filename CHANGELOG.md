@@ -1,10 +1,21 @@
 # Change Log
 
+## [8.x-1.0-beta3](https://github.com/openeuropa/media_avportal/tree/8.x-1.0-beta3) (2019-08-21)
+[Full Changelog](https://github.com/openeuropa/media_avportal/compare/8.x-1.0-beta2...8.x-1.0-beta3)
+
+**Merged pull requests:**
+
+- OPENEUROPA-2151: The URL is changing when user tries to edit AV Portal Photo. [\#30](https://github.com/openeuropa/media_avportal/pull/30) ([sergepavle](https://github.com/sergepavle))
+- OPENEUROPA-2052: Update AV Portal photo URL formats. [\#29](https://github.com/openeuropa/media_avportal/pull/29) ([sergepavle](https://github.com/sergepavle))
+- OPENEUROPA-2052: Add supporting of AV Portal URLs with album. [\#28](https://github.com/openeuropa/media_avportal/pull/28) ([sergepavle](https://github.com/sergepavle))
+- OPENEUROPA-1897: Use ci image. [\#27](https://github.com/openeuropa/media_avportal/pull/27) ([imanoleguskiza](https://github.com/imanoleguskiza))
+
 ## [8.x-1.0-beta2](https://github.com/openeuropa/media_avportal/tree/8.x-1.0-beta2) (2019-05-23)
 [Full Changelog](https://github.com/openeuropa/media_avportal/compare/8.x-1.0-beta1...8.x-1.0-beta2)
 
 **Merged pull requests:**
 
+- OPENEUROPA-0000: Update changelog. [\#26](https://github.com/openeuropa/media_avportal/pull/26) ([hernani](https://github.com/hernani))
 - OPENEUROPA-1930: Update text filter parameter. [\#24](https://github.com/openeuropa/media_avportal/pull/24) ([imanoleguskiza](https://github.com/imanoleguskiza))
 - OPENEUROPA-1775: Add responsive image formatter. [\#22](https://github.com/openeuropa/media_avportal/pull/22) ([imanoleguskiza](https://github.com/imanoleguskiza))
 
