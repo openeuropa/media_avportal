@@ -1,0 +1,4 @@
+name: Media AV Portal Test
+description: Provides configuration media bundles for testing purpose.
+core: 8.x
+type: module
