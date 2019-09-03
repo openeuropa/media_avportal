@@ -128,6 +128,13 @@ class AvPortalResource {
     if (isset($first_media_json['INT']['THUMB'])) {
       return UrlHelper::parse($first_media_json['INT']['THUMB'])['path'] ?? NULL;
     }
+
+    // We are trying to get a thumbnail of current default language.
+    // @todo Recheck this structure of language keys.
+    if (isset($first_media_json['EN/' . mb_strtoupper(\Drupal::languageManager()->getDefaultLanguage()->getId())]['THUMB'])) {
+      return UrlHelper::parse($first_media_json['EN/' . mb_strtoupper(\Drupal::languageManager()->getDefaultLanguage()->getId())]['THUMB'])['path'] ?? NULL;
+    }
+
     // We are trying to get a thumbnail
     // for a original language (usually English).
     elseif (isset($this->data['languages'][0]) && isset($first_media_json[$this->data['languages'][0]]['THUMB'])) {

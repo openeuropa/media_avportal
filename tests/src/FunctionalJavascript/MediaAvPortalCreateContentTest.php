@@ -298,7 +298,7 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
    */
   protected function getVideoFixtures(): array {
     return [
-      [
+      'Video without thumbnail and title' => [
         'input' => [
           'urls' => [
             'https://audiovisual.ec.europa.eu/en/video/I-056847',
@@ -308,7 +308,7 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
           'title' => 'Space and You (short version)',
         ],
       ],
-      [
+      'Video with no title' => [
         'input' => [
           'urls' => [
             'https://audiovisual.ec.europa.eu/en/video/I-053547',
@@ -318,7 +318,7 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
           'title' => 'Launch of the FP7: Clip 1 "Ensemble"',
         ],
       ],
-      [
+      'Video with no thumbnail' => [
         'input' => [
           'urls' => [
             'https://audiovisual.ec.europa.eu/en/video/I-129872',
