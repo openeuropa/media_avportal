@@ -65,7 +65,6 @@ class AvPortalCommands extends DrushCommands {
       'title' => $this->t('Update AVPortal medias.'),
       'progress_message' => '',
       'error_message' => $this->t('Error on updating avportal medias'),
-      // 'file' => drupal_get_path('module', 'locale') . '/locale.batch.inc',
     ];
 
     batch_set($batch);
