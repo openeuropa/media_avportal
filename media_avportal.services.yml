@@ -6,3 +6,6 @@ services:
     class: Drupal\media_avportal\StreamWrapper\AvPortalPhotoStreamWrapper
     tags:
       - { name: stream_wrapper, scheme: avportal }
+  media_avportal.avportal_pull_media:
+    class: Drupal\media_avportal\AvPortalPullMedia
+    arguments: ['@entity_type.manager', '@logger.factory']
