@@ -124,21 +124,18 @@ class AvPortalResource {
   protected function getVideoThumbnailUrl(): ?string {
     $first_media_json = reset($this->data['media_json']);
 
-    // We are trying to get a thumbnail of undefined language.
-    if (isset($first_media_json['INT']['THUMB'])) {
-      return UrlHelper::parse($first_media_json['INT']['THUMB'])['path'] ?? NULL;
-    }
+    $languages = [
+      'INT',
+      mb_strtoupper(\Drupal::languageManager()->getDefaultLanguage()->getId()),
+      'EN',
+      $this->data['languages'][0] ?? NULL,
+    ];
+    $languages = array_unique(array_filter($languages));
 
-    // We are trying to get a thumbnail of current default language.
-    // @todo Recheck this structure of language keys.
-    if (isset($first_media_json['EN/' . mb_strtoupper(\Drupal::languageManager()->getDefaultLanguage()->getId())]['THUMB'])) {
-      return UrlHelper::parse($first_media_json['EN/' . mb_strtoupper(\Drupal::languageManager()->getDefaultLanguage()->getId())]['THUMB'])['path'] ?? NULL;
-    }
-
-    // We are trying to get a thumbnail
-    // for a original language (usually English).
-    elseif (isset($this->data['languages'][0]) && isset($first_media_json[$this->data['languages'][0]]['THUMB'])) {
-      return UrlHelper::parse($first_media_json[$this->data['languages'][0]]['THUMB'])['path'] ?? NULL;
+    foreach ($languages as $langcode) {
+      if (isset($first_media_json[$langcode]['THUMB'])) {
+        return UrlHelper::parse($first_media_json[$langcode]['THUMB'])['path'] ?? NULL;
+      }
     }
 
     return NULL;
