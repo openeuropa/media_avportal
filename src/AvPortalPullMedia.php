@@ -53,9 +53,10 @@ class AvPortalPullMedia {
     $medias = $this->entityTypeManager->getStorage('media')->loadMultiple($media_ids);
     foreach ($medias as $entity) {
       if ($entity->getSource()->getPluginDefinition()['provider'] === 'media_avportal') {
-        // Force the entity to update by marking the source field as changed.
+        // Force the entity to update the mapped fields from the source metadata
+        // by marking the source field as changed.
         // @see \Drupal\media\Entity\Media::prepareSave()
-        // @see \Drupal\media\Entity\Media::hasSourceFieldChanged
+        // @see \Drupal\media\Entity\Media::hasSourceFieldChanged()
         $entity->original = clone $entity;
         $source_field_name = $entity->getSource()->getConfiguration()['source_field'];
         $entity->original->get($source_field_name)->setValue(NULL);
