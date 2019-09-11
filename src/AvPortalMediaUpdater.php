@@ -9,9 +9,9 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 
 /**
- * Class of the service for fetching/refreshing AVPortal media entities.
+ * Service to update AV Portal media entities.
  */
-class AvPortalPullMedia {
+class AvPortalMediaUpdater {
 
   use DependencySerializationTrait;
 
@@ -30,7 +30,7 @@ class AvPortalPullMedia {
   protected $loggerChannelFactory;
 
   /**
-   * Creates AvPortalPullMedia objects.
+   * Creates a new AvPortalMediaUpdater objects.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager.
@@ -43,12 +43,12 @@ class AvPortalPullMedia {
   }
 
   /**
-   * Pull for updating existing media from AV Portal service.
+   * Refresh from the source all the mapped fields of AV Portal medias.
    *
    * @param array $media_ids
    *   Array of media ids.
    */
-  public function pullAvPortalMedia(array $media_ids = NULL): void {
+  public function refreshMappedFields(array $media_ids = NULL): void {
     /** @var \Drupal\media\Entity\Media[] $medias */
     $medias = $this->entityTypeManager->getStorage('media')->loadMultiple($media_ids);
     foreach ($medias as $entity) {
