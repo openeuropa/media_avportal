@@ -25,7 +25,7 @@ class MediaAvPortalPhotoSource extends MediaAvPortalSourceBase {
   public function getSupportedUrlFormats(): array {
     return [
       'https://audiovisual.ec.europa.eu/en/photo/[REF]',
-      'https://audiovisual.ec.europa.eu/en/album/[REF]',
+      'https://audiovisual.ec.europa.eu/en/album/[album-id]/[REF]',
     ];
   }
 

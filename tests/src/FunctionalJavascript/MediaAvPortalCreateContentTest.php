@@ -152,6 +152,7 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
 
     // Create a media content with a valid reference.
     $this->drupalGet('media/add/media_av_portal_photo');
+    $page->hasContent('You can link to media from AV Portal by entering a URL in the formats: https://audiovisual.ec.europa.eu/en/photo/[REF], https://audiovisual.ec.europa.eu/en/album/[album-id]/[REF]');
     $page->fillField('Media AV Portal Photo', 'https://audiovisual.ec.europa.eu/en/photo/P-038924~2F00-15');
     $page->pressButton('Save');
 
