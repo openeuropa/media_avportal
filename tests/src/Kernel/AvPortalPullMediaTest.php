@@ -48,9 +48,9 @@ class AvPortalPullMediaTest extends MediaKernelTestBase {
   }
 
   /**
-   * Tests work of AvPortal Pull media service.
+   * Tests the media updater service.
    */
-  public function testAvPortalPullMediaService(): void {
+  public function testAvPortalMediaUpdaterService(): void {
     // When a media is created and it has no thumbnail, a default one is used.
     // Create a file to use as default thumbnail.
     // @see \Drupal\media\Entity\Media::loadThumbnail()
@@ -120,7 +120,7 @@ class AvPortalPullMediaTest extends MediaKernelTestBase {
     $this->assertEquals($thumbnail->id(), $outdated_media_data['thumbnail'][0]['target_id']);
 
     // Run the import.
-    \Drupal::service('media_avportal.avportal_pull_media')->pullAvPortalMedia();
+    \Drupal::service('media_avportal.media_updater')->refreshMappedFields();
 
     // Verify that the media entities have been updated.
     $media_storage->resetCache();
