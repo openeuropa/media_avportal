@@ -1,0 +1,6 @@
+services:
+  media_avportal.commands:
+    class: Drupal\media_avportal\Commands\AvPortalCommands
+    arguments: ['@media_avportal.media_updater']
+    tags:
+      - { name: drush.command }

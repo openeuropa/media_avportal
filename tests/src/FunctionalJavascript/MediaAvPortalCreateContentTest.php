@@ -16,7 +16,7 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
    *
    * @var array
    */
-  public static $modules = [
+  protected static $modules = [
     'system',
     'node',
     'field_ui',
@@ -114,6 +114,21 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
     $page->pressButton('Save');
 
     $assert_session->pageTextContains('Invalid URL format specified.');
+
+    // Test creating a media content from different URLs and check field values.
+    foreach ($this->getVideoFixtures() as $test) {
+      foreach ($test['input']['urls'] as $url) {
+        // Create a media content with a valid reference.
+        $this->drupalGet('media/add/media_av_portal_video');
+        $page->fillField('Media AV Portal Video', $url);
+        $page->pressButton('Save');
+
+        $page->clickLink($test['expect']['title']);
+        $image_url = $assert_session->elementExists('css', '.field--name-thumbnail img')->getAttribute('src');
+        // Make sure that we have a thumbnail.
+        $this->assertNotContains('generic/no-thumbnail.png', $image_url);
+      }
+    }
   }
 
   /**
@@ -276,6 +291,44 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
     $image_url = $picture->find('css', 'img.avportal-photo')->getAttribute('src');
     $this->assertContains('ec.europa.eu/avservices/avs/files/video6/repository/prod/photo/store/', $image_url);
     $this->assertContains('P038924-352937.jpg', $image_url);
+  }
+
+  /**
+   * Fixtures of data for testing rendering of creating and rendering of.
+   */
+  protected function getVideoFixtures(): array {
+    return [
+      'Video without thumbnail and title' => [
+        'input' => [
+          'urls' => [
+            'https://audiovisual.ec.europa.eu/en/video/I-056847',
+          ],
+        ],
+        'expect' => [
+          'title' => 'Space and You (short version)',
+        ],
+      ],
+      'Video with no title' => [
+        'input' => [
+          'urls' => [
+            'https://audiovisual.ec.europa.eu/en/video/I-053547',
+          ],
+        ],
+        'expect' => [
+          'title' => 'Launch of the FP7: Clip 1 "Ensemble"',
+        ],
+      ],
+      'Video with no thumbnail' => [
+        'input' => [
+          'urls' => [
+            'https://audiovisual.ec.europa.eu/en/video/I-129872',
+          ],
+        ],
+        'expect' => [
+          'title' => 'European Solidarity Corps - Teaser 2',
+        ],
+      ],
+    ];
   }
 
 }

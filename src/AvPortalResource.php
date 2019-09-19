@@ -85,6 +85,11 @@ class AvPortalResource {
     if (isset($titles['EN'])) {
       return $titles['EN'];
     }
+    // Fallback to first available title,
+    // when english language is not present.
+    if (count($titles) > 0 && $first_title = reset($titles)) {
+      return is_string($first_title) ? $first_title : NULL;
+    }
 
     return NULL;
   }
@@ -100,20 +105,36 @@ class AvPortalResource {
       return NULL;
     }
 
-    // We default to the first aspect ratio.
-    $media_json = $this->data['media_json'];
-    $first_media_json = reset($media_json);
-
-    if ($this->getType() == 'VIDEO' && isset($first_media_json['INT']['THUMB'])) {
-      $parsed = UrlHelper::parse($first_media_json['INT']['THUMB']);
-      return $parsed['path'] ?? NULL;
+    if ($this->getType() == 'VIDEO') {
+      return $this->getVideoThumbnailUrl();
     }
     elseif (in_array($this->getType(), ['PHOTO', 'REPORTAGE'])) {
-      $resolutions = ['LOW', 'MED', 'HIGH'];
-      foreach ($resolutions as $resolution) {
-        if (isset($media_json[$resolution]['PATH'])) {
-          return $media_json[$resolution]['PATH'];
-        }
+      return $this->getPhotoThumbnailUrl();
+    }
+
+    return NULL;
+  }
+
+  /**
+   * Returns a thumbnail for video.
+   *
+   * @return string|null
+   *   URL of the thumbnail.
+   */
+  protected function getVideoThumbnailUrl(): ?string {
+    $first_media_json = reset($this->data['media_json']);
+
+    $languages = [
+      'INT',
+      mb_strtoupper(\Drupal::languageManager()->getDefaultLanguage()->getId()),
+      'EN',
+      $this->data['languages'][0] ?? NULL,
+    ];
+    $languages = array_unique(array_filter($languages));
+
+    foreach ($languages as $langcode) {
+      if (isset($first_media_json[$langcode]['THUMB'])) {
+        return UrlHelper::parse($first_media_json[$langcode]['THUMB'])['path'] ?? NULL;
       }
     }
 
@@ -121,7 +142,27 @@ class AvPortalResource {
   }
 
   /**
-   * Returns all the resource data.
+   * Returns a thumbnail for photo.
+   *
+   * @return string|null
+   *   URL of the thumbnail.
+   */
+  protected function getPhotoThumbnailUrl(): ?string {
+    // We default to the first aspect ratio.
+    $media_json = $this->data['media_json'];
+
+    $resolutions = ['LOW', 'MED', 'HIGH'];
+    foreach ($resolutions as $resolution) {
+      if (isset($media_json[$resolution]['PATH'])) {
+        return $media_json[$resolution]['PATH'];
+      }
+    }
+
+    return NULL;
+  }
+
+  /**
+   * Returns resource data.
    *
    * @return array
    *   The resource data.
