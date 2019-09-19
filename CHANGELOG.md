@@ -1,10 +1,19 @@
 # Change Log
 
-## [8.x-1.0-beta3](https://github.com/openeuropa/media_avportal/tree/8.x-1.0-beta3) (2019-08-21)
+## [8.x-1.0-beta4](https://github.com/openeuropa/media_avportal/tree/8.x-1.0-beta4) (2019-09-19)
+[Full Changelog](https://github.com/openeuropa/media_avportal/compare/8.x-1.0-beta3...8.x-1.0-beta4)
+
+**Merged pull requests:**
+
+- OPENEUROPA-2168: Update field description. [\#33](https://github.com/openeuropa/media_avportal/pull/33) ([sergepavle](https://github.com/sergepavle))
+- OPENEUROPA-2165: \[media\_avportal\] Missing information for some videos. [\#31](https://github.com/openeuropa/media_avportal/pull/31) ([sergepavle](https://github.com/sergepavle))
+
+## [8.x-1.0-beta3](https://github.com/openeuropa/media_avportal/tree/8.x-1.0-beta3) (2019-08-22)
 [Full Changelog](https://github.com/openeuropa/media_avportal/compare/8.x-1.0-beta2...8.x-1.0-beta3)
 
 **Merged pull requests:**
 
+- Update Changelog for release 8.x-1.0-beta3. [\#32](https://github.com/openeuropa/media_avportal/pull/32) ([sergepavle](https://github.com/sergepavle))
 - OPENEUROPA-2151: The URL is changing when user tries to edit AV Portal Photo. [\#30](https://github.com/openeuropa/media_avportal/pull/30) ([sergepavle](https://github.com/sergepavle))
 - OPENEUROPA-2052: Update AV Portal photo URL formats. [\#29](https://github.com/openeuropa/media_avportal/pull/29) ([sergepavle](https://github.com/sergepavle))
 - OPENEUROPA-2052: Add supporting of AV Portal URLs with album. [\#28](https://github.com/openeuropa/media_avportal/pull/28) ([sergepavle](https://github.com/sergepavle))
