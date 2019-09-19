@@ -131,7 +131,8 @@ class AvPortalPullMediaTest extends MediaKernelTestBase {
 
     $outdated_media_data = $media_storage->load($outdated_media->id())->toArray();
     $this->assertEquals('European Solidarity Corps - Teaser 2', $outdated_media_data['name'][0]['value']);
-    // The correct thumbnail has been associated back.
+    // The correct thumbnail has been associated back (file is similar so a
+    // a new one is not created).
     $this->assertEquals($outdated_media_thumbnail->id(), $outdated_media_data['thumbnail'][0]['target_id']);
   }
 

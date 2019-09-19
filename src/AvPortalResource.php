@@ -86,7 +86,7 @@ class AvPortalResource {
       return $titles['EN'];
     }
     // Fallback to first available title,
-    // if even english language is not present.
+    // when english language is not present.
     if (count($titles) > 0 && $first_title = reset($titles)) {
       return is_string($first_title) ? $first_title : NULL;
     }
@@ -162,7 +162,7 @@ class AvPortalResource {
   }
 
   /**
-   * Returns all the resource data.
+   * Returns resource data.
    *
    * @return array
    *   The resource data.
