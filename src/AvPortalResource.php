@@ -151,7 +151,7 @@ class AvPortalResource {
     // We default to the first aspect ratio.
     $media_json = $this->data['media_json'];
 
-    $resolutions = ['LOW', 'MED', 'HIGH'];
+    $resolutions = ['HIGH', 'MED', 'LOW'];
     foreach ($resolutions as $resolution) {
       if (isset($media_json[$resolution]['PATH'])) {
         return $media_json[$resolution]['PATH'];
