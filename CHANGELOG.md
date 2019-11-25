@@ -1,10 +1,18 @@
 # Change Log
 
+## [8.x-1.0-beta5](https://github.com/openeuropa/media_avportal/tree/8.x-1.0-beta5) (2019-11-25)
+[Full Changelog](https://github.com/openeuropa/media_avportal/compare/8.x-1.0-beta4...8.x-1.0-beta5)
+
+**Merged pull requests:**
+
+- OPENEUROPA-2474: Change priority from hight to lower. [\#37](https://github.com/openeuropa/media_avportal/pull/37) ([sergepavle](https://github.com/sergepavle))
+
 ## [8.x-1.0-beta4](https://github.com/openeuropa/media_avportal/tree/8.x-1.0-beta4) (2019-09-19)
 [Full Changelog](https://github.com/openeuropa/media_avportal/compare/8.x-1.0-beta3...8.x-1.0-beta4)
 
 **Merged pull requests:**
 
+- OPENEUROPA-0000: Creating beta4. [\#35](https://github.com/openeuropa/media_avportal/pull/35) ([hernani](https://github.com/hernani))
 - OPENEUROPA-2168: Update field description. [\#33](https://github.com/openeuropa/media_avportal/pull/33) ([sergepavle](https://github.com/sergepavle))
 - OPENEUROPA-2165: \[media\_avportal\] Missing information for some videos. [\#31](https://github.com/openeuropa/media_avportal/pull/31) ([sergepavle](https://github.com/sergepavle))
 
