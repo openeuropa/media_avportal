@@ -1,7 +1,7 @@
 services:
   media_avportal.client:
     class: Drupal\media_avportal\AvPortalClient
-    arguments: ['@http_client', '@config.factory']
+    arguments: ['@http_client', '@config.factory', '@cache.default', '@datetime.time']
   media_avportal.photo_stream_wrapper:
     class: Drupal\media_avportal\StreamWrapper\AvPortalPhotoStreamWrapper
     tags:

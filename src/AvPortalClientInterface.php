@@ -14,11 +14,13 @@ interface AvPortalClientInterface {
    *
    * @param array $options
    *   The options.
+   * @param bool $use_cache
+   *   Whether or not to use cache for the current query. Defaults to true.
    *
    * @return array|null
    *   The array if the query succeeded, NULL otherwise.
    */
-  public function query(array $options): ?array;
+  public function query(array $options, bool $use_cache = TRUE): ?array;
 
   /**
    * Returns a single resource given its identifier.

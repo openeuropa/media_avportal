@@ -4,7 +4,10 @@ declare(strict_types = 1);
 
 namespace Drupal\media_avportal;
 
+use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Component\Serialization\Json;
+use Drupal\Core\Cache\CacheBackendInterface;
+use Drupal\Core\Cache\UseCacheBackendTrait;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
@@ -13,6 +16,8 @@ use GuzzleHttp\Exception\RequestException;
  * Client that interacts with the AV Portal.
  */
 class AvPortalClient implements AvPortalClientInterface {
+
+  use UseCacheBackendTrait;
 
   /**
    * The module configuration.
@@ -29,22 +34,37 @@ class AvPortalClient implements AvPortalClientInterface {
   protected $httpClient;
 
   /**
+   * The time service.
+   *
+   * @var \Drupal\Component\Datetime\TimeInterface
+   */
+  protected $time;
+
+  /**
    * Constructs an AvPortalClient object.
    *
    * @param \GuzzleHttp\ClientInterface $http_client
    *   The HTTP client.
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
    *   The config factory.
+   * @param \Drupal\Core\Cache\CacheBackendInterface $cacheBackend
+   *   The cache backend.
+   * @param \Drupal\Component\Datetime\TimeInterface $time
+   *   The time service.
    */
-  public function __construct(ClientInterface $http_client, ConfigFactoryInterface $configFactory) {
+  public function __construct(ClientInterface $http_client, ConfigFactoryInterface $configFactory, CacheBackendInterface $cacheBackend, TimeInterface $time) {
     $this->httpClient = $http_client;
     $this->config = $configFactory->get('media_avportal.settings');
+    $this->cacheBackend = $cacheBackend;
+    $this->time = $time;
+    // Disable caches if the cache max age is set to 0.
+    $this->useCaches = $this->config->get('cache_max_age') !== 0;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function query(array $options = []): ?array {
+  public function query(array $options = [], bool $use_cache = TRUE): ?array {
     $options += [
       'fl' => 'type,ref,doc_ref,titles_json,duration,shootstartdate,media_json,mediaorder_json,summary_json,languages',
       'hasMedia' => 1,
@@ -52,6 +72,13 @@ class AvPortalClient implements AvPortalClientInterface {
       'index' => 1,
       'pagesize' => 15,
     ];
+
+    // Generate a cache ID that takes into consideration all the query
+    // parameters.
+    $cid = 'media_avportal:client:query:' . serialize($options);
+    if ($use_cache && ($cached = $this->cacheGet($cid))) {
+      return $this->resourcesFromResponse($cached->data);
+    }
 
     try {
       $raw_response = $this->httpClient->get($this->config->get('client_api_uri'), ['query' => $options]);
@@ -66,6 +93,10 @@ class AvPortalClient implements AvPortalClientInterface {
     // Convert invalid responses to empty ones.
     if ($response === NULL) {
       $response = [];
+    }
+
+    if ($use_cache && $response !== []) {
+      $this->cacheSet($cid, $response, $this->time->getCurrentTime() + $this->config->get('cache_max_age'));
     }
 
     return $this->resourcesFromResponse($response);
