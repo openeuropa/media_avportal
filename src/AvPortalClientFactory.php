@@ -10,18 +10,12 @@ use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 /**
  * Factory service to instantiate AV Portal clients.
  */
-class AvPortalClientFactory implements ContainerAwareInterface {
+class AvPortalClientFactory implements AvPortalClientFactoryInterface, ContainerAwareInterface {
 
   use ContainerAwareTrait;
 
   /**
-   * Returns a new client instance.
-   *
-   * @param bool $useCaches
-   *   True if the client instance should use caches for responses.
-   *
-   * @return \Drupal\media_avportal\AvPortalClientInterface
-   *   A new client instance.
+   * {@inheritdoc}
    */
   public function getClient(bool $useCaches = TRUE): AvPortalClientInterface {
     return new AvPortalClient(
