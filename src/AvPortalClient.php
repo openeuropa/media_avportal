@@ -64,7 +64,7 @@ class AvPortalClient implements AvPortalClientInterface {
   /**
    * {@inheritdoc}
    */
-  public function query(array $options = [], bool $use_cache = TRUE): ?array {
+  public function query(array $options = []): ?array {
     $options += [
       'fl' => 'type,ref,doc_ref,titles_json,duration,shootstartdate,media_json,mediaorder_json,summary_json,languages',
       'hasMedia' => 1,
@@ -76,7 +76,8 @@ class AvPortalClient implements AvPortalClientInterface {
     // Generate a cache ID that takes into consideration all the query
     // parameters.
     $cid = 'media_avportal:client:query:' . serialize($options);
-    if ($use_cache && ($cached = $this->cacheGet($cid))) {
+    $cached = $this->cacheGet($cid);
+    if ($cached) {
       return $this->resourcesFromResponse($cached->data);
     }
 
@@ -95,7 +96,7 @@ class AvPortalClient implements AvPortalClientInterface {
       $response = [];
     }
 
-    if ($use_cache && $response !== []) {
+    if ($response !== []) {
       $this->cacheSet($cid, $response, $this->time->getCurrentTime() + $this->config->get('cache_max_age'));
     }
 
