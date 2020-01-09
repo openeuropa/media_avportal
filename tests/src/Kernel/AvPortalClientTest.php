@@ -66,7 +66,7 @@ class AvPortalClientTest extends KernelTestBase {
     $this->assertCount(3, $history_middleware->getHistoryContainer());
 
     // Make a request with cache forcefully disabled.
-    $no_cache_client = $this->container->get('media_avportal.client_factory')->getClient(FALSE);
+    $no_cache_client = $this->container->get('media_avportal.client_factory')->getClient(['use_cache' => FALSE]);
     $no_cache_client->query(['ref' => 'P-039162|00-12']);
     $this->assertCount(4, $history_middleware->getHistoryContainer());
 

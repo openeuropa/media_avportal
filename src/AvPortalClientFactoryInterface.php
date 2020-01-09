@@ -12,12 +12,12 @@ interface AvPortalClientFactoryInterface {
   /**
    * Returns a new client instance.
    *
-   * @param bool $useCaches
-   *   True if the client instance should use caches for responses.
+   * @param array $config
+   *   An array of configuration options for the client.
    *
    * @return \Drupal\media_avportal\AvPortalClientInterface
    *   A new client instance.
    */
-  public function getClient(bool $useCaches = TRUE): AvPortalClientInterface;
+  public function getClient(array $config = []): AvPortalClientInterface;
 
 }

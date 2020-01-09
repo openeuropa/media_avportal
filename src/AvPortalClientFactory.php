@@ -15,15 +15,28 @@ class AvPortalClientFactory implements AvPortalClientFactoryInterface, Container
   use ContainerAwareTrait;
 
   /**
-   * {@inheritdoc}
+   * Returns a new client instance.
+   *
+   * @param array $config
+   *   An array of configuration options for the client. Available options:
+   *   - use_cache: whether or not to cache the AV Portal responses. Defaults
+   *     to TRUE.
+   *
+   * @return \Drupal\media_avportal\AvPortalClientInterface
+   *   A new client instance.
    */
-  public function getClient(bool $useCaches = TRUE): AvPortalClientInterface {
+  public function getClient(array $config = []): AvPortalClientInterface {
+    $default_config = [
+      'use_cache' => TRUE,
+    ];
+    $config = array_merge($default_config, $config);
+
     return new AvPortalClient(
       $this->container->get('http_client'),
       $this->container->get('config.factory'),
       $this->container->get('cache.default'),
       $this->container->get('datetime.time'),
-      $useCaches
+      $config['use_cache']
     );
   }
 
