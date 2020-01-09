@@ -46,6 +46,14 @@ class AvPortalClientTest extends KernelTestBase {
     $this->assertCount(1, $history_middleware->getHistoryContainer());
     $this->assertEquals($response, $cached_response);
 
+    // Verify that caches are persisted and shared by all the client instances.
+    // This also tests that the factory default options return clients that
+    // use caches.
+    $new_client = $this->container->get('media_avportal.client_factory')->getClient();
+    $response = $new_client->query(['ref' => 'I-053547']);
+    $this->assertCount(1, $history_middleware->getHistoryContainer());
+    $this->assertEquals($response, $cached_response);
+
     // Requesting another resource would trigger a new HTTP request.
     $response = $client->query(['ref' => 'P-038924/00-15']);
     $this->assertCount(2, $history_middleware->getHistoryContainer());
