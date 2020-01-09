@@ -43,7 +43,7 @@ class AvPortalClient implements AvPortalClientInterface {
   /**
    * Constructs an AvPortalClient object.
    *
-   * @param \GuzzleHttp\ClientInterface $http_client
+   * @param \GuzzleHttp\ClientInterface $httpClient
    *   The HTTP client.
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
    *   The config factory.
@@ -54,8 +54,8 @@ class AvPortalClient implements AvPortalClientInterface {
    * @param bool $useCaches
    *   If the client should use caches for storing and retrieving responses.
    */
-  public function __construct(ClientInterface $http_client, ConfigFactoryInterface $configFactory, CacheBackendInterface $cacheBackend = NULL, TimeInterface $time = NULL, bool $useCaches = TRUE) {
-    $this->httpClient = $http_client;
+  public function __construct(ClientInterface $httpClient, ConfigFactoryInterface $configFactory, CacheBackendInterface $cacheBackend = NULL, TimeInterface $time = NULL, bool $useCaches = TRUE) {
+    $this->httpClient = $httpClient;
     $this->config = $configFactory->get('media_avportal.settings');
     $this->cacheBackend = $cacheBackend ?? \Drupal::service('cache.default');
     $this->time = $time ?? \Drupal::service('datetime.time');
