@@ -54,11 +54,11 @@ class AvPortalClient implements AvPortalClientInterface {
    * @param bool $useCaches
    *   If the client should use caches for storing and retrieving responses.
    */
-  public function __construct(ClientInterface $http_client, ConfigFactoryInterface $configFactory, CacheBackendInterface $cacheBackend, TimeInterface $time, bool $useCaches) {
+  public function __construct(ClientInterface $http_client, ConfigFactoryInterface $configFactory, CacheBackendInterface $cacheBackend = NULL, TimeInterface $time = NULL, bool $useCaches = TRUE) {
     $this->httpClient = $http_client;
     $this->config = $configFactory->get('media_avportal.settings');
-    $this->cacheBackend = $cacheBackend;
-    $this->time = $time;
+    $this->cacheBackend = $cacheBackend ?? \Drupal::service('cache.default');
+    $this->time = $time ?? \Drupal::service('datetime.time');
     // Disable caches if the cache max age is set to 0.
     $this->useCaches = $useCaches && $this->config->get('cache_max_age') !== 0;
   }
