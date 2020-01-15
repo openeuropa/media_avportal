@@ -5,7 +5,7 @@
     "params": {
       "pagesize": "15",
       "index": "1",
-      "hasmedia": "1",
+      "hasMedia": "1",
       "fl": "type,ref,doc_ref,titles_json,duration,shootstartdate,media_json,mediaorder_json,summary_json",
       "kwgg": "europe",
       "proxy": "true",
