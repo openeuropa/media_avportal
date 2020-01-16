@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace Drupal\media_avportal;
 
 use Drupal\Component\Utility\UrlHelper;
+use Drupal\Component\Utility\Xss;
 
 /**
  * Value object representing an AvPortal resource.
@@ -78,17 +79,17 @@ class AvPortalResource {
 
     $titles = $this->data['titles_json'];
     if (isset($titles[$langcode])) {
-      return $titles[$langcode];
+      return Xss::filter($titles[$langcode], []);
     }
 
     // Fallback to english if the specified langcode is not present.
     if (isset($titles['EN'])) {
-      return $titles['EN'];
+      return Xss::filter($titles['EN'], []);
     }
     // Fallback to first available title,
     // when english language is not present.
     if (count($titles) > 0 && $first_title = reset($titles)) {
-      return is_string($first_title) ? $first_title : NULL;
+      return is_string($first_title) ? Xss::filter($first_title, []) : NULL;
     }
 
     return NULL;
