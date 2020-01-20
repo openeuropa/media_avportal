@@ -46,7 +46,7 @@ class AvPortalClient implements AvPortalClientInterface {
    */
   public function query(array $options = []): ?array {
     $options += [
-      'fl' => 'type,ref,doc_ref,titles_json,duration,shootstartdate,media_json,mediaorder_json,summary_json',
+      'fl' => 'type,ref,doc_ref,titles_json,duration,shootstartdate,media_json,mediaorder_json,summary_json,languages',
       'hasMedia' => 1,
       'wt' => 'json',
       'index' => 1,
