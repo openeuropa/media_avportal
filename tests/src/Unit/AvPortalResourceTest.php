@@ -13,23 +13,13 @@ use Drupal\Tests\UnitTestCase;
 class AvPortalResourceTest extends UnitTestCase {
 
   /**
-   * Tests the photo thumbnail preferred resolution.
+   * Tests getThumbnailUrl() method.
    */
-  public function testAvPortalPhotoThumbnailUrl(): void {
+  public function testGetPhotoThumbnailUrl(): void {
     // Photo resource data array with all resolutions.
     $data = [
       'ref' => 'P-038924/00-15',
-      'doc_ref' => 'P-038924',
-      'titles_json' =>
-        [
-          'EN' => 'Euro with miniature figurines',
-        ],
-      'summary_json' =>
-        [
-          'EN' => 'Euro with miniature figurines',
-        ],
       'type' => 'PHOTO',
-      'shootstartdate' => '20181130 00:00',
       'media_json' =>
         [
           'MED' =>
