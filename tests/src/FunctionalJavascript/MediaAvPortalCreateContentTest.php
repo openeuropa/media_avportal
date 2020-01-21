@@ -315,7 +315,7 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
           ],
         ],
         'expect' => [
-          'title' => 'Launch of the FP7: Clip 1 "Ensemble"',
+          'title' => 'Launch of the F&P7: Clip 1 "Ensemble"',
         ],
       ],
       'Video with no thumbnail' => [

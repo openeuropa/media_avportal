@@ -78,17 +78,17 @@ class AvPortalResource {
 
     $titles = $this->data['titles_json'];
     if (isset($titles[$langcode])) {
-      return $titles[$langcode];
+      return strip_tags($titles[$langcode]);
     }
 
     // Fallback to english if the specified langcode is not present.
     if (isset($titles['EN'])) {
-      return $titles['EN'];
+      return strip_tags($titles['EN']);
     }
     // Fallback to first available title,
     // when english language is not present.
     if (count($titles) > 0 && $first_title = reset($titles)) {
-      return is_string($first_title) ? $first_title : NULL;
+      return is_string($first_title) ? strip_tags($first_title) : NULL;
     }
 
     return NULL;
