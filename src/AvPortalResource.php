@@ -128,8 +128,8 @@ class AvPortalResource {
       'INT',
       mb_strtoupper(\Drupal::languageManager()->getDefaultLanguage()->getId()),
       'EN',
-      $this->data['languages'][0] ?? NULL,
     ];
+    $languages = array_merge($languages, $this->data['languages'] ?? []);
     $languages = array_unique(array_filter($languages));
 
     foreach ($languages as $langcode) {

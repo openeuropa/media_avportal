@@ -8,7 +8,7 @@
       "index": "1",
       "hasMedia": "1",
       "kwgg": "",
-      "fl": "type,ref,doc_ref,titles_json,duration,shootstartdate,media_json,mediaorder_json,summary_json",
+      "fl": "type,ref,doc_ref,titles_json,duration,shootstartdate,media_json,mediaorder_json,summary_json,languages",
       "proxy": "true",
       "serverName": "wlpc0100",
       "type": "VIDEO",

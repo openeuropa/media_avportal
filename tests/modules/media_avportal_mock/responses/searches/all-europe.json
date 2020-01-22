@@ -6,7 +6,7 @@
       "pagesize": "15",
       "index": "1",
       "hasMedia": "1",
-      "fl": "type,ref,doc_ref,titles_json,duration,shootstartdate,media_json,mediaorder_json,summary_json",
+      "fl": "type,ref,doc_ref,titles_json,duration,shootstartdate,media_json,mediaorder_json,summary_json,languages",
       "kwgg": "europe",
       "proxy": "true",
       "serverName": "wlpc0099",

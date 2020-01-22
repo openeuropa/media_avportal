@@ -6,7 +6,7 @@
       "pagesize": "15",
       "index": "1",
       "hasMedia": "1",
-      "fl": "type,ref,doc_ref,titles_json,duration,shootstartdate,media_json,mediaorder_json,summary_json",
+      "fl": "type,ref,doc_ref,titles_json,duration,shootstartdate,media_json,mediaorder_json,summary_json,languages",
       "proxy": "true",
       "serverName": "wlpc0099",
       "type": "VIDEO",
@@ -28,6 +28,7 @@
           "FR": " ESA - Student orbital project",
           "EN": " ESA - Student orbital project"
         },
+        "languages": ["FR"],
         "shootstartdate": "20181116 07:30",
         "mediaorder_json": [
           {
@@ -47,10 +48,25 @@
                 "16:9": "TRUE"
               }
             }
+          },
+          {
+            "FR": {
+              "SUPPORTS": "WEB",
+              "TEXT": "French",
+              "ASPECT": {
+                "16:9": "TRUE"
+              }
+            }
           }
         ],
         "media_json": {
           "16:9": {
+            "FR": {
+              "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/15\/163595\/THUMB_M_I163595INT1W_6.jpg?latest=0006674278",
+              "MP3": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/15\/163595\/MP3_I163595EN1W.mp3?latest=0006674282",
+              "IMAGE": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/15\/163595\/THUMB_I163595INT1W_6.jpg?latest=0006674276",
+              "LR": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/15\/163595\/LR_I163595EN1W.mp4?latest=0006674280"
+            },
             "EN": {
               "THUMB": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/15\/163595\/THUMB_M_I163595INT1W_6.jpg?latest=0006674278",
               "MP3": "http:\/\/defiris.ec.streamcloud.be\/findmedia\/15\/163595\/MP3_I163595EN1W.mp3?latest=0006674282",
