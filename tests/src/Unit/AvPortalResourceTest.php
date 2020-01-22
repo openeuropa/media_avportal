@@ -13,37 +13,14 @@ use Drupal\Tests\UnitTestCase;
 class AvPortalResourceTest extends UnitTestCase {
 
   /**
-   * Tests getThumbnailUrl() method.
+   * Tests getPhotoThumbnailUrl() method.
+   *
+   * @param array $data
+   *   The photo resource with all resolutions.
+   *
+   * @dataProvider photoResourceDataProvider
    */
-  public function testGetPhotoThumbnailUrl(): void {
-    // Photo resource data array with all resolutions.
-    $data = [
-      'ref' => 'P-038924/00-15',
-      'type' => 'PHOTO',
-      'media_json' =>
-        [
-          'MED' =>
-            [
-              'PIXH' => 426,
-              'PIXL' => 640,
-              'PATH' => 'medium.jpg',
-            ],
-          'HIGH' =>
-            [
-              'PIXH' => 3455,
-              'PIXL' => 5183,
-              'PATH' => 'high.jpg',
-            ],
-          'LOW' =>
-            [
-              'PIXH' => 133,
-              'PIXL' => 200,
-              'PATH' => 'low.jpg',
-            ],
-        ],
-    ];
-
-    // Instantiate the photo resource with all resolutions.
+  public function testGetPhotoThumbnailUrl(array $data): void {
     $resource = new AvPortalResource($data);
     // Assert we get the medium resolution when all resolution are present.
     $this->assertEquals('medium.jpg', $resource->getThumbnailUrl());
@@ -62,6 +39,71 @@ class AvPortalResourceTest extends UnitTestCase {
     unset($data['media_json']['HIGH']);
     $resource = new AvPortalResource($data);
     $this->assertNull($resource->getThumbnailUrl());
+  }
+
+  /**
+   * Provide photo resources with PHOTO and REPORTAGE types.
+   *
+   * @return array
+   *   List of photo resources.
+   */
+  public function photoResourceDataProvider(): array {
+    return [
+      [
+        [
+          'ref' => 'P-038924/00-15',
+          'type' => 'PHOTO',
+          'media_json' =>
+            [
+              'MED' =>
+                [
+                  'PIXH' => 426,
+                  'PIXL' => 640,
+                  'PATH' => 'medium.jpg',
+                ],
+              'HIGH' =>
+                [
+                  'PIXH' => 3455,
+                  'PIXL' => 5183,
+                  'PATH' => 'high.jpg',
+                ],
+              'LOW' =>
+                [
+                  'PIXH' => 133,
+                  'PIXL' => 200,
+                  'PATH' => 'low.jpg',
+                ],
+            ],
+        ],
+      ],
+      [
+        [
+          'ref' => 'P-038924/00-15',
+          'type' => 'REPORTAGE',
+          'media_json' =>
+            [
+              'MED' =>
+                [
+                  'PIXH' => 426,
+                  'PIXL' => 640,
+                  'PATH' => 'medium.jpg',
+                ],
+              'HIGH' =>
+                [
+                  'PIXH' => 3455,
+                  'PIXL' => 5183,
+                  'PATH' => 'high.jpg',
+                ],
+              'LOW' =>
+                [
+                  'PIXH' => 133,
+                  'PIXL' => 200,
+                  'PATH' => 'low.jpg',
+                ],
+            ],
+        ],
+      ],
+    ];
   }
 
 }
