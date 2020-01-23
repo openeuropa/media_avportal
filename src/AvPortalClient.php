@@ -6,6 +6,7 @@ namespace Drupal\media_avportal;
 
 use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Component\Serialization\Json;
+use Drupal\Core\Cache\Cache;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Cache\UseCacheBackendTrait;
 use Drupal\Core\Config\ConfigFactoryInterface;
@@ -99,7 +100,11 @@ class AvPortalClient implements AvPortalClientInterface {
     }
 
     if ($response !== []) {
-      $this->cacheSet($cid, $response, $this->time->getCurrentTime() + $this->config->get('cache_max_age'), $this->config->getCacheTags());
+      // Calculate the expire time if the cache is not permanent.
+      $expire = $this->config->get('cache_max_age') === Cache::PERMANENT
+        ? Cache::PERMANENT
+        : $this->time->getRequestTime() + $this->config->get('cache_max_age');
+      $this->cacheSet($cid, $response, $expire, $this->config->getCacheTags());
     }
 
     return $this->resourcesFromResponse($response);
