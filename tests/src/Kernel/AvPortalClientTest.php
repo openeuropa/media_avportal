@@ -78,10 +78,28 @@ class AvPortalClientTest extends KernelTestBase {
     $no_cache_client->query(['ref' => 'P-039162|00-12']);
     $this->assertCount(4, $history_middleware->getHistoryContainer());
 
+    // Requests from clients with disabled cache are never cached.
+    $no_cache_client->query(['ref' => 'P-039162|00-12']);
+    $this->assertCount(5, $history_middleware->getHistoryContainer());
+
     // Make the same request again but let the caches to be used. A new HTTP
     // request will be made, since the previous one was not stored.
     $client->query(['ref' => 'P-039162|00-12']);
-    $this->assertCount(5, $history_middleware->getHistoryContainer());
+    $this->assertCount(6, $history_middleware->getHistoryContainer());
+
+    // Request again an earlier resource. Using no-cache clients didn't impact
+    // existing cache entries.
+    $response = $client->query(['ref' => 'I-053547']);
+    $this->assertCount(6, $history_middleware->getHistoryContainer());
+    $this->assertEquals($cached_response, $response);
+
+    // Any change to the module configuration should invalidate the caches.
+    // To verify that cache invalidation is not tied to any specific part of the
+    // configuration, just to a simple save on the config entity. This will
+    // invalidate the cache tags of the configuration.
+    $this->config('media_avportal.settings')->save();
+    $client->query(['ref' => 'I-053547']);
+    $this->assertCount(7, $history_middleware->getHistoryContainer());
   }
 
 }

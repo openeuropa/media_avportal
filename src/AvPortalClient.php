@@ -99,7 +99,7 @@ class AvPortalClient implements AvPortalClientInterface {
     }
 
     if ($response !== []) {
-      $this->cacheSet($cid, $response, $this->time->getCurrentTime() + $this->config->get('cache_max_age'));
+      $this->cacheSet($cid, $response, $this->time->getCurrentTime() + $this->config->get('cache_max_age'), $this->config->getCacheTags());
     }
 
     return $this->resourcesFromResponse($response);
