@@ -4,7 +4,11 @@ declare(strict_types = 1);
 
 namespace Drupal\media_avportal;
 
+use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Component\Serialization\Json;
+use Drupal\Core\Cache\Cache;
+use Drupal\Core\Cache\CacheBackendInterface;
+use Drupal\Core\Cache\UseCacheBackendTrait;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
@@ -13,6 +17,8 @@ use GuzzleHttp\Exception\RequestException;
  * Client that interacts with the AV Portal.
  */
 class AvPortalClient implements AvPortalClientInterface {
+
+  use UseCacheBackendTrait;
 
   /**
    * The module configuration.
@@ -29,16 +35,33 @@ class AvPortalClient implements AvPortalClientInterface {
   protected $httpClient;
 
   /**
+   * The time service.
+   *
+   * @var \Drupal\Component\Datetime\TimeInterface
+   */
+  protected $time;
+
+  /**
    * Constructs an AvPortalClient object.
    *
-   * @param \GuzzleHttp\ClientInterface $http_client
+   * @param \GuzzleHttp\ClientInterface $httpClient
    *   The HTTP client.
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
    *   The config factory.
+   * @param \Drupal\Core\Cache\CacheBackendInterface $cacheBackend
+   *   The cache backend.
+   * @param \Drupal\Component\Datetime\TimeInterface $time
+   *   The time service.
+   * @param bool $useCaches
+   *   If the client should use caches for storing and retrieving responses.
    */
-  public function __construct(ClientInterface $http_client, ConfigFactoryInterface $configFactory) {
-    $this->httpClient = $http_client;
+  public function __construct(ClientInterface $httpClient, ConfigFactoryInterface $configFactory, CacheBackendInterface $cacheBackend = NULL, TimeInterface $time = NULL, bool $useCaches = TRUE) {
+    $this->httpClient = $httpClient;
     $this->config = $configFactory->get('media_avportal.settings');
+    $this->cacheBackend = $cacheBackend ?? \Drupal::service('cache.default');
+    $this->time = $time ?? \Drupal::service('datetime.time');
+    // Disable caches if the cache max age is set to 0.
+    $this->useCaches = $useCaches && $this->config->get('cache_max_age') !== 0;
   }
 
   /**
@@ -53,6 +76,14 @@ class AvPortalClient implements AvPortalClientInterface {
       'pagesize' => 15,
     ];
 
+    // Generate a cache ID that takes into consideration all the query
+    // parameters.
+    $cid = 'media_avportal:client:query:' . serialize($options);
+    $cached = $this->cacheGet($cid);
+    if ($cached) {
+      return $this->resourcesFromResponse($cached->data);
+    }
+
     try {
       $raw_response = $this->httpClient->get($this->config->get('client_api_uri'), ['query' => $options]);
       // @todo log if the response is not valid JSON.
@@ -66,6 +97,14 @@ class AvPortalClient implements AvPortalClientInterface {
     // Convert invalid responses to empty ones.
     if ($response === NULL) {
       $response = [];
+    }
+
+    if ($response !== []) {
+      // Calculate the expire time if the cache is not permanent.
+      $expire = $this->config->get('cache_max_age') === Cache::PERMANENT
+        ? Cache::PERMANENT
+        : $this->time->getRequestTime() + $this->config->get('cache_max_age');
+      $this->cacheSet($cid, $response, $expire, $this->config->getCacheTags());
     }
 
     return $this->resourcesFromResponse($response);

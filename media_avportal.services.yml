@@ -1,7 +1,10 @@
 services:
   media_avportal.client:
     class: Drupal\media_avportal\AvPortalClient
-    arguments: ['@http_client', '@config.factory']
+    factory: media_avportal.client_factory:getClient
+  media_avportal.client_factory:
+    class: Drupal\media_avportal\AvPortalClientFactory
+    parent: container.trait
   media_avportal.photo_stream_wrapper:
     class: Drupal\media_avportal\StreamWrapper\AvPortalPhotoStreamWrapper
     tags:
