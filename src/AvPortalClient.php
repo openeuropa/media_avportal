@@ -21,6 +21,17 @@ class AvPortalClient implements AvPortalClientInterface {
   use UseCacheBackendTrait;
 
   /**
+   * The list of allowed media assets.
+   *
+   * @var array
+   */
+  public static $allowedTypes = [
+    'VIDEO',
+    'PHOTO',
+    'REPORTAGE',
+  ];
+
+  /**
    * The module configuration.
    *
    * @var \Drupal\Core\Config\ImmutableConfig
@@ -75,6 +86,11 @@ class AvPortalClient implements AvPortalClientInterface {
       'index' => 1,
       'pagesize' => 15,
     ];
+
+    // Make sure that we are requesting a specified and supported asset type.
+    if (empty($options['type']) || !in_array($options['type'], self::$allowedTypes)) {
+      $options['type'] = implode(',', self::$allowedTypes);
+    }
 
     // Generate a cache ID that takes into consideration all the query
     // parameters.
