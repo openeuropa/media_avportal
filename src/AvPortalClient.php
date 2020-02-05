@@ -79,12 +79,7 @@ class AvPortalClient implements AvPortalClientInterface {
    * {@inheritdoc}
    */
   public function query(array $options = []): ?array {
-    try {
-      $options = $this->buildOptions($options);
-    }
-    catch (\InvalidArgumentException $exception) {
-      return $this->resourcesFromResponse([]);
-    }
+    $options = $this->buildOptions($options);
 
     // Generate a cache ID that takes into consideration all the query
     // parameters.
