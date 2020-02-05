@@ -7,7 +7,7 @@ Media AV Portal adds the [European Audiovisual Services](http://ec.europa.eu/avs
 
 # Supported media types
 
-For now we support only 3 media assets types from AV Portal.
+Only 3 media assets types from AV Portal are currently supported:
 
 * PHOTO (resources like [https://audiovisual.ec.europa.eu/en/photo/P-038924](https://audiovisual.ec.europa.eu/en/photo/P-038924)).
 * VIDEO (resources like [https://audiovisual.ec.europa.eu/en/video/I-183993](https://audiovisual.ec.europa.eu/en/video/I-183993)).
