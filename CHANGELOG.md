@@ -1,11 +1,23 @@
 # Change Log
 
+## [8.x-1.0-beta6](https://github.com/openeuropa/media_avportal/tree/8.x-1.0-beta6) (2020-02-05)
+[Full Changelog](https://github.com/openeuropa/media_avportal/compare/8.x-1.0-beta5...8.x-1.0-beta6)
+
+**Merged pull requests:**
+
+- OPENEUROPA-2716: Fix thumbnails for search. [\#43](https://github.com/openeuropa/media_avportal/pull/43) ([sergepavle](https://github.com/sergepavle))
+- OPENEUROPA-2663: Media browser - Sanitize avportal resources titles. [\#42](https://github.com/openeuropa/media_avportal/pull/42) ([sergepavle](https://github.com/sergepavle))
+- OPENEUROPA-2661: Specify preferred thumbnail resolution. [\#41](https://github.com/openeuropa/media_avportal/pull/41) ([nagyad](https://github.com/nagyad))
+- OPENEUROPA-2716: Some of AV Portal videos are not working. [\#40](https://github.com/openeuropa/media_avportal/pull/40) ([sergepavle](https://github.com/sergepavle))
+- OPENEUROPA-2313: Add caching of AvPortal responses [\#39](https://github.com/openeuropa/media_avportal/pull/39) ([brummbar](https://github.com/brummbar))
+
 ## [8.x-1.0-beta5](https://github.com/openeuropa/media_avportal/tree/8.x-1.0-beta5) (2019-11-25)
 [Full Changelog](https://github.com/openeuropa/media_avportal/compare/8.x-1.0-beta4...8.x-1.0-beta5)
 
 **Merged pull requests:**
 
-- OPENEUROPA-2474: Change priority from hight to lower. [\#37](https://github.com/openeuropa/media_avportal/pull/37) ([sergepavle](https://github.com/sergepavle))
+- OPENEUROPA-0000: Update CHANGELOG.md for release 8.x-1.0-beta5. [\#38](https://github.com/openeuropa/media_avportal/pull/38) ([sergepavle](https://github.com/sergepavle))
+- OPENEUROPA-2474: Change priority from lower to higher. [\#37](https://github.com/openeuropa/media_avportal/pull/37) ([sergepavle](https://github.com/sergepavle))
 
 ## [8.x-1.0-beta4](https://github.com/openeuropa/media_avportal/tree/8.x-1.0-beta4) (2019-09-19)
 [Full Changelog](https://github.com/openeuropa/media_avportal/compare/8.x-1.0-beta3...8.x-1.0-beta4)
