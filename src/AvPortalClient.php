@@ -10,7 +10,6 @@ use Drupal\Core\Cache\Cache;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Cache\UseCacheBackendTrait;
 use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
 
@@ -47,13 +46,6 @@ class AvPortalClient implements AvPortalClientInterface {
   protected $httpClient;
 
   /**
-   * Logger service.
-   *
-   * @var \Drupal\Core\Logger\LoggerChannel
-   */
-  protected $logger;
-
-  /**
    * The time service.
    *
    * @var \Drupal\Component\Datetime\TimeInterface
@@ -71,18 +63,14 @@ class AvPortalClient implements AvPortalClientInterface {
    *   The cache backend.
    * @param \Drupal\Component\Datetime\TimeInterface $time
    *   The time service.
-   * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $logger_channel_factory
-   *   The logger channel factory.
    * @param bool $useCaches
    *   If the client should use caches for storing and retrieving responses.
    */
-  public function __construct(ClientInterface $httpClient, ConfigFactoryInterface $configFactory, CacheBackendInterface $cacheBackend = NULL, TimeInterface $time = NULL, LoggerChannelFactoryInterface $logger_channel_factory, bool $useCaches = TRUE) {
+  public function __construct(ClientInterface $httpClient, ConfigFactoryInterface $configFactory, CacheBackendInterface $cacheBackend = NULL, TimeInterface $time = NULL, bool $useCaches = TRUE) {
     $this->httpClient = $httpClient;
     $this->config = $configFactory->get('media_avportal.settings');
     $this->cacheBackend = $cacheBackend ?? \Drupal::service('cache.default');
     $this->time = $time ?? \Drupal::service('datetime.time');
-    $logger_channel_factory = $logger_channel_factory ?? \Drupal::service('logger.factory');
-    $this->logger = $logger_channel_factory->get('avportal_media');
     // Disable caches if the cache max age is set to 0.
     $this->useCaches = $useCaches && $this->config->get('cache_max_age') !== 0;
   }
@@ -94,8 +82,7 @@ class AvPortalClient implements AvPortalClientInterface {
     try {
       $options = $this->buildOptions($options);
     }
-    catch (\OutOfRangeException $exception) {
-      $this->logger->error($exception->getMessage());
+    catch (\InvalidArgumentException $exception) {
       return $this->resourcesFromResponse([]);
     }
 
@@ -113,7 +100,7 @@ class AvPortalClient implements AvPortalClientInterface {
       $response = Json::decode((string) $raw_response->getBody());
     }
     catch (RequestException $exception) {
-      $this->logger->error($exception->getMessage());
+      // @todo Log the exception.
       $response = NULL;
     }
 
@@ -142,24 +129,20 @@ class AvPortalClient implements AvPortalClientInterface {
    * @return array|null
    *   The array of query options.
    */
-  public function buildOptions(array $options = []): ?array {
+  private function buildOptions(array $options = []): ?array {
     $options += [
       'fl' => 'type,ref,doc_ref,titles_json,duration,shootstartdate,media_json,mediaorder_json,summary_json,languages',
       'hasMedia' => 1,
       'wt' => 'json',
       'index' => 1,
       'pagesize' => 15,
+      'type' => implode(',', self::ALLOWED_TYPES),
     ];
 
     // Make sure that we are requesting a specified and supported asset type.
-    if (empty($options['type'])) {
-      $options['type'] = implode(',', self::ALLOWED_TYPES);
-    }
-    else {
-      $asset_types = array_map('mb_strtoupper', explode(',', (string) $options['type']));
-      if (array_intersect($asset_types, self::ALLOWED_TYPES) !== $asset_types) {
-        throw new \OutOfRangeException(sprintf("Not all of the requested asset types '%s' is allowed.", $options['type']));
-      }
+    $asset_types = array_map('mb_strtoupper', explode(',', (string) $options['type']));
+    if (array_intersect($asset_types, self::ALLOWED_TYPES) !== $asset_types) {
+      throw new \InvalidArgumentException(sprintf('Invalid asset type "%s" requested, allowed types are "%s".', $options['type'], implode(',', self::ALLOWED_TYPES)));
     }
 
     return $options;

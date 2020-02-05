@@ -36,7 +36,6 @@ class AvPortalClientFactory implements AvPortalClientFactoryInterface, Container
       $this->container->get('config.factory'),
       $this->container->get('cache.default'),
       $this->container->get('datetime.time'),
-      $this->container->get('logger.factory'),
       $config['use_cache']
     );
   }
