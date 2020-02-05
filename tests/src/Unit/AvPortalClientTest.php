@@ -6,6 +6,10 @@ namespace Drupal\Tests\media_avportal\src\Unit;
 
 use Drupal\media_avportal\AvPortalClient;
 use Drupal\Tests\UnitTestCase;
+use GuzzleHttp\Client;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Psr7\Response;
 
 /**
  * Tests the AvPortalClient class.
@@ -25,11 +29,7 @@ class AvPortalClientTest extends UnitTestCase {
   protected function setUp() {
     parent::setUp();
 
-    $http_client = $this->getMockBuilder('GuzzleHttp\ClientInterface')
-      ->disableOriginalConstructor()
-      ->getMock();
-
-    $config_factory = $this->getConfigFactoryStub(
+    $this->config_factory = $this->getConfigFactoryStub(
       [
         'media_avportal.settings' => [
           'cache_max_age' => 3600,
@@ -37,19 +37,13 @@ class AvPortalClientTest extends UnitTestCase {
       ]
     );
 
-    $cache_backend = $this->getMockBuilder('Drupal\Core\Cache\CacheBackendInterface')
+    $this->cache_backend = $this->getMockBuilder('Drupal\Core\Cache\CacheBackendInterface')
       ->disableOriginalConstructor()
       ->getMock();
 
-    $time = $this->getMockBuilder('Drupal\Component\Datetime\TimeInterface')
+    $this->time = $this->getMockBuilder('Drupal\Component\Datetime\TimeInterface')
       ->disableOriginalConstructor()
       ->getMock();
-
-    $logger_channel_factory = $this->getMockBuilder('Drupal\Core\Logger\LoggerChannelFactoryInterface')
-      ->disableOriginalConstructor()
-      ->getMock();
-
-    $this->avPortalClient = new AvPortalClient($http_client, $config_factory, $cache_backend, $time, $logger_channel_factory, TRUE);
   }
 
   /**
@@ -63,21 +57,31 @@ class AvPortalClientTest extends UnitTestCase {
    * @dataProvider buildOptionsDataProvider
    */
   public function testBuildOptions(array $input, array $expected): void {
-    $options = $this->avPortalClient->buildOptions($input);
-    $this->assertArrayEquals($expected, $options);
-  }
 
-  /**
-   * Tests exceptions of buildOptions method.
-   *
-   * @param array $input
-   *   The array of invalid input data.
-   *
-   * @dataProvider buildOptionsMediaAssetTypeExceptionsDataProvider
-   */
-  public function testBuildOptionsExceptions(array $input): void {
-    $this->setExpectedException(\OutOfRangeException::class, 'Not all of the requested asset types \'' . $input['type'] . '\' is allowed.');
-    $this->avPortalClient->buildOptions($input);
+    $mock = new MockHandler([
+      new Response(200, ['X-Foo' => 'Bar'], 'Hello, World'),
+    ]);
+    $handlerStack = HandlerStack::create($mock);
+    $client = new Client(['handler' => $handlerStack]);
+
+    $avc = $this->getMockBuilder(AvPortalClient::class)
+      ->setMethods(['buildOptions'])
+      ->setConstructorArgs([
+        $client,
+        $this->config_factory,
+        $this->cache_backend,
+        $this->time,
+        TRUE,
+      ])
+      ->enableProxyingToOriginalMethods()
+      ->getMock();
+
+    $avc->expects($this->once())
+      ->method('buildOptions')
+      ->with($this->equalTo($input))
+      ->willReturn($this->equalTo($expected));
+
+    $avc->query($input);
   }
 
   /**

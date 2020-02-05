@@ -129,7 +129,7 @@ class AvPortalClient implements AvPortalClientInterface {
    * @return array|null
    *   The array of query options.
    */
-  private function buildOptions(array $options = []): ?array {
+  protected function buildOptions(array $options = []): ?array {
     $options += [
       'fl' => 'type,ref,doc_ref,titles_json,duration,shootstartdate,media_json,mediaorder_json,summary_json,languages',
       'hasMedia' => 1,
