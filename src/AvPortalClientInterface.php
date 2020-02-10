@@ -13,10 +13,13 @@ interface AvPortalClientInterface {
    * Executes the query call for resources.
    *
    * @param array $options
-   *   The options.
+   *   The query options.
    *
    * @return array|null
    *   The array if the query succeeded, NULL otherwise.
+   *
+   * @throws \InvalidArgumentException
+   *   Thrown when invalid query options are passed.
    */
   public function query(array $options): ?array;
 
