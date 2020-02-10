@@ -136,7 +136,7 @@ class AvPortalClient implements AvPortalClientInterface {
 
     // Make sure that we are requesting a specified and supported asset type.
     $asset_types = array_map('mb_strtoupper', explode(',', (string) $options['type']));
-    if (array_intersect($asset_types, self::ALLOWED_TYPES) !== $asset_types) {
+    if (array_diff($asset_types, self::ALLOWED_TYPES)) {
       throw new \InvalidArgumentException(sprintf('Invalid asset type "%s" requested, allowed types are "%s".', $options['type'], implode(',', self::ALLOWED_TYPES)));
     }
 
