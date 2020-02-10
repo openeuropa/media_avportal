@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Drupal\Tests\media_avportal\src\Unit;
 
@@ -170,6 +170,21 @@ class AvPortalClientTest extends UnitTestCase {
           'type' => 'VIDEO',
         ],
       ],
+      'resource and video and photo types passed' => [
+        'input' => [
+          'ref' => 'I-129872',
+          'type' => 'PHOTO,VIDEO',
+        ],
+        'expected' => [
+          'ref' => 'I-129872',
+          'fl' => 'type,ref,doc_ref,titles_json,duration,shootstartdate,media_json,mediaorder_json,summary_json,languages',
+          'hasMedia' => 1,
+          'wt' => 'json',
+          'index' => 1,
+          'pagesize' => 15,
+          'type' => 'PHOTO,VIDEO',
+        ],
+      ],
     ];
   }
 
@@ -181,26 +196,33 @@ class AvPortalClientTest extends UnitTestCase {
    */
   public function invalidQueryOptionsDataProvider(): array {
     return [
-      [
+      'one invalid asset type' => [
         'input' => [
           'ref' => 'P-038924/00-15',
           'type' => 'REPORTAGEE',
         ],
         'message' => 'Invalid asset type "REPORTAGEE" requested, allowed types are "VIDEO,PHOTO,REPORTAGE".',
       ],
-      [
+      'invalid asset type with one valid' => [
         'input' => [
           'ref' => 'P-038924/00-15',
           'type' => 'REPORTAGEE,REPORTAGE',
         ],
         'message' => 'Invalid asset type "REPORTAGEE,REPORTAGE" requested, allowed types are "VIDEO,PHOTO,REPORTAGE".',
       ],
-      [
+      'not supported yet assert type' => [
         'input' => [
           'ref' => 'P-038924/00-15',
           'type' => 'VIDEOSHOT',
         ],
         'message' => 'Invalid asset type "VIDEOSHOT" requested, allowed types are "VIDEO,PHOTO,REPORTAGE".',
+      ],
+      'all supported assert types and one invalid' => [
+        'input' => [
+          'ref' => 'P-038924/00-15',
+          'type' => 'VIDEO,PHOTO,REPORTAGE,REPORTAGEE',
+        ],
+        'message' => 'Invalid asset type "VIDEO,PHOTO,REPORTAGE,REPORTAGEE" requested, allowed types are "VIDEO,PHOTO,REPORTAGE".',
       ],
     ];
   }
