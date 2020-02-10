@@ -1,27 +1,43 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\media_avportal\src\Unit;
 
+use Drupal\Component\Datetime\TimeInterface;
+use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\media_avportal\AvPortalClient;
 use Drupal\Tests\UnitTestCase;
 use GuzzleHttp\Client;
-use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 
 /**
  * Tests the AvPortalClient class.
+ *
+ * @coversDefaultClass \Drupal\media_avportal\AvPortalClient
  */
 class AvPortalClientTest extends UnitTestCase {
 
   /**
-   * The client instance.
+   * A config factory service implementation.
    *
-   * @var Drupal\media_avportal\AvPortalClientInterface
+   * @var \Drupal\Core\Config\ConfigFactoryInterface|\PHPUnit\Framework\MockObject\MockObject
    */
-  protected $avPortalClient;
+  protected $configFactory;
+
+  /**
+   * A cache backend service implementation.
+   *
+   * @var \Drupal\Core\Cache\CacheBackendInterface|\PHPUnit\Framework\MockObject\MockObject
+   */
+  protected $cacheBackend;
+
+  /**
+   * A time service implementation.
+   *
+   * @var \Drupal\Component\Datetime\TimeInterface|\PHPUnit\Framework\MockObject\MockObject
+   */
+  protected $time;
 
   /**
    * {@inheritdoc}
@@ -29,70 +45,77 @@ class AvPortalClientTest extends UnitTestCase {
   protected function setUp() {
     parent::setUp();
 
-    $this->config_factory = $this->getConfigFactoryStub(
-      [
-        'media_avportal.settings' => [
-          'cache_max_age' => 3600,
-        ],
-      ]
-    );
+    $this->configFactory = $this->getConfigFactoryStub([
+      'media_avportal.settings' => [
+        'client_api_uri' => 'http://www.example.com',
+        'cache_max_age' => 3600,
+      ],
+    ]);
 
-    $this->cache_backend = $this->getMockBuilder('Drupal\Core\Cache\CacheBackendInterface')
+    $this->cacheBackend = $this->getMockBuilder(CacheBackendInterface::class)
       ->disableOriginalConstructor()
       ->getMock();
 
-    $this->time = $this->getMockBuilder('Drupal\Component\Datetime\TimeInterface')
+    $this->time = $this->getMockBuilder(TimeInterface::class)
       ->disableOriginalConstructor()
       ->getMock();
   }
 
   /**
-   * Tests buildOptions() method.
+   * Tests that the proper query options are built on request time.
    *
    * @param array $input
    *   The input data.
    * @param array $expected
    *   The expected array.
    *
-   * @dataProvider buildOptionsDataProvider
+   * @covers ::buildOptions
+   * @dataProvider queryOptionsDataProvider
    */
-  public function testBuildOptions(array $input, array $expected): void {
-
-    $mock = new MockHandler([
-      new Response(200, ['X-Foo' => 'Bar'], 'Hello, World'),
-    ]);
-    $handlerStack = HandlerStack::create($mock);
-    $client = new Client(['handler' => $handlerStack]);
-
-    $avc = $this->getMockBuilder(AvPortalClient::class)
-      ->setMethods(['buildOptions'])
-      ->setConstructorArgs([
-        $client,
-        $this->config_factory,
-        $this->cache_backend,
-        $this->time,
-        TRUE,
-      ])
-      ->enableProxyingToOriginalMethods()
+  public function testQueryOptions(array $input, array $expected): void {
+    $http_client = $this->getMockBuilder(Client::class)
+      ->setMethods(['request'])
       ->getMock();
+    $http_client
+      ->expects($this->once())
+      ->method('request')
+      ->with($this->anything(), $this->anything(), ['query' => $expected])
+      ->willReturn(new Response());
 
-    $avc->expects($this->once())
-      ->method('buildOptions')
-      ->with($this->equalTo($input))
-      ->willReturn($this->equalTo($expected));
-
-    $avc->query($input);
+    $client = new AvPortalClient($http_client, $this->configFactory, $this->cacheBackend, $this->time, FALSE);
+    $client->query($input);
   }
 
   /**
-   * Provide fixtures for buildOptions method.
+   * Tests that invalid query options trigger an exception.
+   *
+   * @param array $input
+   *   The input data.
+   * @param string $message
+   *   The expected exception message.
+   *
+   * @covers ::buildOptions
+   * @dataProvider invalidQueryOptionsDataProvider
+   */
+  public function testInvalidQueryOptions(array $input, string $message) {
+    $http_client = $this->getMockBuilder(Client::class)
+      ->disableOriginalConstructor()
+      ->getMock();
+
+    $client = new AvPortalClient($http_client, $this->configFactory, $this->cacheBackend, $this->time, FALSE);
+    $this->setExpectedException(\InvalidArgumentException::class, $message);
+    $client->query($input);
+  }
+
+  /**
+   * Provides of valid query options.
    *
    * @return array
-   *   List of test AV Portal media data.
+   *   A list of valid query arguments and the expected resulting query options.
    */
-  public function buildOptionsDataProvider(): array {
+  public function queryOptionsDataProvider(): array {
     return [
-      [
+      'empty query parameters' => [
         'input' => [],
         'expected' => [
           'fl' => 'type,ref,doc_ref,titles_json,duration,shootstartdate,media_json,mediaorder_json,summary_json,languages',
@@ -103,7 +126,7 @@ class AvPortalClientTest extends UnitTestCase {
           'type' => 'VIDEO,PHOTO,REPORTAGE',
         ],
       ],
-      [
+      'only resource reference passed' => [
         'input' => [
           'ref' => 'P-038924/00-15',
         ],
@@ -117,7 +140,7 @@ class AvPortalClientTest extends UnitTestCase {
           'type' => 'VIDEO,PHOTO,REPORTAGE',
         ],
       ],
-      [
+      'resource and photo type passed' => [
         'input' => [
           'ref' => 'P-038924/00-15',
           'type' => 'PHOTO',
@@ -132,7 +155,7 @@ class AvPortalClientTest extends UnitTestCase {
           'type' => 'PHOTO',
         ],
       ],
-      [
+      'resource and video type passed' => [
         'input' => [
           'ref' => 'I-129872',
           'type' => 'VIDEO',
@@ -151,30 +174,33 @@ class AvPortalClientTest extends UnitTestCase {
   }
 
   /**
-   * Provide fixtures for testing exceptions of buildOptions method.
+   * Provides a list of invalid query options.
    *
    * @return array
-   *   List of test AV Portal media data.
+   *   A list of invalid query options and their related exception messages.
    */
-  public function buildOptionsMediaAssetTypeExceptionsDataProvider(): array {
+  public function invalidQueryOptionsDataProvider(): array {
     return [
       [
         'input' => [
           'ref' => 'P-038924/00-15',
           'type' => 'REPORTAGEE',
         ],
+        'message' => 'Invalid asset type "REPORTAGEE" requested, allowed types are "VIDEO,PHOTO,REPORTAGE".',
       ],
       [
         'input' => [
           'ref' => 'P-038924/00-15',
           'type' => 'REPORTAGEE,REPORTAGE',
         ],
+        'message' => 'Invalid asset type "REPORTAGEE,REPORTAGE" requested, allowed types are "VIDEO,PHOTO,REPORTAGE".',
       ],
       [
         'input' => [
           'ref' => 'P-038924/00-15',
           'type' => 'VIDEOSHOT',
         ],
+        'message' => 'Invalid asset type "VIDEOSHOT" requested, allowed types are "VIDEO,PHOTO,REPORTAGE".',
       ],
     ];
   }
