@@ -10,7 +10,7 @@
       "kwgg": "europe",
       "proxy": "true",
       "serverName": "wlpc0099",
-      "type": "",
+      "type": "VIDEO,PHOTO,REPORTAGE",
       "wt": "json"
     }
   },

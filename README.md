@@ -5,6 +5,14 @@
 
 Media AV Portal adds the [European Audiovisual Services](http://ec.europa.eu/avservices/) as a supported media provider.
 
+# Supported media types
+
+Only 3 media assets types from AV Portal are currently supported:
+
+* PHOTO (resources like [https://audiovisual.ec.europa.eu/en/photo/P-038924](https://audiovisual.ec.europa.eu/en/photo/P-038924)).
+* VIDEO (resources like [https://audiovisual.ec.europa.eu/en/video/I-183993](https://audiovisual.ec.europa.eu/en/video/I-183993)).
+* REPORTAGE (resources like [https://audiovisual.ec.europa.eu/en/photo/P-038924~2F00-15](https://audiovisual.ec.europa.eu/en/photo/P-038924~2F00-15)).
+
 # Mock service
 
 The project also comes with a test module that provides a mock to the remote AV Portal service. Meaning that tests do not have to be run against the remote service but local resources are used.
@@ -101,10 +109,10 @@ This will:
 
 ### Using Docker Compose
 
-Alternatively, you can build a development site using [Docker](https://www.docker.com/get-docker) and 
+Alternatively, you can build a development site using [Docker](https://www.docker.com/get-docker) and
 [Docker Compose](https://docs.docker.com/compose/) with the provided configuration.
 
-Docker provides the necessary services and tools such as a web server and a database server to get the site running, 
+Docker provides the necessary services and tools such as a web server and a database server to get the site running,
 regardless of your local host configuration.
 
 #### Requirements:
@@ -116,7 +124,7 @@ regardless of your local host configuration.
 
 By default, Docker Compose reads two files, a `docker-compose.yml` and an optional `docker-compose.override.yml` file.
 By convention, the `docker-compose.yml` contains your base configuration and it's provided by default.
-The override file, as its name implies, can contain configuration overrides for existing services or entirely new 
+The override file, as its name implies, can contain configuration overrides for existing services or entirely new
 services.
 If a service is defined in both files, Docker Compose merges the configurations.
 

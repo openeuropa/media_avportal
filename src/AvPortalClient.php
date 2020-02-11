@@ -21,6 +21,17 @@ class AvPortalClient implements AvPortalClientInterface {
   use UseCacheBackendTrait;
 
   /**
+   * The list of allowed media assets.
+   *
+   * @var array
+   */
+  public const ALLOWED_TYPES = [
+    'VIDEO',
+    'PHOTO',
+    'REPORTAGE',
+  ];
+
+  /**
    * The module configuration.
    *
    * @var \Drupal\Core\Config\ImmutableConfig
@@ -68,13 +79,7 @@ class AvPortalClient implements AvPortalClientInterface {
    * {@inheritdoc}
    */
   public function query(array $options = []): ?array {
-    $options += [
-      'fl' => 'type,ref,doc_ref,titles_json,duration,shootstartdate,media_json,mediaorder_json,summary_json,languages',
-      'hasMedia' => 1,
-      'wt' => 'json',
-      'index' => 1,
-      'pagesize' => 15,
-    ];
+    $options = $this->buildOptions($options);
 
     // Generate a cache ID that takes into consideration all the query
     // parameters.
@@ -136,6 +141,34 @@ class AvPortalClient implements AvPortalClientInterface {
     $response = $this->httpClient->get($url);
 
     return $response->getStatusCode() === 200 ? (string) $response->getBody() : NULL;
+  }
+
+  /**
+   * Returns a array of options which we will use for queries.
+   *
+   * @param array $options
+   *   The defined options.
+   *
+   * @return array|null
+   *   The array of query options.
+   */
+  protected function buildOptions(array $options = []): ?array {
+    $options += [
+      'fl' => 'type,ref,doc_ref,titles_json,duration,shootstartdate,media_json,mediaorder_json,summary_json,languages',
+      'hasMedia' => 1,
+      'wt' => 'json',
+      'index' => 1,
+      'pagesize' => 15,
+      'type' => implode(',', self::ALLOWED_TYPES),
+    ];
+
+    // Make sure that we are requesting a specified and supported asset type.
+    $asset_types = array_map('mb_strtoupper', explode(',', (string) $options['type']));
+    if (array_diff($asset_types, self::ALLOWED_TYPES)) {
+      throw new \InvalidArgumentException(sprintf('Invalid asset type "%s" requested, allowed types are "%s".', $options['type'], implode(',', self::ALLOWED_TYPES)));
+    }
+
+    return $options;
   }
 
   /**

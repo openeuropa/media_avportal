@@ -39,4 +39,14 @@ class HistoryMiddleware {
     return $this->historyContainer;
   }
 
+  /**
+   * Returns the current history container.
+   *
+   * @return array|bool
+   *   The last history entry.
+   */
+  public function getLastHistoryEntry(): ?array {
+    return end($this->historyContainer);
+  }
+
 }
