@@ -1,10 +1,18 @@
 # Change Log
 
+## [8.x-1.0-beta7](https://github.com/openeuropa/media_avportal/tree/8.x-1.0-beta7) (2020-03-02)
+[Full Changelog](https://github.com/openeuropa/media_avportal/compare/8.x-1.0-beta6...8.x-1.0-beta7)
+
+**Merged pull requests:**
+
+- OPENEUROPA-2780: Filter out video shot from AV Portal resources. [\#44](https://github.com/openeuropa/media_avportal/pull/44) ([sergepavle](https://github.com/sergepavle))
+
 ## [8.x-1.0-beta6](https://github.com/openeuropa/media_avportal/tree/8.x-1.0-beta6) (2020-02-05)
 [Full Changelog](https://github.com/openeuropa/media_avportal/compare/8.x-1.0-beta5...8.x-1.0-beta6)
 
 **Merged pull requests:**
 
+- OPENEUROPA-0000: Prepare for 8.x-1.0-beta6. [\#45](https://github.com/openeuropa/media_avportal/pull/45) ([hernani](https://github.com/hernani))
 - OPENEUROPA-2716: Fix thumbnails for search. [\#43](https://github.com/openeuropa/media_avportal/pull/43) ([sergepavle](https://github.com/sergepavle))
 - OPENEUROPA-2663: Media browser - Sanitize avportal resources titles. [\#42](https://github.com/openeuropa/media_avportal/pull/42) ([sergepavle](https://github.com/sergepavle))
 - OPENEUROPA-2661: Specify preferred thumbnail resolution. [\#41](https://github.com/openeuropa/media_avportal/pull/41) ([nagyad](https://github.com/nagyad))
