@@ -103,7 +103,8 @@ class AvPortalClientTest extends UnitTestCase {
       ->getMock();
 
     $client = new AvPortalClient($http_client, $this->configFactory, $this->cacheBackend, $this->time, FALSE);
-    $this->setExpectedException(\InvalidArgumentException::class, $message);
+    $this->expectException(\InvalidArgumentException::class);
+    $this->expectExceptionMessage($message);
     $client->query($input);
   }
 
