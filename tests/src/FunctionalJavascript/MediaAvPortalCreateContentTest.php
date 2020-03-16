@@ -184,6 +184,10 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
     // Visit the new media content.
     $page->clickLink('Euro with miniature figurines');
 
+    // Check the image alt attribute.
+    $image_alt = $assert_session->elementExists('css', 'img.avportal-photo')->getAttribute('alt');
+    $this->assertContains('Euro with miniature figurines', $image_alt);
+
     // Check the image URL.
     $image_url = $assert_session->elementExists('css', 'img.avportal-photo')->getAttribute('src');
     $this->assertContains('ec.europa.eu/avservices/avs/files/video6/repository/prod/photo/store/', $image_url);
@@ -296,6 +300,9 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
     $this->assertContains('styles/large/avportal/P-038924/00-15', $picture->find('css', 'source[media="(min-width: 851px)"]')->getAttribute('srcset'));
     $this->assertContains('styles/medium/avportal/P-038924/00-15', $picture->find('css', 'source[media="(min-width: 560px)"]')->getAttribute('srcset'));
     $this->assertContains('styles/thumbnail/avportal/P-038924/00-15', $picture->find('css', 'source[media="(min-width: 0px)"]')->getAttribute('srcset'));
+
+    // Check the image alt attribute.
+    $this->assertContains('Euro with miniature figurines', $picture->find('css', 'img[class="avportal-photo"]')->getAttribute('alt'));
 
     // Check the image fallback URL.
     $image_url = $picture->find('css', 'img.avportal-photo')->getAttribute('src');
