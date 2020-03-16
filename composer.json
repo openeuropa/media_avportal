@@ -7,7 +7,7 @@
     "prefer-stable": true,
     "require": {
         "php": "^7.1",
-        "drupal/core": "^8.7",
+        "drupal/core-recommended": "^8.7",
         "drupal/remote_stream_wrapper": "^1.2"
     },
     "require-dev": {
