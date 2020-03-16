@@ -70,6 +70,16 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
     $config = $this->config('core.entity_view_display.media.media_av_portal_video.default');
     $config->set('content.field_media_media_avportal_video.type', 'avportal_video');
     $config->set('content.field_media_media_avportal_video.settings', []);
+    $content = $config->get('content');
+    $content['thumbnail'] = [
+      'type' => 'image',
+      'weight' => 1,
+      'region' => 'content',
+      'label' => 'visually_hidden',
+      'settings' => [],
+      'third_party_settings' => [],
+    ];
+    $config->set('content', $content);
     $config->save();
 
     // Create a media content with a valid reference.
