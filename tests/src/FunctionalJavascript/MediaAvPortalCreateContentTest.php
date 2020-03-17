@@ -238,14 +238,6 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
 
     $assert_session->pageTextContains('Invalid URL format specified.');
 
-    // Create a media with a title which contains encoded characters.
-    $this->drupalGet('media/add/media_av_portal_photo');
-    $page->fillField('Media AV Portal Photo', 'https://audiovisual.ec.europa.eu/en/photo/P-042819~2F00-40');
-    $page->pressButton('Save');
-
-    $this->drupalGet('admin/content/media');
-    $assert_session->linkExistsExact('Press conference by Ursula von der Leyen, President of the European Commission, Janez Lenarčič, Stella Kyriakides, Ylva Johansson, Adina Vălean and Paolo Gentiloni, European Commissioners, on the EU\'s response to COVID-19');
-
     // Test that the formatter works with the image styles.
     $config = $this->config('core.entity_view_display.media.media_av_portal_photo.default');
     $config->set('content.field_media_media_avportal_photo.settings', [
