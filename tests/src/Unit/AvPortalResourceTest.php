@@ -18,7 +18,7 @@ class AvPortalResourceTest extends UnitTestCase {
    * @param array $data
    *   The photo resource with all resolutions.
    *
-   * @dataProvider photoResourceDataProvider
+   * @dataProvider photoThumbnailsResourceDataProvider
    */
   public function testGetPhotoThumbnailUrl(array $data): void {
     $resource = new AvPortalResource($data);
@@ -42,12 +42,27 @@ class AvPortalResourceTest extends UnitTestCase {
   }
 
   /**
+   * Tests getTitle() method.
+   *
+   * @param string $expected
+   *   The expected value.
+   * @param array $data
+   *   The AV Portal resource with all possible titles.
+   *
+   * @dataProvider titleResourceDataProvider
+   */
+  public function testGetTitle(string $expected, array $data): void {
+    $resource = new AvPortalResource($data);
+    $this->assertEquals($expected, $resource->getTitle());
+  }
+
+  /**
    * Provide photo resources with PHOTO and REPORTAGE types.
    *
    * @return array
    *   List of photo resources.
    */
-  public function photoResourceDataProvider(): array {
+  public function photoThumbnailsResourceDataProvider(): array {
     return [
       [
         [
@@ -103,6 +118,83 @@ class AvPortalResourceTest extends UnitTestCase {
             ],
         ],
       ],
+    ];
+  }
+
+  /**
+   * Provide AV portal resources with titles.
+   *
+   * @return array
+   *   List of resources.
+   */
+  public function titleResourceDataProvider(): array {
+    return [
+      'not existing titles_json' =>
+        [
+          'expected_title' => '',
+          'data' =>
+            [
+              'ref' => 'P-038924/00-15',
+              'type' => 'PHOTO',
+            ],
+        ],
+      'invalid titles_json' => [
+        'expected_title' => '',
+        'data' => [
+          'ref' => 'P-038924/00-15',
+          'type' => 'REPORTAGE',
+          'titles_json' => 'invalid title',
+        ],
+      ],
+      'title with encoded characters (default language)' =>
+        [
+          'expected_title' => 'Press conference by Ursula von der Leyen, President of the European Commission, Janez Lenarčič, Stella Kyriakides, Ylva Johansson, Adina Vălean and Paolo Gentiloni, European Commissioners, on the EU\'s response to COVID-19',
+          'data' => [
+            'ref' => 'P-038924/00-15',
+            'type' => 'REPORTAGE',
+            'titles_json' => [
+              'EN' => 'Press conference by Ursula von der Leyen, President of the European Commission, Janez Lenarčič, Stella Kyriakides, Ylva Johansson, Adina Vălean and Paolo Gentiloni, European Commissioners, on the EU&#39;s response to COVID-19',
+            ],
+          ],
+        ],
+      'title with encoded characters (first available language)' =>
+        [
+          'expected_title' => 'DE Press conference by Ursula von der Leyen, President of the European Commission, Janez Lenarčič, Stella Kyriakides, Ylva Johansson, Adina Vălean and Paolo Gentiloni, European Commissioners, on the EU\'s response to COVID-19',
+          'data' =>
+            [
+              'ref' => 'P-038924/00-15',
+              'type' => 'REPORTAGE',
+              'titles_json' => [
+                'DE' => 'DE Press conference by Ursula von der Leyen, President of the European Commission, Janez Lenarčič, Stella Kyriakides, Ylva Johansson, Adina Vălean and Paolo Gentiloni, European Commissioners, on the EU&#39;s response to COVID-19',
+                'FR' => 'Press conference by Ursula von der Leyen, President of the European Commission, Janez Lenarčič, Stella Kyriakides, Ylva Johansson, Adina Vălean and Paolo Gentiloni, European Commissioners, on the EU&#39;s response to COVID-19',
+              ],
+            ],
+        ],
+      'title with encoded characters and html (default language)' =>
+        [
+          'expected_title' => 'Press conference by Ursula von der Leyen, President of the European Commission, Janez Lenarčič, Stella Kyriakides, Ylva Johansson, Adina Vălean and Paolo Gentiloni, European Commissioners, on the EU\'s response to COVID-19',
+          'data' =>
+            [
+              'ref' => 'P-038924/00-15',
+              'type' => 'REPORTAGE',
+              'titles_json' => [
+                'EN' => 'Press conference by &lt;strong&gt;Ursula von der Leyen&lt;/strong&gt;<br\/>, President of the European Commission, Janez Lenarčič, Stella Kyriakides, Ylva Johansson, Adina Vălean and Paolo Gentiloni, European Commissioners, on the EU&#39;s response to COVID-19',
+              ],
+            ],
+        ],
+      'title with encoded characters and html (first available language)' =>
+        [
+          'expected_title' => 'DE Press conference by Ursula von der Leyen, President of the European Commission, Janez Lenarčič, Stella Kyriakides, Ylva Johansson, Adina Vălean and Paolo Gentiloni, European Commissioners, on the EU\'s response to COVID-19',
+          'data' =>
+            [
+              'ref' => 'P-038924/00-15',
+              'type' => 'REPORTAGE',
+              'titles_json' => [
+                'DE' => 'DE Press conference by &lt;strong&gt;Ursula von der Leyen&lt;/strong&gt;<br\/>, President of the European Commission, Janez Lenarčič, Stella Kyriakides, Ylva Johansson, Adina Vălean and Paolo Gentiloni, European Commissioners, on the EU&#39;s response to COVID-19',
+                'FR' => 'Press conference by Ursula von der Leyen, President of the European Commission, Janez Lenarčič, Stella Kyriakides, Ylva Johansson, Adina Vălean and Paolo Gentiloni, European Commissioners, on the EU&#39;s response to COVID-19',
+              ],
+            ],
+        ],
     ];
   }
 
