@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\media_avportal\src\Unit;
 
@@ -138,14 +138,15 @@ class AvPortalResourceTest extends UnitTestCase {
               'type' => 'PHOTO',
             ],
         ],
-      'invalid titles_json' => [
-        'expected_title' => '',
-        'data' => [
-          'ref' => 'P-038924/00-15',
-          'type' => 'REPORTAGE',
-          'titles_json' => 'invalid title',
+      'invalid titles_json' =>
+        [
+          'expected_title' => '',
+          'data' => [
+            'ref' => 'P-038924/00-15',
+            'type' => 'REPORTAGE',
+            'titles_json' => 'invalid title',
+          ],
         ],
-      ],
       'title with encoded characters (default language)' =>
         [
           'expected_title' => 'Press conference by Ursula von der Leyen, President of the European Commission, Janez Lenarčič, Stella Kyriakides, Ylva Johansson, Adina Vălean and Paolo Gentiloni, European Commissioners, on the EU\'s response to COVID-19',
