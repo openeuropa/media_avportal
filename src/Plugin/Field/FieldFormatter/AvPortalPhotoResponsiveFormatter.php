@@ -305,9 +305,16 @@ class AvPortalPhotoResponsiveFormatter extends FormatterBase implements Containe
       }
     }
 
+    // Get the media source from the entity.
+    $media = $item->getEntity();
+    $media_source = $media->getSource();
+
     $build = [
       '#theme' => $theme,
-      '#attributes' => ['class' => ['avportal-photo']],
+      '#attributes' => [
+        'class' => ['avportal-photo'],
+        'alt' => $media_source->getMetadata($media, 'thumbnail_alt_value'),
+      ],
       // We need to append an image prefix to the stream URI.
       // @see \Drupal\media_avportal\StreamWrapper\AvPortalPhotoStreamWrapper::getExternalUrl().
       '#uri' => 'avportal://' . $resource_ref . '.jpg',

@@ -15,6 +15,7 @@ use Drupal\media\MediaInterface;
  *   description = @Translation("Media AV portal photo plugin."),
  *   allowed_field_types = {"string"},
  *   default_thumbnail_filename = "no-thumbnail.png",
+ *   thumbnail_alt_metadata_attribute = "thumbnail_alt_value",
  * )
  */
 class MediaAvPortalPhotoSource extends MediaAvPortalSourceBase {
@@ -59,8 +60,13 @@ class MediaAvPortalPhotoSource extends MediaAvPortalSourceBase {
       return NULL;
     }
 
-    if ($name == 'photo_uri') {
-      return $resource->getPhotoUri();
+    switch ($name) {
+      case 'photo_uri':
+        return $resource->getPhotoUri();
+
+      case 'thumbnail_alt_value':
+        return $resource->getTitle();
+
     }
 
     return parent::getMetadata($media, $name);
