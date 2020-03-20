@@ -44,6 +44,9 @@ field.formatter.settings.avportal_video:
     max_height:
       type: integer
       label: 'Maximum height'
+    autoplay_setting:
+      type: boolean
+      label: 'Autoplay setting'
 
 field.formatter.settings.avportal_photo:
   type: mapping

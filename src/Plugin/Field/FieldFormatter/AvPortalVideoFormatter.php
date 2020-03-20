@@ -44,6 +44,11 @@ class AvPortalVideoFormatter extends FormatterBase implements ContainerFactoryPl
   public const DEFAULT_HEIGHT = 390;
 
   /**
+   * The default autoplay setting.
+   */
+  public const DEFAULT_AUTOPLAY = 1;
+
+  /**
    * The AV Portal client.
    *
    * @var \Drupal\media_avportal\AvPortalClientInterface
@@ -126,6 +131,7 @@ class AvPortalVideoFormatter extends FormatterBase implements ContainerFactoryPl
     return [
       'max_width' => self::DEFAULT_WIDTH,
       'max_height' => self::DEFAULT_HEIGHT,
+      'autoplay_setting' => self::DEFAULT_AUTOPLAY,
     ] + parent::defaultSettings();
   }
 
@@ -153,6 +159,12 @@ class AvPortalVideoFormatter extends FormatterBase implements ContainerFactoryPl
       '#maxlength' => 5,
       '#field_suffix' => $this->t('pixels'),
       '#min' => 0,
+    ];
+
+    $form['autoplay_setting'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Autoplay enabled'),
+      '#default_value' => $this->getSetting('autoplay_setting'),
     ];
 
     return $form;
@@ -234,6 +246,7 @@ class AvPortalVideoFormatter extends FormatterBase implements ContainerFactoryPl
   protected function viewElement(FieldItemInterface $item): array {
     $max_width = $this->getSetting('max_width');
     $max_height = $this->getSetting('max_height');
+    $autoplay_setting = $this->getSetting('autoplay_setting') == 0 ? FALSE : TRUE;
 
     $main_property = $item->getFieldDefinition()
       ->getFieldStorageDefinition()
@@ -258,7 +271,7 @@ class AvPortalVideoFormatter extends FormatterBase implements ContainerFactoryPl
       'lg' => strtoupper($item->getLangcode()),
       // @todo What are those default parameters ? Where is the documentation ?
       'sublg' => 'none',
-      'autoplay' => 'true',
+      'autoplay' => $autoplay_setting,
       'tin' => 10,
       'tout' => 59,
     ];
