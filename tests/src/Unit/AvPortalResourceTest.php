@@ -145,7 +145,7 @@ class AvPortalResourceTest extends UnitTestCase {
         'langcode' => NULL,
         'expected_title' => NULL,
       ],
-      'invalid titles_json' => [
+      'non-array titles_json' => [
         'data' => [
           'ref' => 'P-038924/00-15',
           'titles_json' => 'invalid title',
@@ -159,6 +159,17 @@ class AvPortalResourceTest extends UnitTestCase {
           'titles_json' => [],
         ],
         'langcode' => NULL,
+        'expected_title' => NULL,
+      ],
+      'titles_json with empty values' => [
+        'data' => [
+          'ref' => 'P-038924/00-15',
+          'titles_json' => [
+            'FR' => NULL,
+            'EN' => NULL,
+          ],
+        ],
+        'langcode' => 'IT',
         'expected_title' => NULL,
       ],
       // English is the default langcode used when none is passed.
