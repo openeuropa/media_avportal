@@ -77,21 +77,26 @@ class AvPortalResource {
       return NULL;
     }
 
-    $titles = $this->data['titles_json'];
-    if (isset($titles[$langcode])) {
-      return strip_tags(Html::decodeEntities($titles[$langcode]));
+    $titles = array_filter($this->data['titles_json']);
+    if (empty($titles)) {
+      return NULL;
     }
 
-    // Fallback to English if the specified langcode is not present.
-    if (isset($titles['EN'])) {
-      return strip_tags(Html::decodeEntities($titles['EN']));
-    }
-    // Fallback to first available title, when English language is not present.
-    if (count($titles) > 0 && $first_title = reset($titles)) {
-      return is_string($first_title) ? strip_tags(Html::decodeEntities($first_title)) : NULL;
+    // The first available title will be used as fallback in case the specified
+    // langcode is not present.
+    $title = reset($titles);
+
+    // English is used as fallback in case the specified langcode is not
+    // available.
+    $langcodes = array_unique([$langcode, 'EN']);
+    foreach ($langcodes as $langcode) {
+      if (isset($titles[$langcode])) {
+        $title = $titles[$langcode];
+        break;
+      }
     }
 
-    return NULL;
+    return strip_tags(Html::decodeEntities($title));
   }
 
   /**
