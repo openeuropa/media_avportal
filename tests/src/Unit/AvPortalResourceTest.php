@@ -47,16 +47,22 @@ class AvPortalResourceTest extends UnitTestCase {
   /**
    * Tests getTitle() method.
    *
-   * @param string $expected
-   *   The expected value.
    * @param array $data
    *   The AV Portal resource with all possible titles.
+   * @param string|null $langcode
+   *   The language in which to return the title.
+   * @param string|null $expected
+   *   The expected value.
    *
    * @dataProvider titleResourceDataProvider
+   * @covers ::getTitle
    */
-  public function testGetTitle(string $expected, array $data): void {
+  public function testGetTitle(array $data, ?string $langcode, ?string $expected): void {
     $resource = new AvPortalResource($data);
-    $this->assertEquals($expected, $resource->getTitle());
+
+    // Pass the language parameter only if it has been specified.
+    $title = $langcode === NULL ? $resource->getTitle() : $resource->getTitle($langcode);
+    $this->assertSame($expected, $title);
   }
 
   /**
@@ -125,80 +131,150 @@ class AvPortalResourceTest extends UnitTestCase {
   }
 
   /**
-   * Provide AV portal resources with titles.
+   * Data provider for getTitle() test method.
    *
    * @return array
-   *   List of resources.
+   *   Test data and expectations.
    */
   public function titleResourceDataProvider(): array {
     return [
-      'not existing titles_json' =>
-        [
-          'expected_title' => '',
-          'data' =>
-            [
-              'ref' => 'P-038924/00-15',
-              'type' => 'PHOTO',
-            ],
+      'missing titles_json' => [
+        'data' => [
+          'ref' => 'P-038924/00-15',
         ],
-      'invalid titles_json' =>
-        [
-          'expected_title' => '',
-          'data' => [
-            'ref' => 'P-038924/00-15',
-            'type' => 'REPORTAGE',
-            'titles_json' => 'invalid title',
+        'langcode' => NULL,
+        'expected_title' => NULL,
+      ],
+      'invalid titles_json' => [
+        'data' => [
+          'ref' => 'P-038924/00-15',
+          'titles_json' => 'invalid title',
+        ],
+        'langcode' => NULL,
+        'expected_title' => NULL,
+      ],
+      'empty titles_json' => [
+        'data' => [
+          'ref' => 'P-038924/00-15',
+          'titles_json' => [],
+        ],
+        'langcode' => NULL,
+        'expected_title' => NULL,
+      ],
+      // English is the default langcode used when none is passed.
+      'no langcode specified / existing title' => [
+        'data' => [
+          'ref' => 'P-038924/00-15',
+          'titles_json' => [
+            'FR' => 'French title.',
+            'EN' => 'English title.',
           ],
         ],
-      'title with encoded characters (default language)' =>
-        [
-          'expected_title' => 'Press conference by Ursula von der Leyen, President of the European Commission, Janez Lenarčič, Stella Kyriakides, Ylva Johansson, Adina Vălean and Paolo Gentiloni, European Commissioners, on the EU\'s response to COVID-19',
-          'data' => [
-            'ref' => 'P-038924/00-15',
-            'type' => 'REPORTAGE',
-            'titles_json' => [
-              'EN' => 'Press conference by Ursula von der Leyen, President of the European Commission, Janez Lenarčič, Stella Kyriakides, Ylva Johansson, Adina Vălean and Paolo Gentiloni, European Commissioners, on the EU&#39;s response to COVID-19',
-            ],
+        'langcode' => NULL,
+        'expected_title' => 'English title.',
+      ],
+      'langcode specified / existing title' => [
+        'data' => [
+          'ref' => 'P-038924/00-15',
+          'titles_json' => [
+            'EN' => 'English title.',
+            'FR' => 'French title.',
           ],
         ],
-      'title with encoded characters (first available language)' =>
-        [
-          'expected_title' => 'DE Press conference by Ursula von der Leyen, President of the European Commission, Janez Lenarčič, Stella Kyriakides, Ylva Johansson, Adina Vălean and Paolo Gentiloni, European Commissioners, on the EU\'s response to COVID-19',
-          'data' =>
-            [
-              'ref' => 'P-038924/00-15',
-              'type' => 'REPORTAGE',
-              'titles_json' => [
-                'DE' => 'DE Press conference by Ursula von der Leyen, President of the European Commission, Janez Lenarčič, Stella Kyriakides, Ylva Johansson, Adina Vălean and Paolo Gentiloni, European Commissioners, on the EU&#39;s response to COVID-19',
-                'FR' => 'Press conference by Ursula von der Leyen, President of the European Commission, Janez Lenarčič, Stella Kyriakides, Ylva Johansson, Adina Vălean and Paolo Gentiloni, European Commissioners, on the EU&#39;s response to COVID-19',
-              ],
-            ],
+        'langcode' => 'FR',
+        'expected_title' => 'French title.',
+      ],
+      // English is the fallback langcode used when the requested is not found.
+      'langcode specified / not existing title' => [
+        'data' => [
+          'ref' => 'P-038924/00-15',
+          'titles_json' => [
+            'IT' => 'Italian title.',
+            'EN' => 'English title.',
+          ],
         ],
-      'title with encoded characters and html (default language)' =>
-        [
-          'expected_title' => 'Press conference by Ursula von der Leyen, President of the European Commission, Janez Lenarčič, Stella Kyriakides, Ylva Johansson, Adina Vălean and Paolo Gentiloni, European Commissioners, on the EU\'s response to COVID-19',
-          'data' =>
-            [
-              'ref' => 'P-038924/00-15',
-              'type' => 'REPORTAGE',
-              'titles_json' => [
-                'EN' => 'Press conference by &lt;strong&gt;Ursula von der Leyen&lt;/strong&gt;<br\/>, President of the European Commission, Janez Lenarčič, Stella Kyriakides, Ylva Johansson, Adina Vălean and Paolo Gentiloni, European Commissioners, on the EU&#39;s response to COVID-19',
-              ],
-            ],
+        'langcode' => 'FR',
+        'expected_title' => 'English title.',
+      ],
+      // The first title available is returned when the fallback is not found.
+      'no langcode specified / fallback title not existing' => [
+        'data' => [
+          'ref' => 'P-038924/00-15',
+          'titles_json' => [
+            'IT' => 'Italian title.',
+            'FR' => 'French title.',
+          ],
         ],
-      'title with encoded characters and html (first available language)' =>
-        [
-          'expected_title' => 'DE Press conference by Ursula von der Leyen, President of the European Commission, Janez Lenarčič, Stella Kyriakides, Ylva Johansson, Adina Vălean and Paolo Gentiloni, European Commissioners, on the EU\'s response to COVID-19',
-          'data' =>
-            [
-              'ref' => 'P-038924/00-15',
-              'type' => 'REPORTAGE',
-              'titles_json' => [
-                'DE' => 'DE Press conference by &lt;strong&gt;Ursula von der Leyen&lt;/strong&gt;<br\/>, President of the European Commission, Janez Lenarčič, Stella Kyriakides, Ylva Johansson, Adina Vălean and Paolo Gentiloni, European Commissioners, on the EU&#39;s response to COVID-19',
-                'FR' => 'Press conference by Ursula von der Leyen, President of the European Commission, Janez Lenarčič, Stella Kyriakides, Ylva Johansson, Adina Vălean and Paolo Gentiloni, European Commissioners, on the EU&#39;s response to COVID-19',
-              ],
-            ],
+        'langcode' => NULL,
+        'expected_title' => 'Italian title.',
+      ],
+      // Another iteration of the above with a different titles order.
+      'no langcode specified / different order of titles / fallback title not existing' => [
+        'data' => [
+          'ref' => 'P-038924/00-15',
+          'titles_json' => [
+            'FR' => 'French title.',
+            'IT' => 'Italian title.',
+          ],
         ],
+        'langcode' => NULL,
+        'expected_title' => 'French title.',
+      ],
+      // When the requested language and the fallback one are not found, the
+      // first available title is returned.
+      'langcode specified / title and fallback title not existing' => [
+        'data' => [
+          'ref' => 'P-038924/00-15',
+          'titles_json' => [
+            'IT' => 'Italian title.',
+            'DE' => 'German title.',
+          ],
+        ],
+        'langcode' => 'FR',
+        'expected_title' => 'Italian title.',
+      ],
+      // Another iteration of the above with a different titles order.
+      'langcode specified / different order of titles / title and fallback title not existing' => [
+        'data' => [
+          'ref' => 'P-038924/00-15',
+          'titles_json' => [
+            'DE' => 'German title.',
+            'IT' => 'Italian title.',
+          ],
+        ],
+        'langcode' => 'FR',
+        'expected_title' => 'German title.',
+      ],
+      'title with encoded characters and markup / langcode specified' => [
+        'data' => [
+          'ref' => 'P-038924/00-15',
+          'titles_json' => [
+            'FR' => 'French title <br />&lt;strong&gt;with&lt;/strong&gt; markup, encoded &#39;characters&#39; &amp; letters čö&įię.',
+          ],
+        ],
+        'langcode' => 'FR',
+        'expected_title' => 'French title with markup, encoded \'characters\' & letters čö&įię.',
+      ],
+      'title with encoded characters and markup / fallback title' => [
+        'data' => [
+          'ref' => 'P-038924/00-15',
+          'titles_json' => [
+            'EN' => 'English title <br />&lt;strong&gt;with&lt;/strong&gt; markup, encoded &#39;characters&#39; &amp; letters čö&įię.',
+          ],
+        ],
+        'langcode' => 'FR',
+        'expected_title' => 'English title with markup, encoded \'characters\' & letters čö&įię.',
+      ],
+      'title with encoded characters and markup / first available title' => [
+        'data' => [
+          'ref' => 'P-038924/00-15',
+          'titles_json' => [
+            'IT' => 'Italian title <br />&lt;strong&gt;with&lt;/strong&gt; markup, encoded &#39;characters&#39; &amp; letters čö&įię.',
+          ],
+        ],
+        'langcode' => 'FR',
+        'expected_title' => 'Italian title with markup, encoded \'characters\' & letters čö&įię.',
+      ],
     ];
   }
 
