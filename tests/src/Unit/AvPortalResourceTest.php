@@ -9,6 +9,8 @@ use Drupal\Tests\UnitTestCase;
 
 /**
  * Tests the AvPortalResource class.
+ *
+ * @coversDefaultClass \Drupal\media_avportal\AvPortalResource
  */
 class AvPortalResourceTest extends UnitTestCase {
 
@@ -19,6 +21,7 @@ class AvPortalResourceTest extends UnitTestCase {
    *   The photo resource with all resolutions.
    *
    * @dataProvider photoThumbnailsResourceDataProvider
+   * @covers ::getPhotoThumbnailUrl
    */
   public function testGetPhotoThumbnailUrl(array $data): void {
     $resource = new AvPortalResource($data);

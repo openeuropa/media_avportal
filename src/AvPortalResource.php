@@ -82,12 +82,11 @@ class AvPortalResource {
       return strip_tags(Html::decodeEntities($titles[$langcode]));
     }
 
-    // Fallback to english if the specified langcode is not present.
+    // Fallback to English if the specified langcode is not present.
     if (isset($titles['EN'])) {
       return strip_tags(Html::decodeEntities($titles['EN']));
     }
-    // Fallback to first available title,
-    // when english language is not present.
+    // Fallback to first available title, when English language is not present.
     if (count($titles) > 0 && $first_title = reset($titles)) {
       return is_string($first_title) ? strip_tags(Html::decodeEntities($first_title)) : NULL;
     }

@@ -109,7 +109,7 @@ class AvPortalClientTest extends UnitTestCase {
   }
 
   /**
-   * Provides of valid query options.
+   * Provides a list of valid query options.
    *
    * @return array
    *   A list of valid query arguments and the expected resulting query options.
