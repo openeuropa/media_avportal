@@ -161,7 +161,7 @@ class AvPortalResourceTest extends UnitTestCase {
         'langcode' => NULL,
         'expected_title' => NULL,
       ],
-      'titles_json with empty values' => [
+      'titles_json with NULL values' => [
         'data' => [
           'ref' => 'P-038924/00-15',
           'titles_json' => [
@@ -169,7 +169,38 @@ class AvPortalResourceTest extends UnitTestCase {
             'EN' => NULL,
           ],
         ],
+        'langcode' => 'FR',
+        'expected_title' => NULL,
+      ],
+      // @see https://www.php.net/manual/en/language.types.boolean.php#language.types.boolean.casting
+      'title evaluable to FALSE on casting' => [
+        'data' => [
+          'ref' => 'P-038924/00-15',
+          'titles_json' => [
+            'IT' => '0',
+          ],
+        ],
         'langcode' => 'IT',
+        'expected_title' => '0',
+      ],
+      'boolean title' => [
+        'data' => [
+          'ref' => 'P-038924/00-15',
+          'titles_json' => [
+            'IT' => FALSE,
+          ],
+        ],
+        'langcode' => 'IT',
+        'expected_title' => NULL,
+      ],
+      'scalar title' => [
+        'data' => [
+          'ref' => 'P-038924/00-15',
+          'titles_json' => [
+            'EN' => ['English title.'],
+          ],
+        ],
+        'langcode' => 'EN',
         'expected_title' => NULL,
       ],
       // English is the default langcode used when none is passed.
