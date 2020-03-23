@@ -77,7 +77,10 @@ class AvPortalResource {
       return NULL;
     }
 
-    $titles = array_filter($this->data['titles_json']);
+    // Filter out any NULL, TRUE, FALSE and non-scalar titles.
+    $titles = array_filter($this->data['titles_json'], function ($value): bool {
+      return $value !== NULL && is_scalar($value) && !is_bool($value);
+    });
     if (empty($titles)) {
       return NULL;
     }
