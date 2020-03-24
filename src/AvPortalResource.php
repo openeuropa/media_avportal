@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Drupal\media_avportal;
 
+use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\UrlHelper;
 
 /**
@@ -76,22 +77,29 @@ class AvPortalResource {
       return NULL;
     }
 
-    $titles = $this->data['titles_json'];
-    if (isset($titles[$langcode])) {
-      return strip_tags($titles[$langcode]);
+    // Filter out any NULL, TRUE, FALSE and non-scalar titles.
+    $titles = array_filter($this->data['titles_json'], function ($value): bool {
+      return is_string($value) || is_numeric($value);
+    });
+    if (empty($titles)) {
+      return NULL;
     }
 
-    // Fallback to english if the specified langcode is not present.
-    if (isset($titles['EN'])) {
-      return strip_tags($titles['EN']);
-    }
-    // Fallback to first available title,
-    // when english language is not present.
-    if (count($titles) > 0 && $first_title = reset($titles)) {
-      return is_string($first_title) ? strip_tags($first_title) : NULL;
+    // The first available title will be used as fallback in case the specified
+    // langcode is not present.
+    $title = reset($titles);
+
+    // English is used as fallback in case the specified langcode is not
+    // available.
+    $langcodes = array_unique([$langcode, 'EN']);
+    foreach ($langcodes as $langcode) {
+      if (isset($titles[$langcode])) {
+        $title = $titles[$langcode];
+        break;
+      }
     }
 
-    return NULL;
+    return strip_tags(Html::decodeEntities($title));
   }
 
   /**

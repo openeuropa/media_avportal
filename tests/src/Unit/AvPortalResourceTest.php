@@ -9,6 +9,8 @@ use Drupal\Tests\UnitTestCase;
 
 /**
  * Tests the AvPortalResource class.
+ *
+ * @coversDefaultClass \Drupal\media_avportal\AvPortalResource
  */
 class AvPortalResourceTest extends UnitTestCase {
 
@@ -18,7 +20,8 @@ class AvPortalResourceTest extends UnitTestCase {
    * @param array $data
    *   The photo resource with all resolutions.
    *
-   * @dataProvider photoResourceDataProvider
+   * @dataProvider photoThumbnailsResourceDataProvider
+   * @covers ::getPhotoThumbnailUrl
    */
   public function testGetPhotoThumbnailUrl(array $data): void {
     $resource = new AvPortalResource($data);
@@ -42,12 +45,33 @@ class AvPortalResourceTest extends UnitTestCase {
   }
 
   /**
+   * Tests getTitle() method.
+   *
+   * @param array $data
+   *   The AV Portal resource with all possible titles.
+   * @param string|null $langcode
+   *   The language in which to return the title.
+   * @param string|null $expected
+   *   The expected value.
+   *
+   * @dataProvider titleResourceDataProvider
+   * @covers ::getTitle
+   */
+  public function testGetTitle(array $data, ?string $langcode, ?string $expected): void {
+    $resource = new AvPortalResource($data);
+
+    // Pass the language parameter only if it has been specified.
+    $title = $langcode === NULL ? $resource->getTitle() : $resource->getTitle($langcode);
+    $this->assertSame($expected, $title);
+  }
+
+  /**
    * Provide photo resources with PHOTO and REPORTAGE types.
    *
    * @return array
    *   List of photo resources.
    */
-  public function photoResourceDataProvider(): array {
+  public function photoThumbnailsResourceDataProvider(): array {
     return [
       [
         [
@@ -102,6 +126,196 @@ class AvPortalResourceTest extends UnitTestCase {
                 ],
             ],
         ],
+      ],
+    ];
+  }
+
+  /**
+   * Data provider for getTitle() test method.
+   *
+   * @return array
+   *   Test data and expectations.
+   */
+  public function titleResourceDataProvider(): array {
+    return [
+      'missing titles_json' => [
+        'data' => [
+          'ref' => 'P-038924/00-15',
+        ],
+        'langcode' => NULL,
+        'expected_title' => NULL,
+      ],
+      'non-array titles_json' => [
+        'data' => [
+          'ref' => 'P-038924/00-15',
+          'titles_json' => 'invalid title',
+        ],
+        'langcode' => NULL,
+        'expected_title' => NULL,
+      ],
+      'empty titles_json' => [
+        'data' => [
+          'ref' => 'P-038924/00-15',
+          'titles_json' => [],
+        ],
+        'langcode' => NULL,
+        'expected_title' => NULL,
+      ],
+      'titles_json with NULL values' => [
+        'data' => [
+          'ref' => 'P-038924/00-15',
+          'titles_json' => [
+            'FR' => NULL,
+            'EN' => NULL,
+          ],
+        ],
+        'langcode' => 'FR',
+        'expected_title' => NULL,
+      ],
+      // @see https://www.php.net/manual/en/language.types.boolean.php#language.types.boolean.casting
+      'title evaluable to FALSE on casting' => [
+        'data' => [
+          'ref' => 'P-038924/00-15',
+          'titles_json' => [
+            'IT' => '0',
+          ],
+        ],
+        'langcode' => 'IT',
+        'expected_title' => '0',
+      ],
+      'boolean title' => [
+        'data' => [
+          'ref' => 'P-038924/00-15',
+          'titles_json' => [
+            'IT' => FALSE,
+          ],
+        ],
+        'langcode' => 'IT',
+        'expected_title' => NULL,
+      ],
+      'scalar title' => [
+        'data' => [
+          'ref' => 'P-038924/00-15',
+          'titles_json' => [
+            'EN' => ['English title.'],
+          ],
+        ],
+        'langcode' => 'EN',
+        'expected_title' => NULL,
+      ],
+      // English is the default langcode used when none is passed.
+      'no langcode specified / existing title' => [
+        'data' => [
+          'ref' => 'P-038924/00-15',
+          'titles_json' => [
+            'FR' => 'French title.',
+            'EN' => 'English title.',
+          ],
+        ],
+        'langcode' => NULL,
+        'expected_title' => 'English title.',
+      ],
+      'langcode specified / existing title' => [
+        'data' => [
+          'ref' => 'P-038924/00-15',
+          'titles_json' => [
+            'EN' => 'English title.',
+            'FR' => 'French title.',
+          ],
+        ],
+        'langcode' => 'FR',
+        'expected_title' => 'French title.',
+      ],
+      // English is the fallback langcode used when the requested is not found.
+      'langcode specified / not existing title' => [
+        'data' => [
+          'ref' => 'P-038924/00-15',
+          'titles_json' => [
+            'IT' => 'Italian title.',
+            'EN' => 'English title.',
+          ],
+        ],
+        'langcode' => 'FR',
+        'expected_title' => 'English title.',
+      ],
+      // The first title available is returned when the fallback is not found.
+      'no langcode specified / fallback title not existing' => [
+        'data' => [
+          'ref' => 'P-038924/00-15',
+          'titles_json' => [
+            'IT' => 'Italian title.',
+            'FR' => 'French title.',
+          ],
+        ],
+        'langcode' => NULL,
+        'expected_title' => 'Italian title.',
+      ],
+      // Another iteration of the above with a different titles order.
+      'no langcode specified / different order of titles / fallback title not existing' => [
+        'data' => [
+          'ref' => 'P-038924/00-15',
+          'titles_json' => [
+            'FR' => 'French title.',
+            'IT' => 'Italian title.',
+          ],
+        ],
+        'langcode' => NULL,
+        'expected_title' => 'French title.',
+      ],
+      // When the requested language and the fallback one are not found, the
+      // first available title is returned.
+      'langcode specified / title and fallback title not existing' => [
+        'data' => [
+          'ref' => 'P-038924/00-15',
+          'titles_json' => [
+            'IT' => 'Italian title.',
+            'DE' => 'German title.',
+          ],
+        ],
+        'langcode' => 'FR',
+        'expected_title' => 'Italian title.',
+      ],
+      // Another iteration of the above with a different titles order.
+      'langcode specified / different order of titles / title and fallback title not existing' => [
+        'data' => [
+          'ref' => 'P-038924/00-15',
+          'titles_json' => [
+            'DE' => 'German title.',
+            'IT' => 'Italian title.',
+          ],
+        ],
+        'langcode' => 'FR',
+        'expected_title' => 'German title.',
+      ],
+      'title with encoded characters and markup / langcode specified' => [
+        'data' => [
+          'ref' => 'P-038924/00-15',
+          'titles_json' => [
+            'FR' => 'French title <br />&lt;strong&gt;with&lt;/strong&gt; markup, encoded &#39;characters&#39; &amp; letters čö&įię.',
+          ],
+        ],
+        'langcode' => 'FR',
+        'expected_title' => 'French title with markup, encoded \'characters\' & letters čö&įię.',
+      ],
+      'title with encoded characters and markup / fallback title' => [
+        'data' => [
+          'ref' => 'P-038924/00-15',
+          'titles_json' => [
+            'EN' => 'English title <br />&lt;strong&gt;with&lt;/strong&gt; markup, encoded &#39;characters&#39; &amp; letters čö&įię.',
+          ],
+        ],
+        'langcode' => 'FR',
+        'expected_title' => 'English title with markup, encoded \'characters\' & letters čö&įię.',
+      ],
+      'title with encoded characters and markup / first available title' => [
+        'data' => [
+          'ref' => 'P-038924/00-15',
+          'titles_json' => [
+            'IT' => 'Italian title <br />&lt;strong&gt;with&lt;/strong&gt; markup, encoded &#39;characters&#39; &amp; letters čö&įię.',
+          ],
+        ],
+        'langcode' => 'FR',
+        'expected_title' => 'Italian title with markup, encoded \'characters\' & letters čö&įię.',
       ],
     ];
   }
