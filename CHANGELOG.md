@@ -1,10 +1,23 @@
 # Change Log
 
-## [8.x-1.0-beta7](https://github.com/openeuropa/media_avportal/tree/8.x-1.0-beta7) (2020-03-02)
+## [8.x-1.0-beta8](https://github.com/openeuropa/media_avportal/tree/8.x-1.0-beta8) (2020-04-08)
+[Full Changelog](https://github.com/openeuropa/media_avportal/compare/8.x-1.0-beta7...8.x-1.0-beta8)
+
+**Merged pull requests:**
+
+- OPENEUROPA-2943: Update composer.json. [\#54](https://github.com/openeuropa/media_avportal/pull/54) ([sergepavle](https://github.com/sergepavle))
+- OPENEUROPA-0000: Use drupal/core instead of drupal/core-recommended. [\#53](https://github.com/openeuropa/media_avportal/pull/53) ([22Alexandra](https://github.com/22Alexandra))
+- OPENEUROPA-2987: Upgrade PHP version. [\#51](https://github.com/openeuropa/media_avportal/pull/51) ([nagyad](https://github.com/nagyad))
+- OPENEUROPA-2967: Add thumbnail alt value for media photos source. [\#49](https://github.com/openeuropa/media_avportal/pull/49) ([nagyad](https://github.com/nagyad))
+- OPENEUROPA-2604: Drupal 8 recommended project. [\#48](https://github.com/openeuropa/media_avportal/pull/48) ([upchuk](https://github.com/upchuk))
+- OPENEUROPA-2968: AV Portal photo name shows encoded characters in Media list [\#47](https://github.com/openeuropa/media_avportal/pull/47) ([sergepavle](https://github.com/sergepavle))
+
+## [8.x-1.0-beta7](https://github.com/openeuropa/media_avportal/tree/8.x-1.0-beta7) (2020-03-03)
 [Full Changelog](https://github.com/openeuropa/media_avportal/compare/8.x-1.0-beta6...8.x-1.0-beta7)
 
 **Merged pull requests:**
 
+- Release-1.0-beta7: Update changelog. [\#46](https://github.com/openeuropa/media_avportal/pull/46) ([nagyad](https://github.com/nagyad))
 - OPENEUROPA-2780: Filter out video shot from AV Portal resources. [\#44](https://github.com/openeuropa/media_avportal/pull/44) ([sergepavle](https://github.com/sergepavle))
 
 ## [8.x-1.0-beta6](https://github.com/openeuropa/media_avportal/tree/8.x-1.0-beta6) (2020-02-05)
