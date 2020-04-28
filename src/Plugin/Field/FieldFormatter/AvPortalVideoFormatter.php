@@ -279,6 +279,12 @@ class AvPortalVideoFormatter extends FormatterBase implements ContainerFactoryPl
         'mozallowfullscreen' => TRUE,
         'width' => $max_width,
         'height' => $max_height,
+        'class' => 'media-avportal-content',
+      ],
+      '#attached' => [
+        'library' => [
+          'media_avportal/avportal_video.formatter',
+        ],
       ],
     ];
   }

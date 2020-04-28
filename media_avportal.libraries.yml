@@ -1,0 +1,5 @@
+avportal_video.formatter:
+  version: VERSION
+  css:
+    component:
+      css/avportal_video.formatter.css: {}

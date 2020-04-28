@@ -90,6 +90,10 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
     // Visit the new media content.
     $page->clickLink('Midday press briefing from 25/10/2018');
 
+    // Check the iframe class.
+    $iframe_class = $assert_session->elementExists('css', 'iframe')->getAttribute('class');
+    $this->assertEqual($iframe_class, 'media-avportal-content');
+
     // Check the iframe URL.
     $iframe_url = $assert_session->elementExists('css', 'iframe')->getAttribute('src');
     $this->assertContains('ec.europa.eu/avservices/play.cfm', $iframe_url);
