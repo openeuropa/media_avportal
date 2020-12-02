@@ -99,7 +99,7 @@ class AvPortalResource {
       }
     }
 
-    return strip_tags(Html::decodeEntities($title));
+    return $this->trimText(strip_tags(Html::decodeEntities($title)));
   }
 
   /**
@@ -121,6 +121,37 @@ class AvPortalResource {
     }
 
     return NULL;
+  }
+
+  /**
+   * Trim text for avoiding maximum string length of varchar.
+   *
+   * @param string $value
+   *   The value which should be trimmed.
+   *
+   * @return string
+   *   The trimmed value.
+   *
+   * @see \Drupal\views\Plugin\views\field\FieldPluginBase::trimText
+   */
+  protected function trimText(string $value): string {
+    // We are using maximum string length of 'name' column
+    // within 'media_field_data' table.
+    $max_length = 255;
+    if (mb_strlen($value) > $max_length) {
+      $value = mb_substr($value, 0, $max_length);
+      $regex = "(.*)\b.+";
+      mb_regex_encoding('UTF-8');
+      $found = mb_ereg($regex, $value, $matches);
+      if ($found) {
+        $value = $matches[1];
+      }
+      // Remove scraps of HTML entities from the end of a strings.
+      $value = rtrim(preg_replace('/(?:<(?!.+>)|&(?!.+;)).*$/us', '', $value));
+      $value .= t('…');
+    }
+
+    return $value;
   }
 
   /**
