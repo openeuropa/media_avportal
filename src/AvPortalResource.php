@@ -135,9 +135,10 @@ class AvPortalResource {
    * @see \Drupal\views\Plugin\views\field\FieldPluginBase::trimText
    */
   protected function trimText(string $value): string {
-    // We are using maximum string length of 'name' column
-    // within 'media_field_data' table.
-    $max_length = 255;
+    // We are using maximum string length of the 'name' column
+    // within the 'media_field_data' table equal to 255 but
+    // with allocated space for the ellipsis symbol.
+    $max_length = 254;
     if (mb_strlen($value) > $max_length) {
       $value = mb_substr($value, 0, $max_length);
       $regex = "(.*)\b.+";
@@ -148,7 +149,7 @@ class AvPortalResource {
       }
       // Remove scraps of HTML entities from the end of a strings.
       $value = rtrim(preg_replace('/(?:<(?!.+>)|&(?!.+;)).*$/us', '', $value));
-      $value .= t('…');
+      $value .= '…';
     }
 
     return $value;
