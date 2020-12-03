@@ -317,6 +317,26 @@ class AvPortalResourceTest extends UnitTestCase {
         'langcode' => 'FR',
         'expected_title' => 'Italian title with markup, encoded \'characters\' & letters čö&įię.',
       ],
+      'title with more than 255 characters / html, encoded and multibyte characters' => [
+        'data' => [
+          'ref' => 'P-047441/00-05',
+          'titles_json' => [
+            'FR' => 'Conférence de presse de Margrethe Vestager, vice-présidente exécutive de la Commission européenne, sur un cas de pratique anti-concurrentielle :<br /> la Commission a infligé des amendes à Teva et à Cephalon pour avoir retardé l&#39;entrée sur le marché d&#39;un médicament générique moins cher',
+          ],
+        ],
+        'langcode' => NULL,
+        'expected_title' => 'Conférence de presse de Margrethe Vestager, vice-présidente exécutive de la Commission européenne, sur un cas de pratique anti-concurrentielle : la Commission a infligé des amendes à Teva et à Cephalon pour avoir retardé l\'entrée sur le marché d\'un…',
+      ],
+      'title with exactly 255 characters / html, encoded and multibyte characters' => [
+        'data' => [
+          'ref' => 'P-047441/00-05',
+          'titles_json' => [
+            'FR' => 'Conférence de presse de Margrethe Vestager, vice-présidente exécutive de la Commission européenne, sur un cas de pratique anti-concurrentielle :<br /> la Commission a infligé des amendes à Teva et à Cephalon pour avoir retardé l&#39;entrée sur le marché d&#39;un to255',
+          ],
+        ],
+        'langcode' => NULL,
+        'expected_title' => 'Conférence de presse de Margrethe Vestager, vice-présidente exécutive de la Commission européenne, sur un cas de pratique anti-concurrentielle : la Commission a infligé des amendes à Teva et à Cephalon pour avoir retardé l\'entrée sur le marché d\'un to255',
+      ],
     ];
   }
 

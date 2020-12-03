@@ -99,7 +99,7 @@ class AvPortalResource {
       }
     }
 
-    return strip_tags(Html::decodeEntities($title));
+    return $this->truncateString(strip_tags(Html::decodeEntities($title)));
   }
 
   /**
@@ -121,6 +121,45 @@ class AvPortalResource {
     }
 
     return NULL;
+  }
+
+  /**
+   * Truncates a string when longer than 255 characters, preserving full words.
+   *
+   * If the string is truncated, an ellipsis is added at the end.
+   *
+   * @param string $value
+   *   The string to truncate.
+   *
+   * @return string
+   *   The truncated string.
+   *
+   * @see \Drupal\views\Plugin\views\field\FieldPluginBase::trimText
+   */
+  protected function truncateString(string $value): string {
+    // The maximum length for simple string columns in tables is 255.
+    if (mb_strlen($value) <= 255) {
+      return $value;
+    }
+
+    // Cut one extra character to leave space for the ellipsis.
+    $value = mb_substr($value, 0, 254);
+    $regex = "(.*)\b.+";
+    if (function_exists('mb_ereg')) {
+      mb_regex_encoding('UTF-8');
+      $found = mb_ereg($regex, $value, $matches);
+    }
+    else {
+      $found = preg_match("/$regex/us", $value, $matches);
+    }
+    if ($found) {
+      $value = $matches[1];
+    }
+    // Remove scraps of HTML entities from the end of a strings.
+    $value = rtrim(preg_replace('/(?:<(?!.+>)|&(?!.+;)).*$/us', '', $value));
+    $value .= '…';
+
+    return $value;
   }
 
   /**
