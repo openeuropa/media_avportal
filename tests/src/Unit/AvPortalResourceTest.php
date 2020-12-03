@@ -317,27 +317,25 @@ class AvPortalResourceTest extends UnitTestCase {
         'langcode' => 'FR',
         'expected_title' => 'Italian title with markup, encoded \'characters\' & letters čö&įię.',
       ],
-      'langcode specified / existing title had more than 255 symbols' => [
+      'title with more than 255 characters / html, encoded and multibyte characters' => [
         'data' => [
           'ref' => 'P-047441/00-05',
           'titles_json' => [
-            'EN' => 'Press conference of Margrethe Vestager, Executive Vice-President of the European Commission, on an antitrust case: Commission fined Teva and Cephalon for delaying entry of cheaper generic medicine',
-            'FR' => 'Conférence de presse de Margrethe Vestager, vice-présidente exécutive de la Commission européenne, sur un cas de pratique anti-concurrentielle : la Commission a infligé des amendes à Teva et à Cephalon pour avoir retardé l&#39;entrée sur le marché d&#39;un médicament générique moins cher',
+            'FR' => 'Conférence de presse de Margrethe Vestager, vice-présidente exécutive de la Commission européenne, sur un cas de pratique anti-concurrentielle :<br /> la Commission a infligé des amendes à Teva et à Cephalon pour avoir retardé l&#39;entrée sur le marché d&#39;un médicament générique moins cher',
           ],
         ],
-        'langcode' => 'FR',
+        'langcode' => NULL,
         'expected_title' => 'Conférence de presse de Margrethe Vestager, vice-présidente exécutive de la Commission européenne, sur un cas de pratique anti-concurrentielle : la Commission a infligé des amendes à Teva et à Cephalon pour avoir retardé l\'entrée sur le marché d\'un…',
       ],
-      'langcode specified / existing title had more than 255 symbols / after trim without ellipses we have 255 symbols' => [
+      'title with exactly 255 characters / html, encoded and multibyte characters' => [
         'data' => [
           'ref' => 'P-047441/00-05',
           'titles_json' => [
-            'EN' => 'Press conference of Margrethe Vestager, Executive Vice-President of the European Commission, on an antitrust case: Commission fined Teva and Cephalon for delaying entry of cheaper generic medicine',
-            'FR' => 'Conférence de presse de Margrethe Vestager, vice-présidente exécutive de la Commission européenne, sur un cas de pratique anti-concurrentielle : la Commission a infligé des amendes à Teva et à Cephalon pour avoir retardé l&#39;entrée sur le marché d&#39;un1234567',
+            'FR' => 'Conférence de presse de Margrethe Vestager, vice-présidente exécutive de la Commission européenne, sur un cas de pratique anti-concurrentielle :<br /> la Commission a infligé des amendes à Teva et à Cephalon pour avoir retardé l&#39;entrée sur le marché d&#39;un to255',
           ],
         ],
-        'langcode' => 'FR',
-        'expected_title' => 'Conférence de presse de Margrethe Vestager, vice-présidente exécutive de la Commission européenne, sur un cas de pratique anti-concurrentielle : la Commission a infligé des amendes à Teva et à Cephalon pour avoir retardé l\'entrée sur le marché d\'…',
+        'langcode' => NULL,
+        'expected_title' => 'Conférence de presse de Margrethe Vestager, vice-présidente exécutive de la Commission européenne, sur un cas de pratique anti-concurrentielle : la Commission a infligé des amendes à Teva et à Cephalon pour avoir retardé l\'entrée sur le marché d\'un to255',
       ],
     ];
   }
