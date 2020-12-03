@@ -1,11 +1,19 @@
-# Changelog
+# Change Log
+
+## [8.x-1.0-beta11](https://github.com/openeuropa/media_avportal/tree/8.x-1.0-beta11) (2020-12-03)
+[Full Changelog](https://github.com/openeuropa/media_avportal/compare/8.x-1.0-beta10...8.x-1.0-beta11)
+
+**Merged pull requests:**
+
+- EWPP-558: Truncate titles longer than 255 characters. [\#61](https://github.com/openeuropa/media_avportal/pull/61) ([sergepavle](https://github.com/sergepavle))
+- EWPP-516: Update docker images. [\#60](https://github.com/openeuropa/media_avportal/pull/60) ([22Alexandra](https://github.com/22Alexandra))
 
 ## [8.x-1.0-beta10](https://github.com/openeuropa/media_avportal/tree/8.x-1.0-beta10) (2020-08-21)
-
 [Full Changelog](https://github.com/openeuropa/media_avportal/compare/8.x-1.0-beta9...8.x-1.0-beta10)
 
 **Merged pull requests:**
 
+- Release 1.0-beta10: Update changelog. [\#59](https://github.com/openeuropa/media_avportal/pull/59) ([nagyad](https://github.com/nagyad))
 - EWPP-188: Bumb up remote\_stream\_wrapper to 1.5. [\#58](https://github.com/openeuropa/media_avportal/pull/58) ([drishu](https://github.com/drishu))
 
 ## [8.x-1.0-beta9](https://github.com/openeuropa/media_avportal/tree/8.x-1.0-beta9) (2020-04-29)
