@@ -99,7 +99,7 @@ class AvPortalResource {
       }
     }
 
-    return $this->trimText(strip_tags(Html::decodeEntities($title)));
+    return $this->truncateString(strip_tags(Html::decodeEntities($title)));
   }
 
   /**
@@ -124,33 +124,40 @@ class AvPortalResource {
   }
 
   /**
-   * Trim text for avoiding maximum string length of varchar.
+   * Truncates a string when longer than 255 characters, preserving full words.
+   *
+   * If the string is truncated, an ellipsis is added at the end.
    *
    * @param string $value
-   *   The value which should be trimmed.
+   *   The string to truncate.
    *
    * @return string
-   *   The trimmed value.
+   *   The truncated string.
    *
    * @see \Drupal\views\Plugin\views\field\FieldPluginBase::trimText
    */
-  protected function trimText(string $value): string {
-    // We are using maximum string length of the 'name' column
-    // within the 'media_field_data' table equal to 255 but
-    // with allocated space for the ellipsis symbol.
-    $max_length = 254;
-    if (mb_strlen($value) > $max_length) {
-      $value = mb_substr($value, 0, $max_length);
-      $regex = "(.*)\b.+";
+  protected function truncateString(string $value): string {
+    // The maximum length for simple string columns in tables is 255.
+    if (mb_strlen($value) <= 255) {
+      return $value;
+    }
+
+    // Cut one extra character to leave space for the ellipsis.
+    $value = mb_substr($value, 0, 254);
+    $regex = "(.*)\b.+";
+    if (function_exists('mb_ereg')) {
       mb_regex_encoding('UTF-8');
       $found = mb_ereg($regex, $value, $matches);
-      if ($found) {
-        $value = $matches[1];
-      }
-      // Remove scraps of HTML entities from the end of a strings.
-      $value = rtrim(preg_replace('/(?:<(?!.+>)|&(?!.+;)).*$/us', '', $value));
-      $value .= '…';
     }
+    else {
+      $found = preg_match("/$regex/us", $value, $matches);
+    }
+    if ($found) {
+      $value = $matches[1];
+    }
+    // Remove scraps of HTML entities from the end of a strings.
+    $value = rtrim(preg_replace('/(?:<(?!.+>)|&(?!.+;)).*$/us', '', $value));
+    $value .= '…';
 
     return $value;
   }
