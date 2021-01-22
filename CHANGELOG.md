@@ -1,14 +1,25 @@
-# Change Log
+# Changelog
+
+## [8.x-1.0-beta12](https://github.com/openeuropa/media_avportal/tree/8.x-1.0-beta12) (2021-01-22)
+
+[Full Changelog](https://github.com/openeuropa/media_avportal/compare/8.x-1.0-beta11...8.x-1.0-beta12)
+
+**Merged pull requests:**
+
+- EWPP-529: Replace scaffold library. [\#63](https://github.com/openeuropa/media_avportal/pull/63) ([sergepavle](https://github.com/sergepavle))
 
 ## [8.x-1.0-beta11](https://github.com/openeuropa/media_avportal/tree/8.x-1.0-beta11) (2020-12-03)
+
 [Full Changelog](https://github.com/openeuropa/media_avportal/compare/8.x-1.0-beta10...8.x-1.0-beta11)
 
 **Merged pull requests:**
 
+- Update changelog for release 8.x-1.0-beta11. [\#62](https://github.com/openeuropa/media_avportal/pull/62) ([brummbar](https://github.com/brummbar))
 - EWPP-558: Truncate titles longer than 255 characters. [\#61](https://github.com/openeuropa/media_avportal/pull/61) ([sergepavle](https://github.com/sergepavle))
 - EWPP-516: Update docker images. [\#60](https://github.com/openeuropa/media_avportal/pull/60) ([22Alexandra](https://github.com/22Alexandra))
 
 ## [8.x-1.0-beta10](https://github.com/openeuropa/media_avportal/tree/8.x-1.0-beta10) (2020-08-21)
+
 [Full Changelog](https://github.com/openeuropa/media_avportal/compare/8.x-1.0-beta9...8.x-1.0-beta10)
 
 **Merged pull requests:**
