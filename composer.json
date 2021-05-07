@@ -7,14 +7,14 @@
     "prefer-stable": true,
     "require": {
         "php": ">=7.3",
-        "drupal/core": "^8.9 || ^9",
+        "drupal/core": "^8.9 || ~9.0.0",
         "drupal/remote_stream_wrapper": "^1.5"
     },
     "require-dev": {
         "behat/mink-selenium2-driver": "1.4.x-dev as 1.3.x-dev",
         "composer/installers": "~1.5",
         "cweagans/composer-patches": "^1.6",
-        "drupal/core-composer-scaffold": "^8.9 || ^9",
+        "drupal/core-composer-scaffold": "^8.9 || ~9.0.0",
         "drupal/config_devel": "~1.2",
         "drupal/drupal-extension": "~4.0",
         "drush/drush": "~10.3",
@@ -48,8 +48,7 @@
     "extra": {
         "patches": {
             "drupal/remote_stream_wrapper": {
-                "https://www.drupal.org/project/remote_stream_wrapper/issues/3050183": "https://www.drupal.org/files/issues/2020-08-21/3050183-4.patch",
-                "https://www.drupal.org/project/remote_stream_wrapper/issues/3185015": "https://www.drupal.org/files/issues/2021-01-05/remote_stream_wrapper-mime_type_guesser-3185015-10.patch"
+                "https://www.drupal.org/project/remote_stream_wrapper/issues/3050183": "https://www.drupal.org/files/issues/2020-08-21/3050183-4.patch"
             }
         },
         "composer-exit-on-patch-failure": true,

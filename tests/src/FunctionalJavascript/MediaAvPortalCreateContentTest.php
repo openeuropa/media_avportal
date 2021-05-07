@@ -101,8 +101,8 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
 
     // Check the iframe URL.
     $iframe_url = $assert_session->elementExists('css', 'iframe')->getAttribute('src');
-    $this->assertContains('ec.europa.eu/avservices/play.cfm', $iframe_url);
-    $this->assertContains('ref=I-162747', $iframe_url);
+    $this->assertStringContainsString('ec.europa.eu/avservices/play.cfm', $iframe_url);
+    $this->assertStringContainsString('ref=I-162747', $iframe_url);
 
     // @todo assert the width and height of the iframe.
     // Edit the newly created media.
@@ -117,8 +117,8 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
 
     // Check the iframe URL.
     $iframe_url = $assert_session->elementExists('css', 'iframe')->getAttribute('src');
-    $this->assertContains('ec.europa.eu/avservices/play.cfm', $iframe_url);
-    $this->assertContains('ref=I-163162', $iframe_url);
+    $this->assertStringContainsString('ec.europa.eu/avservices/play.cfm', $iframe_url);
+    $this->assertStringContainsString('ref=I-163162', $iframe_url);
 
     // Create a media content with an invalid reference.
     $this->drupalGet('media/add/media_av_portal_video');
@@ -145,7 +145,7 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
         $page->clickLink($test['expect']['title']);
         $image_url = $assert_session->elementExists('css', '.field--name-thumbnail img')->getAttribute('src');
         // Make sure that we have a thumbnail.
-        $this->assertNotContains('generic/no-thumbnail.png', $image_url);
+        $this->assertStringNotContainsString('generic/no-thumbnail.png', $image_url);
       }
     }
   }
@@ -195,12 +195,12 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
 
     // Check the image alt attribute.
     $image_alt = $assert_session->elementExists('css', 'img.avportal-photo')->getAttribute('alt');
-    $this->assertContains('Euro with miniature figurines', $image_alt);
+    $this->assertStringContainsString('Euro with miniature figurines', $image_alt);
 
     // Check the image URL.
     $image_url = $assert_session->elementExists('css', 'img.avportal-photo')->getAttribute('src');
-    $this->assertContains('ec.europa.eu/avservices/avs/files/video6/repository/prod/photo/store/', $image_url);
-    $this->assertContains('P038924-352937.jpg', $image_url);
+    $this->assertStringContainsString('ec.europa.eu/avservices/avs/files/video6/repository/prod/photo/store/', $image_url);
+    $this->assertStringContainsString('P038924-352937.jpg', $image_url);
 
     // Make sure that the media URL is normalized back to the correct format.
     $this->drupalGet('media/1/edit');
@@ -225,8 +225,8 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
 
       // Check the image URL.
       $image_url = $assert_session->elementExists('css', 'img.avportal-photo')->getAttribute('src');
-      $this->assertContains('ec.europa.eu/avservices/avs/files/video6/repository/prod/photo/store/', $image_url);
-      $this->assertContains('P039162-137797.jpg', $image_url);
+      $this->assertStringContainsString('ec.europa.eu/avservices/avs/files/video6/repository/prod/photo/store/', $image_url);
+      $this->assertStringContainsString('P039162-137797.jpg', $image_url);
     }
 
     // Make sure that the media URL is normalized back to the correct format.
@@ -259,7 +259,7 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
     $this->container->get('cache_tags.invalidator')->invalidateTags(['media_view']);
     $this->drupalGet('media/1');
     $image_url = $assert_session->elementExists('css', 'img.avportal-photo')->getAttribute('src');
-    $this->assertContains('files/styles/large/avportal/P-039162/00-12.jpg', $image_url);
+    $this->assertStringContainsString('files/styles/large/avportal/P-039162/00-12.jpg', $image_url);
   }
 
   /**
@@ -306,17 +306,17 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
 
     // Check the responsive source sets.
     $picture = $assert_session->elementExists('css', 'picture');
-    $this->assertContains('styles/large/avportal/P-038924/00-15', $picture->find('css', 'source[media="(min-width: 851px)"]')->getAttribute('srcset'));
-    $this->assertContains('styles/medium/avportal/P-038924/00-15', $picture->find('css', 'source[media="(min-width: 560px)"]')->getAttribute('srcset'));
-    $this->assertContains('styles/thumbnail/avportal/P-038924/00-15', $picture->find('css', 'source[media="(min-width: 0px)"]')->getAttribute('srcset'));
+    $this->assertStringContainsString('styles/large/avportal/P-038924/00-15', $picture->find('css', 'source[media="(min-width: 851px)"]')->getAttribute('srcset'));
+    $this->assertStringContainsString('styles/medium/avportal/P-038924/00-15', $picture->find('css', 'source[media="(min-width: 560px)"]')->getAttribute('srcset'));
+    $this->assertStringContainsString('styles/thumbnail/avportal/P-038924/00-15', $picture->find('css', 'source[media="(min-width: 0px)"]')->getAttribute('srcset'));
 
     // Check the image alt attribute.
-    $this->assertContains('Euro with miniature figurines', $picture->find('css', 'img[class="avportal-photo"]')->getAttribute('alt'));
+    $this->assertStringContainsString('Euro with miniature figurines', $picture->find('css', 'img[class="avportal-photo"]')->getAttribute('alt'));
 
     // Check the image fallback URL.
     $image_url = $picture->find('css', 'img.avportal-photo')->getAttribute('src');
-    $this->assertContains('ec.europa.eu/avservices/avs/files/video6/repository/prod/photo/store/', $image_url);
-    $this->assertContains('P038924-352937.jpg', $image_url);
+    $this->assertStringContainsString('ec.europa.eu/avservices/avs/files/video6/repository/prod/photo/store/', $image_url);
+    $this->assertStringContainsString('P038924-352937.jpg', $image_url);
   }
 
   /**
