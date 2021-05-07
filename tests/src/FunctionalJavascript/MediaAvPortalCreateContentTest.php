@@ -12,6 +12,11 @@ use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
 class MediaAvPortalCreateContentTest extends WebDriverTestBase {
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'classy';
+
+  /**
    * Modules to enable.
    *
    * @var array
@@ -30,7 +35,7 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
     $config_factory = \Drupal::configFactory();
     $config = $config_factory->getEditable('media.settings');
@@ -92,7 +97,7 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
 
     // Check the iframe class.
     $iframe_class = $assert_session->elementExists('css', 'iframe')->getAttribute('class');
-    $this->assertEqual($iframe_class, 'media-avportal-content');
+    $this->assertEquals('media-avportal-content', $iframe_class);
 
     // Check the iframe URL.
     $iframe_url = $assert_session->elementExists('css', 'iframe')->getAttribute('src');
