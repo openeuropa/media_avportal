@@ -1,5 +1,5 @@
-name: Media AV Portal Responsive Test
-description: Test module for the Responsive image style
+name: 'Media AV Portal Responsive Test'
+description: 'Test module for the Responsive image style'
 type: module
 core_version_requirement: ^8.9 || ^9
 package: Testing

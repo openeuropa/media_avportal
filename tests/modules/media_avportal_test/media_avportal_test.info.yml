@@ -1,4 +1,4 @@
-name: Media AV Portal Test
-description: Provides configuration media bundles for testing purpose.
+name: 'Media AV Portal Test'
+description: 'Provides configuration media bundles for testing purpose.'
 core_version_requirement: ^8.9 || ^9
 type: module
