@@ -17,7 +17,7 @@ function media_avportal_update_8001() {
     'targetEntityType' => 'media',
   ];
 
-  $view_displays = \Drupal::entityManager()->getStorage('entity_view_display')->loadByProperties($properties);
+  $view_displays = \Drupal::entityTypeManager()->getStorage('entity_view_display')->loadByProperties($properties);
   if (!$view_displays) {
     return;
   }

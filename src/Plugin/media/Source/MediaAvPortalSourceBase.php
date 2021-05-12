@@ -10,9 +10,11 @@ use Drupal\Core\Entity\Display\EntityFormDisplayInterface;
 use Drupal\Core\Entity\EntityFieldManagerInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Field\FieldTypePluginManagerInterface;
+use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\Core\Messenger\MessengerInterface;
+use Drupal\Core\StreamWrapper\StreamWrapperManagerInterface;
 use Drupal\media\MediaSourceBase;
 use Drupal\media\MediaInterface;
 use Drupal\media\MediaTypeInterface;
@@ -40,6 +42,20 @@ abstract class MediaAvPortalSourceBase extends MediaSourceBase implements MediaA
   protected $avPortalClient;
 
   /**
+   * The stream wrapper manager.
+   *
+   * @var \Drupal\Core\StreamWrapper\StreamWrapperManagerInterface
+   */
+  protected $streamWrapperManager;
+
+  /**
+   * The file system service.
+   *
+   * @var \Drupal\Core\File\FileSystemInterface
+   */
+  protected $fileSystem;
+
+  /**
    * Constructs a new MediaAvPortal instance.
    *
    * @param array $configuration
@@ -64,15 +80,21 @@ abstract class MediaAvPortalSourceBase extends MediaSourceBase implements MediaA
    *   The AV Portal client.
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
    *   The config factory.
+   * @param \Drupal\Core\StreamWrapper\StreamWrapperManagerInterface $stream_wrapper_manager
+   *   The stream wrapper manager.
+   * @param \Drupal\Core\File\FileSystemInterface $file_system
+   *   The file handler.
    *
    * @SuppressWarnings(PHPMD.ExcessiveParameterList)
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_type_manager, EntityFieldManagerInterface $entity_field_manager, ConfigFactoryInterface $config_factory, FieldTypePluginManagerInterface $field_type_manager, LoggerChannelInterface $logger, MessengerInterface $messenger, AvPortalClientInterface $avPortalClient, ConfigFactoryInterface $configFactory) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_type_manager, EntityFieldManagerInterface $entity_field_manager, ConfigFactoryInterface $config_factory, FieldTypePluginManagerInterface $field_type_manager, LoggerChannelInterface $logger, MessengerInterface $messenger, AvPortalClientInterface $avPortalClient, ConfigFactoryInterface $configFactory, StreamWrapperManagerInterface $stream_wrapper_manager, FileSystemInterface $file_system) {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $entity_type_manager, $entity_field_manager, $field_type_manager, $config_factory);
     $this->logger = $logger;
     $this->messenger = $messenger;
     $this->avPortalClient = $avPortalClient;
     $this->config = $configFactory->get('media_avportal.settings');
+    $this->streamWrapperManager = $stream_wrapper_manager;
+    $this->fileSystem = $file_system;
   }
 
   /**
@@ -90,7 +112,9 @@ abstract class MediaAvPortalSourceBase extends MediaSourceBase implements MediaA
       $container->get('logger.factory')->get('media'),
       $container->get('messenger'),
       $container->get('media_avportal.client'),
-      $container->get('config.factory')
+      $container->get('config.factory'),
+      $container->get('stream_wrapper_manager'),
+      $container->get('file_system')
     );
   }
 
@@ -186,7 +210,7 @@ abstract class MediaAvPortalSourceBase extends MediaSourceBase implements MediaA
    */
   public function validateConfigurationForm(array &$form, FormStateInterface $form_state) {
     $thumbnails_directory = $form_state->getValue('thumbnails_directory');
-    if (!file_valid_uri($thumbnails_directory)) {
+    if (!$this->streamWrapperManager->isValidUri($thumbnails_directory)) {
       $form_state->setErrorByName('thumbnails_directory', $this->t('@path is not a valid path.', [
         '@path' => $thumbnails_directory,
       ]));
@@ -259,7 +283,7 @@ abstract class MediaAvPortalSourceBase extends MediaSourceBase implements MediaA
     // The local thumbnail doesn't exist yet, so try to download it. First,
     // ensure that the destination directory is writable, and if it's not,
     // log an error and bail out.
-    if (!file_prepare_directory($directory, FILE_CREATE_DIRECTORY | FILE_MODIFY_PERMISSIONS)) {
+    if (!$this->fileSystem->prepareDirectory($directory, FileSystemInterface::CREATE_DIRECTORY | FileSystemInterface::MODIFY_PERMISSIONS)) {
       $this->logger->warning('Could not prepare thumbnail destination directory @dir for oEmbed media.', [
         '@dir' => $directory,
       ]);
@@ -276,7 +300,7 @@ abstract class MediaAvPortalSourceBase extends MediaSourceBase implements MediaA
       return NULL;
     }
 
-    $success = file_unmanaged_save_data((string) $thumbnail, $local_thumbnail_uri, FILE_EXISTS_REPLACE);
+    $success = $this->fileSystem->saveData((string) $thumbnail, $local_thumbnail_uri, FileSystemInterface::EXISTS_REPLACE);
 
     if ($success) {
       return $local_thumbnail_uri;
