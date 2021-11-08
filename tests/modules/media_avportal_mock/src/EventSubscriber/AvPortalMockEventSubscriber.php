@@ -17,7 +17,12 @@ class AvPortalMockEventSubscriber implements EventSubscriberInterface {
    */
   public static function getSubscribedEvents() {
     // We want a high priority for early execution so that it acts as defaults.
-    return [AvPortalMockEvent::AV_PORTAL_MOCK_EVENT => ['setMockResources', 100]];
+    return [
+      AvPortalMockEvent::AV_PORTAL_MOCK_EVENT => [
+        'setMockResources',
+        100,
+      ],
+    ];
   }
 
   /**
