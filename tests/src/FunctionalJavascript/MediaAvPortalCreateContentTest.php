@@ -138,14 +138,14 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
     $this->assertStringContainsString('ref=I-162747', $iframe_url);
     $this->assertStringContainsString('lg=EN&', $iframe_url);
 
-    // Switch to FR and assert the changed urL language.
+    // Switch to FR and assert the changed URL language.
     $this->drupalGet('/fr/media/' . $media->id(), ['external' => FALSE]);
     $iframe_url = $assert_session->elementExists('css', 'iframe')->getAttribute('src');
     $this->assertStringContainsString('ec.europa.eu/avservices/play.cfm', $iframe_url);
     $this->assertStringContainsString('ref=I-162747', $iframe_url);
     $this->assertStringContainsString('lg=FR&', $iframe_url);
 
-    // Switch to PT and assert the changed urL language.
+    // Switch to PT and assert the changed URL language.
     $this->drupalGet('/pt/media/' . $media->id(), ['external' => FALSE]);
     $iframe_url = $assert_session->elementExists('css', 'iframe')->getAttribute('src');
     $this->assertStringContainsString('ec.europa.eu/avservices/play.cfm', $iframe_url);

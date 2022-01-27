@@ -58,6 +58,13 @@ class AvPortalVideoFormatter extends FormatterBase implements ContainerFactoryPl
   protected $config;
 
   /**
+   * The config factory.
+   *
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   */
+  protected $configFactory;
+
+  /**
    * The logger service.
    *
    * @var \Drupal\Core\Logger\LoggerChannelInterface
@@ -97,6 +104,7 @@ class AvPortalVideoFormatter extends FormatterBase implements ContainerFactoryPl
     $this->messenger = $messenger;
     $this->logger = $logger_factory->get('media');
     $this->avPortalClient = $avPortalClient;
+    $this->configFactory = $configFactory;
     $this->config = $configFactory->get('media_avportal.settings');
   }
 
@@ -216,7 +224,7 @@ class AvPortalVideoFormatter extends FormatterBase implements ContainerFactoryPl
     $elements = [];
 
     foreach ($items as $delta => $item) {
-      $elements[$delta] = $this->viewElement($item);
+      $elements[$delta] = $this->viewElement($item, $langcode);
     }
 
     return $elements;
@@ -227,11 +235,13 @@ class AvPortalVideoFormatter extends FormatterBase implements ContainerFactoryPl
    *
    * @param \Drupal\Core\Field\FieldItemInterface $item
    *   The individual field item.
+   * @param string $langcode
+   *   The language that should be used to render the field.
    *
    * @return array
    *   The Drupal element.
    */
-  protected function viewElement(FieldItemInterface $item): array {
+  protected function viewElement(FieldItemInterface $item, string $langcode): array {
     $max_width = $this->getSetting('max_width');
     $max_height = $this->getSetting('max_height');
 
@@ -252,10 +262,16 @@ class AvPortalVideoFormatter extends FormatterBase implements ContainerFactoryPl
       return [];
     }
 
+    $language_map = $this->configFactory->get('language.mappings')->get('map') ?? [];
+    $mapped = array_search($langcode, $language_map);
+    if ($mapped !== FALSE) {
+      $langcode = $mapped;
+    }
+
     // Prepare the src of the iframe.
     $query = [
       'ref' => $resource_ref,
-      'lg' => strtoupper($item->getLangcode()),
+      'lg' => strtoupper($langcode),
       // @todo What are those default parameters ? Where is the documentation ?
       'sublg' => 'none',
       'autoplay' => 'true',
