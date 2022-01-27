@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace Drupal\Tests\media_avportal\FunctionalJavascript;
 
 use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
+use Drupal\language\Entity\ConfigurableLanguage;
 
 /**
  * Base class for Media AV Portal functional JavaScript tests.
@@ -30,6 +31,9 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
     'image',
     'responsive_image',
     'media_avportal_responsive_test',
+    'content_translation',
+    'locale',
+    'language',
   ];
 
   /**
@@ -42,7 +46,12 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
     $config->set('standalone_url', TRUE);
     $config->save();
 
-    $this->container->get('router.builder')->rebuild();
+    ConfigurableLanguage::createFromLangcode('fr')->save();
+    ConfigurableLanguage::createFromLangcode('pt-pt')->save();
+
+    $config = \Drupal::configFactory()->getEditable('language.negotiation');
+    $config->set('url.prefixes.pt-pt', 'pt');
+    $config->save();
   }
 
   /**
@@ -71,6 +80,14 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
     $page->pressButton('Save');
     $page->hasContent('The media type Media AV Portal video Test has been added.');
 
+    // Make it translatable.
+    $this->drupalGet('admin/config/regional/content-language');
+    $this->getSession()->getPage()->checkField('entity_types[media]');
+    $this->getSession()->getPage()->checkField('settings[media][media_av_portal_video][translatable]');
+    // We don't want the actual reference ID field translatable.
+    $this->getSession()->getPage()->uncheckField('settings[media][media_av_portal_video][fields][field_media_media_avportal_video]');
+    $page->pressButton('Save configuration');
+
     // Set the formatter so that we can view Media of this type.
     $config = $this->config('core.entity_view_display.media.media_av_portal_video.default');
     $config->set('content.field_media_media_avportal_video.type', 'avportal_video');
@@ -92,8 +109,24 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
     $page->fillField('Media AV Portal Video', 'https://audiovisual.ec.europa.eu/en/video/I-162747');
     $page->pressButton('Save');
 
+    $media_storage = \Drupal::entityTypeManager()->getStorage('media');
+
+    /** @var \Drupal\media\MediaInterface $media */
+    $media = $media_storage->load(1);
+    $this->assertEquals($media->label(), 'Midday press briefing from 25/10/2018');
+
+    // Translate the media entity. We don't need to change values, just to
+    // get the entity in multiple languages.
+    $this->drupalGet($media->toUrl('drupal:content-translation-overview'));
+
+    $this->getSession()->getPage()->find('css', 'a[hreflang="fr"]')->click();
+    $this->getSession()->getPage()->pressButton('Save');
+    $this->drupalGet($media->toUrl('drupal:content-translation-overview'));
+    $this->getSession()->getPage()->find('css', 'a[hreflang="pt-pt"]')->click();
+    $this->getSession()->getPage()->pressButton('Save');
+
     // Visit the new media content.
-    $page->clickLink('Midday press briefing from 25/10/2018');
+    $this->drupalGet($media->toUrl());
 
     // Check the iframe class.
     $iframe_class = $assert_session->elementExists('css', 'iframe')->getAttribute('class');
@@ -103,6 +136,21 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
     $iframe_url = $assert_session->elementExists('css', 'iframe')->getAttribute('src');
     $this->assertStringContainsString('ec.europa.eu/avservices/play.cfm', $iframe_url);
     $this->assertStringContainsString('ref=I-162747', $iframe_url);
+    $this->assertStringContainsString('lg=EN&', $iframe_url);
+
+    // Switch to FR and assert the changed urL language.
+    $this->drupalGet('/fr/media/' . $media->id(), ['external' => FALSE]);
+    $iframe_url = $assert_session->elementExists('css', 'iframe')->getAttribute('src');
+    $this->assertStringContainsString('ec.europa.eu/avservices/play.cfm', $iframe_url);
+    $this->assertStringContainsString('ref=I-162747', $iframe_url);
+    $this->assertStringContainsString('lg=FR&', $iframe_url);
+
+    // Switch to PT and assert the changed urL language.
+    $this->drupalGet('/pt/media/' . $media->id(), ['external' => FALSE]);
+    $iframe_url = $assert_session->elementExists('css', 'iframe')->getAttribute('src');
+    $this->assertStringContainsString('ec.europa.eu/avservices/play.cfm', $iframe_url);
+    $this->assertStringContainsString('ref=I-162747', $iframe_url);
+    $this->assertStringContainsString('lg=PT&', $iframe_url);
 
     // @todo assert the width and height of the iframe.
     // Edit the newly created media.
