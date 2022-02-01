@@ -40,10 +40,7 @@ pipeline:
     volumes:
       - /cache:/cache
     commands:
-    # @todo remove "composer install" step once the following issue is fixed.
-    # @link https://webgate.ec.europa.eu/CITnet/jira/browse/OPENEUROPA-1234
-    - composer install --ansi --no-suggest --no-progress
-    - composer update --prefer-lowest --prefer-stable --ansi --no-suggest --no-progress
+    - composer update --prefer-lowest --prefer-stable --ansi --no-progress
     when:
       matrix:
         COMPOSER_BOUNDARY: lowest
@@ -81,4 +78,5 @@ matrix:
     - lowest
     - highest
   PHP_VERSION:
-    - 7.3
+    - 7.4
+    - 8.0

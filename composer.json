@@ -6,7 +6,7 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "php": ">=7.3",
+        "php": ">=7.4",
         "drupal/core": "^8.9 || ^9",
         "drupal/remote_stream_wrapper": "^1.5",
         "symfony/mime": "^4.3|^5.0"
