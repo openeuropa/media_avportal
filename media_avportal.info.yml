@@ -2,7 +2,7 @@ name: 'Media AV Portal'
 description: 'Media AV Portal adds European Audiovisual Services as a supported media provider.'
 type: module
 package: Media
-core_version_requirement: ^8.9 || ^9
+core_version_requirement: ^9.2
 dependencies:
   - drupal:media
   - remote_stream_wrapper:remote_stream_wrapper

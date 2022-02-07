@@ -118,7 +118,7 @@ class AvPortalClientMiddleware {
     // If we are searching, we need to look at some search responses.
     if (isset($params['kwgg'])) {
       $searches = $event->getSearches();
-      $json = isset($searches[$resource_type . '-' . $params['kwgg']]) ? $searches[$resource_type . '-' . $params['kwgg']] : $searches[$resource_type . '-empty'];
+      $json = $searches[$resource_type . '-' . $params['kwgg']] ?? $searches[$resource_type . '-empty'];
     }
     else {
       // Otherwise, we default to the regular response.
