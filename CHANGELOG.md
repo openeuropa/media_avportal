@@ -1,15 +1,27 @@
-# Change Log
+# Changelog
+
+## [8.x-1.0-beta13](https://github.com/openeuropa/media_avportal/tree/8.x-1.0-beta13) (2022-02-07)
+
+[Full Changelog](https://github.com/openeuropa/media_avportal/compare/8.x-1.0-beta12...8.x-1.0-beta13)
+
+**Merged pull requests:**
+
+- EWPP-1911: PHP8 compatibility. [\#71](https://github.com/openeuropa/media_avportal/pull/71) ([nagyad](https://github.com/nagyad))
+- EWPP-1706: Removing old dev requirement. [\#69](https://github.com/openeuropa/media_avportal/pull/69) ([upchuk](https://github.com/upchuk))
 
 ## [8.x-1.0-beta12](https://github.com/openeuropa/media_avportal/tree/8.x-1.0-beta12) (2021-06-15)
+
 [Full Changelog](https://github.com/openeuropa/media_avportal/compare/8.x-1.0-beta11...8.x-1.0-beta12)
 
 **Merged pull requests:**
 
+- Prepare changelog for release 8.x-1.0-beta12. [\#68](https://github.com/openeuropa/media_avportal/pull/68) ([brummbar](https://github.com/brummbar))
 - EWPP-920: Drupal 9 compatibility fixes. [\#67](https://github.com/openeuropa/media_avportal/pull/67) ([22Alexandra](https://github.com/22Alexandra))
 - EWPP-721: Update xdebug configuration. [\#65](https://github.com/openeuropa/media_avportal/pull/65) ([22Alexandra](https://github.com/22Alexandra))
 - EWPP-529: Replace scaffold library. [\#63](https://github.com/openeuropa/media_avportal/pull/63) ([sergepavle](https://github.com/sergepavle))
 
 ## [8.x-1.0-beta11](https://github.com/openeuropa/media_avportal/tree/8.x-1.0-beta11) (2020-12-03)
+
 [Full Changelog](https://github.com/openeuropa/media_avportal/compare/8.x-1.0-beta10...8.x-1.0-beta11)
 
 **Merged pull requests:**
@@ -19,6 +31,7 @@
 - EWPP-516: Update docker images. [\#60](https://github.com/openeuropa/media_avportal/pull/60) ([22Alexandra](https://github.com/22Alexandra))
 
 ## [8.x-1.0-beta10](https://github.com/openeuropa/media_avportal/tree/8.x-1.0-beta10) (2020-08-21)
+
 [Full Changelog](https://github.com/openeuropa/media_avportal/compare/8.x-1.0-beta9...8.x-1.0-beta10)
 
 **Merged pull requests:**
@@ -88,7 +101,6 @@
 
 - OPENEUROPA-0000: Creating beta4. [\#35](https://github.com/openeuropa/media_avportal/pull/35) ([hernani](https://github.com/hernani))
 - OPENEUROPA-2168: Update field description. [\#33](https://github.com/openeuropa/media_avportal/pull/33) ([sergepavle](https://github.com/sergepavle))
-- Update Changelog for release 8.x-1.0-beta3. [\#32](https://github.com/openeuropa/media_avportal/pull/32) ([sergepavle](https://github.com/sergepavle))
 - OPENEUROPA-2165: \[media\_avportal\] Missing information for some videos. [\#31](https://github.com/openeuropa/media_avportal/pull/31) ([sergepavle](https://github.com/sergepavle))
 
 ## [8.x-1.0-beta3](https://github.com/openeuropa/media_avportal/tree/8.x-1.0-beta3) (2019-08-22)
@@ -97,6 +109,7 @@
 
 **Merged pull requests:**
 
+- Update Changelog for release 8.x-1.0-beta3. [\#32](https://github.com/openeuropa/media_avportal/pull/32) ([sergepavle](https://github.com/sergepavle))
 - OPENEUROPA-2151: The URL is changing when user tries to edit AV Portal Photo. [\#30](https://github.com/openeuropa/media_avportal/pull/30) ([sergepavle](https://github.com/sergepavle))
 - OPENEUROPA-2052: Update AV Portal photo URL formats. [\#29](https://github.com/openeuropa/media_avportal/pull/29) ([sergepavle](https://github.com/sergepavle))
 - OPENEUROPA-2052: Add supporting of AV Portal URLs with album. [\#28](https://github.com/openeuropa/media_avportal/pull/28) ([sergepavle](https://github.com/sergepavle))
