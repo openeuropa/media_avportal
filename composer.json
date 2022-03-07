@@ -12,7 +12,6 @@
     },
     "require-dev": {
         "composer/installers": "~1.5",
-        "composer/xdebug-handler": "^2.0",
         "cweagans/composer-patches": "^1.6",
         "drupal/core-composer-scaffold": "^9.2",
         "drupal/core-dev": "^9.2",
@@ -47,8 +46,7 @@
         }
     },
     "_readme": [
-        "Explicit requirement for egulias/email-validator due to https://www.drupal.org/project/drupal/issues/3061074#comment-14300579. It can be removed when Drupal core 9.2 support is droppped.",
-        "Requiring composer/xdebug-handler until PHPMD 2.12 is released."
+        "Explicit requirement for egulias/email-validator due to https://www.drupal.org/project/drupal/issues/3061074#comment-14300579. It can be removed when Drupal core 9.2 support is droppped."
     ],
     "extra": {
         "patches": {
