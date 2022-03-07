@@ -1,11 +1,22 @@
 # Changelog
 
+## [8.x-1.0-beta14](https://github.com/openeuropa/media_avportal/tree/8.x-1.0-beta14) (2022-03-07)
+
+[Full Changelog](https://github.com/openeuropa/media_avportal/compare/8.x-1.0-beta13...8.x-1.0-beta14)
+
+**Merged pull requests:**
+
+- EWPP-2035: Revert fixing xdebug-handler version. [\#75](https://github.com/openeuropa/media_avportal/pull/75) ([imanoleguskiza](https://github.com/imanoleguskiza))
+- EWPP-2034: Fix xdebug-handler version until phpmd 2.12 is released. [\#74](https://github.com/openeuropa/media_avportal/pull/74) ([imanoleguskiza](https://github.com/imanoleguskiza))
+- EWPP-1850: Using the proper langcode for the video iframe URL. [\#70](https://github.com/openeuropa/media_avportal/pull/70) ([upchuk](https://github.com/upchuk))
+
 ## [8.x-1.0-beta13](https://github.com/openeuropa/media_avportal/tree/8.x-1.0-beta13) (2022-02-07)
 
 [Full Changelog](https://github.com/openeuropa/media_avportal/compare/8.x-1.0-beta12...8.x-1.0-beta13)
 
 **Merged pull requests:**
 
+- EWPP-0000: Prepare for beta13 release. [\#72](https://github.com/openeuropa/media_avportal/pull/72) ([hernani](https://github.com/hernani))
 - EWPP-1911: PHP8 compatibility. [\#71](https://github.com/openeuropa/media_avportal/pull/71) ([nagyad](https://github.com/nagyad))
 - EWPP-1706: Removing old dev requirement. [\#69](https://github.com/openeuropa/media_avportal/pull/69) ([upchuk](https://github.com/upchuk))
 
