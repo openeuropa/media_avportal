@@ -7,12 +7,12 @@
     "prefer-stable": true,
     "require": {
         "php": ">=7.4",
+        "cweagans/composer-patches": "~1.4",
         "drupal/core": "^9.2",
         "drupal/remote_stream_wrapper": "^1.5"
     },
     "require-dev": {
         "composer/installers": "~1.5",
-        "cweagans/composer-patches": "^1.6",
         "drupal/core-composer-scaffold": "^9.2",
         "drupal/core-dev": "^9.2",
         "drupal/config_devel": "~1.2",
