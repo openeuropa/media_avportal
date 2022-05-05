@@ -9,7 +9,7 @@
         "php": ">=7.4",
         "cweagans/composer-patches": "~1.4",
         "drupal/core": "^9.2",
-        "drupal/remote_stream_wrapper": "^1.5"
+        "drupal/remote_stream_wrapper": "^2.0"
     },
     "require-dev": {
         "composer/installers": "~1.5",
@@ -51,8 +51,7 @@
     "extra": {
         "patches": {
             "drupal/remote_stream_wrapper": {
-                "https://www.drupal.org/project/remote_stream_wrapper/issues/3050183": "https://www.drupal.org/files/issues/2020-08-21/3050183-4.patch",
-                "https://www.drupal.org/project/remote_stream_wrapper/issues/3185015": "https://www.drupal.org/files/issues/2021-05-10/3185015-29.patch"
+                "https://www.drupal.org/project/remote_stream_wrapper/issues/3050183": "https://www.drupal.org/files/issues/2020-08-21/3050183-4.patch"
             }
         },
         "composer-exit-on-patch-failure": true,
