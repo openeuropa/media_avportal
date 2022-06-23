@@ -8,17 +8,16 @@
     "require": {
         "php": ">=7.4",
         "cweagans/composer-patches": "~1.4",
-        "drupal/core": "^9.2",
+        "drupal/core": "^9.3",
         "drupal/remote_stream_wrapper": "^2.0"
     },
     "require-dev": {
         "composer/installers": "~1.5",
-        "drupal/core-composer-scaffold": "^9.2",
-        "drupal/core-dev": "^9.2",
+        "drupal/core-composer-scaffold": "^9.3",
+        "drupal/core-dev": "^9.3",
         "drupal/config_devel": "~1.2",
         "drupal/drupal-extension": "~4.0",
         "drush/drush": "~10.3",
-        "egulias/email-validator": "^2.1.22 || ^3.0",
         "guzzlehttp/guzzle": "^6.3",
         "nikic/php-parser": "^4.12.0",
         "openeuropa/code-review": "^2.0",
@@ -45,9 +44,6 @@
             "Drupal\\Tests\\media_avportal\\": "./tests/src"
         }
     },
-    "_readme": [
-        "Explicit requirement for egulias/email-validator due to https://www.drupal.org/project/drupal/issues/3061074#comment-14300579. It can be removed when Drupal core 9.2 support is droppped."
-    ],
     "extra": {
         "patches": {
             "drupal/remote_stream_wrapper": {
