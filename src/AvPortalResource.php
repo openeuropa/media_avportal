@@ -89,15 +89,7 @@ class AvPortalResource {
     // langcode is not present.
     $title = reset($titles);
 
-    // English is used as fallback in case the specified langcode is not
-    // available.
-    $langcodes = array_unique([$langcode, 'EN']);
-    foreach ($langcodes as $langcode) {
-      if (isset($titles[$langcode])) {
-        $title = $titles[$langcode];
-        break;
-      }
-    }
+    $title = $this->getTranslatedValue($titles, $langcode) ?? $title;
 
     return $this->truncateString(strip_tags(Html::decodeEntities($title)));
   }
@@ -120,6 +112,71 @@ class AvPortalResource {
       return $this->getPhotoThumbnailUrl();
     }
 
+    return NULL;
+  }
+
+  /**
+   * Returns a caption for photo.
+   *
+   * @param string $langcode
+   *   The language in which to return the caption.
+   *
+   * @return string|null
+   *   Caption of the photo.
+   */
+  public function getCaption(string $langcode = 'EN'): ?string {
+    $caption_element = NULL;
+    // Determine caption element by resource type.
+    if ($this->getType() === 'PHOTO') {
+      $caption_element = 'summary_json';
+    }
+    elseif ($this->getType() === 'REPORTAGE') {
+      $caption_element = 'legend_json';
+    }
+
+    // Return NULL if we don't know the caption element or if
+    // the caption element does not exist or is not an array.
+    if (!$caption_element || !isset($this->data[$caption_element]) || !is_array($this->data[$caption_element])) {
+      return NULL;
+    }
+
+    // Filter out any NULL, TRUE, FALSE and non-scalar captions.
+    $captions = array_filter($this->data[$caption_element], function ($value): bool {
+      return is_string($value) || is_numeric($value);
+    });
+    if (empty($captions)) {
+      return NULL;
+    }
+
+    // The first available caption will be used as fallback in case
+    // the specified langcode is not present.
+    $caption = reset($captions);
+
+    $caption = $this->getTranslatedValue($captions, $langcode) ?? $caption;
+
+    return !is_null($caption) ? strip_tags(Html::decodeEntities($caption)) : NULL;
+  }
+
+  /**
+   * Get translated value.
+   *
+   * @param array $values
+   *   An array of values.
+   * @param string|null $langcode
+   *   The language code.
+   *
+   * @return string|null
+   *   Return localised value if exists.
+   */
+  protected function getTranslatedValue(array $values, string $langcode = 'EN'): ?string {
+    // English is used as fallback in case the specified langcode is not
+    // available.
+    $langcodes = array_unique([$langcode, 'EN']);
+    foreach ($langcodes as $langcode) {
+      if (isset($values[$langcode])) {
+        return $values[$langcode];
+      }
+    }
     return NULL;
   }
 
