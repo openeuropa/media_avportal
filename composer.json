@@ -8,21 +8,32 @@
     "require": {
         "php": ">=8.0",
         "cweagans/composer-patches": "~1.4",
-        "drupal/core": "^9.3",
+        "drupal/core": "^9.4",
         "drupal/remote_stream_wrapper": "^2.0"
     },
     "require-dev": {
+        "behat/mink-selenium2-driver": "^1.5",
         "composer/installers": "~1.5",
-        "drupal/core-composer-scaffold": "^9.3",
-        "drupal/core-dev": "^9.3",
+        "drupal/core-composer-scaffold": "^9.4",
         "drupal/config_devel": "~1.2",
-        "drupal/drupal-extension": "~4.0",
-        "drush/drush": "~10.3",
-        "guzzlehttp/guzzle": "^6.3",
+        "drupal/drupal-extension": "dev-master as 4.0",
+        "drush/drush": "^11.1",
+        "guzzlehttp/guzzle": "^7.0",
+        "mikey179/vfsstream": "^1.6.10",
         "nikic/php-parser": "^4.12.0",
-        "openeuropa/code-review": "^2.0",
-        "openeuropa/task-runner-drupal-project-symlink": "^1.0-beta5",
-        "phpspec/prophecy-phpunit": "^2"
+        "openeuropa/code-review": "2.x-dev",
+        "openeuropa/task-runner-drupal-project-symlink": "1.x-dev",
+        "phpspec/prophecy-phpunit": "^2",
+        "symfony/console": "^4.4.30",
+        "symfony/css-selector": "^4.4.24",
+        "symfony/dom-crawler": "^4.4.44",
+        "symfony/finder": "^4.4.30",
+        "symfony/http-foundation": "^4.4.30",
+        "symfony/phpunit-bridge": "^6.0",
+        "symfony/process": "^4.4.30",
+        "symfony/routing": "^4.4.30",
+        "symfony/validator": "^4.4.35",
+        "symfony/yaml": "^4.4.29"
     },
     "scripts": {
         "post-install-cmd": "./vendor/bin/run drupal:site-setup",
@@ -62,7 +73,14 @@
             "locations": {
                 "web-root": "./build"
             }
-        }
+        },
+        "_readme": [
+            "Use master branch of drupal/drupal-extension to replace fabpot/goutte with behat/mink-browserkit-driver.",
+            "Explicit minimum version requirement of symfony/phpunit-bridge to replace drupal/core-dev testing classes and traits.",
+            "Explicit minimum version requirement of mikey179/vfsstream due to lower versions missing return type on vfsStreamDirectory::getIterator() method.",
+            "Explicit minimum version requirement of guzzlehttp/guzzle due to lower versions missing return type on CookieJar::getIterator() and CookieJar::count() methods.",
+            "Explicit minimum version requirement of symfony packages due to lower versions missing return type on various methods being incompatible with PHP 8.1 parent methods."
+        ]
     },
     "config": {
         "sort-packages": true,
