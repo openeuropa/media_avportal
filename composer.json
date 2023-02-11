@@ -15,7 +15,6 @@
         "composer/installers": "^1.11",
         "drupal/core-composer-scaffold": "^9.5 || ^10",
         "drupal/core-dev": "^9.5 || ^10",
-        "drupal/config_devel": "~1.2",
         "drush/drush": "^11.1",
         "mikey179/vfsstream": "^1.6.10",
         "openeuropa/code-review": "^2.0.0-alpha6",
