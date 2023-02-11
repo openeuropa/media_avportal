@@ -69,7 +69,10 @@ class AvPortalClientTest extends UnitTestCase {
    * @dataProvider queryOptionsDataProvider
    */
   public function testQueryOptions(array $input, array $expected): void {
-    $http_client = $this->createMock(Client::class);
+    $http_client = $this->getMockBuilder(Client::class)
+      ->onlyMethods(['request'])
+      ->getMock();
+
     $http_client
       ->expects($this->once())
       ->method('request')
