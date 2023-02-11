@@ -16,7 +16,7 @@ class AvPortalPullMediaTest extends MediaKernelTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = [
+  protected static $modules = [
     'system',
     'remote_stream_wrapper',
     'media_avportal',

@@ -42,7 +42,7 @@ class AvPortalClientTest extends UnitTestCase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
 
     $this->configFactory = $this->getConfigFactoryStub([
@@ -52,13 +52,9 @@ class AvPortalClientTest extends UnitTestCase {
       ],
     ]);
 
-    $this->cacheBackend = $this->getMockBuilder(CacheBackendInterface::class)
-      ->disableOriginalConstructor()
-      ->getMock();
+    $this->cacheBackend = $this->createMock(CacheBackendInterface::class);
 
-    $this->time = $this->getMockBuilder(TimeInterface::class)
-      ->disableOriginalConstructor()
-      ->getMock();
+    $this->time = $this->createMock(TimeInterface::class);
   }
 
   /**
@@ -73,9 +69,7 @@ class AvPortalClientTest extends UnitTestCase {
    * @dataProvider queryOptionsDataProvider
    */
   public function testQueryOptions(array $input, array $expected): void {
-    $http_client = $this->getMockBuilder(Client::class)
-      ->setMethods(['request'])
-      ->getMock();
+    $http_client = $this->createMock(Client::class);
     $http_client
       ->expects($this->once())
       ->method('request')
@@ -98,9 +92,7 @@ class AvPortalClientTest extends UnitTestCase {
    * @dataProvider invalidQueryOptionsDataProvider
    */
   public function testInvalidQueryOptions(array $input, string $message) {
-    $http_client = $this->getMockBuilder(Client::class)
-      ->disableOriginalConstructor()
-      ->getMock();
+    $http_client = $this->createMock(Client::class);
 
     $client = new AvPortalClient($http_client, $this->configFactory, $this->cacheBackend, $this->time, FALSE);
     $this->expectException(\InvalidArgumentException::class);
