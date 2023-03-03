@@ -1,11 +1,18 @@
 # Changelog
 
-## [8.x-1.1](https://github.com/openeuropa/media_avportal/tree/8.x-1.1) (2022-07-29)
+## [8.x-1.2](https://github.com/openeuropa/media_avportal/tree/8.x-1.2) (2023-03-03)
+[Full Changelog](https://github.com/openeuropa/media_avportal/compare/8.x-1.1...8.x-1.2)
 
+**Merged pull requests:**
+
+- OEL-2115: Update to PHP 8.1 [\#84](https://github.com/openeuropa/media_avportal/pull/84) ([brummbar](https://github.com/brummbar))
+
+## [8.x-1.1](https://github.com/openeuropa/media_avportal/tree/8.x-1.1) (2022-08-02)
 [Full Changelog](https://github.com/openeuropa/media_avportal/compare/8.x-1.0...8.x-1.1)
 
 **Merged pull requests:**
 
+- Prepare release 8.x-1.1. [\#83](https://github.com/openeuropa/media_avportal/pull/83) ([imanoleguskiza](https://github.com/imanoleguskiza))
 - EWPP-2306: Add in AvPortalResource class getCaption method with tests coverage. [\#82](https://github.com/openeuropa/media_avportal/pull/82) ([sergepavle](https://github.com/sergepavle))
 - EWPP-2358: Drupal 9.4 support. [\#81](https://github.com/openeuropa/media_avportal/pull/81) ([yenyasinn](https://github.com/yenyasinn))
 
