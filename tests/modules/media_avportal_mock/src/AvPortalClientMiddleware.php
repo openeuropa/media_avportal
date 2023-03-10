@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace Drupal\media_avportal_mock;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Extension\ModuleExtensionList;
 use GuzzleHttp\Promise\FulfilledPromise;
 use GuzzleHttp\Promise\PromiseInterface;
 use GuzzleHttp\Psr7\Response;
@@ -37,16 +38,26 @@ class AvPortalClientMiddleware {
   protected $eventDispatcher;
 
   /**
+   * The module extension list.
+   *
+   * @var \Drupal\Core\Extension\ModuleExtensionList
+   */
+  protected ModuleExtensionList $moduleExtensionList;
+
+  /**
    * AvPortalClientMiddleware constructor.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
    *   The config factory.
    * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
    *   The event dispatcher.
+   * @param \Drupal\Core\Extension\ModuleExtensionList|null $moduleExtensionList
+   *   The module extension list.
    */
-  public function __construct(ConfigFactoryInterface $configFactory, EventDispatcherInterface $eventDispatcher) {
+  public function __construct(ConfigFactoryInterface $configFactory, EventDispatcherInterface $eventDispatcher, ModuleExtensionList $moduleExtensionList = NULL) {
     $this->configFactory = $configFactory;
     $this->eventDispatcher = $eventDispatcher;
+    $this->moduleExtensionList = $moduleExtensionList ?? \Drupal::service('extension.list.module');
   }
 
   /**
@@ -67,7 +78,7 @@ class AvPortalClientMiddleware {
 
         // AV Portal thumbnails.
         if ($uri->getHost() === 'defiris.ec.streamcloud.be' || strpos($uri->getPath(), 'avservices/avs/files/video6/repository/prod/photo/store/')) {
-          $thumbnail = file_get_contents(drupal_get_path('module', 'media') . '/images/icons/no-thumbnail.png');
+          $thumbnail = file_get_contents($this->moduleExtensionList->getPath('media') . '/images/icons/no-thumbnail.png');
           $response = new Response(200, [], $thumbnail);
           return new FulfilledPromise($response);
         }
@@ -93,7 +104,7 @@ class AvPortalClientMiddleware {
   protected function createServicePromise(RequestInterface $request): PromiseInterface {
     // Dispatch event to gather the JSON data for responses.
     $event = new AvPortalMockEvent($request);
-    $event = $this->eventDispatcher->dispatch(AvPortalMockEvent::AV_PORTAL_MOCK_EVENT, $event);
+    $event = $this->eventDispatcher->dispatch($event, AvPortalMockEvent::AV_PORTAL_MOCK_EVENT);
 
     $uri = $request->getUri();
     $query = $uri->getQuery();

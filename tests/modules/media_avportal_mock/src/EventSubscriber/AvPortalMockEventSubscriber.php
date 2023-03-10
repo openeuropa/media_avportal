@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Drupal\media_avportal_mock\EventSubscriber;
 
+use Drupal\Core\Extension\ModuleExtensionList;
 use Drupal\media_avportal_mock\AvPortalMockEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -11,6 +12,23 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  * Default event subscriber for the AV Portal mock.
  */
 class AvPortalMockEventSubscriber implements EventSubscriberInterface {
+
+  /**
+   * The module extension list.
+   *
+   * @var \Drupal\Core\Extension\ModuleExtensionList
+   */
+  protected ModuleExtensionList $moduleExtensionList;
+
+  /**
+   * Creates a new instance of the class.
+   *
+   * @param \Drupal\Core\Extension\ModuleExtensionList $moduleExtensionList
+   *   The module extension list.
+   */
+  public function __construct(ModuleExtensionList $moduleExtensionList) {
+    $this->moduleExtensionList = $moduleExtensionList;
+  }
 
   /**
    * {@inheritdoc}
@@ -33,7 +51,7 @@ class AvPortalMockEventSubscriber implements EventSubscriberInterface {
    */
   public function setMockResources(AvPortalMockEvent $event) {
     $resources = $event->getResources();
-    foreach (glob(drupal_get_path('module', 'media_avportal_mock') . '/responses/resources/*.json') as $file) {
+    foreach (glob($this->moduleExtensionList->getPath('media_avportal_mock') . '/responses/resources/*.json') as $file) {
       $ref = str_replace('.json', '', basename($file));
       $resources[$ref] = file_get_contents($file);
     }
@@ -41,7 +59,7 @@ class AvPortalMockEventSubscriber implements EventSubscriberInterface {
     $event->setResources($resources);
 
     $searches = $event->getSearches();
-    foreach (glob(drupal_get_path('module', 'media_avportal_mock') . '/responses/searches/*.json') as $file) {
+    foreach (glob($this->moduleExtensionList->getPath('media_avportal_mock') . '/responses/searches/*.json') as $file) {
       $ref = str_replace('.json', '', basename($file));
       if (!isset($searches[$ref])) {
         // We only add the default search if another subscriber did not yet
@@ -51,13 +69,13 @@ class AvPortalMockEventSubscriber implements EventSubscriberInterface {
     }
     $event->setSearches($searches);
     if (!$event->getDefault('video')) {
-      $event->setDefault(file_get_contents(drupal_get_path('module', 'media_avportal_mock') . '/responses/video-default.json'), 'video');
+      $event->setDefault(file_get_contents($this->moduleExtensionList->getPath('media_avportal_mock') . '/responses/video-default.json'), 'video');
     }
     if (!$event->getDefault('all')) {
-      $event->setDefault(file_get_contents(drupal_get_path('module', 'media_avportal_mock') . '/responses/all-default.json'), 'all');
+      $event->setDefault(file_get_contents($this->moduleExtensionList->getPath('media_avportal_mock') . '/responses/all-default.json'), 'all');
     }
     if (!$event->getDefault('photo')) {
-      $event->setDefault(file_get_contents(drupal_get_path('module', 'media_avportal_mock') . '/responses/photo-default.json'), 'photo');
+      $event->setDefault(file_get_contents($this->moduleExtensionList->getPath('media_avportal_mock') . '/responses/photo-default.json'), 'photo');
     }
   }
 

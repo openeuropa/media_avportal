@@ -15,7 +15,7 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
   /**
    * {@inheritdoc}
    */
-  protected $defaultTheme = 'classy';
+  protected $defaultTheme = 'starterkit_theme';
 
   /**
    * Modules to enable.
