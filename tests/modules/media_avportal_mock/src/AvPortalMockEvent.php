@@ -4,8 +4,8 @@ declare(strict_types = 1);
 
 namespace Drupal\media_avportal_mock;
 
-use Symfony\Contracts\EventDispatcher\Event;
 use Psr\Http\Message\RequestInterface;
+use Symfony\Contracts\EventDispatcher\Event;
 
 /**
  * Event used to collect the mocking JSON data.

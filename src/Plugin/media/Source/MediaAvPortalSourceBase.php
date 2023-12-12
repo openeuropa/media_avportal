@@ -15,8 +15,8 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\StreamWrapper\StreamWrapperManagerInterface;
-use Drupal\media\MediaSourceBase;
 use Drupal\media\MediaInterface;
+use Drupal\media\MediaSourceBase;
 use Drupal\media\MediaTypeInterface;
 use Drupal\media_avportal\AvPortalClientInterface;
 use Drupal\media_avportal\AvPortalResource;
@@ -25,6 +25,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Media Source base class for AV Portal Sources.
  */
+#[\AllowDynamicProperties]
 abstract class MediaAvPortalSourceBase extends MediaSourceBase implements MediaAvPortalSourceInterface {
 
   /**

@@ -13,6 +13,7 @@ use Drupal\remote_stream_wrapper\StreamWrapper\HttpStreamWrapper;
  *
  * @codingStandardsIgnoreStart PSR1.Methods.CamelCapsMethodName
  */
+#[\AllowDynamicProperties]
 class AvPortalPhotoStreamWrapper extends HttpStreamWrapper {
 
   use StringTranslationTrait;
