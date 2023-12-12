@@ -1,14 +1,27 @@
-# Change Log
+# Changelog
+
+## [8.x-1.4](https://github.com/openeuropa/media_avportal/tree/8.x-1.4) (2023-12-12)
+
+[Full Changelog](https://github.com/openeuropa/media_avportal/compare/8.x-1.3...8.x-1.4)
+
+**Merged pull requests:**
+
+- EWPP-3829: Update to PHP 8.2 and drop support for D9.4. [\#88](https://github.com/openeuropa/media_avportal/pull/88) ([22Alexandra](https://github.com/22Alexandra))
 
 ## [8.x-1.3](https://github.com/openeuropa/media_avportal/tree/8.x-1.3) (2023-03-10)
 [Full Changelog](https://github.com/openeuropa/media_avportal/compare/8.x-1.2...8.x-1.3)
 
 **Merged pull requests:**
 
+- Prepare changelog for release 1.3.0. [\#87](https://github.com/openeuropa/media_avportal/pull/87) ([brummbar](https://github.com/brummbar))
 - EWPP-2997: Drupal 10 compatibility. [\#85](https://github.com/openeuropa/media_avportal/pull/85) ([brummbar](https://github.com/brummbar))
 
 ## [8.x-1.2](https://github.com/openeuropa/media_avportal/tree/8.x-1.2) (2023-03-03)
 [Full Changelog](https://github.com/openeuropa/media_avportal/compare/8.x-1.1...8.x-1.2)
+
+**Closed issues:**
+
+- Remote Stream Wrapper Security issue [\#76](https://github.com/openeuropa/media_avportal/issues/76)
 
 **Merged pull requests:**
 
