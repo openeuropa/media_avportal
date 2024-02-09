@@ -1,14 +1,24 @@
 # Changelog
 
+## [8.x-1.5](https://github.com/openeuropa/media_avportal/tree/8.x-1.5) (2024-02-09)
+
+[Full Changelog](https://github.com/openeuropa/media_avportal/compare/8.x-1.4...8.x-1.5)
+
+**Merged pull requests:**
+
+- EWPP-3967: Add 10.2 to test matrix. [\#90](https://github.com/openeuropa/media_avportal/pull/90) ([brummbar](https://github.com/brummbar))
+
 ## [8.x-1.4](https://github.com/openeuropa/media_avportal/tree/8.x-1.4) (2023-12-12)
 
 [Full Changelog](https://github.com/openeuropa/media_avportal/compare/8.x-1.3...8.x-1.4)
 
 **Merged pull requests:**
 
+- Release-8.x-1.4: Update changelog. [\#89](https://github.com/openeuropa/media_avportal/pull/89) ([nagyad](https://github.com/nagyad))
 - EWPP-3829: Update to PHP 8.2 and drop support for D9.4. [\#88](https://github.com/openeuropa/media_avportal/pull/88) ([22Alexandra](https://github.com/22Alexandra))
 
 ## [8.x-1.3](https://github.com/openeuropa/media_avportal/tree/8.x-1.3) (2023-03-10)
+
 [Full Changelog](https://github.com/openeuropa/media_avportal/compare/8.x-1.2...8.x-1.3)
 
 **Merged pull requests:**
@@ -17,6 +27,7 @@
 - EWPP-2997: Drupal 10 compatibility. [\#85](https://github.com/openeuropa/media_avportal/pull/85) ([brummbar](https://github.com/brummbar))
 
 ## [8.x-1.2](https://github.com/openeuropa/media_avportal/tree/8.x-1.2) (2023-03-03)
+
 [Full Changelog](https://github.com/openeuropa/media_avportal/compare/8.x-1.1...8.x-1.2)
 
 **Closed issues:**
@@ -29,6 +40,7 @@
 - OEL-2115: Update to PHP 8.1 [\#84](https://github.com/openeuropa/media_avportal/pull/84) ([brummbar](https://github.com/brummbar))
 
 ## [8.x-1.1](https://github.com/openeuropa/media_avportal/tree/8.x-1.1) (2022-08-02)
+
 [Full Changelog](https://github.com/openeuropa/media_avportal/compare/8.x-1.0...8.x-1.1)
 
 **Merged pull requests:**
