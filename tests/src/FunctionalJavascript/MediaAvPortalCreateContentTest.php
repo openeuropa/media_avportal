@@ -83,6 +83,14 @@ class MediaAvPortalCreateContentTest extends WebDriverTestBase {
     // Make it translatable.
     $this->drupalGet('admin/config/regional/content-language');
     $this->getSession()->getPage()->checkField('entity_types[media]');
+
+    // From Drupal 10.2.x, the entity type settings are wrapped in collapsible
+    // elements.
+    // @todo Remove when support for 10.1.x is dropped.
+    if (version_compare(\Drupal::VERSION, '10.2', '>')) {
+      $assert_session->elementExists('xpath', '//summary[.="Media"]')->click();
+    }
+
     $this->getSession()->getPage()->checkField('settings[media][media_av_portal_video][translatable]');
     // We don't want the actual reference ID field translatable.
     $this->getSession()->getPage()->uncheckField('settings[media][media_av_portal_video][fields][field_media_media_avportal_video]');

@@ -1,4 +1,4 @@
 client_api_uri: "https://gfdwwnbuul.execute-api.eu-west-1.amazonaws.com/avsportal/avsportal"
-iframe_base_uri: "//ec.europa.eu/avservices/play.cfm"
-photos_base_uri: "//ec.europa.eu/avservices/avs/files/video6/repository/prod/photo/store/"
+iframe_base_uri: "https://ec.europa.eu/avservices/play.cfm"
+photos_base_uri: "https://ec.europa.eu/avservices/avs/files/video6/repository/prod/photo/store/"
 cache_max_age: 3600
