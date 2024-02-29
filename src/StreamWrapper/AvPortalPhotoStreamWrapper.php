@@ -200,4 +200,11 @@ class AvPortalPhotoStreamWrapper extends HttpStreamWrapper {
     return FALSE;
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function unlink($path) {
+    return TRUE;
+  }
+
 }
