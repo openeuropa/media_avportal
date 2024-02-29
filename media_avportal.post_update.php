@@ -5,7 +5,7 @@
  * Post updates functions for Media AV Portal.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 /**
  * Sets caching of AV Portal responses to one hour.
