@@ -1,11 +1,20 @@
 # Changelog
 
+## [8.x-1.6](https://github.com/openeuropa/media_avportal/tree/8.x-1.6) (2024-04-15)
+
+[Full Changelog](https://github.com/openeuropa/media_avportal/compare/8.x-1.5...8.x-1.6)
+
+**Merged pull requests:**
+
+- EWPP-3898: Avoid error\_trigger in remote stream wrapper unlink. [\#92](https://github.com/openeuropa/media_avportal/pull/92) ([hernani](https://github.com/hernani))
+
 ## [8.x-1.5](https://github.com/openeuropa/media_avportal/tree/8.x-1.5) (2024-02-09)
 
 [Full Changelog](https://github.com/openeuropa/media_avportal/compare/8.x-1.4...8.x-1.5)
 
 **Merged pull requests:**
 
+- Release-8.x-1.5: Update changelog. [\#91](https://github.com/openeuropa/media_avportal/pull/91) ([nagyad](https://github.com/nagyad))
 - EWPP-3967: Add 10.2 to test matrix. [\#90](https://github.com/openeuropa/media_avportal/pull/90) ([brummbar](https://github.com/brummbar))
 
 ## [8.x-1.4](https://github.com/openeuropa/media_avportal/tree/8.x-1.4) (2023-12-12)
