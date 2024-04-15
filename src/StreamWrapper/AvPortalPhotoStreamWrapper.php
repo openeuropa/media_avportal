@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\media_avportal\StreamWrapper;
 
@@ -198,6 +198,13 @@ class AvPortalPhotoStreamWrapper extends HttpStreamWrapper {
    */
   public function preventUnmanagedFileImageStyleGeneration() {
     return FALSE;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function unlink($path) {
+    return TRUE;
   }
 
 }
