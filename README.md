@@ -119,6 +119,16 @@ This will:
 - Install the test site
 - Enable the Media AV Portal module
 
+### Usage with Drupal 10.2
+
+For Drupal 10.2, the drupal/remote_stream_wrapper (issue 3437974) patch needs to be removed.
+If you require this module in Drupal 10.2 you must unset the patch in your composer.json.\
+You can do this with the following command:
+```bash
+composer config --merge --json "extra.patches-ignore.drupal/media_avportal" '{"drupal/remote_stream_wrapper": {"Drupal 10.3.x only - see media_avportal/README.md for 10.2.x - https://www.drupal.org/project/remote_stream_wrapper/issues/3437974": "https://www.drupal.org/files/issues/2024-06-21/drupal_10_3_deliver_signature_change-3437974-2_0_0-18.patch"}}'
+```
+
+
 ### Using Docker Compose
 
 Alternatively, you can build a development site using [Docker](https://www.docker.com/get-docker) and
