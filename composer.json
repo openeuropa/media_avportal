@@ -44,7 +44,8 @@
     "extra": {
         "patches": {
             "drupal/remote_stream_wrapper": {
-                "https://www.drupal.org/project/remote_stream_wrapper/issues/3050183": "https://www.drupal.org/files/issues/2020-08-21/3050183-4.patch"
+                "https://www.drupal.org/project/remote_stream_wrapper/issues/3050183": "https://www.drupal.org/files/issues/2020-08-21/3050183-4.patch",
+                "Drupal 10.3.x only - see media_avportal/README.md for 10.2.x - https://www.drupal.org/project/remote_stream_wrapper/issues/3437974": "https://www.drupal.org/files/issues/2024-06-21/drupal_10_3_deliver_signature_change-3437974-2_0_0-18.patch"
             }
         },
         "composer-exit-on-patch-failure": true,
