@@ -1,15 +1,21 @@
-# Changelog
+# Change Log
 
-## [8.x-1.6](https://github.com/openeuropa/media_avportal/tree/8.x-1.6) (2024-04-15)
+## [8.x-1.7](https://github.com/openeuropa/media_avportal/tree/8.x-1.7) (2024-06-27)
+[Full Changelog](https://github.com/openeuropa/media_avportal/compare/8.x-1.6...8.x-1.7)
 
+**Merged pull requests:**
+
+- OEL-3030: Update to Drupal 10.3 [\#94](https://github.com/openeuropa/media_avportal/pull/94) ([AaronGilMartinez](https://github.com/AaronGilMartinez))
+
+## [8.x-1.6](https://github.com/openeuropa/media_avportal/tree/8.x-1.6) (2024-04-16)
 [Full Changelog](https://github.com/openeuropa/media_avportal/compare/8.x-1.5...8.x-1.6)
 
 **Merged pull requests:**
 
+- Release-8.x-1.6: Update changelog. [\#93](https://github.com/openeuropa/media_avportal/pull/93) ([nagyad](https://github.com/nagyad))
 - EWPP-3898: Avoid error\_trigger in remote stream wrapper unlink. [\#92](https://github.com/openeuropa/media_avportal/pull/92) ([hernani](https://github.com/hernani))
 
 ## [8.x-1.5](https://github.com/openeuropa/media_avportal/tree/8.x-1.5) (2024-02-09)
-
 [Full Changelog](https://github.com/openeuropa/media_avportal/compare/8.x-1.4...8.x-1.5)
 
 **Merged pull requests:**
