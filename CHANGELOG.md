@@ -1,5 +1,12 @@
 # Change Log
 
+## [8.x-1.8](https://github.com/openeuropa/media_avportal/tree/8.x-1.8) (2024-07-15)
+[Full Changelog](https://github.com/openeuropa/media_avportal/compare/8.x-1.7...8.x-1.8)
+
+**Merged pull requests:**
+
+- EWPP-0000: Update remote_stream_wrapper. [\#98](https://github.com/openeuropa/media_avportal/pull/98) ([22Alexandra](https://github.com/22Alexandra))
+
 ## [8.x-1.7](https://github.com/openeuropa/media_avportal/tree/8.x-1.7) (2024-06-27)
 [Full Changelog](https://github.com/openeuropa/media_avportal/compare/8.x-1.6...8.x-1.7)
 
