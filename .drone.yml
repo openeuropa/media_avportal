@@ -34,20 +34,6 @@ services:
     - NODE_MAX_SESSION=5
 
 pipeline:
-  composer-change-patch:
-    group: warmup
-    image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION}-ci
-    volumes:
-      - /cache/${DRONE_REPO_NAME}:/cache
-    commands:
-      - composer self-update --2
-      # Unset the patch for 10.2.x.
-      - >
-        composer config --json "extra.patches" '{"drupal/remote_stream_wrapper": {"https://www.drupal.org/project/remote_stream_wrapper/issues/3050183": "https://www.drupal.org/files/issues/2020-08-21/3050183-4.patch"}}'
-    when:
-      matrix:
-        CORE_VERSION: "10.2.0"
-
   composer-install:
     group: prepare
     image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION}-ci
