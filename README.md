@@ -1,3 +1,7 @@
+# :warning: This repository is archived
+
+Development has moved to [drupal.org](https://www.drupal.org/project/media_avportal).
+
 # Media AV Portal
 
 [![Build Status](https://drone.fpfis.eu/api/badges/openeuropa/media_avportal/status.svg?branch=8.x-1.x)](https://drone.fpfis.eu/openeuropa/media_avportal)
